@@ -1,0 +1,9 @@
+﻿{
+  "ID": "coloryr.clock",
+  "Name": "时钟",
+  "Describe": "用于展示当前系统时间",
+  "Dlls": [ "ColorDesktop.ClockPlugin" ],
+  "Dependents": [],
+  "Icon": "",
+  "Version": "1.0.0"
+}

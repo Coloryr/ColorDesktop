@@ -1,0 +1,23 @@
+{
+  "ToolTitle": "ColorDesktop",
+  "ToolSetting.Text1": "打开主窗口",
+  "ToolSetting.Text2": "设置组件",
+  "ToolSetting.Text3": "退出软件",
+  "MainWindow.Title": "ColorDesktop主界面",
+  "MainWindow.Text1": "主界面设置",
+  "MainWindow.Text2": "组件设置",
+  "MainWindow.Text3": "实例设置",
+  "MainWindow.Text4": "版本：",
+  "MainWindow.Text5": "主要设置",
+  "MainWindow.Text6": "组件列表：",
+  "MainWindow.Text7": "实例列表：",
+  "MainWindow.Text8": "扫描到的组件数：",
+  "MainWindow.Text9": "启用的组件数：",
+  "MainWindow.Text10": "读取错误的组件数：",
+  "MainWindow.Text11": "加载错误的组件数：",
+  "MainWindow.Text12": "刷新列表",
+  "MainWindow.Text13": "禁用",
+  "MainWindow.Text14": "启用",
+  "MainWindow.Text15": "使用组件",
+  "MainWindow.Text16": "组件设置"
+}

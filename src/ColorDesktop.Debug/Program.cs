@@ -1,13 +1,9 @@
-﻿using System;
+﻿using Avalonia;
 
-using Avalonia;
+namespace ColorDesktop.Debug;
 
-namespace ColorDesktop.Launcher.Desktop;
-
-public class Program
+internal class Program
 {
-    public const string Version = "1.0.0";
-
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
@@ -20,5 +16,4 @@ public class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .LogToTrace();
-
 }

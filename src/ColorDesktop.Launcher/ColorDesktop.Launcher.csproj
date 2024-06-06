@@ -5,11 +5,31 @@
     <LangVersion>latest</LangVersion>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <OutputType>WinExe</OutputType>
+    <BaseOutputPath>..\build_out</BaseOutputPath>
   </PropertyGroup>
 
   
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Resource\**" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <AvaloniaResource Remove="Resource\Lang\en-us.json" />
+    <AvaloniaResource Remove="Resource\Lang\zh-cn.json" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <None Remove="Resource\icon.ico" />
+    <None Remove="Resource\Lang\en-us.json" />
+    <None Remove="Resource\Lang\zh-cn.json" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\Lang\en-us.json" />
+    <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,5 +49,19 @@
 	  <PackageReference Include="SkiaSharp" Version="2.88.8" />
 	<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\InstanceControl.axaml.cs">
+      <DependentUpon>InstanceControl.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\CreateControl.axaml" />
   </ItemGroup>
 </Project>

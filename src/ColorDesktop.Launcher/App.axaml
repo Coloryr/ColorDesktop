@@ -2,10 +2,29 @@
     x:Class="ColorDesktop.Launcher.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia">
+    xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:model="clr-namespace:ColorDesktop.Launcher.ViewModels"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    x:DataType="model:AppModel">
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Resource/icon.ico" ToolTipText="{setting:Localize ToolTitle}">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Command="{Binding ShowWindow}" Header="{setting:Localize ToolSetting.Text1}" />
+                        <NativeMenuItem Command="{Binding ShowSetting}" Header="{setting:Localize ToolSetting.Text2}" />
+                        <NativeMenuItemSeparator />
+                        <NativeMenuItem Command="{Binding ShowSetting}" Header="{setting:Localize ToolSetting.Text3}" />
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
     <Application.Styles>
         <FluentTheme />
         <dialog:DialogHostStyles />
+        <StyleInclude Source="/Style/ListBox.axaml" />
+        <StyleInclude Source="/Style/Button.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
         <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />

@@ -1,0 +1,22 @@
+<UserControl
+    x:Class="ColorDesktop.ClockPlugin.ClockControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel
+        Height="70"
+        Margin="0,-10,0,-10"
+        Orientation="Horizontal">
+        <TextBlock
+            Name="Text1"
+            FontSize="50"
+            Text="00" />
+        <TextBlock FontSize="50" Text=":" />
+        <TextBlock
+            Name="Text2"
+            FontSize="50"
+            Text="00" />
+    </StackPanel>
+</UserControl>

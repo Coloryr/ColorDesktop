@@ -1,0 +1,29 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.Views.InstanceControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:ColorDesktop.Launcher.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.ViewModels.Main"
+    x:DataType="vm:MainViewModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Margin="5" Text="{setting:Localize MainWindow.Text7}" />
+        </DockPanel>
+        <ScrollViewer Name="ScrollViewer1" VerticalScrollBarVisibility="Visible">
+            <ItemsControl
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ItemsSource="{Binding Instances}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <item:PluginItemControl Margin="0,0,0,5" DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
