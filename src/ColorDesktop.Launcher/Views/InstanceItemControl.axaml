@@ -8,7 +8,22 @@
     xmlns:vm="using:ColorDesktop.Launcher.ViewModels.Items"
     x:DataType="vm:InstanceItemModel"
     mc:Ignorable="d">
-    <StackPanel>
-        <Panel />
-    </StackPanel>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <ToggleSwitch
+                IsChecked="{Binding Enable}"
+                OffContent="关闭"
+                OnContent="开启" />
+        </StackPanel>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="名字：" />
+                <TextBlock Text="{Binding Nick}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="插件ID：" />
+                <TextBlock Text="{Binding Plugin}" />
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

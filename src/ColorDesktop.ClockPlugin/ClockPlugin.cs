@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Layout;
 using ColorDesktop.Api;
 
@@ -13,16 +14,20 @@ public class ClockPlugin : IPlugin
 {
     public static ClockSettingWindow? ClockSetting;
 
-    public Task<InstanceDataObj> CreateInstances()
+    public InstanceDataObj CreateInstanceDefault()
     {
-        return Task.FromResult(new InstanceDataObj()
+        return new InstanceDataObj()
         {
             Nick = "桌面时钟",
             Plugin = "coloryr.clock",
-            Horizontal = HorizontalAlignment.Right,
-            Vertical = VerticalAlignment.Top,
-            Margin = new Thickness(5)
-        });
+            Pos = PosEnum.TopRight,
+            Margin = new(5)
+        };
+    }
+
+    public Window? CreateInstanceSetting(InstanceDataObj data)
+    {
+        return null;
     }
 
     public void Init(string local, LanguageType type)

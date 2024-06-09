@@ -32,7 +32,7 @@ public partial class PluginItemModel : ObservableObject
         _obj = obj;
         _model = model;
 
-        _enable = App.Config.EnablePlugin.Contains(obj.ID);
+        _enable = ConfigHelper.Config.EnablePlugin.Contains(obj.ID);
         _fail = PluginMan.IsFail(obj.ID);
     }
 

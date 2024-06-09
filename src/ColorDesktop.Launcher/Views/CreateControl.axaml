@@ -2,17 +2,119 @@
     x:Class="ColorDesktop.Launcher.Views.CreateControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cov="clr-namespace:ColorDesktop.Launcher.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.ViewModels.Dialog"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    x:DataType="vm:CreateInstanceModel"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <cov:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </UserControl.Resources>
     <StackPanel>
-        <TextBlock Text="新建控件实例" />
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="新建控件实例" />
-			<ComboBox/>
-		</StackPanel>
+        <TextBlock Text="新建控件显示实例" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="实例名字" />
+            <TextBox Width="200" Text="{Binding Nick}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="0,0,5,0" Text="对齐方式" />
+            <UniformGrid Columns="3" Rows="3">
+                <RadioButton
+                    Content="左上"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.TopLeft}}" />
+                <RadioButton
+                    Content="上"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Top}}" />
+                <RadioButton
+                    Content="右上"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.TopRight}}" />
+                <RadioButton
+                    Content="左"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Left}}" />
+                <RadioButton
+                    Content="居中"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Center}}" />
+                <RadioButton
+                    Content="右"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Right}}" />
+                <RadioButton
+                    Content="左下"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.BottomLeft}}" />
+                <RadioButton
+                    Content="下"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Bottom}}" />
+                <RadioButton
+                    Content="右下"
+                    GroupName="Pos"
+                    IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.BottomRight}}" />
+            </UniformGrid>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="0,0,5,0" Text="边缘间距" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="左" />
+                    <NumericUpDown
+                        Width="120"
+                        FormatString="N0"
+                        Minimum="0"
+                        Value="{Binding Left}" />
+                    <TextBlock Text="上" />
+                    <NumericUpDown
+                        Width="120"
+                        FormatString="N0"
+                        Minimum="0"
+                        Value="{Binding Top}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="右" />
+                    <NumericUpDown
+                        Width="120"
+                        FormatString="N0"
+                        Minimum="0"
+                        Value="{Binding Right}" />
+                    <TextBlock Text="下" />
+                    <NumericUpDown
+                        Width="120"
+                        FormatString="N0"
+                        Minimum="0"
+                        Value="{Binding Bottom}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="0,0,5,0" Text="显示器号" />
+            <NumericUpDown
+                Width="120"
+                FormatString="N0"
+                Maximum="{Binding MaxDisplay}"
+                Minimum="1"
+                Value="{Binding Display}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button
+                Width="120"
+                Height="25"
+                Command="{Binding Done}"
+                Content="确定" />
+            <Button
+                Width="120"
+                Height="25"
+                Command="{Binding Cancel}"
+                Content="取消" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

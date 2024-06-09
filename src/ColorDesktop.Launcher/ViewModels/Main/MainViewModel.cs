@@ -13,8 +13,12 @@ public partial class MainViewModel : ObservableObject
     partial void OnNowViewChanged(int value)
     {
         if (NowView == 1)
-        { 
+        {
             LoadPluginData();
+        }
+        else if (NowView == 2)
+        {
+            LoadInstanceData();
         }
     }
 }

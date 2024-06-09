@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace ColorDesktop.Api;
 
@@ -31,8 +32,14 @@ public interface IPlugin
     /// </summary>
     void OpenSetting();
     /// <summary>
-    /// 创建一个显示实例，在这里设置显示方式
+    /// 创建一个显示实例默认参数，默认显示方式，启动参数
     /// </summary>
     /// <returns></returns>
-    Task<InstanceDataObj> CreateInstances();
+    InstanceDataObj CreateInstanceDefault();
+    /// <summary>
+    /// 显示实例位置设置完成后，进行组件的某些内容设置
+    /// 返回空则表示不需要额外设置
+    /// </summary>
+    /// <returns></returns>
+    Window? CreateInstanceSetting(InstanceDataObj data);
 }

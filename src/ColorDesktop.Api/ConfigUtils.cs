@@ -37,9 +37,6 @@ public static class ConfigUtils
     /// </summary>
     public static void Save(object obj, string FilePath)
     {
-        lock (Locker)
-        {
-            File.WriteAllText(FilePath, JsonConvert.SerializeObject(obj, Formatting.Indented));
-        }
+        File.WriteAllText(FilePath, JsonConvert.SerializeObject(obj, Formatting.Indented));
     }
 }

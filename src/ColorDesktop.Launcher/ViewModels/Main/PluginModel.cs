@@ -40,13 +40,14 @@ public partial class MainViewModel
     {
         AllPlugin = PluginMan.Plugins.Count;
         int count = 0;
-        foreach (var item in App.Config.EnablePlugin)
+        foreach (var item in ConfigHelper.Config.EnablePlugin)
         {
             if (PluginMan.Plugins.ContainsKey(item))
             {
                 count++;
             }
         }
+        EnablePlugin = count;
         ErrorPlugin = PluginMan.LoadError.Count;
         FailPlugin = PluginMan.LoadFail.Count;
     }

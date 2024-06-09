@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.Utils;
 
-public static class InstancnMan
+public static class InstanceMan
 {
     public static readonly List<string> KnowUUID = [];
-    public static readonly Dictionary<string, InstanceDataObj> Instancns = [];
+    public static readonly Dictionary<string, InstanceDataObj> Instances = [];
 
     /// <summary>
     /// 读取时失败
@@ -23,13 +23,14 @@ public static class InstancnMan
 
     public const string Dir2 = "instances";
     public const string FileName = "instance.json";
-    private static string local2;
+
+    private static string s_workDir;
+
     public static void Init()
     {
-        var local = AppContext.BaseDirectory;
-        local2 = Path.GetFullPath(local + Dir2);
-        Directory.CreateDirectory(local2);
-        var info = new DirectoryInfo(local2);
+        s_workDir = Path.GetFullPath(AppContext.BaseDirectory + Dir2);
+        Directory.CreateDirectory(s_workDir);
+        var info = new DirectoryInfo(s_workDir);
         foreach (var item in info.GetDirectories())
         {
             try
@@ -49,7 +50,7 @@ public static class InstancnMan
                         obj.UUID = uuid;
                         ConfigUtils.Save(obj, config.FullName);
                     }
-                    Instancns.Add(uuid, obj);
+                    Instances.Add(uuid, obj);
                 }
             }
             catch (Exception e)
@@ -58,7 +59,7 @@ public static class InstancnMan
             }
         }
 
-        foreach (var item in Instancns)
+        foreach (var item in Instances)
         {
             if (!PluginMan.PluginAssemblys.ContainsKey(item.Value.Plugin))
             {
@@ -67,12 +68,23 @@ public static class InstancnMan
         }
     }
 
-    public static string Create(InstanceDataObj obj)
+    public static void Create(InstanceDataObj obj)
     {
-        string dir = Path.GetFullPath(local2 + "/" + obj.UUID);
+        var dir = GetLocal(obj);
         Directory.CreateDirectory(dir);
         ConfigUtils.Save(obj, Path.GetFullPath(dir + "/" + FileName));
+        Instances.Add(obj.UUID, obj);
+        KnowUUID.Add(obj.UUID);
+        ConfigHelper.EnableInstance(obj.UUID);
+    }
 
-        return dir;
+    public static string GetLocal(InstanceDataObj obj)
+    {
+        return Path.GetFullPath(s_workDir + "/" + obj.UUID);
+    }
+
+    public static string GetDataLocal(InstanceDataObj obj)
+    {
+        return Path.GetFullPath(s_workDir + "/" + obj.UUID + "/" + FileName);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using ColorDesktop.Launcher.ViewModels;
 using ColorDesktop.Launcher.ViewModels.Main;
 
@@ -15,10 +16,16 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         Closing += MainWindow_Closing;
+        Loaded += MainWindow_Loaded;
 
         var model = new MainViewModel();
         DataContext = model;
         model.PropertyChanged += Model_PropertyChanged;
+    }
+
+    private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
+    {
+        App.StartPlugin();
     }
 
     private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -47,5 +54,13 @@ public partial class MainWindow : Window
     {
         e.Cancel = true;
         Hide();
+    }
+
+    public void LoadInstance()
+    {
+        if (DataContext is MainViewModel model)
+        {
+            model.LoadInstanceData();
+        }
     }
 }

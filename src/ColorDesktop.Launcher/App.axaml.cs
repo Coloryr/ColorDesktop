@@ -5,13 +5,18 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
+using Avalonia.Threading;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
 using ColorDesktop.Launcher.ViewModels;
+using ColorDesktop.Launcher.ViewModels.Dialog;
 using ColorDesktop.Launcher.Views;
+using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher;
 
@@ -19,11 +24,11 @@ public partial class App : Application
 {
     private static readonly Language s_language = new();
 
-    public static ConfigObj Config;
-
     public static MainWindow? MainWindow { get; set; }
 
     private static List<(Window, InstanceDataObj)> Windows = [];
+
+    private static Application ThisApp;
 
     public static string Lang(string key)
     {
@@ -61,43 +66,15 @@ public partial class App : Application
 
     public static (bool, string?) EnablePlugin(string id)
     {
-        if (Config.EnablePlugin.Contains(id))
-        {
-            return (true, null);
-        }
+        ConfigHelper.EnablePlugin(id);
 
-        Config.EnablePlugin.Add(id);
-        SaveConfig();
         return (true, null);
     }
 
     public static (bool, string?) DisablePlugin(string id)
     {
-        if (!Config.EnablePlugin.Contains(id))
-        {
-            return (true, null);
-        }
-
-        Config.EnablePlugin.Remove(id);
-        SaveConfig();
+        ConfigHelper.DisablePlugin(id);
         return (true, null);
-    }
-
-    public static void LoadConfig()
-    {
-        Config = ConfigUtils.Config(new ConfigObj()
-        {
-            EnablePlugin = [],
-            EnableInstance = []
-        }, AppContext.BaseDirectory + "config.json");
-
-        Config.EnablePlugin ??= [];
-        Config.EnableInstance ??= [];
-    }
-
-    public static void SaveConfig()
-    {
-        ConfigUtils.Save(Config, "config.json");
     }
 
     public static string MakeUUID()
@@ -107,7 +84,7 @@ public partial class App : Application
         {
             uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
         }
-        while (InstancnMan.KnowUUID.Contains(uuid));
+        while (InstanceMan.KnowUUID.Contains(uuid));
 
         return uuid;
     }
@@ -120,26 +97,22 @@ public partial class App : Application
     {
         if (PluginMan.PluginAssemblys.TryGetValue(obj.ID, out var value))
         {
-            var config = await value.Plugin.CreateInstances();
+            var config = value.Plugin.CreateInstanceDefault();
             config.UUID = MakeUUID();
-            var local = InstancnMan.Create(config);
-            var view = value.Plugin.MakeInstances(local, config);
-            Window window;
-            if (config.IsWindow)
+            var config1 = await DialogHost.Show(new CreateInstanceModel(config) ,"MainWindow");
+            if (config1 is not InstanceDataObj obj1)
             {
-                window = (view.CreateView() as Window)!;
+                return;
             }
-            else
+            var control = value.Plugin.CreateInstanceSetting(obj1);
+            if (control != null)
             {
-                var window1 = new InstanceWindow();
-                window1.Load(view, config);
-                window = window1;
+                await control.ShowDialog(MainWindow!);
             }
 
-            Windows.Add((window, config));
-            window.Show();
-
-            view.Start();
+            InstanceMan.Create(obj1);
+            MainWindow?.LoadInstance();
+            InitInstance(obj1);
         }
     }
 
@@ -155,49 +128,135 @@ public partial class App : Application
     /// 开启一个显示实例
     /// </summary>
     /// <param name="obj"></param>
-    public static async void InitInstance(InstanceDataObj obj)
+    public static void InitInstance(InstanceDataObj obj)
     {
         if (PluginMan.PluginAssemblys.TryGetValue(obj.Plugin, out var value))
         {
-            
+            var view = value.Plugin.MakeInstances(InstanceMan.GetLocal(obj), obj);
+            Window window;
+            if (obj.IsWindow)
+            {
+                window = (view.CreateView() as Window)!;
+            }
+            else
+            {
+                var window1 = new InstanceWindow();
+                window1.Load(view, obj);
+                window = window1;
+            }
+
+            Windows.Add((window, obj));
+            window.Show();
+
+            view.Start();
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                Move(window, obj);
+                window.PositionChanged += (a, b) =>
+                {
+                    // 获取当前屏幕
+                    var screen = window.Screens.Primary;
+                    if (screen == null)
+                    {
+                        return;
+                    }
+                    var workArea = screen.WorkingArea;
+
+                    for (int i = 0; i < window.Screens.All.Count; i++)
+                    {
+                        if (window.Screens.All[i] == screen)
+                        {
+                            obj.Display = i + 1;
+                            break;
+                        }
+                    }
+                    // 计算新的 Margin
+                    obj.Margin.Left = window.Position.X - workArea.X;
+                    obj.Margin.Top = window.Position.Y - workArea.Y;
+                    obj.Margin.Right = workArea.X + workArea.Width - (window.Position.X + (int)window.Width);
+                    obj.Margin.Bottom = workArea.Y + workArea.Height - (window.Position.Y + (int)window.Height);
+
+                    ConfigSave.AddItem(new ConfigSaveObj()
+                    {
+                        Name = obj.UUID + "json",
+                        Local = InstanceMan.GetDataLocal(obj),
+                        Obj = obj
+                    });
+                };
+            });
         }
     }
 
-    public override void Initialize()
+    public static void Move(Window window, InstanceDataObj obj)
     {
-        SystemInfo.Init();
+        // 获取所有显示器的信息
+        var screens = window.Screens.All;
 
-        LoadLanguage(LanguageType.zh_cn);
-
-        LoadConfig();
-
-        PluginMan.Init();
-        InstancnMan.Init();
-
-        foreach (var item in Config.EnablePlugin.ToArray())
+        Screen? targetScreen;
+        if (obj.Display != 1 && screens.Count > obj.Display - 1)
         {
-            foreach (var item1 in PluginMan.LoadFail)
-            {
-                if (item1.Item1 == item)
-                {
-                    Config.EnablePlugin.Remove(item);
-                    break;
-                }
-            }
+            targetScreen = screens[obj.Display - 1];
         }
-        foreach (var item in Config.EnableInstance.ToArray())
+        else
         {
-            foreach (var item1 in InstancnMan.LoadFail)
-            {
-                if (item1.Key == item)
-                {
-                    Config.EnableInstance.Remove(item);
-                    break;
-                }
-            }
+            targetScreen = window.Screens.Primary;
         }
 
-        foreach (var item in Config.EnablePlugin)
+        if (targetScreen != null)
+        {
+            var margin = obj.Margin;
+            var workArea = targetScreen.WorkingArea;
+            int x = 0;
+            int y = 0;
+
+            switch (obj.Pos)
+            {
+                case PosEnum.TopLeft:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.Top:
+                    x = workArea.X + (workArea.Width - (int)window.Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.TopRight:
+                    x = workArea.X + workArea.Width - (int)window.Width - margin.Right;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.Left:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + (workArea.Height - (int)window.Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.Center:
+                    x = workArea.X + (workArea.Width - (int)window.Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + (workArea.Height - (int)window.Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.Right:
+                    x = workArea.X + workArea.Width - (int)window.Width - margin.Right;
+                    y = workArea.Y + (workArea.Height - (int)window.Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.BottomLeft:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + workArea.Height - (int)window.Height - margin.Bottom;
+                    break;
+                case PosEnum.Bottom:
+                    x = workArea.X + (workArea.Width - (int)window.Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + workArea.Height - (int)window.Height - margin.Bottom;
+                    break;
+                case PosEnum.BottomRight:
+                    x = workArea.X + workArea.Width - (int)window.Width - margin.Right;
+                    y = workArea.Y + workArea.Height - (int)window.Height - margin.Bottom;
+                    break;
+            }
+
+            window.Position = new PixelPoint(x, y);
+        }
+    }
+
+    public static void StartPlugin()
+    {
+        foreach (var item in ConfigHelper.Config.EnablePlugin)
         {
             if (PluginMan.PluginAssemblys.TryGetValue(item, out var ass))
             {
@@ -205,13 +264,39 @@ public partial class App : Application
             }
         }
 
-        foreach (var item in Config.EnableInstance)
+        foreach (var item in ConfigHelper.Config.EnableInstance)
         {
-            if (InstancnMan.Instancns.TryGetValue(item, out var obj))
+            if (InstanceMan.Instances.TryGetValue(item, out var obj))
             {
-                //InitInstance(obj);
+                InitInstance(obj);
             }
         }
+    }
+
+    public override void Initialize()
+    {
+        ThisApp = this;
+
+        SystemInfo.Init();
+        ConfigSave.Init();
+
+        LoadLanguage(LanguageType.zh_cn);
+
+        ConfigHelper.LoadConfig();
+
+        PluginMan.Init();
+        InstanceMan.Init();
+
+        foreach (var item1 in PluginMan.LoadFail)
+        {
+            ConfigHelper.Config.EnablePlugin.Remove(item1.Item1);
+        }
+        foreach (var item1 in InstanceMan.LoadFail)
+        {
+            ConfigHelper.Config.EnableInstance.Remove(item1.Key);
+        }
+
+        ConfigHelper.SaveConfig();
 
         AvaloniaXamlLoader.Load(this);
 
@@ -224,8 +309,18 @@ public partial class App : Application
         // Without this line you will get duplicate validations from both Avalonia and CT
         BindingPlugins.DataValidators.RemoveAt(0);
 
+        if (ApplicationLifetime is ClassicDesktopStyleApplicationLifetime life)
+        {
+            life.Exit += Life_Exit;
+        }
+
         ShowMain();
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void Life_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+    {
+        ConfigSave.Stop();
     }
 }
