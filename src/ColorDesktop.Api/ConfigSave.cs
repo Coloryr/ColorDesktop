@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 using Newtonsoft.Json;
 
-namespace ColorDesktop.Launcher.Utils;
+namespace ColorDesktop.Api;
 
 public record ConfigSaveObj
 {
@@ -33,10 +29,7 @@ public static class ConfigSave
     /// </summary>
     private static bool s_run;
 
-    /// <summary>
-    /// 初始化
-    /// </summary>
-    public static void Init()
+    static ConfigSave()
     {
         t_thread = new(Run)
         {

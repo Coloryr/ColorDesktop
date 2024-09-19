@@ -127,6 +127,7 @@ public static class PluginManager
             if (PluginAssemblys.TryGetValue(item, out var plugin))
             {
                 plugin.Plugin.Enable();
+                plugin.Enable = true;
             }
             else
             {
