@@ -28,26 +28,29 @@
                 <TextBlock
                     Margin="10"
                     DockPanel.Dock="Top"
-                    Foreground="White"
+                    Foreground="{setting:Theme WindowSideFont}"
                     Text="ColorDesktop" />
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                     <TextBlock
                         Margin="10"
-                        Foreground="White"
+                        Foreground="{setting:Theme WindowSideFont}"
                         Text="{setting:Localize MainWindow.Text4}" />
                     <TextBlock
                         Margin="10"
-                        Foreground="White"
+                        Foreground="{setting:Theme WindowSideFont}"
                         Text="{Binding Version}" />
                 </StackPanel>
-                <ListBox Margin="0,10,5,0" SelectedIndex="{Binding NowView}">
+                <ListBox Margin="0,0,10,0" SelectedIndex="{Binding NowView}">
                     <ListBoxItem IsSelected="True">
                         <StackPanel Orientation="Horizontal">
                             <Svg
                                 Width="24"
                                 Height="24"
                                 Path="/Resource/Icon/icon1.svg" />
-                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text1}" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{setting:Localize MainWindow.Text5}" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -55,8 +58,11 @@
                             <Svg
                                 Width="24"
                                 Height="24"
-                                Path="" />
-                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text2}" />
+                                Path="/Resource/Icon/icon2.svg" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{setting:Localize MainWindow.Text2}" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -64,14 +70,16 @@
                             <Svg
                                 Width="24"
                                 Height="24"
-                                Path="" />
-                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text3}" />
+                                Path="/Resource/Icon/icon3.svg" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{setting:Localize MainWindow.Text3}" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
             </DockPanel>
-            <Decorator Name="View1" Margin="10" />
+            <Decorator Name="View1" />
         </DockPanel>
     </dialog:DialogHost>
-
 </Window>

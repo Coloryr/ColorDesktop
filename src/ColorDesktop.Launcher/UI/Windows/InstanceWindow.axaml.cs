@@ -1,12 +1,10 @@
 using System;
-using System.Security.Cryptography;
 using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
 using ColorDesktop.Api;
-using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.UI.Windows;
 
@@ -107,7 +105,7 @@ public partial class InstanceWindow : Window
 
     private void Render()
     {
-        GetTopLevel(this).RequestAnimationFrame((t) =>
+        GetTopLevel(this)?.RequestAnimationFrame((t) =>
         {
             _instance.RenderTick();
             Render();

@@ -21,9 +21,10 @@ namespace ColorDesktop.Launcher.Manager;
 
 public static class InstanceManager
 {
-    private static List<InstanceWindowObj> Windows = [];
+    public static Dictionary<string, InstanceWindowObj> RunInstances = [];
 
     public static readonly List<string> KnowUUID = [];
+
     public static readonly Dictionary<string, InstanceDataObj> Instances = [];
 
     /// <summary>
@@ -110,7 +111,7 @@ public static class InstanceManager
 
             Create(obj1);
             App.MainWindow?.LoadInstance();
-            InitInstance(obj1);
+            StartInstance(obj1);
         }
     }
 
@@ -118,7 +119,7 @@ public static class InstanceManager
     /// 开启一个显示实例
     /// </summary>
     /// <param name="obj"></param>
-    public static void InitInstance(InstanceDataObj obj)
+    public static void StartInstance(InstanceDataObj obj)
     {
         if (PluginManager.PluginAssemblys.TryGetValue(obj.Plugin, out var value))
         {
@@ -135,7 +136,7 @@ public static class InstanceManager
                 window = window1;
             }
 
-            Windows.Add(new(window, obj));
+            RunInstances.Add(obj.UUID, new(window, view, obj));
             window.Show();
 
             view.Start();
@@ -280,10 +281,72 @@ public static class InstanceManager
     {
         foreach (var item in ConfigHelper.Config.EnableInstance)
         {
+            if(PluginManager.PluginAssemblys.ContainsKey())
             if (Instances.TryGetValue(item, out var obj))
             {
-                InitInstance(obj);
+                StartInstance(obj);
             }
+        }
+    }
+
+    public static void StopInstance(InstanceDataObj instance)
+    {
+        StopInstance(instance.UUID);
+    }
+
+    public static void StopInstance(string uuid)
+    {
+        if (RunInstances.TryGetValue(uuid, out var instance))
+        {
+            StopInstance(instance);
+        }
+    }
+
+    public static void StopInstance(InstanceWindowObj instance)
+    {
+        instance.Instance.Stop();
+        instance.Window.Close();
+
+        RunInstances.Remove(instance.InstanceData.UUID);
+    }
+
+    public static void EnablePlugin(string id)
+    {
+        var list = Instances.Where(item => item.Value.Plugin == id).Select(item => item.Value).ToList();
+        foreach (var item in list)
+        {
+            StartInstance(item);
+        }
+    }
+
+    public static void DisablePlugin(string id)
+    {
+        var list = RunInstances.Where(item => item.Value.InstanceData.Plugin == id).ToList();
+        foreach (var item in list)
+        {
+            StopInstance(item.Value);
+        }
+    }
+
+    public static void EnableInstance(InstanceDataObj obj)
+    {
+        ConfigHelper.EnableInstance(obj.UUID);
+
+        StartInstance(obj);
+    }
+
+    public static void DisableInstance(InstanceDataObj obj)
+    {
+        ConfigHelper.DisableInstance(obj.UUID);
+
+        StopInstance(obj);
+    }
+
+    public static void OpenSetting(InstanceDataObj obj)
+    {
+        if (PluginManager.PluginAssemblys.TryGetValue(obj.Plugin, out var plugin))
+        {
+            plugin.Plugin.OpenSetting(obj);
         }
     }
 }

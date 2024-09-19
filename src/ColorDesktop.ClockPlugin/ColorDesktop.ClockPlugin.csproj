@@ -9,6 +9,14 @@
 	  <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="icon.png" />
+  </ItemGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
 	</ItemGroup>

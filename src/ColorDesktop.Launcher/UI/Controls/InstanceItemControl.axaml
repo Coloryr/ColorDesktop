@@ -8,22 +8,34 @@
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
     x:DataType="vm:InstanceItemModel"
     mc:Ignorable="d">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Right">
-            <ToggleSwitch
-                IsChecked="{Binding Enable}"
-                OffContent="关闭"
-                OnContent="开启" />
-        </StackPanel>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="名字：" />
-                <TextBlock Text="{Binding Nick}" />
+    <Border Classes="t2">
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Right">
+                <ToggleSwitch
+                    Margin="5,0,0,0"
+                    IsChecked="{Binding Enable}"
+                    OffContent="关闭"
+                    OnContent="开启" />
+                <Button
+                    Width="100"
+                    Height="35"
+                    Command="{Binding OpenSetting}"
+                    Content="实例设置" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="插件ID：" />
-                <TextBlock Text="{Binding Plugin}" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="名字：" />
+                    <TextBlock Text="{Binding Nick}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="插件ID：" />
+                    <TextBlock Text="{Binding Plugin}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="UUID：" />
+                    <TextBlock Text="{Binding UUID}" />
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </DockPanel>
+        </DockPanel>
+    </Border>
 </UserControl>

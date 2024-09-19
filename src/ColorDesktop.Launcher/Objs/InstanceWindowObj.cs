@@ -11,11 +11,13 @@ namespace ColorDesktop.Launcher.Objs;
 public record InstanceWindowObj
 {
     public Window Window;
+    public IInstance Instance;
     public InstanceDataObj InstanceData;
 
-    public InstanceWindowObj(Window window, InstanceDataObj instanceData)
+    public InstanceWindowObj(Window window, IInstance instance, InstanceDataObj instanceData)
     {
         Window = window;
+        Instance = instance;
         InstanceData = instanceData;
     }
 }

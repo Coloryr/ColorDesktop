@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Controls;
 using ColorDesktop.Launcher.UI.Models.Main;
@@ -28,6 +29,8 @@ public partial class MainWindow : Window
     {
         PluginManager.StartPlugin();
         InstanceManager.StartInstance();
+
+        ConfigHelper.SaveConfig();
     }
 
     private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)

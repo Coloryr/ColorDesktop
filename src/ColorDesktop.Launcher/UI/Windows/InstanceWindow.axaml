@@ -8,6 +8,7 @@
     d:DesignHeight="200"
     d:DesignWidth="200"
     Background="Transparent"
+    ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     SystemDecorations="None"
     TransparencyBackgroundFallback="Transparent"
@@ -28,7 +29,8 @@
                         <Button
                             Width="20"
                             Height="20"
-                            Content="X" />
+                            Content="X"
+                            FontSize="8" />
                     </StackPanel>
                 </Border>
             </StackPanel>

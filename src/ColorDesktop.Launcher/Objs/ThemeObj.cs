@@ -10,4 +10,12 @@ namespace ColorDesktop.Launcher.Objs;
 public record ThemeObj
 {
     public IBrush WindowSideBG;
+    public IBrush WindowSideFont;
+    public IBrush WindowSideBGTop;
+    public IBrush WindowSideBGSelect;
+    public IBrush ButtonOver;
+    public IBrush ButtonBorder;
+    public IBrush ButtonBG;
+    public IBrush FontColor;
+    public IBrush MainColor;
 }

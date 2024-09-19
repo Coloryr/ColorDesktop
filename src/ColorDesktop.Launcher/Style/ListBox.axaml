@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:setting="clr-namespace:ColorMC.Gui.Utils.LaunchSetting">
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils">
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel>
@@ -20,7 +20,7 @@
     </Design.PreviewWith>
 
     <Style Selector="ListBox">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{setting:Theme WindowSideFont}" />
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
@@ -30,9 +30,14 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
 
+        <Style Selector="^:pointerover /template/ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{setting:Theme WindowSideBGTop}" />
+            <Setter Property="Foreground" Value="{setting:Theme WindowSideFont}" />
+        </Style>
+
         <Style Selector="^:selected /template/ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="#787878" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{setting:Theme WindowSideBGSelect}" />
+            <Setter Property="Foreground" Value="{setting:Theme WindowSideFont}" />
         </Style>
         <Style Selector="^:disabled /template/ContentPresenter#PART_ContentPresenter">
             <Setter Property="Background" Value="#EEAAAAAA" />

@@ -76,8 +76,6 @@ public partial class App : Application
         PluginManager.Init();
         InstanceManager.Init();
 
-        ConfigHelper.SaveConfig();
-
         AvaloniaXamlLoader.Load(this);
 
         DataContext = new AppModel();

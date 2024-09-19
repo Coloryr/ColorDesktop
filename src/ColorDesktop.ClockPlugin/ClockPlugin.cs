@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Layout;
+using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.ClockPlugin;
@@ -30,6 +25,23 @@ public class ClockPlugin : IPlugin
         return null;
     }
 
+    public void Disable()
+    {
+        
+    }
+
+    public void Enable()
+    {
+        
+    }
+
+    public Bitmap? GetIcon()
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        using var item = assm.GetManifestResourceStream("ColorDesktop.ClockPlugin.icon.png")!;
+        return new Bitmap(item);
+    }
+
     public void Init(string local, LanguageType type)
     {
 
@@ -44,6 +56,11 @@ public class ClockPlugin : IPlugin
     {
         ClockSetting ??= new();
         ClockSetting.Show();
+    }
+
+    public void OpenSetting(InstanceDataObj instance)
+    {
+        
     }
 
     public void Stop()

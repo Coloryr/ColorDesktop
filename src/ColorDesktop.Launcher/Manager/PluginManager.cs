@@ -117,11 +117,20 @@ public static class PluginManager
 
     public static void StartPlugin()
     {
-        foreach (var item in ConfigHelper.Config.EnablePlugin)
+        foreach(var item in PluginAssemblys.Values)
         {
-            if (PluginAssemblys.TryGetValue(item, out var ass))
+            item.Plugin.Init(item.Local, LanguageType.zh_cn);
+        }
+
+        foreach (var item in new List<string>(ConfigHelper.Config.EnablePlugin))
+        {
+            if (PluginAssemblys.TryGetValue(item, out var plugin))
             {
-                ass.Plugin.Init(ass.Local, LanguageType.zh_cn);
+                plugin.Plugin.Enable();
+            }
+            else
+            {
+                ConfigHelper.Config.EnablePlugin.Remove(item);
             }
         }
     }
@@ -134,17 +143,27 @@ public static class PluginManager
         }
     }
 
-    public static (bool, string?) EnablePlugin(string id)
+    public static void EnablePlugin(string id)
     {
+        if (PluginAssemblys.TryGetValue(id, out var item))
+        {
+            item.Plugin.Enable();
+        }
+
         ConfigHelper.EnablePlugin(id);
 
-        return (true, null);
+        InstanceManager.EnablePlugin(id);
     }
 
-    public static (bool, string?) DisablePlugin(string id)
+    public static void DisablePlugin(string id)
     {
-        ConfigHelper.DisablePlugin(id);
-        return (true, null);
-    }
+        if (PluginAssemblys.TryGetValue(id, out var item))
+        {
+            item.Plugin.Disable();
+        }
 
+        ConfigHelper.DisablePlugin(id);
+
+        InstanceManager.DisablePlugin(id);
+    }
 }

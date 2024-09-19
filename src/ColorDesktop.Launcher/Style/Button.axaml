@@ -1,4 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils">
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
@@ -6,8 +9,49 @@
     </Design.PreviewWith>
 
     <Style Selector="Button">
+        <Setter Property="Foreground" Value="{setting:Theme FontColor}" />
+        <Setter Property="BorderBrush" Value="{setting:Theme ButtonBorder}" />
+        <Setter Property="Background" Value="{setting:Theme ButtonBG}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Padding" Value="0" />
+
+        <Style Selector="^:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.95)" />
+        </Style>
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    x:Name="PART_Border"
+                    Margin="3"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter
+                        x:Name="PART_ContentPresenter"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Background="{TemplateBinding Background}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        RecognizesAccessKey="True" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{setting:Theme ButtonOver}" />
+        </Style>
+        <Style Selector="^ /template/ Border#PART_Border">
+            <Setter Property="BoxShadow" Value="0 1 2 0 #1A000000" />
+        </Style>
+        <Style Selector="^:pointerover /template/ Border#PART_Border">
+            <Setter Property="BoxShadow" Value="{setting:Style ButtonTopBoxShadow}" />
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+        </Style>
     </Style>
 </Styles>

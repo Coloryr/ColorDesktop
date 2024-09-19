@@ -28,6 +28,8 @@ public partial class PluginItemModel : ObservableObject
     public string Version => _obj.Version;
     public Task<Bitmap?> Image => GetImage();
 
+    private bool _isload;
+
     public PluginItemModel(MainViewModel model, PluginDataObj obj)
     {
         _obj = obj;
@@ -85,12 +87,9 @@ public partial class PluginItemModel : ObservableObject
     {
         return Task.Run(() =>
         {
-            var local = Path.GetFullPath(_obj.Local + "/" + _obj.Icon);
-            if (File.Exists(local))
+            if (PluginManager.PluginAssemblys.TryGetValue(_obj.ID, out var dll))
             {
-                _bitmap = new Bitmap(local);
-
-                return _bitmap;
+                return dll.Plugin.GetIcon();
             }
 
             return null;

@@ -13,8 +13,8 @@ public partial class ClockControl : UserControl, IInstance
     public bool Start()
     {
         var time = DateTime.Now;
-        Text1.Text = time.Hour.ToString();
-        Text2.Text = time.Minute.ToString();
+        Text1.Text = string.Format("{0:D2}", time.Hour);
+        Text2.Text = string.Format("{0:D2}", time.Minute);
         return true;
     }
 
