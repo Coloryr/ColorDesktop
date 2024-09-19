@@ -1,0 +1,51 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.PluginItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
+    x:DataType="vm:PluginItemModel"
+    mc:Ignorable="d">
+    <Panel>
+        <DockPanel>
+            <StackPanel
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right">
+                <ToggleSwitch
+                    IsChecked="{Binding Enable}"
+                    OffContent="{setting:Localize MainWindow.Text13}"
+                    OnContent="{setting:Localize MainWindow.Text14}" />
+                <Button
+                    Width="80"
+                    Height="25"
+                    Command="{Binding CreateInstance}"
+                    Content="{setting:Localize MainWindow.Text15}"
+                    IsEnabled="{Binding Enable}" />
+                <Button
+                    Width="80"
+                    Height="25"
+                    Command="{Binding OpenSetting}"
+                    Content="{setting:Localize MainWindow.Text16}"
+                    IsEnabled="{Binding Enable}" />
+            </StackPanel>
+            <Image
+                Width="80"
+                Height="80"
+                Source="{Binding Image^}" />
+            <StackPanel>
+                <TextBlock Text="{Binding ID}" />
+                <TextBlock Text="{Binding Name}" />
+                <TextBlock Text="{Binding Describe}" />
+                <TextBlock Text="{Binding Version}" />
+            </StackPanel>
+        </DockPanel>
+        <Border Background="#AAEFEFEF" IsVisible="{Binding Fail, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="Red" Text="加载错误，无法使用" />
+            </Panel>
+        </Border>
+    </Panel>
+</UserControl>

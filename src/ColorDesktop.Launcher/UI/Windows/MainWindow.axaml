@@ -1,0 +1,77 @@
+<Window
+    x:Class="ColorDesktop.Launcher.UI.Windows.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:dialogmodel="clr-namespace:ColorDesktop.Launcher.UI.Models.Dialog"
+    xmlns:dialogview="clr-namespace:ColorDesktop.Launcher.UI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
+    Title="{setting:Localize MainWindow.Title}"
+    Width="800"
+    Height="450"
+    MinWidth="800"
+    MinHeight="450"
+    x:DataType="vm:MainViewModel"
+    Icon="/Resource/icon.ico"
+    mc:Ignorable="d">
+    <dialog:DialogHost DisableOpeningAnimation="True" Identifier="MainWindow">
+        <dialog:DialogHost.DataTemplates>
+            <DataTemplate DataType="dialogmodel:CreateInstanceModel">
+                <dialogview:CreateControl DataContext="{Binding}" />
+            </DataTemplate>
+        </dialog:DialogHost.DataTemplates>
+        <DockPanel>
+            <DockPanel Background="{setting:Theme WindowSideBG}" DockPanel.Dock="Left">
+                <TextBlock
+                    Margin="10"
+                    DockPanel.Dock="Top"
+                    Foreground="White"
+                    Text="ColorDesktop" />
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="10"
+                        Foreground="White"
+                        Text="{setting:Localize MainWindow.Text4}" />
+                    <TextBlock
+                        Margin="10"
+                        Foreground="White"
+                        Text="{Binding Version}" />
+                </StackPanel>
+                <ListBox Margin="0,10,5,0" SelectedIndex="{Binding NowView}">
+                    <ListBoxItem IsSelected="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Svg
+                                Width="24"
+                                Height="24"
+                                Path="/Resource/Icon/icon1.svg" />
+                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text1}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Svg
+                                Width="24"
+                                Height="24"
+                                Path="" />
+                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text2}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Svg
+                                Width="24"
+                                Height="24"
+                                Path="" />
+                            <TextBlock Margin="5,0,0,0" Text="{setting:Localize MainWindow.Text3}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </DockPanel>
+            <Decorator Name="View1" Margin="10" />
+        </DockPanel>
+    </dialog:DialogHost>
+
+</Window>

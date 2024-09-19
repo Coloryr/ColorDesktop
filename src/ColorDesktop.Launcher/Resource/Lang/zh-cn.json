@@ -19,5 +19,22 @@
   "MainWindow.Text13": "禁用",
   "MainWindow.Text14": "启用",
   "MainWindow.Text15": "使用组件",
-  "MainWindow.Text16": "组件设置"
+  "MainWindow.Text16": "组件设置",
+  "CreateControl.Text1": "新建控件显示实例",
+  "CreateControl.Text2": "实例名字",
+  "CreateControl.Text3": "对齐方式",
+  "CreateControl.Text4": "左上",
+  "CreateControl.Text5": "上",
+  "CreateControl.Text6": "右上",
+  "CreateControl.Text7": "左",
+  "CreateControl.Text8": "居中",
+  "CreateControl.Text9": "右",
+  "CreateControl.Text10": "左下",
+  "CreateControl.Text11": "下",
+  "CreateControl.Text12": "右下",
+  "CreateControl.Text13": "边缘间距",
+  "CreateControl.Text14": "显示器号",
+  "Button.Confirm": "确定",
+  "Button.Cancel": "取消",
+  "a": "b"
 }
