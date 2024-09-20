@@ -21,14 +21,15 @@
                         Width="100"
                         Height="35"
                         Command="{Binding CreateInstance}"
-                        Content="{setting:Localize MainWindow.Text15}"
+                        Content="新建实例"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding OpenSetting}"
                         Content="{setting:Localize MainWindow.Text16}"
-                        IsEnabled="{Binding Enable}" />
+                        IsEnabled="{Binding Enable}"
+                        IsVisible="{Binding HaveSetting}" />
                 </StackPanel>
                 <Image
                     Width="100"
@@ -37,11 +38,16 @@
                 <StackPanel Margin="10,0,0,0">
                     <TextBlock Text="{Binding ID}" />
                     <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Auther}" />
                     <TextBlock Text="{Binding Describe}" />
                     <TextBlock Text="{Binding Version}" />
+                    <TextBlock
+                        Foreground="Red"
+                        IsVisible="{Binding EnableFail, FallbackValue=false}"
+                        Text="启用错误，无法使用" />
                 </StackPanel>
             </DockPanel>
-            <Border Background="#AAEFEFEF" IsVisible="{Binding Fail, FallbackValue=false}">
+            <Border Background="#AAEFEFEF" IsVisible="{Binding LoadFail, FallbackValue=false}">
                 <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Foreground="Red" Text="加载错误，无法使用" />
                 </Panel>

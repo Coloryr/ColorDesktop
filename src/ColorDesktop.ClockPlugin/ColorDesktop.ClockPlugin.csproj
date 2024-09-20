@@ -22,6 +22,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ClockSettingControl.axaml.cs">
+	    <DependentUpon>ClockSettingControl.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Update="plugin.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>

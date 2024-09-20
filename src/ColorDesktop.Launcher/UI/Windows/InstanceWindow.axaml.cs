@@ -1,93 +1,81 @@
-using System;
-using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Styling;
+using Avalonia.Platform;
+using Avalonia.Threading;
 using ColorDesktop.Api;
+using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.UI.Windows;
 
-public partial class InstanceWindow : Window
+public partial class InstanceWindow : Window, IInstanceWindow
 {
     private InstanceDataObj _obj;
     private IInstance _instance;
     private Control _view;
-
-    private Animation showAnimation;
-    private Animation hideAnimation;
 
     public InstanceWindow()
     {
         InitializeComponent();
 
         Loaded += InstanceWindow_Loaded;
-        Border1.PointerPressed += Border1_PointerPressed;
 
         View1.PointerEntered += View1_PointerEntered;
         HoverBorder.PointerExited += View1_PointerExited;
-
-        // 创建显示动画
-        showAnimation = new Animation
-        {
-            Duration = TimeSpan.FromMilliseconds(300),
-            Children =
-                {
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0),
-                        Setters =
-                        {
-                            new Setter(Border.OpacityProperty, 0)
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(1),
-                        Setters =
-                        {
-                            new Setter(Border.OpacityProperty, 1)
-                        }
-                    }
-                }
-        };
-
-        // 创建隐藏动画
-        hideAnimation = new Animation
-        {
-            Duration = TimeSpan.FromMilliseconds(300),
-            Children =
-                {
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0),
-                        Setters =
-                        {
-                            new Setter(Border.OpacityProperty, 1)
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(1),
-                        Setters =
-                        {
-                            new Setter(Border.OpacityProperty, 0)
-                        }
-                    }
-                }
-        };
+        HoverBorder.PointerPressed += Border1_PointerPressed;
     }
 
-    private async void View1_PointerExited(object? sender, PointerEventArgs e)
+    public void Update(InstanceDataObj obj)
+    {
+        _obj = obj;
+        Dispatcher.UIThread.Post(() =>
+        {
+            Move();
+            PositionChanged += (a, b) =>
+            {
+                // 获取当前屏幕
+                var screen = Screens.Primary;
+                if (screen == null)
+                {
+                    return;
+                }
+                var workArea = screen.WorkingArea;
+
+                for (int i = 0; i < Screens.All.Count; i++)
+                {
+                    if (Screens.All[i] == screen)
+                    {
+                        obj.Display = i + 1;
+                        break;
+                    }
+                }
+                // 计算新的 Margin
+                obj.Margin.Left = Position.X - workArea.X;
+                obj.Margin.Top = Position.Y - workArea.Y;
+                obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
+                obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
+
+                ConfigSave.AddItem(new ConfigSaveObj()
+                {
+                    Name = obj.UUID + "json",
+                    Local = InstanceManager.GetDataLocal(obj),
+                    Obj = obj
+                });
+            };
+        });
+    }
+
+    private void View1_PointerExited(object? sender, PointerEventArgs e)
     {
         HoverBorder.Opacity = 0;
-        await hideAnimation.RunAsync(HoverBorder);
+        UIAnimation.HideAnimation.RunAsync(HoverBorder);
     }
 
-    private async void View1_PointerEntered(object? sender, PointerEventArgs e)
+    private void View1_PointerEntered(object? sender, PointerEventArgs e)
     {
         HoverBorder.Opacity = 1;
-        await showAnimation.RunAsync(HoverBorder);
+        UIAnimation.ShowAnimation.RunAsync(HoverBorder);
     }
 
     private void Border1_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -119,5 +107,73 @@ public partial class InstanceWindow : Window
 
         View1.Child = _view = instance.CreateView();
         instance.Start();
+
+        Update(_obj);
+    }
+
+    public void Move()
+    {
+        // 获取所有显示器的信息
+        var screens = Screens.All;
+
+        Screen? targetScreen;
+        if (_obj.Display != 1 && screens.Count > _obj.Display - 1)
+        {
+            targetScreen = screens[_obj.Display - 1];
+        }
+        else
+        {
+            targetScreen = Screens.Primary;
+        }
+
+        if (targetScreen != null)
+        {
+            var margin = _obj.Margin;
+            var workArea = targetScreen.WorkingArea;
+            int x = 0;
+            int y = 0;
+
+            switch (_obj.Pos)
+            {
+                case PosEnum.TopLeft:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.Top:
+                    x = workArea.X + (workArea.Width - (int)Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.TopRight:
+                    x = workArea.X + workArea.Width - (int)Width - margin.Right;
+                    y = workArea.Y + margin.Top;
+                    break;
+                case PosEnum.Left:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + (workArea.Height - (int)Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.Center:
+                    x = workArea.X + (workArea.Width - (int)Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + (workArea.Height - (int)Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.Right:
+                    x = workArea.X + workArea.Width - (int)Width - margin.Right;
+                    y = workArea.Y + (workArea.Height - (int)Height) / 2 + margin.Top - margin.Bottom;
+                    break;
+                case PosEnum.BottomLeft:
+                    x = workArea.X + margin.Left;
+                    y = workArea.Y + workArea.Height - (int)Height - margin.Bottom;
+                    break;
+                case PosEnum.Bottom:
+                    x = workArea.X + (workArea.Width - (int)Width) / 2 + margin.Left - margin.Right;
+                    y = workArea.Y + workArea.Height - (int)Height - margin.Bottom;
+                    break;
+                case PosEnum.BottomRight:
+                    x = workArea.X + workArea.Width - (int)Width - margin.Right;
+                    y = workArea.Y + workArea.Height - (int)Height - margin.Bottom;
+                    break;
+            }
+
+            Position = new(x, y);
+        }
     }
 }

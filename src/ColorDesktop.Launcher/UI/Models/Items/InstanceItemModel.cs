@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;
+using ColorDesktop.Launcher.UI.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher.UI.Models.Items;
 
@@ -20,25 +23,64 @@ public partial class InstanceItemModel : ObservableObject
 
     [ObservableProperty]
     private bool _enable;
+    [ObservableProperty]
+    private bool _enableFail;
+    [ObservableProperty]
+    private bool _pluginDisable;
 
     private readonly InstanceDataObj _obj;
     private readonly MainViewModel _model;
+
+    private bool _edit;
 
     public InstanceItemModel(MainViewModel model, InstanceDataObj obj)
     {
         _obj = obj;
         _model = model;
-        _enable = ConfigHelper.Config.EnableInstance.Contains(_obj.UUID);
+        _enable = InstanceManager.IsEnable(_obj.UUID);
+        _enableFail = InstanceManager.IsEnableFail(_obj.UUID);
+        _pluginDisable = !PluginManager.IsEnable(_obj.Plugin);
     }
 
-    partial void OnEnableChanged(bool value)
+    async partial void OnEnableChanged(bool value)
     {
+        if (_edit)
+        {
+            return;
+        }
+
         if (value)
         {
+            var res = await DialogHost.Show(new ChoiseModel()
+            { 
+                Text = "是否要启用该实例"
+            },MainWindow.DialogHostName);
+
+            if (res is not true)
+            {
+                _edit = true;
+                Enable = false;
+                _edit = false;
+                return;
+            }
+
             InstanceManager.EnableInstance(_obj);
         }
         else
         {
+            var res = await DialogHost.Show(new ChoiseModel()
+            {
+                Text = "是否要禁用该实例"
+            }, MainWindow.DialogHostName);
+
+            if (res is not true)
+            {
+                _edit = true;
+                Enable = true;
+                _edit = false;
+                return;
+            }
+
             InstanceManager.DisableInstance(_obj);
         }
     }
@@ -47,5 +89,18 @@ public partial class InstanceItemModel : ObservableObject
     public void OpenSetting()
     {
         InstanceManager.OpenSetting(_obj);
+    }
+
+    [RelayCommand]
+    public void Delete()
+    {
+        _model.Delete(this);
+    }
+
+    public void Update()
+    {
+        Enable = InstanceManager.IsEnable(_obj.UUID);
+        EnableFail = InstanceManager.IsEnableFail(_obj.UUID);
+        PluginDisable = PluginManager.IsEnable(_obj.Plugin);
     }
 }

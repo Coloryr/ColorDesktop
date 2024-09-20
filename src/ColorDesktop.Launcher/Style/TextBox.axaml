@@ -1,0 +1,54 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel>
+                <TextBox
+                    Width="300"
+                    Margin="0,0,0,10"
+                    Classes="input1"
+                    Text="测试"
+                    Watermark="配置文件路径" />
+
+                <TextBox Width="300" Watermark="配置文件路径" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="TextBox">
+        <Setter Property="Foreground" Value="{setting:Theme FontColor}" />
+        <Setter Property="BorderBrush" Value="{setting:Theme ControlBorder}" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="SelectionBrush" Value="{setting:Theme MainColor}" />
+
+        <Style Selector="^:pointerover Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+        </Style>
+
+        <Style Selector="^:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+        </Style>
+    </Style>
+
+    <Style Selector="TextBox.input1">
+        <Setter Property="Foreground" Value="{setting:Theme FontColor}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="SelectionBrush" Value="{setting:Theme MainColor}" />
+
+        <Style Selector="^:pointerover Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+        </Style>
+
+        <Style Selector="^:focus">
+            <Setter Property="Background" Value="#44bdf2ff" />
+        </Style>
+        <Style Selector="^:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{setting:Theme ControlTopBGColor}" />
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+            <Setter Property="BorderThickness" Value="0,0,0,2" />
+        </Style>
+    </Style>
+</Styles>

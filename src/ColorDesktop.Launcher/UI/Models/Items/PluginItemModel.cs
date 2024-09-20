@@ -1,12 +1,13 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
-using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;
+using ColorDesktop.Launcher.UI.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher.UI.Models.Items;
 
@@ -14,59 +15,86 @@ public partial class PluginItemModel : ObservableObject
 {
     private readonly PluginDataObj _obj;
     private readonly MainViewModel _model;
-    private Bitmap? _bitmap;
 
     [ObservableProperty]
     private bool _enable;
 
     [ObservableProperty]
-    private bool _fail;
+    private bool _loadFail;
+    [ObservableProperty]
+    private bool _enableFail;
 
     public string ID => _obj.ID;
     public string Name => _obj.Name;
     public string Describe => _obj.Describe;
+    public string Auther => _obj.Auther;
     public string Version => _obj.Version;
     public Task<Bitmap?> Image => GetImage();
 
-    private bool _isload;
+    private bool _edit;
+
+    public bool HaveSetting { get; init; }
 
     public PluginItemModel(MainViewModel model, PluginDataObj obj)
     {
         _obj = obj;
         _model = model;
 
-        _enable = ConfigHelper.Config.EnablePlugin.Contains(obj.ID);
-        _fail = PluginManager.IsFail(obj.ID);
+        _enable = PluginManager.IsEnable(obj.ID);
+        _loadFail = PluginManager.IsFail(obj.ID);
+        _enableFail = PluginManager.IsEnableFail(obj.ID);
+
+        HaveSetting = PluginManager.HavePluginSetting(obj.ID);
     }
 
-    partial void OnEnableChanged(bool value)
+    async partial void OnEnableChanged(bool value)
     {
         if (value)
         {
-            (bool, string?) ok = PluginManager.EnablePlugin(_obj.ID);
-            if (!ok.Item1)
+            var res = await DialogHost.Show(new ChoiseModel()
             {
+                Text = "是否要启用该插件"
+            }, MainWindow.DialogHostName);
+
+            if (res is not true)
+            {
+                _edit = true;
                 Enable = false;
+                _edit = false;
+                return;
             }
-            else
-            {
-                _model.LoadCount();
-            }
+
+            PluginManager.EnablePlugin(_obj.ID);
         }
         else
         {
-            (bool, string?) ok = PluginManager.DisablePlugin(_obj.ID);
-            if (!ok.Item1)
+            var res = await DialogHost.Show(new ChoiseModel()
             {
-                Enable = false;
+                Text = "是否要禁用该插件"
+            }, MainWindow.DialogHostName);
+
+            if (res is not true)
+            {
+                _edit = true;
+                Enable = true;
+                _edit = false;
+                return;
             }
+
+            PluginManager.DisablePlugin(_obj.ID);
         }
+
+        Enable = PluginManager.IsEnable(_obj.ID);
+        LoadFail = PluginManager.IsFail(_obj.ID);
+        EnableFail = PluginManager.IsEnableFail(_obj.ID);
+
+        _model.LoadCount();
     }
 
     [RelayCommand]
     public void OpenSetting()
     {
-        if (!Enable || Fail)
+        if (!Enable || LoadFail || EnableFail)
         {
             return;
         }
@@ -76,7 +104,7 @@ public partial class PluginItemModel : ObservableObject
     [RelayCommand]
     public void CreateInstance()
     {
-        if (!Enable || Fail)
+        if (!Enable || LoadFail || EnableFail)
         {
             return;
         }

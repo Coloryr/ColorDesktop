@@ -98,6 +98,14 @@ public static class ThemeManager
         {
             return s_theme.WindowSideBGSelect;
         }
+        else if (key == "ControlBorder")
+        {
+            return s_theme.ControlBorder;
+        }
+        else if (key == "ControlTopBGColor")
+        {
+            return s_theme.ControlTopBGColor;
+        }
         else if (key == "ButtonOver")
         {
             return s_theme.ButtonOver;
@@ -113,6 +121,10 @@ public static class ThemeManager
         else if (key == "FontColor")
         {
             return s_theme.FontColor;
+        }
+        else if (key == "MainColor")
+        {
+            return s_theme.MainColor;
         }
 
         return Brushes.Transparent;
@@ -209,6 +221,8 @@ public static class ThemeManager
             WindowSideFont = Brush.Parse("#FFFFFFFF"),
             WindowSideBGTop = Brush.Parse("#FF565656"),
             WindowSideBGSelect = Brush.Parse("#FF787878"),
+            ControlBorder = Brush.Parse("#FFe5e7eb"),
+            ControlTopBGColor = Brush.Parse("#EFFFFFFF"),
             ButtonBG = Brush.Parse("#FFFFFFFF"),
             ButtonOver = Brush.Parse("#FFFEFEFE"),
             ButtonBorder = Brush.Parse("#FFD4D4D8"),
@@ -221,6 +235,8 @@ public static class ThemeManager
             WindowSideFont = Brush.Parse("#FFFFFFFF"),
             WindowSideBGTop = Brush.Parse("#FF565656"),
             WindowSideBGSelect = Brush.Parse("#787878"),
+            ControlBorder = Brush.Parse("#FFe5e7eb"),
+            ControlTopBGColor = Brush.Parse("#EF000000"),
             ButtonBG = Brush.Parse("#FF000000"),
             ButtonOver = Brush.Parse("#FF141414"),
             ButtonBorder = Brush.Parse("#FFD4D4D8"),

@@ -18,23 +18,7 @@
             Name="HoverBorder"
             BorderBrush="#898989"
             BorderThickness="5,5,5,5"
-            CornerRadius="5">
-            <StackPanel>
-                <Border
-                    Name="Border1"
-                    Background="#EFEFEF"
-                    BorderBrush="#898989"
-                    BorderThickness="0,0,0,5">
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button
-                            Width="20"
-                            Height="20"
-                            Content="X"
-                            FontSize="8" />
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </Border>
-        <Decorator Name="View1" Margin="5,25,5,5" />
+            CornerRadius="5" />
+        <Decorator Name="View1" Margin="5" />
     </Panel>
 </Window>

@@ -4,6 +4,10 @@ using System.IO;
 using System.Linq;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
+using ColorDesktop.Launcher.UI.Models.Dialog;
+using ColorDesktop.Launcher.UI.Windows;
+using ColorDesktop.Launcher.Utils;
+using DialogHostAvalonia;
 using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.Manager;
@@ -17,13 +21,17 @@ public static class PluginManager
     /// <summary>
     /// 读取时失败
     /// </summary>
-    public static readonly List<(string, Exception)> LoadError = [];
+    public static readonly List<string> LoadError = [];
     /// <summary>
     /// 加载时失败
     /// </summary>
-    public static readonly List<(string, Exception)> LoadFail = [];
+    public static readonly List<string> EnableError = [];
 
     public const string Dir1 = "plugins";
+
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public static void Init()
     {
         var local = AppContext.BaseDirectory;
@@ -44,12 +52,21 @@ public static class PluginManager
                     {
                         continue;
                     }
-                    LoadPlugin(config.DirectoryName!, obj);
+                    if (Plugins.ContainsKey(obj.ID))
+                    {
+                        Logs.Error(string.Format("组件 {0} 存在重复的ID", item));
+                        continue;
+                    }
+
+                    var ass = new PluginAssembly(config.DirectoryName!, obj);
+                    PluginAssemblys.Add(obj.ID, ass);
+                    Plugins.Add(obj.ID, obj);
                 }
             }
             catch (Exception e)
             {
-                LoadError.Add((item, e));
+                LoadError.Add(item);
+                Logs.Error(string.Format("组件 {0} 加载失败", item), e);
             }
         }
 
@@ -59,7 +76,8 @@ public static class PluginManager
             {
                 if (!PluginAssemblys.ContainsKey(item1))
                 {
-                    LoadFail.Add((item.Key, new Exception("Dependent not found")));
+                    LoadError.Add(item.Key);
+                    Logs.Error(string.Format("组件 {0} 加载失败，没有找到依赖 {1}", item, item1));
                     break;
                 }
                 if (Deps.TryGetValue(item1, out var list))
@@ -73,98 +91,199 @@ public static class PluginManager
             }
         }
 
-        foreach (var item in LoadFail)
+        foreach (var item in LoadError)
         {
-            if (PluginAssemblys.Remove(item.Item1, out var ass))
+            if (PluginAssemblys.Remove(item, out var ass))
             {
                 ass.Unload();
             }
 
-            ConfigHelper.Config.EnablePlugin.Remove(item.Item1);
+            ConfigHelper.Config.EnablePlugin.Remove(item);
         }
     }
 
-    public static void LoadPlugin(string local, PluginDataObj obj)
+    /// <summary>
+    /// 启用所有组件，只执行一次
+    /// </summary>
+    public static void StartPlugin()
     {
-        try
+        foreach (var item in PluginAssemblys)
         {
-            if (!Plugins.TryAdd(obj.ID, obj))
+            try
             {
-                throw new Exception("Plugin Info Add Fail, ID:" + obj.ID);
+                item.Value.Plugin.Init(item.Value.Local, LanguageType.zh_cn);
             }
-
-            var ass = new PluginAssembly(local, obj);
-            PluginAssemblys.Add(obj.ID, ass);
+            catch (Exception e)
+            {
+                ConfigHelper.Config.EnablePlugin.Remove(item.Key);
+                item.Value.Enable = false;
+                AddEnableFail(item.Key);
+                Logs.Error(string.Format("组件 {0} 初始化失败", item), e);
+            }
         }
-        catch (Exception e)
+
+        var remove = new List<string>();
+        foreach (var item in ConfigHelper.Config.EnablePlugin)
         {
-            LoadFail.Add((obj.ID, e));
+            if (PluginAssemblys.TryGetValue(item, out var plugin))
+            {
+                try
+                {
+                    plugin.Plugin.Enable();
+                    plugin.Enable = true;
+                }
+                catch (Exception e)
+                {
+                    plugin.Enable = false;
+                    AddEnableFail(item);
+                    Logs.Error(string.Format("组件 {0} 启用失败", item), e);
+                }
+            }
+            else
+            {
+                remove.Add(item);
+            }
+        }
+        foreach (var item in EnableError)
+        {
+            ConfigHelper.Config.EnablePlugin.Remove(item);
+        }
+        foreach (var item in remove)
+        {
+            ConfigHelper.Config.EnablePlugin.Remove(item);
         }
     }
 
-    public static bool IsFail(string id)
+    public static void StopPlugin()
     {
-        foreach (var item in LoadFail)
+        foreach (var item in PluginAssemblys)
         {
-            if (item.Item1 == id)
+            DisablePlugin(item.Key, item.Value.Plugin);
+        }
+    }
+
+    /// <summary>
+    /// 打开组件设置
+    /// </summary>
+    /// <param name="obj"></param>
+    public static void OpenSetting(PluginDataObj obj)
+    {
+        if (PluginAssemblys.TryGetValue(obj.ID, out var value)
+            && value.Plugin.HavePluginSetting)
+        {
+            var control = value.Plugin.OpenSetting();
+            DialogHost.Show(new PluginSettingModel()
             {
-                return true;
+                Control = control
+            }, MainWindow.DialogHostName);
+        }
+    }
+
+    /// <summary>
+    /// 启用组件
+    /// </summary>
+    /// <param name="id"></param>
+    public static void EnablePlugin(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var item))
+        {
+            try
+            {
+                item.Plugin.Enable();
+                EnableError.Remove(id);
+                item.Enable = true;
+
+                ConfigHelper.EnablePlugin(id);
+                InstanceManager.EnablePlugin(id);
             }
+            catch (Exception e)
+            {
+                item.Enable = false;
+                AddEnableFail(id);
+                Logs.Error(string.Format("组件 {0} 启用失败", item), e);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 禁用组件
+    /// </summary>
+    /// <param name="id"></param>
+    public static void DisablePlugin(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var item))
+        {
+            ConfigHelper.DisablePlugin(id);
+            InstanceManager.DisablePlugin(id);
+
+            DisablePlugin(id, item.Plugin);
+            item.Enable = false;
+        }
+    }
+
+    /// <summary>
+    /// 组件是否启用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static bool IsEnable(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var item))
+        {
+            return item.Enable;
         }
 
         return false;
     }
 
-    public static void StartPlugin()
+    /// <summary>
+    /// 组件是否启用错误
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static bool IsEnableFail(string id)
     {
-        foreach(var item in PluginAssemblys.Values)
+        return EnableError.Contains(id);
+    }
+
+    /// <summary>
+    /// 组件是否加载错误
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static bool IsFail(string id)
+    {
+        return LoadError.Contains(id);
+    }
+
+    public static bool HavePluginSetting(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var plugin))
         {
-            item.Plugin.Init(item.Local, LanguageType.zh_cn);
+            return plugin.Plugin.HavePluginSetting;
         }
 
-        foreach (var item in new List<string>(ConfigHelper.Config.EnablePlugin))
+        return false;
+    }
+
+    private static void AddEnableFail(string id)
+    {
+        if (!EnableError.Contains(id))
         {
-            if (PluginAssemblys.TryGetValue(item, out var plugin))
-            {
-                plugin.Plugin.Enable();
-                plugin.Enable = true;
-            }
-            else
-            {
-                ConfigHelper.Config.EnablePlugin.Remove(item);
-            }
+            EnableError.Add(id);
         }
     }
 
-    public static void OpenSetting(PluginDataObj obj)
+    private static void DisablePlugin(string id, IPlugin plugin)
     {
-        if (PluginAssemblys.TryGetValue(obj.ID, out var value))
+        try
         {
-            value.Plugin.OpenSetting();
+            plugin.Disable();
         }
-    }
-
-    public static void EnablePlugin(string id)
-    {
-        if (PluginAssemblys.TryGetValue(id, out var item))
+        catch (Exception e)
         {
-            item.Plugin.Enable();
+            AddEnableFail(id);
+            Logs.Error(string.Format("组件 {0} 禁用失败", id), e);
         }
-
-        ConfigHelper.EnablePlugin(id);
-
-        InstanceManager.EnablePlugin(id);
-    }
-
-    public static void DisablePlugin(string id)
-    {
-        if (PluginAssemblys.TryGetValue(id, out var item))
-        {
-            item.Plugin.Disable();
-        }
-
-        ConfigHelper.DisablePlugin(id);
-
-        InstanceManager.DisablePlugin(id);
     }
 }

@@ -75,3 +75,18 @@ public class UnsubscribeStyle(List<WeakReference<IObserver<object?>>> observers,
         }
     }
 }
+
+public class UnsubscribeLang(List<WeakReference<IObserver<string>>> observers, IObserver<string> observer) : IDisposable
+{
+    public void Dispose()
+    {
+        foreach (var item in observers.ToArray())
+        {
+            if (!item.TryGetTarget(out var target)
+                || target == observer)
+            {
+                observers.Remove(item);
+            }
+        }
+    }
+}

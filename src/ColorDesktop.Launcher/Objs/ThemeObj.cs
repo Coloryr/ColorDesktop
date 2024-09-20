@@ -13,6 +13,8 @@ public record ThemeObj
     public IBrush WindowSideFont;
     public IBrush WindowSideBGTop;
     public IBrush WindowSideBGSelect;
+    public IBrush ControlBorder;
+    public IBrush ControlTopBGColor;
     public IBrush ButtonOver;
     public IBrush ButtonBorder;
     public IBrush ButtonBG;

@@ -36,15 +36,15 @@ public record MarginObj
 public sealed record InstanceDataObj
 {
     /// <summary>
-    /// 不要设置
+    /// 不要修改这个
     /// </summary>
     public string UUID { get; set; }
     /// <summary>
-    /// 默认实例的名字
+    /// 默认实例的名字，只能设置一次
     /// </summary>
     public string Nick { get; set; }
     /// <summary>
-    /// 插件ID
+    /// 组件ID
     /// </summary>
     public required string Plugin { get; set; }
     /// <summary>
@@ -67,5 +67,5 @@ public sealed record InstanceDataObj
     /// 自定义传递的参数，这部分会被固化，请时使用能够Json处理的数据格式
     /// 这部分不要用来做配置存储，只用于传递启动参数
     /// </summary>
-    public JObject Arg { get; set; }
+    public JObject Arg { get; set; } 
 }

@@ -23,22 +23,7 @@ public static class LangSel
         }
         var value = App.Lang(key);
         observer.OnNext(value);
-        return new Unsubscribe(list, observer);
-    }
-
-    private class Unsubscribe(List<WeakReference<IObserver<string>>> observers, IObserver<string> observer) : IDisposable
-    {
-        public void Dispose()
-        {
-            foreach (var item in observers.ToArray())
-            {
-                if (!item.TryGetTarget(out var target)
-                    || target == observer)
-                {
-                    observers.Remove(item);
-                }
-            }
-        }
+        return new UnsubscribeLang(list, observer);
     }
 
     public static void Reload()

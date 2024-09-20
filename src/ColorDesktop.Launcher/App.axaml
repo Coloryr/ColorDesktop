@@ -8,13 +8,16 @@
     x:DataType="model:AppModel">
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Resource/icon.ico" ToolTipText="{setting:Localize ToolTitle}">
+            <TrayIcon
+                Command="{Binding ShowWindow}"
+                Icon="/Resource/icon.ico"
+                ToolTipText="{setting:Localize ToolTitle}">
                 <TrayIcon.Menu>
                     <NativeMenu>
                         <NativeMenuItem Command="{Binding ShowWindow}" Header="{setting:Localize ToolSetting.Text1}" />
-                        <NativeMenuItem Command="{Binding ShowSetting}" Header="{setting:Localize ToolSetting.Text2}" />
+                        <!--<NativeMenuItem Command="{Binding ShowSetting}" Header="{setting:Localize ToolSetting.Text2}" />-->
                         <NativeMenuItemSeparator />
-                        <NativeMenuItem Command="{Binding ShowSetting}" Header="{setting:Localize ToolSetting.Text3}" />
+                        <NativeMenuItem Command="{Binding Exit}" Header="{setting:Localize ToolSetting.Text3}" />
                     </NativeMenu>
                 </TrayIcon.Menu>
             </TrayIcon>
@@ -26,6 +29,10 @@
         <StyleInclude Source="/Style/ListBox.axaml" />
         <StyleInclude Source="/Style/Button.axaml" />
         <StyleInclude Source="/Style/Border.axaml" />
+        <StyleInclude Source="/Style/ComboBox.axaml" />
+        <StyleInclude Source="/Style/TextBox.axaml" />
+        <StyleInclude Source="/Style/NumericUpDown.axaml" />
+        <StyleInclude Source="/Style/RadioButton.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
         <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml" />
         <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />

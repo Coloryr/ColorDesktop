@@ -1,0 +1,30 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <NumericUpDown
+                Width="150"
+                Height="30"
+                FormatString="N0"
+                Value="20" />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="NumericUpDown">
+        <Setter Property="Foreground" Value="{setting:Theme FontColor}" />
+        <Setter Property="Background" Value="{setting:Theme ButtonBG}" />
+        <Setter Property="BorderBrush" Value="{setting:Theme ControlBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="5" />
+
+        <Style Selector="^:pointerover Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{setting:Theme MainColor}" />
+        </Style>
+
+        <Style Selector="^ /template/ TextBox#TextBox#PART_TextBox">
+            <Setter Property="SelectionBrush" Value="{setting:Theme MainColor}" />
+        </Style>
+    </Style>
+</Styles>

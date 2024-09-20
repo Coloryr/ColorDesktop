@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ColorDesktop.Api;
+using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
 
@@ -76,6 +73,22 @@ public static class ConfigHelper
         }
 
         Config.EnableInstance.Remove(id);
+        SaveConfig();
+    }
+
+    public static void SetAutoStart(bool start)
+    {
+        Config.AutoStart = start;
+        SaveConfig();
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            Win32.SetLaunch(start);
+        }
+    }
+
+    public static void SetAuto(bool value)
+    {
+        Config.AutoMin = value;
         SaveConfig();
     }
 }

@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.Launcher.UI.Windows;
 
 namespace ColorDesktop.Launcher.Objs;
 
 public record InstanceWindowObj
 {
-    public Window Window;
+    public IInstanceWindow Window;
     public IInstance Instance;
     public InstanceDataObj InstanceData;
 
-    public InstanceWindowObj(Window window, IInstance instance, InstanceDataObj instanceData)
+    public InstanceWindowObj(IInstanceWindow window, IInstance instance, InstanceDataObj instanceData)
     {
         Window = window;
         Instance = instance;

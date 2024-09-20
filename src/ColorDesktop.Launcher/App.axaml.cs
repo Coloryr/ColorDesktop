@@ -12,9 +12,11 @@ using Avalonia.Threading;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
 using ColorDesktop.Launcher.Utils;
 using ColorDesktop.Launcher.ViewModels;
+using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher;
 
@@ -24,7 +26,7 @@ public partial class App : Application
 
     private static Application ThisApp;
 
-    public static MainWindow? MainWindow { get; set; }
+    public static MainWindow MainWindow { get; set; }
 
     public static string Lang(string key)
     {
@@ -48,16 +50,31 @@ public partial class App : Application
         s_language.Load(reader.ReadToEnd());
     }
 
-    public static void ShowMain()
+    public static void ShowMainWindow()
     {
         MainWindow ??= new MainWindow();
+        MainWindow.WindowState = WindowState.Normal;
         MainWindow.Show();
         MainWindow.Activate();
     }
 
-    public static void Exit()
-    { 
-        
+    public static async void Exit()
+    {
+        var res = await DialogHost.Show(new ChoiseModel()
+        {
+            Text = "是否要退出软件"
+        }, MainWindow.DialogHostName);
+        if (res is true)
+        {
+            InstanceManager.StopInstance();
+            PluginManager.StopPlugin();
+
+            (ThisApp.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.Shutdown();
+            ConfigSave.Stop();
+            Logs.Stop();
+
+            Environment.Exit(Environment.ExitCode);
+        }
     }
 
     public override void Initialize()
@@ -65,7 +82,7 @@ public partial class App : Application
         ThisApp = this;
 
         SystemInfo.Init();
-        ConfigSave.Init();
+        Logs.Init();
 
         LoadLanguage(LanguageType.zh_cn);
 
@@ -92,7 +109,7 @@ public partial class App : Application
             life.Exit += Life_Exit;
         }
 
-        ShowMain();
+        ShowMainWindow();
 
         base.OnFrameworkInitializationCompleted();
     }

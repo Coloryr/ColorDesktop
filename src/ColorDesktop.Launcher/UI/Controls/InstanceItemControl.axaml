@@ -9,33 +9,49 @@
     x:DataType="vm:InstanceItemModel"
     mc:Ignorable="d">
     <Border Classes="t2">
-        <DockPanel Margin="10">
-            <StackPanel DockPanel.Dock="Right">
-                <ToggleSwitch
-                    Margin="5,0,0,0"
-                    IsChecked="{Binding Enable}"
-                    OffContent="关闭"
-                    OnContent="开启" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Command="{Binding OpenSetting}"
-                    Content="实例设置" />
-            </StackPanel>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="名字：" />
-                    <TextBlock Text="{Binding Nick}" />
+        <Panel>
+            <DockPanel Margin="10">
+                <StackPanel DockPanel.Dock="Right">
+                    <ToggleSwitch
+                        Margin="5,0,0,0"
+                        IsChecked="{Binding Enable}"
+                        OffContent="关闭"
+                        OnContent="开启" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding OpenSetting}"
+                        Content="实例设置" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding Delete}"
+                        Content="删除实例" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="插件ID：" />
-                    <TextBlock Text="{Binding Plugin}" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="名字：" />
+                        <TextBlock Text="{Binding Nick}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="组件ID：" />
+                        <TextBlock Text="{Binding Plugin}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="UUID：" />
+                        <TextBlock Text="{Binding UUID}" />
+                    </StackPanel>
+                    <TextBlock
+                        Foreground="Red"
+                        IsVisible="{Binding EnableFail, FallbackValue=false}"
+                        Text="启用错误，无法显示" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="UUID：" />
-                    <TextBlock Text="{Binding UUID}" />
-                </StackPanel>
-            </StackPanel>
-        </DockPanel>
+            </DockPanel>
+            <Border Background="#AAEFEFEF" IsVisible="{Binding PluginDisable, FallbackValue=false}">
+                <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontSize="16" Text="插件未加载" />
+                </Panel>
+            </Border>
+        </Panel>
     </Border>
 </UserControl>

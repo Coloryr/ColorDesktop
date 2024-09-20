@@ -7,7 +7,9 @@ namespace ColorDesktop.ClockPlugin;
 
 public class ClockPlugin : IPlugin
 {
-    public static ClockSettingWindow? ClockSetting;
+    public bool HavePluginSetting => true;
+
+    public bool HaveInstanceSetting => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -52,19 +54,18 @@ public class ClockPlugin : IPlugin
         return new ClockControl();
     }
 
-    public void OpenSetting()
-    {
-        ClockSetting ??= new();
-        ClockSetting.Show();
-    }
-
-    public void OpenSetting(InstanceDataObj instance)
-    {
-        
-    }
-
     public void Stop()
     {
         
+    }
+
+    Control IPlugin.OpenSetting(InstanceDataObj instance)
+    {
+        return new ClockSettingControl();
+    }
+
+    Control IPlugin.OpenSetting()
+    {
+        return new ClockSettingControl();
     }
 }

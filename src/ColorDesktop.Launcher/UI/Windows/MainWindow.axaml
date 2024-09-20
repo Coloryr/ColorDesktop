@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:dialogmodel="clr-namespace:ColorDesktop.Launcher.UI.Models.Dialog"
-    xmlns:dialogview="clr-namespace:ColorDesktop.Launcher.UI.Controls"
+    xmlns:dialogview="clr-namespace:ColorDesktop.Launcher.UI.Controls.Dialog"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
@@ -20,7 +20,76 @@
     <dialog:DialogHost DisableOpeningAnimation="True" Identifier="MainWindow">
         <dialog:DialogHost.DataTemplates>
             <DataTemplate DataType="dialogmodel:CreateInstanceModel">
-                <dialogview:CreateControl DataContext="{Binding}" />
+                <DockPanel>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        DockPanel.Dock="Bottom"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Command="{Binding Done}"
+                            Content="{setting:Localize Button.Confirm}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Margin="20,0,0,0"
+                            Command="{Binding Cancel}"
+                            Content="{setting:Localize Button.Cancel}"
+                            IsVisible="{Binding HaveCancel}" />
+                    </StackPanel>
+                    <dialogview:CreateControl Margin="0,0,0,10" DataContext="{Binding}" />
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate DataType="dialogmodel:CreateInstanceOtherModel">
+                <DockPanel>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        DockPanel.Dock="Bottom"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Command="{Binding Done}"
+                            Content="{setting:Localize Button.Confirm}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Margin="20,0,0,0"
+                            Command="{Binding Cancel}"
+                            Content="{setting:Localize Button.Cancel}"
+                            IsVisible="{Binding HaveCancel}" />
+                    </StackPanel>
+                    <TabControl Margin="0,0,0,10">
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBlock FontSize="16" Text="位置设置" />
+                            </TabItem.Header>
+                            <dialogview:CreateControl DataContext="{Binding}" />
+                        </TabItem>
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBlock FontSize="16" Text="实例设置" />
+                            </TabItem.Header>
+                            <Decorator Child="{Binding Control}" />
+                        </TabItem>
+                    </TabControl>
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate DataType="dialogmodel:ChoiseModel">
+                <dialogview:ChoiseControl DataContext="{Binding}" />
+            </DataTemplate>
+            <DataTemplate DataType="dialogmodel:PluginSettingModel">
+                <DockPanel>
+                    <Button
+                        Width="100"
+                        Height="35"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Done}"
+                        Content="确定"
+                        DockPanel.Dock="Bottom" />
+                    <Decorator Margin="10" Child="{Binding Control}" />
+                </DockPanel>
             </DataTemplate>
         </dialog:DialogHost.DataTemplates>
         <DockPanel>

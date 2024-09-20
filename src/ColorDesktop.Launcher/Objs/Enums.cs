@@ -5,3 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ColorDesktop.Launcher.Objs;
+
+public enum InstanceState
+{ 
+    Disable, Run, Fail, PluginDisable
+}

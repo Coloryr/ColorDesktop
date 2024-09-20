@@ -18,6 +18,10 @@ public record PluginDataObj
     /// </summary>
     public string Name { get; set; }
     /// <summary>
+    /// 作者
+    /// </summary>
+    public string Auther { get; set; }
+    /// <summary>
     /// 描述
     /// </summary>
     public string Describe { get; set; }
@@ -26,13 +30,9 @@ public record PluginDataObj
     /// </summary>
     public List<string> Dlls { get; set; }
     /// <summary>
-    /// 依赖其他插件
+    /// 依赖其他组件
     /// </summary>
     public List<string> Dependents { get; set; }
-    /// <summary>
-    /// 插件图标
-    /// </summary>
-    public string Icon { get; set; }
     /// <summary>
     /// 版本
     /// </summary>

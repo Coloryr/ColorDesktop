@@ -33,4 +33,9 @@ public interface IInstance
     /// </summary>
     /// <returns></returns>
     Control CreateView();
+    /// <summary>
+    /// 配置更新
+    /// </summary>
+    /// <param name="obj"></param>
+    void Update(InstanceDataObj obj);
 }

@@ -10,9 +10,12 @@ namespace ColorDesktop.Launcher.UI.Windows;
 
 public partial class MainWindow : Window
 {
+    public const string DialogHostName = "MainWindow";
+
     private readonly SettingControl _setting = new();
     private readonly PluginControl _plugins = new();
     private readonly InstanceControl _instances = new();
+
     public MainWindow()
     {
         InitializeComponent();
@@ -23,6 +26,12 @@ public partial class MainWindow : Window
         var model = new MainViewModel();
         DataContext = model;
         model.PropertyChanged += Model_PropertyChanged;
+        model.Load();
+
+        if (ConfigHelper.Config.AutoMin)
+        {
+            Hide();
+        }
     }
 
     private void MainWindow_Loaded(object? sender, RoutedEventArgs e)

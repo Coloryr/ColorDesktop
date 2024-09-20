@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="UI\Controls\Dialog\ChoiseControl.axaml.cs">
+      <DependentUpon>ChoiseControl.axaml</DependentUpon>
+    </Compile>
     <Compile Update="UI\Controls\InstanceControl.axaml.cs">
       <DependentUpon>InstanceControl.axaml</DependentUpon>
     </Compile>

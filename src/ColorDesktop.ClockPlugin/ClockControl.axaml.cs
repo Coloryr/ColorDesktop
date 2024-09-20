@@ -37,4 +37,9 @@ public partial class ClockControl : UserControl, IInstance
     {
         return this;
     }
+
+    public void Update(InstanceDataObj obj)
+    {
+        
+    }
 }
