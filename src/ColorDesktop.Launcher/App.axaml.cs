@@ -60,6 +60,7 @@ public partial class App : Application
 
     public static async void Exit()
     {
+        ShowMainWindow();
         var res = await DialogHost.Show(new ChoiseModel()
         {
             Text = "是否要退出软件"

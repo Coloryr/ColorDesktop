@@ -63,9 +63,4 @@ public sealed record InstanceDataObj
     /// 是否为自定义窗口
     /// </summary>
     public bool IsWindow { get; set; }
-    /// <summary>
-    /// 自定义传递的参数，这部分会被固化，请时使用能够Json处理的数据格式
-    /// 这部分不要用来做配置存储，只用于传递启动参数
-    /// </summary>
-    public JObject Arg { get; set; } 
 }

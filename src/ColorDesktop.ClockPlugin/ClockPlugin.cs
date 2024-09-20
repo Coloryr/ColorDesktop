@@ -22,11 +22,6 @@ public class ClockPlugin : IPlugin
         };
     }
 
-    public Window? CreateInstanceSetting(InstanceDataObj data)
-    {
-        return null;
-    }
-
     public void Disable()
     {
         
