@@ -46,6 +46,7 @@
                             Width="150"
                             Height="35"
                             Margin="0,0,5,0"
+                            FormatString="N0"
                             Maximum="99999"
                             Minimum="1"
                             Value="{Binding UpdateTime}" />
@@ -60,6 +61,7 @@
                             Width="150"
                             Height="35"
                             Margin="0,0,5,0"
+                            FormatString="N0"
                             Maximum="12"
                             Minimum="-12"
                             Value="{Binding TimeZone}" />

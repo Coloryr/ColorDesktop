@@ -21,7 +21,15 @@ public static class NtpClient
     {
         s_timer = new(TimerTick);
         s_timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(1));
-        GetTime();
+        Task.Run(async () =>
+        {
+            bool res = false;
+            do
+            {
+                res = await GetTime();
+            }
+            while (res);
+        });
     }
 
     public static void Stop()
@@ -52,6 +60,7 @@ public static class NtpClient
                     return false;
                 }
                 Date = GetNetworkTime(ClockPlugin.Config.NtpIp);
+                Date = Date.AddHours(ClockPlugin.Config.TimeZone);
                 return true;
             }
             catch
@@ -98,9 +107,6 @@ public static class NtpClient
         DateTime dateTime = new DateTime(1900, 1, 1);
         dateTime += timeSpan;
 
-        TimeSpan offsetAmount = TimeZone.CurrentTimeZone.GetUtcOffset(dateTime);
-        DateTime networkDateTime = (dateTime + offsetAmount);
-
-        return networkDateTime;
+        return dateTime;
     }
 }

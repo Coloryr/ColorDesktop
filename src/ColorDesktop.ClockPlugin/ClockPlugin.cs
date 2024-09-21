@@ -60,8 +60,9 @@ public class ClockPlugin : IPlugin
         Local = local + "/" + ConfigName;
         Config = ConfigUtils.Config<ClockConfigObj>(new() 
         {
-            NtpIp = "ntp.ntsc.ac.cn",
-            NtpUpdateTime = 180
+            NtpIp = "cn.pool.ntp.org",
+            NtpUpdateTime = 180,
+            TimeZone = 8
         }, Local);
     }
 
