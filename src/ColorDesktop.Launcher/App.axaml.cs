@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Avalonia;
@@ -7,8 +6,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
-using Avalonia.Threading;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
@@ -78,13 +75,22 @@ public partial class App : Application
         }
     }
 
-    public override void Initialize()
+    public App()
     {
         ThisApp = this;
 
-        SystemInfo.Init();
+        Program.StartLock();
+
         Logs.Init();
 
+        AppDomain.CurrentDomain.UnhandledException += (a, e) =>
+        {
+            Logs.Error("Gui Error", e.ExceptionObject as Exception);
+        };
+    }
+
+    public override void Initialize()
+    {
         LoadLanguage(LanguageType.zh_cn);
 
         ConfigHelper.LoadConfig();
@@ -119,5 +125,6 @@ public partial class App : Application
     private void Life_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
     {
         ConfigSave.Stop();
+        LaunchSocketUtils.Stop();
     }
 }

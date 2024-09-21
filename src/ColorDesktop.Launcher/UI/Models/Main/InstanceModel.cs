@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AvaloniaEdit.Utils;
@@ -33,7 +32,7 @@ public partial class MainViewModel
 
     [ObservableProperty]
     private int _selectInstanceType;
-     
+
     [ObservableProperty]
     private string _selectInstanceName;
 
@@ -67,7 +66,7 @@ public partial class MainViewModel
         {
             if (SelectInstanceType == 0)
             {
-                Instances.AddRange(_instances.Where(item=>item.Plugin.Contains(name)));
+                Instances.AddRange(_instances.Where(item => item.Plugin.Contains(name)));
             }
             else if (SelectInstanceType == 1)
             {

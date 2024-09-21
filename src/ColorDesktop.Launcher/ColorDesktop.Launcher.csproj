@@ -48,6 +48,9 @@
 	  <PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.0.10" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="SkiaSharp" Version="2.88.8" />
+	  <PackageReference Include="DotNetty.Buffers" Version="0.7.6" />
+	  <PackageReference Include="DotNetty.Common" Version="0.7.6" />
+	  <PackageReference Include="DotNetty.Handlers" Version="0.7.6" />
 	<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
   </ItemGroup>
@@ -55,17 +58,5 @@
   <ItemGroup>
     <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="UI\Controls\Dialog\ChoiseControl.axaml.cs">
-      <DependentUpon>ChoiseControl.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="UI\Controls\InstanceControl.axaml.cs">
-      <DependentUpon>InstanceControl.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="UI\Controls\CreateControl.axaml" />
-  </ItemGroup>
+	
 </Project>

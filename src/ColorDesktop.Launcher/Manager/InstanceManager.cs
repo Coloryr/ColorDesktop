@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -128,7 +127,7 @@ public static class InstanceManager
             if (value.Plugin.HaveInstanceSetting)
             {
                 var config1 = await DialogHost.Show(
-                    new CreateInstanceOtherModel(config, value.Plugin.OpenSetting(config)), 
+                    new CreateInstanceOtherModel(config, value.Plugin.OpenSetting(config)),
                     MainWindow.DialogHostName);
                 if (config1 is not true)
                 {

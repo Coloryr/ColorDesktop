@@ -1,5 +1,4 @@
-﻿using ColorDesktop.Launcher.Desktop;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.Launcher.UI.Models.Main;
 

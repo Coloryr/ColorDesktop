@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Items;
-using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -85,7 +81,7 @@ public partial class MainViewModel
         {
             if (SelectPluginType == 0)
             {
-                Plugins.AddRange(_plugins.Where(item=>item.ID.Contains(name)));
+                Plugins.AddRange(_plugins.Where(item => item.ID.Contains(name)));
             }
             else if (SelectPluginType == 1)
             {

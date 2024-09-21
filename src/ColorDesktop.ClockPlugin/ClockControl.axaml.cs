@@ -14,7 +14,7 @@ public partial class ClockControl : UserControl, IInstance
 
     public void Start()
     {
-        
+
     }
 
     public void Stop()

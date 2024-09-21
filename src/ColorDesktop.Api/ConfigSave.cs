@@ -97,7 +97,7 @@ public static class ConfigSave
             }
             catch (Exception e)
             {
-                
+
             }
         }
     }

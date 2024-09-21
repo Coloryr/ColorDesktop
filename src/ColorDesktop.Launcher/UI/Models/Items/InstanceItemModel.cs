@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.Api;
-using ColorDesktop.Launcher.Helper;
+﻿using ColorDesktop.Api;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;

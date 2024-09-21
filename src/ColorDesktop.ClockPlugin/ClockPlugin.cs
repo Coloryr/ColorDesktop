@@ -42,7 +42,7 @@ public class ClockPlugin : IPlugin
         }, InstanceLocal + "/" + obj.UUID + "/" + ConfigName);
     }
 
-    public static void SaveConfig(InstanceDataObj obj,  ClockInstanceObj config)
+    public static void SaveConfig(InstanceDataObj obj, ClockInstanceObj config)
     {
         ConfigSave.AddItem(new()
         {
@@ -88,7 +88,7 @@ public class ClockPlugin : IPlugin
     {
         Local = local + "/" + ConfigName;
         InstanceLocal = local1;
-        Config = ConfigUtils.Config<ClockConfigObj>(new() 
+        Config = ConfigUtils.Config<ClockConfigObj>(new()
         {
             NtpIp = "cn.pool.ntp.org",
             NtpUpdateTime = 180,
@@ -105,7 +105,7 @@ public class ClockPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 
     Control IPlugin.OpenSetting(InstanceDataObj obj)

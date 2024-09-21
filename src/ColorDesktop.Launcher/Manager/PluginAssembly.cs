@@ -13,7 +13,7 @@ public class PluginAssembly : AssemblyLoadContext
 
     public IPlugin Plugin { get; init; }
     public string Local { get; init; }
-    
+
     public bool Enable { get; set; }
 
     public PluginAssembly(string local, PluginDataObj obj) : base(obj.ID, true)

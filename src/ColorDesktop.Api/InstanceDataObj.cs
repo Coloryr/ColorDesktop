@@ -3,8 +3,8 @@
 public record MarginObj
 {
     public MarginObj()
-    { 
-        
+    {
+
     }
 
     public MarginObj(int right, int top, int left, int bottom)

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.Launcher.Helper;
+﻿namespace ColorDesktop.Launcher.Helper;
 
 public static class LangHelper
 {

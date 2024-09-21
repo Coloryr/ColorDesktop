@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Media;
+﻿using Avalonia.Media;
 
 namespace ColorDesktop.ClockPlugin;
 
-public  record FontDisplayModel
+public record FontDisplayModel
 {
     /// <summary>
     /// 字体名字
