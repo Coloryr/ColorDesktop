@@ -11,6 +11,7 @@
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     SystemDecorations="None"
+    TransparencyLevelHint="Transparent"
     TransparencyBackgroundFallback="Transparent"
     mc:Ignorable="d">
     <Panel>
