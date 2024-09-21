@@ -62,7 +62,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     private void InstanceWindow_Loaded(object? sender, RoutedEventArgs e)
     {
-        // ³õÊ¼Ê±±ß¿òÍ¸Ã÷
+        // åˆå§‹æ—¶è¾¹æ¡†é€æ˜
         HoverBorder.Opacity = 0;
 
         _instance.RenderTick();
@@ -73,7 +73,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
             {
                 return;
             }
-            // »ñÈ¡µ±Ç°ÆÁÄ»
+            // è·å–å½“å‰å±å¹•
             var screen = Screens.Primary;
             if (screen == null)
             {
@@ -89,7 +89,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
                     break;
                 }
             }
-            // ¼ÆËãĞÂµÄ Margin
+            // è®¡ç®—æ–°çš„ Margin
             _obj.Margin.Left = Position.X - workArea.X;
             _obj.Margin.Top = Position.Y - workArea.Y;
             _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
@@ -130,7 +130,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
     public void Move()
     {
         _update = true;
-        // »ñÈ¡ËùÓĞÏÔÊ¾Æ÷µÄĞÅÏ¢
+        // è·å–æ‰€æœ‰æ˜¾ç¤ºå™¨çš„ä¿¡æ¯
         var screens = Screens.All;
 
         Screen? targetScreen;

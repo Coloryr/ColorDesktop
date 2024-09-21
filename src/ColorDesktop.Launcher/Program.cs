@@ -96,9 +96,20 @@ public class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .LogToTrace();
+    {
+        var builder = AppBuilder.Configure<App>();
+        if (SystemInfo.Os == OsType.MacOS)
+        {
+            var opt = new MacOSPlatformOptions()
+            {
+                DisableDefaultApplicationMenuItems = true,
+            };
+            builder.With(opt);
+        }
+        return builder
+             .UsePlatformDetect()
+             .LogToTrace();
+    }
 
     private static bool IsLock(out int port)
     {
