@@ -11,9 +11,22 @@
     x:DataType="vm:MainViewModel"
     mc:Ignorable="d">
     <ScrollViewer>
-        <StackPanel Margin="10">
-            <TextBlock FontSize="20" Text="{setting:Localize MainWindow.Text5}" />
-            <Border Margin="0,10,0,5" Classes="t2">
+        <DockPanel Margin="10">
+            <Button
+                Width="100"
+                Height="35"
+                HorizontalAlignment="Right"
+                Command="{Binding Exit}"
+                Content="退出软件"
+                DockPanel.Dock="Bottom" />
+            <TextBlock
+                DockPanel.Dock="Top"
+                FontSize="20"
+                Text="{setting:Localize MainWindow.Text5}" />
+            <Border
+                Margin="0,10,0,5"
+                Classes="t2"
+                DockPanel.Dock="Top">
                 <WrapPanel Margin="10" Orientation="Horizontal">
                     <CheckBox
                         Margin="0,0,10,0"
@@ -22,15 +35,43 @@
                     <CheckBox Content="自动最小化主窗口" IsChecked="{Binding AutoMin}" />
                 </WrapPanel>
             </Border>
-            <Border Margin="0,0,0,5" Classes="t2">
-                <StackPanel Margin="10">
+            <Border
+                Margin="0,0,0,5"
+                VerticalAlignment="Top"
+                Classes="t2">
+                <WrapPanel Margin="10">
                     <Button
                         Width="100"
                         Height="35"
-                        Command="{Binding Exit}"
-                        Content="退出软件" />
-                </StackPanel>
+                        Command="{Binding OpenDir}"
+                        Content="打开工作路径" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding OpenPluginDir}"
+                        Content="打开组件路径" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding ReloadPlugin}"
+                        Content="重载组件" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding DisableAllPlugin}"
+                        Content="禁用所有组件" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding ReloadInstance}"
+                        Content="重载实例" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Command="{Binding DisableAllInstance}"
+                        Content="禁用所有实例" />
+                </WrapPanel>
             </Border>
-        </StackPanel>
+        </DockPanel>
     </ScrollViewer>
 </UserControl>

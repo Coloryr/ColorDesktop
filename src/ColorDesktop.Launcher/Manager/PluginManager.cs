@@ -29,16 +29,17 @@ public static class PluginManager
 
     public const string Dir1 = "plugins";
 
+    public static string RunDir { get; private set; }
+
     /// <summary>
     /// 初始化
     /// </summary>
     public static void Init()
     {
-        var local = AppContext.BaseDirectory;
-        var local1 = Path.GetFullPath(local + Dir1);
-        Directory.CreateDirectory(local1);
+        RunDir = Path.GetFullPath(AppContext.BaseDirectory + Dir1);
+        Directory.CreateDirectory(RunDir);
 
-        var list1 = Directory.GetDirectories(local1);
+        var list1 = Directory.GetDirectories(RunDir);
         foreach (var item in list1)
         {
             try
@@ -103,7 +104,7 @@ public static class PluginManager
     }
 
     /// <summary>
-    /// 启用所有组件，只执行一次
+    /// 启用所有组件
     /// </summary>
     public static void StartPlugin()
     {
@@ -154,6 +155,9 @@ public static class PluginManager
         }
     }
 
+    /// <summary>
+    /// 停止所有组件
+    /// </summary>
     public static void StopPlugin()
     {
         foreach (var item in PluginAssemblys)
@@ -203,6 +207,42 @@ public static class PluginManager
                 Logs.Error(string.Format("组件 {0} 启用失败", item), e);
             }
         }
+    }
+
+    /// <summary>
+    /// 禁用所有组件
+    /// </summary>
+    public static void DisablePlugin()
+    {
+        foreach (var item in PluginAssemblys)
+        {
+            ConfigHelper.DisablePlugin(item.Key);
+            InstanceManager.DisablePlugin(item.Key);
+
+            DisablePlugin(item.Key, item.Value.Plugin);
+            item.Value.Enable = false;
+        }
+    }
+    
+    /// <summary>
+    /// 重载组件
+    /// </summary>
+    public static void Reload()
+    {
+        Plugins.Clear();
+        foreach (var item in PluginAssemblys)
+        {
+            InstanceManager.DisablePlugin(item.Key);
+            DisablePlugin(item.Key, item.Value.Plugin);
+            item.Value.Unload();
+        }
+        PluginAssemblys.Clear();
+        Deps.Clear();
+        LoadError.Clear();
+        EnableError.Clear();
+        Init();
+        StartPlugin();
+        InstanceManager.StartInstance();
     }
 
     /// <summary>

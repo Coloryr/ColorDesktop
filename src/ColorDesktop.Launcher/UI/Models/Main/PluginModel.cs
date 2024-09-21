@@ -100,5 +100,10 @@ public partial class MainViewModel
                 Plugins.AddRange(_plugins.Where(item => item.Describe.Contains(name)));
             }
         }
+
+        foreach (var item in Plugins)
+        {
+            item.Update();
+        }
     }
 }

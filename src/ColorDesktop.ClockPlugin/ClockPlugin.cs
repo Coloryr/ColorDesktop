@@ -7,6 +7,22 @@ namespace ColorDesktop.ClockPlugin;
 
 public class ClockPlugin : IPlugin
 {
+    public static ClockConfigObj Config { get; set; }
+
+    public const string ConfigName = "clock.json";
+
+    public static string Local;
+
+    public static void SaveConfig()
+    {
+        ConfigSave.AddItem(new()
+        {
+            Name = "coloryr.clock.config",
+            Local = Local,
+            Obj = Config
+        });
+    }
+
     public bool HavePluginSetting => true;
 
     public bool HaveInstanceSetting => true;
@@ -24,12 +40,12 @@ public class ClockPlugin : IPlugin
 
     public void Disable()
     {
-        
+        NtpClient.Stop();
     }
 
     public void Enable()
     {
-        
+        NtpClient.Start();
     }
 
     public Bitmap? GetIcon()
@@ -41,7 +57,12 @@ public class ClockPlugin : IPlugin
 
     public void Init(string local, LanguageType type)
     {
-
+        Local = local + "/" + ConfigName;
+        Config = ConfigUtils.Config<ClockConfigObj>(new() 
+        {
+            NtpIp = "ntp.ntsc.ac.cn",
+            NtpUpdateTime = 180
+        }, Local);
     }
 
     public IInstance MakeInstances(string local, InstanceDataObj arg)

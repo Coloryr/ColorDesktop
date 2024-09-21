@@ -10,12 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
     <ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="App.axaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
+    <ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
   </ItemGroup>
 
 </Project>

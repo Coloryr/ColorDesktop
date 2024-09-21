@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.Helper;
 
@@ -30,5 +32,59 @@ public static class PathHelper
         }
 
         return list;
+    }
+
+    /// <summary>
+    /// 在浏览器打开网址
+    /// </summary>
+    /// <param name="url">网址</param>
+    public static void OpUrl(string? url)
+    {
+        url = url?.Replace(" ", "%20");
+        switch (SystemInfo.Os)
+        {
+            case OsType.Windows:
+                var ps = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "cmd",
+                    CreateNoWindow = true,
+                    RedirectStandardInput = true,
+                });
+                if (ps != null)
+                {
+                    ps.StandardInput.WriteLine($"start {url}");
+                    ps.Close();
+                }
+                break;
+            case OsType.Linux:
+                Process.Start("xdg-open",
+                    '"' + url + '"');
+                break;
+            case OsType.MacOS:
+                Process.Start("open", "-a Safari " +
+                    '"' + url + '"');
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 在资源管理器打开路径
+    /// </summary>
+    /// <param name="item">路径</param>
+    public static void OpenPathWithExplorer(string item)
+    {
+        item = Path.GetFullPath(item);
+        switch (SystemInfo.Os)
+        {
+            case OsType.Windows:
+                Process.Start("explorer", $"{item}");
+                break;
+            case OsType.Linux:
+                Process.Start("xdg-open", '"' + item + '"');
+                break;
+            case OsType.MacOS:
+                Process.Start("open", '"' + item + '"');
+                break;
+        }
     }
 }

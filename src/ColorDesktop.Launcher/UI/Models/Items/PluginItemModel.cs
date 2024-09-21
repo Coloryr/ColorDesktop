@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Manager;
@@ -32,6 +33,7 @@ public partial class PluginItemModel : ObservableObject
     public Task<Bitmap?> Image => GetImage();
 
     private bool _edit;
+    private bool _work;
 
     public bool HaveSetting { get; init; }
 
@@ -49,6 +51,12 @@ public partial class PluginItemModel : ObservableObject
 
     async partial void OnEnableChanged(bool value)
     {
+        if (_edit || _work)
+        {
+            return;
+        }
+
+        _work = true;
         if (value)
         {
             var res = await DialogHost.Show(new ChoiseModel()
@@ -61,6 +69,7 @@ public partial class PluginItemModel : ObservableObject
                 _edit = true;
                 Enable = false;
                 _edit = false;
+                _work = false;
                 return;
             }
 
@@ -78,6 +87,7 @@ public partial class PluginItemModel : ObservableObject
                 _edit = true;
                 Enable = true;
                 _edit = false;
+                _work = false;
                 return;
             }
 
@@ -89,6 +99,8 @@ public partial class PluginItemModel : ObservableObject
         EnableFail = PluginManager.IsEnableFail(_obj.ID);
 
         _model.LoadCount();
+
+        _work = false;
     }
 
     [RelayCommand]
@@ -122,5 +134,12 @@ public partial class PluginItemModel : ObservableObject
 
             return null;
         });
+    }
+
+    public void Update()
+    {
+        Enable = PluginManager.IsEnable(_obj.ID);
+        LoadFail = PluginManager.IsFail(_obj.ID);
+        EnableFail = PluginManager.IsEnableFail(_obj.ID);
     }
 }

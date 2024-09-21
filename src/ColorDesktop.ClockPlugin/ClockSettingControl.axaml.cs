@@ -7,5 +7,7 @@ public partial class ClockSettingControl : UserControl
     public ClockSettingControl()
     {
         InitializeComponent();
+
+        DataContext = new ClockSettingModel();
     }
 }

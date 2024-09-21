@@ -4,10 +4,69 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.ClockPlugin;assembly=ColorDesktop.ClockPlugin"
+    x:DataType="vm:ClockSettingModel"
     mc:Ignorable="d">
-    <Border Classes="t2">
-        <StackPanel Margin="10">
-            <TextBlock Text="时钟总体设置" />
-        </StackPanel>
-    </Border>
+    <StackPanel>
+        <Border Classes="t2">
+            <StackPanel Margin="10">
+                <TextBlock Text="时钟总体设置" />
+                <StackPanel>
+                    <CheckBox
+                        Margin="0,0,10,0"
+                        Content="使用NTP时间"
+                        IsChecked="{Binding Ntp}" />
+                    <StackPanel
+                        Margin="0,0,0,5"
+                        IsEnabled="{Binding Ntp}"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="NTP服务器地址" />
+                        <TextBox
+                            Width="200"
+                            Margin="0,0,10,0"
+                            Text="{Binding NtpIp}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Command="{Binding TestNtp}"
+                            Content="同步时间" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,5">
+                        <TextBlock Text="{Binding NtpTest}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="NTP同步间隔" />
+                        <NumericUpDown
+                            Width="150"
+                            Height="35"
+                            Margin="0,0,5,0"
+                            Maximum="99999"
+                            Minimum="1"
+                            Value="{Binding UpdateTime}" />
+                        <TextBlock VerticalAlignment="Center" Text="秒" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="时区" />
+                        <NumericUpDown
+                            Width="150"
+                            Height="35"
+                            Margin="0,0,5,0"
+                            Maximum="12"
+                            Minimum="-12"
+                            Value="{Binding TimeZone}" />
+                    </StackPanel>
+                    <TextBlock VerticalAlignment="Center" Text="修改时区会在下一次同步生效" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

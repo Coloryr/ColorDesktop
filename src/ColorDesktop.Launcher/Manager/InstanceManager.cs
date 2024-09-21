@@ -37,6 +37,9 @@ public static class InstanceManager
 
     private static string s_workDir;
 
+    /// <summary>
+    /// 加载所有实例
+    /// </summary>
     public static void Init()
     {
         s_workDir = Path.GetFullPath(AppContext.BaseDirectory + Dir2);
@@ -93,7 +96,7 @@ public static class InstanceManager
     }
 
     /// <summary>
-    /// 开始加载所有实例，只需要执行一次
+    /// 开始启用所有实例
     /// </summary>
     public static void StartInstance()
     {
@@ -108,14 +111,6 @@ public static class InstanceManager
             {
                 remove.Add(item);
             }
-        }
-    }
-
-    public static void StopInstance()
-    {
-        foreach (var item in RunInstances.Values.ToArray())
-        {
-            StopInstance(item);
         }
     }
 
@@ -154,6 +149,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 保存实例设置
+    /// </summary>
+    /// <param name="obj"></param>
     public static void Save(this InstanceDataObj obj)
     {
         var dir = GetLocal(obj);
@@ -193,11 +192,30 @@ public static class InstanceManager
         return Path.GetFullPath(s_workDir + "/" + obj.UUID + "/" + FileName);
     }
 
+    /// <summary>
+    /// 停止所有实例
+    /// </summary>
+    public static void StopInstance()
+    {
+        foreach (var item in RunInstances.Values.ToArray())
+        {
+            StopInstance(item);
+        }
+    }
+
+    /// <summary>
+    /// 停止该实例
+    /// </summary>
+    /// <param name="instance"></param>
     public static void StopInstance(InstanceDataObj instance)
     {
         StopInstance(instance.UUID);
     }
 
+    /// <summary>
+    /// 停止该实例
+    /// </summary>
+    /// <param name="uuid"></param>
     public static void StopInstance(string uuid)
     {
         if (RunInstances.TryGetValue(uuid, out var instance))
@@ -208,6 +226,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 停止改实例
+    /// </summary>
+    /// <param name="instance"></param>
     public static void StopInstance(InstanceWindowObj instance)
     {
         try
@@ -223,6 +245,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 启用该组件的所有实例
+    /// </summary>
+    /// <param name="id"></param>
     public static void EnablePlugin(string id)
     {
         var list = Instances.Where(item => item.Value.Plugin == id).Select(item => item.Value).ToList();
@@ -236,6 +262,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 禁用该组件的所有实例
+    /// </summary>
+    /// <param name="id"></param>
     public static void DisablePlugin(string id)
     {
         var list = RunInstances.Where(item => item.Value.InstanceData.Plugin == id).ToList();
@@ -246,6 +276,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 启用一个实例
+    /// </summary>
+    /// <param name="obj"></param>
     public static void EnableInstance(InstanceDataObj obj)
     {
         ConfigHelper.EnableInstance(obj.UUID);
@@ -253,6 +287,23 @@ public static class InstanceManager
         StartInstance(obj);
     }
 
+    /// <summary>
+    /// 禁用所有实例
+    /// </summary>
+    public static void DisableInstance()
+    {
+        foreach (var item in RunInstances.ToArray())
+        {
+            ConfigHelper.DisableInstance(item.Key);
+
+            StopInstance(item.Value);
+        }
+    }
+
+    /// <summary>
+    /// 禁用实例
+    /// </summary>
+    /// <param name="obj"></param>
     public static void DisableInstance(InstanceDataObj obj)
     {
         ConfigHelper.DisableInstance(obj.UUID);
@@ -260,6 +311,10 @@ public static class InstanceManager
         StopInstance(obj);
     }
 
+    /// <summary>
+    /// 打开实例设置
+    /// </summary>
+    /// <param name="obj"></param>
     public static async void OpenSetting(InstanceDataObj obj)
     {
         if (RunInstances.TryGetValue(obj.UUID, out var run)
@@ -286,6 +341,11 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 实例是否已经启用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static bool IsEnable(string id)
     {
         if (InstanceStates.TryGetValue(id, out var state))
@@ -296,6 +356,11 @@ public static class InstanceManager
         return false;
     }
 
+    /// <summary>
+    /// 实例是否启用失败
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public static bool IsEnableFail(string id)
     {
         if (InstanceStates.TryGetValue(id, out var state))
@@ -306,6 +371,11 @@ public static class InstanceManager
         return false;
     }
 
+    /// <summary>
+    /// 设置实例状态
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="state"></param>
     private static void SetInstanceState(string id, InstanceState state)
     {
         if (!InstanceStates.TryAdd(id, state))
@@ -314,6 +384,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 创建一个实例UUID
+    /// </summary>
+    /// <returns></returns>
     private static string MakeUUID()
     {
         string uuid;
@@ -373,6 +447,10 @@ public static class InstanceManager
         }
     }
 
+    /// <summary>
+    /// 删除一个实例
+    /// </summary>
+    /// <param name="uuid"></param>
     public static void Delete(string uuid)
     {
         try
@@ -392,5 +470,21 @@ public static class InstanceManager
         InstanceStates.Remove(uuid);
         Instances.Remove(uuid);
         KnowUUID.Remove(uuid);
+    }
+
+    public static void Reload()
+    {
+        foreach (var item in RunInstances.Values.ToArray())
+        {
+            StopInstance(item);
+        }
+        RunInstances.Clear();
+        InstanceStates.Clear();
+        Instances.Clear();
+        KnowUUID.Clear();
+        LoadError.Clear();
+        LoadFail.Clear();
+        Init();
+        StartInstance();
     }
 }

@@ -32,6 +32,7 @@ public partial class InstanceItemModel : ObservableObject
     private readonly MainViewModel _model;
 
     private bool _edit;
+    private bool _work;
 
     public InstanceItemModel(MainViewModel model, InstanceDataObj obj)
     {
@@ -44,11 +45,12 @@ public partial class InstanceItemModel : ObservableObject
 
     async partial void OnEnableChanged(bool value)
     {
-        if (_edit)
+        if (_edit || _work)
         {
             return;
         }
 
+        _work = true;
         if (value)
         {
             var res = await DialogHost.Show(new ChoiseModel()
@@ -61,6 +63,7 @@ public partial class InstanceItemModel : ObservableObject
                 _edit = true;
                 Enable = false;
                 _edit = false;
+                _work = false;
                 return;
             }
 
@@ -78,11 +81,13 @@ public partial class InstanceItemModel : ObservableObject
                 _edit = true;
                 Enable = true;
                 _edit = false;
+                _work = false;
                 return;
             }
 
             InstanceManager.DisableInstance(_obj);
         }
+        _work = false;
     }
 
     [RelayCommand]
@@ -101,6 +106,6 @@ public partial class InstanceItemModel : ObservableObject
     {
         Enable = InstanceManager.IsEnable(_obj.UUID);
         EnableFail = InstanceManager.IsEnableFail(_obj.UUID);
-        PluginDisable = PluginManager.IsEnable(_obj.Plugin);
+        PluginDisable = !PluginManager.IsEnable(_obj.Plugin);
     }
 }

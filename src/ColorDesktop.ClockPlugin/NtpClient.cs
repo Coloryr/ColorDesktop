@@ -11,32 +11,54 @@ namespace ColorDesktop.ClockPlugin;
 /// <summary>
 /// Static class to receive the time from a NTP server.
 /// </summary>
-public class NtpClient
+public static class NtpClient
 {
-    /// <summary>
-    /// Gets the current DateTime from time-a.nist.gov.
-    /// </summary>
-    /// <returns>A DateTime containing the current time.</returns>
-    public static DateTime GetNetworkTime()
+    private static Timer s_timer;
+    private static int s_count = 0;
+    public static DateTime Date { get; private set; }
+
+    public static void Start()
     {
-        return GetNetworkTime("time-a.nist.gov");
+        s_timer = new(TimerTick);
+        s_timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        GetTime();
     }
 
-    /// <summary>
-    /// Gets the current DateTime from <paramref name="ntpServer"/>.
-    /// </summary>
-    /// <param name="ntpServer">The hostname of the NTP server.</param>
-    /// <returns>A DateTime containing the current time.</returns>
-    public static DateTime GetNetworkTime(string ntpServer)
+    public static void Stop()
     {
-        IPAddress[] address = Dns.GetHostEntry(ntpServer).AddressList;
+        s_timer.Dispose();
+    }
 
-        if (address == null || address.Length == 0)
-            throw new ArgumentException("Could not resolve ip address from '" + ntpServer + "'.", "ntpServer");
+    private static void TimerTick(object? sender)
+    {
+        Date.AddSeconds(1.0);
+        s_count++;
+        if (ClockPlugin.Config.NtpUpdateTime > 0 && s_count >= ClockPlugin.Config.NtpUpdateTime)
+        {
+            s_count = 0;
 
-        IPEndPoint ep = new IPEndPoint(address[0], 123);
+            GetTime();
+        }
+    }
 
-        return GetNetworkTime(ep);
+    public static Task<bool> GetTime()
+    {
+        return Task.Run(() =>
+        {
+            try
+            {
+                if (!ClockPlugin.Config.Ntp || string.IsNullOrWhiteSpace(ClockPlugin.Config.NtpIp))
+                {
+                    return false;
+                }
+                Date = GetNetworkTime(ClockPlugin.Config.NtpIp);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        });
     }
 
     /// <summary>
@@ -44,11 +66,11 @@ public class NtpClient
     /// </summary>
     /// <param name="ep">The IPEndPoint to connect to.</param>
     /// <returns>A DateTime containing the current time.</returns>
-    public static DateTime GetNetworkTime(IPEndPoint ep)
+    public static DateTime GetNetworkTime(string ntpServer)
     {
         using var s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
-        s.Connect(ep);
+        s.Connect(ntpServer, 123);
 
         byte[] ntpData = new byte[48]; // RFC 2030 
         ntpData[0] = 0x1B;

@@ -78,6 +78,11 @@ public partial class MainViewModel
                 Instances.AddRange(_instances.Where(item => item.UUID.Contains(name)));
             }
         }
+
+        foreach (var item in Instances)
+        {
+            item.Update();
+        }
     }
 
     private void LoadInstanceCount()
