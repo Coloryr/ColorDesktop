@@ -1,4 +1,5 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -27,6 +28,18 @@ public partial class InstanceWindow : Window, IInstanceWindow
         View1.PointerEntered += View1_PointerEntered;
         HoverBorder.PointerExited += View1_PointerExited;
         HoverBorder.PointerPressed += Border1_PointerPressed;
+        PropertyChanged += InstanceWindow_PropertyChanged;
+    }
+
+    private void InstanceWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (e.Property == WindowStateProperty)
+        {
+            if (WindowState != WindowState.Normal)
+            {
+                WindowState = WindowState.Normal;
+            }
+        }
     }
 
     private void InstanceWindow_Closed(object? sender, EventArgs e)
