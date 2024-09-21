@@ -13,21 +13,17 @@ public interface IInstance
     /// 实例启动
     /// </summary>
     /// <returns></returns>
-    bool Start();
+    void Start();
     /// <summary>
     /// 实例停止
     /// </summary>
     /// <returns></returns>
-    bool Stop();
+    void Stop();
 
     /// <summary>
     /// 渲染
     /// </summary>
     void RenderTick();
-    /// <summary>
-    /// 打开实例设置
-    /// </summary>
-    void OpenSetting();
     /// <summary>
     /// 创建显示图层
     /// </summary>

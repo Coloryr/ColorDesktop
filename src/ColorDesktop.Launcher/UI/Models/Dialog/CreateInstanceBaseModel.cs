@@ -37,6 +37,9 @@ public partial class CreateInstanceBaseModel : ObservableObject
     [ObservableProperty]
     private bool _haveCancel = true;
 
+    [ObservableProperty]
+    private bool _topModel;
+
     private readonly InstanceDataObj _obj;
 
     public CreateInstanceBaseModel(InstanceDataObj obj)
@@ -45,6 +48,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
         _nick = obj.Nick;
         _display = obj.Display;
         _pos = obj.Pos;
+        _topModel = obj.TopModel;
         MarginTo(obj);
         _maxDisplay = App.MainWindow!.Screens.ScreenCount;
         if (_display == 0 || _display > _maxDisplay)
@@ -59,6 +63,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
         _obj.Pos = Pos;
         _obj.Nick = Nick;
         _obj.Display = Display;
+        _obj.TopModel = TopModel;
         ToMargin(_obj);
 
         DialogHost.Close(MainWindow.DialogHostName, true);
@@ -72,7 +77,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
 
     private void ToMargin(InstanceDataObj obj)
     {
-        obj.Margin = new(Left, Top, Right, Bottom);
+        obj.Margin = new(Right, Top, Left, Bottom);
     }
 
     private void MarginTo(InstanceDataObj obj)

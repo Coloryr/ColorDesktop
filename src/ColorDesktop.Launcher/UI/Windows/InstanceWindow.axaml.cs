@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -13,57 +14,33 @@ public partial class InstanceWindow : Window, IInstanceWindow
 {
     private InstanceDataObj _obj;
     private IInstance _instance;
-    private Control _view;
+    private bool _update;
+    private bool _close;
 
     public InstanceWindow()
     {
         InitializeComponent();
 
         Loaded += InstanceWindow_Loaded;
+        Closed += InstanceWindow_Closed;
 
         View1.PointerEntered += View1_PointerEntered;
         HoverBorder.PointerExited += View1_PointerExited;
         HoverBorder.PointerPressed += Border1_PointerPressed;
     }
 
+    private void InstanceWindow_Closed(object? sender, EventArgs e)
+    {
+        _close = true;
+    }
+
     public void Update(InstanceDataObj obj)
     {
         _obj = obj;
-        Dispatcher.UIThread.Post(() =>
-        {
-            Move();
-            PositionChanged += (a, b) =>
-            {
-                // 获取当前屏幕
-                var screen = Screens.Primary;
-                if (screen == null)
-                {
-                    return;
-                }
-                var workArea = screen.WorkingArea;
+        _instance.Update(obj);
+        Topmost = _obj.TopModel;
+        Dispatcher.UIThread.Post(Move);
 
-                for (int i = 0; i < Screens.All.Count; i++)
-                {
-                    if (Screens.All[i] == screen)
-                    {
-                        obj.Display = i + 1;
-                        break;
-                    }
-                }
-                // 计算新的 Margin
-                obj.Margin.Left = Position.X - workArea.X;
-                obj.Margin.Top = Position.Y - workArea.Y;
-                obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
-                obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
-
-                ConfigSave.AddItem(new ConfigSaveObj()
-                {
-                    Name = obj.UUID + "json",
-                    Local = InstanceManager.GetDataLocal(obj),
-                    Obj = obj
-                });
-            };
-        });
     }
 
     private void View1_PointerExited(object? sender, PointerEventArgs e)
@@ -88,11 +65,50 @@ public partial class InstanceWindow : Window, IInstanceWindow
         // 初始时边框透明
         HoverBorder.Opacity = 0;
 
+        _instance.RenderTick();
+
+        PositionChanged += (a, b) =>
+        {
+            if (_update || _obj == null)
+            {
+                return;
+            }
+            // 获取当前屏幕
+            var screen = Screens.Primary;
+            if (screen == null)
+            {
+                return;
+            }
+            var workArea = screen.WorkingArea;
+
+            for (int i = 0; i < Screens.All.Count; i++)
+            {
+                if (Screens.All[i] == screen)
+                {
+                    _obj.Display = i + 1;
+                    break;
+                }
+            }
+            // 计算新的 Margin
+            _obj.Margin.Left = Position.X - workArea.X;
+            _obj.Margin.Top = Position.Y - workArea.Y;
+            _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
+            _obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
+
+            _obj.Save();
+        };
+
+        Dispatcher.UIThread.Post(Move);
+
         Render();
     }
 
     private void Render()
     {
+        if (_close)
+        {
+            return;
+        }
         GetTopLevel(this)?.RequestAnimationFrame((t) =>
         {
             _instance.RenderTick();
@@ -105,7 +121,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _obj = obj;
         _instance = instance;
 
-        View1.Child = _view = instance.CreateView();
+        View1.Child = instance.CreateView();
         instance.Start();
 
         Update(_obj);
@@ -113,6 +129,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     public void Move()
     {
+        _update = true;
         // 获取所有显示器的信息
         var screens = Screens.All;
 
@@ -175,5 +192,6 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
             Position = new(x, y);
         }
+        _update = false;
     }
 }

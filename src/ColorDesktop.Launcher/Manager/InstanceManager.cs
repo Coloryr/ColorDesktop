@@ -35,16 +35,16 @@ public static class InstanceManager
     public const string Dir2 = "instances";
     public const string FileName = "instance.json";
 
-    private static string s_workDir;
+    public static string WorkDir { get; private set; }
 
     /// <summary>
     /// 加载所有实例
     /// </summary>
     public static void Init()
     {
-        s_workDir = Path.GetFullPath(AppContext.BaseDirectory + Dir2);
-        Directory.CreateDirectory(s_workDir);
-        var info = new DirectoryInfo(s_workDir);
+        WorkDir = Path.GetFullPath(AppContext.BaseDirectory + Dir2);
+        Directory.CreateDirectory(WorkDir);
+        var info = new DirectoryInfo(WorkDir);
         foreach (var item in info.GetDirectories())
         {
             try
@@ -124,6 +124,7 @@ public static class InstanceManager
         {
             var config = value.Plugin.CreateInstanceDefault();
             config.UUID = MakeUUID();
+            config.Save();
             if (value.Plugin.HaveInstanceSetting)
             {
                 var config1 = await DialogHost.Show(
@@ -131,6 +132,7 @@ public static class InstanceManager
                     MainWindow.DialogHostName);
                 if (config1 is not true)
                 {
+                    Delete(config);
                     return;
                 }
             }
@@ -139,6 +141,7 @@ public static class InstanceManager
                 var config1 = await DialogHost.Show(new CreateInstanceModel(config), MainWindow.DialogHostName);
                 if (config1 is not true)
                 {
+                    Delete(config);
                     return;
                 }
             }
@@ -179,7 +182,7 @@ public static class InstanceManager
     /// <returns></returns>
     public static string GetLocal(InstanceDataObj obj)
     {
-        return Path.GetFullPath(s_workDir + "/" + obj.UUID);
+        return Path.GetFullPath(WorkDir + "/" + obj.UUID);
     }
 
     /// <summary>
@@ -189,7 +192,7 @@ public static class InstanceManager
     /// <returns></returns>
     public static string GetDataLocal(InstanceDataObj obj)
     {
-        return Path.GetFullPath(s_workDir + "/" + obj.UUID + "/" + FileName);
+        return Path.GetFullPath(WorkDir + "/" + obj.UUID + "/" + FileName);
     }
 
     /// <summary>
@@ -324,7 +327,7 @@ public static class InstanceManager
             {
                 await DialogHost.Show(
                     new CreateInstanceOtherModel(obj, plugin.Plugin.OpenSetting(obj))
-                    { 
+                    {
                         HaveCancel = false
                     },
                     MainWindow.DialogHostName);
@@ -338,6 +341,7 @@ public static class InstanceManager
             }
 
             run.Window.Update(obj);
+            obj.Save();
         }
     }
 
@@ -415,7 +419,7 @@ public static class InstanceManager
                     SetInstanceState(obj.UUID, InstanceState.PluginDisable);
                     return;
                 }
-                var view = value.Plugin.MakeInstances(GetLocal(obj), obj);
+                var view = value.Plugin.MakeInstances(obj);
                 IInstanceWindow window;
                 if (obj.IsWindow)
                 {
@@ -448,6 +452,19 @@ public static class InstanceManager
     }
 
     /// <summary>
+    /// 删除实例配置
+    /// </summary>
+    /// <param name="obj"></param>
+    public static void Delete(InstanceDataObj obj)
+    {
+        var dir = new DirectoryInfo(Path.GetFullPath(WorkDir + "/" + obj.UUID));
+        if (dir.Exists)
+        {
+            dir.Delete(true);
+        }
+    }
+
+    /// <summary>
     /// 删除一个实例
     /// </summary>
     /// <param name="uuid"></param>
@@ -461,7 +478,7 @@ public static class InstanceManager
         {
             Logs.Error(string.Format("停止实例 {0} 错误", uuid), e);
         }
-        var dir = new DirectoryInfo(Path.GetFullPath(s_workDir + "/" + uuid));
+        var dir = new DirectoryInfo(Path.GetFullPath(WorkDir + "/" + uuid));
         if (dir.Exists)
         {
             dir.Delete(true);

@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Layout;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-namespace ColorDesktop.Api;
+﻿namespace ColorDesktop.Api;
 
 public record MarginObj
 {
@@ -63,4 +52,8 @@ public sealed record InstanceDataObj
     /// 是否为自定义窗口
     /// </summary>
     public bool IsWindow { get; set; }
+    /// <summary>
+    /// 是否在最前面显示
+    /// </summary>
+    public bool TopModel { get; set; }
 }

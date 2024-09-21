@@ -90,6 +90,7 @@ public partial class App : Application
         ConfigHelper.LoadConfig();
 
         ThemeManager.Init();
+        ConfigSave.Init();
 
         PluginManager.Init();
         InstanceManager.Init();

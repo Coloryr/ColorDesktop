@@ -8,29 +8,26 @@ public partial class ClockControl : UserControl, IInstance
     public ClockControl()
     {
         InitializeComponent();
+
+        DataContext = new ClockModel();
     }
 
-    public bool Start()
+    public void Start()
     {
-        var time = ClockPlugin.Config.Ntp ? NtpClient.Date : DateTime.Now;
-        Text1.Text = string.Format("{0:D2}", time.Hour);
-        Text2.Text = string.Format("{0:D2}", time.Minute);
-        return true;
+        
     }
 
-    public bool Stop()
+    public void Stop()
     {
-        return true;
+
     }
 
     public void RenderTick()
     {
-        Start();
-    }
-
-    public void OpenSetting()
-    { 
-        
+        if (DataContext is ClockModel model)
+        {
+            model.Tick();
+        }
     }
 
     public Control CreateView()
@@ -40,6 +37,10 @@ public partial class ClockControl : UserControl, IInstance
 
     public void Update(InstanceDataObj obj)
     {
-        
+        var config = ClockPlugin.GetConfig(obj);
+        if (DataContext is ClockModel model)
+        {
+            model.Update(config);
+        }
     }
 }

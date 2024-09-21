@@ -29,7 +29,7 @@ public static class ConfigSave
     /// </summary>
     private static bool s_run;
 
-    static ConfigSave()
+    public static void Init()
     {
         t_thread = new(Run)
         {

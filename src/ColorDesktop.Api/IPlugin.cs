@@ -16,10 +16,9 @@ public interface IPlugin
     /// <summary>
     /// 初始化显示实例，你可以在此阶段设置实例的独立配置文件
     /// </summary>
-    /// <param name="local">运行路径</param>
-    /// <param name="arg">启动参数</param>
+    /// <param name="obj">实例数据</param>
     /// <returns>组件实例</returns>
-    IInstance MakeInstances(string local, InstanceDataObj arg);
+    IInstance MakeInstances(InstanceDataObj obj);
     /// <summary>
     /// 创建一个显示实例默认参数，默认显示方式，启动参数
     /// </summary>
@@ -43,9 +42,10 @@ public interface IPlugin
     /// 组件初始化，可以设置组件全体配置
     /// </summary>
     /// <param name="local">运行路径</param>
+    /// <param name="local">实例跟目录</param>
     /// <param name="type">默认语言</param>
     /// <returns></returns>
-    void Init(string local, LanguageType type);
+    void Init(string local, string local1, LanguageType type);
     /// <summary>
     /// 组件启用
     /// </summary>

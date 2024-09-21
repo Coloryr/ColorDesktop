@@ -125,10 +125,16 @@
                 Text="{setting:Localize CreateControl.Text14}" />
             <NumericUpDown
                 Width="120"
+                Margin="0,0,10,0"
                 FormatString="N0"
                 Maximum="{Binding MaxDisplay}"
                 Minimum="1"
                 Value="{Binding Display}" />
+            <CheckBox
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Content="顶层显示"
+                IsChecked="{Binding TopModel}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

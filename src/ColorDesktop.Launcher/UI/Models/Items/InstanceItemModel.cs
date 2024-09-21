@@ -54,9 +54,9 @@ public partial class InstanceItemModel : ObservableObject
         if (value)
         {
             var res = await DialogHost.Show(new ChoiseModel()
-            { 
+            {
                 Text = "是否要启用该实例"
-            },MainWindow.DialogHostName);
+            }, MainWindow.DialogHostName);
 
             if (res is not true)
             {

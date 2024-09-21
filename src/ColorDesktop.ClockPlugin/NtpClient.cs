@@ -39,7 +39,7 @@ public static class NtpClient
 
     private static void TimerTick(object? sender)
     {
-        Date.AddSeconds(1.0);
+        Date = Date.AddSeconds(1.0);
         s_count++;
         if (ClockPlugin.Config.NtpUpdateTime > 0 && s_count >= ClockPlugin.Config.NtpUpdateTime)
         {

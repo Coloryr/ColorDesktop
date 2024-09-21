@@ -1,0 +1,151 @@
+<UserControl
+    x:Class="ColorDesktop.ClockPlugin.ClockInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.ClockPlugin;assembly=ColorDesktop.ClockPlugin"
+    x:DataType="vm:ClockInstanceSettingModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <StackPanel Margin="10">
+            <TextBlock Margin="0,0,0,10" Text="组件设置" />
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <CheckBox
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="使用自定义字体"
+                    IsChecked="{Binding UseFont}" />
+                <ComboBox
+                    Width="300"
+                    Height="35"
+                    IsEnabled="{Binding UseFont}"
+                    ItemsSource="{Binding FontList}"
+                    SelectedItem="{Binding FontItem}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <CheckBox
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="显示秒"
+                    IsChecked="{Binding DisplaySecond}" />
+                <CheckBox
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="冒号闪烁"
+                    IsChecked="{Binding Blink}" />
+
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="背景色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding BackGround}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体颜色" />
+                <ColorPicker
+                    Margin="0,0,10,0"
+                    IsEnabled="{Binding !CustomColor}"
+                    Color="{Binding Color}" />
+                <CheckBox
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="细分颜色"
+                    IsChecked="{Binding CustomColor}" />
+                <WrapPanel IsEnabled="{Binding CustomColor}">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="时" />
+                    <ColorPicker Margin="0,0,10,0" Color="{Binding HourColor}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="分" />
+                    <ColorPicker Margin="0,0,10,0" Color="{Binding MinuteColor}" />
+                    <StackPanel IsEnabled="{Binding DisplaySecond}" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="秒" />
+                        <ColorPicker Color="{Binding SecondColor}" />
+                    </StackPanel>
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="冒号" />
+                    <ColorPicker Margin="0,0,10,0" Color="{Binding ColonColor}" />
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体大小" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    IsEnabled="{Binding !CustomSize}"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Size}" />
+                <CheckBox
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Content="细分大小"
+                    IsChecked="{Binding CustomSize}" />
+            </StackPanel>
+            <WrapPanel IsEnabled="{Binding CustomSize}">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="时" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding HourSize}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="分" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding MinuteSize}" />
+                <StackPanel IsEnabled="{Binding DisplaySecond}" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="秒" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding SecondSize}" />
+                </StackPanel>
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="冒号" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding ColonSize}" />
+            </WrapPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

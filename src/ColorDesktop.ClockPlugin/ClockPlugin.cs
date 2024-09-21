@@ -12,6 +12,7 @@ public class ClockPlugin : IPlugin
     public const string ConfigName = "clock.json";
 
     public static string Local;
+    public static string InstanceLocal;
 
     public static void SaveConfig()
     {
@@ -20,6 +21,34 @@ public class ClockPlugin : IPlugin
             Name = "coloryr.clock.config",
             Local = Local,
             Obj = Config
+        });
+    }
+
+    public static ClockInstanceObj GetConfig(InstanceDataObj obj)
+    {
+        return ConfigUtils.Config<ClockInstanceObj>(new()
+        {
+            Color = "#000000",
+            Size = 50,
+            HourColor = "#000000",
+            MinuteColor = "#000000",
+            SecondColor = "#000000",
+            ColonColor = "#000000",
+            HourSize = 50,
+            MinuteSize = 50,
+            SecondSize = 50,
+            ColonSize = 50,
+            BackGround = "#00000000"
+        }, InstanceLocal + "/" + obj.UUID + "/" + ConfigName);
+    }
+
+    public static void SaveConfig(InstanceDataObj obj,  ClockInstanceObj config)
+    {
+        ConfigSave.AddItem(new()
+        {
+            Name = "coloryr.clock.config" + obj.UUID,
+            Local = InstanceLocal + "/" + obj.UUID + "/" + ConfigName,
+            Obj = config
         });
     }
 
@@ -55,9 +84,10 @@ public class ClockPlugin : IPlugin
         return new Bitmap(item);
     }
 
-    public void Init(string local, LanguageType type)
+    public void Init(string local, string local1, LanguageType type)
     {
         Local = local + "/" + ConfigName;
+        InstanceLocal = local1;
         Config = ConfigUtils.Config<ClockConfigObj>(new() 
         {
             NtpIp = "cn.pool.ntp.org",
@@ -66,9 +96,11 @@ public class ClockPlugin : IPlugin
         }, Local);
     }
 
-    public IInstance MakeInstances(string local, InstanceDataObj arg)
+    public IInstance MakeInstances(InstanceDataObj obj)
     {
-        return new ClockControl();
+        var control = new ClockControl();
+        control.Update(obj);
+        return control;
     }
 
     public void Stop()
@@ -76,9 +108,9 @@ public class ClockPlugin : IPlugin
         
     }
 
-    Control IPlugin.OpenSetting(InstanceDataObj instance)
+    Control IPlugin.OpenSetting(InstanceDataObj obj)
     {
-        return new ClockSettingControl();
+        return new ClockInstanceSettingControl(obj);
     }
 
     Control IPlugin.OpenSetting()
