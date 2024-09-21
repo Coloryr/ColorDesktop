@@ -16,7 +16,7 @@ public static class ConfigHelper
         {
             EnablePlugin = [],
             EnableInstance = []
-        }, AppContext.BaseDirectory + "config.json");
+        }, Program.RunDir + "config.json");
 
         Config.EnablePlugin ??= [];
         Config.EnableInstance ??= [];
@@ -27,7 +27,7 @@ public static class ConfigHelper
         ConfigSave.AddItem(new ConfigSaveObj()
         {
             Name = "config.json",
-            Local = AppContext.BaseDirectory + "config.json",
+            Local = Program.RunDir + "config.json",
             Obj = Config
         });
     }

@@ -43,7 +43,7 @@ public partial class MainViewModel
     [RelayCommand]
     public void OpenDir()
     {
-        PathHelper.OpenPathWithExplorer(AppContext.BaseDirectory);
+        PathHelper.OpenPathWithExplorer(Program.RunDir);
     }
 
     [RelayCommand]

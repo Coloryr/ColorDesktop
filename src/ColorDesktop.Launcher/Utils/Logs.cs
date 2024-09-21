@@ -23,7 +23,7 @@ public static class Logs
     /// <param name="dir">运行的路径</param>
     public static void Init()
     {
-        s_local = AppContext.BaseDirectory;
+        s_local = Program.RunDir;
         try
         {
             var stream = File.Open(s_local + "logs.log", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);

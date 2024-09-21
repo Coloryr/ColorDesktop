@@ -40,6 +40,39 @@ public class Program
 
         SystemInfo.Init();
 
+#if !DEBUG
+        if (SystemInfo.Os == OsType.Linux)
+        {
+            RunDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.ColorDesktop/";
+        }
+        else if (SystemInfo.Os == OsType.MacOS)
+        {
+            RunDir = "/Users/shared/ColorDesktop/";
+        }
+        else
+        {
+            RunDir = AppContext.BaseDirectory;
+        }
+
+        try
+        {
+            if (!Directory.Exists(RunDir))
+            {
+                Directory.CreateDirectory(RunDir);
+            }
+            File.Create(RunDir + "temp").Close();
+        }
+        catch
+        {
+            //没有权限写文件
+            RunDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/ColorMC/";
+            RunDir = Path.GetFullPath(RunDir);
+        }
+        Console.WriteLine($"RunDir: {RunDir}");
+#else
+        RunDir = AppContext.BaseDirectory;
+#endif
+
         try
         {
             if (IsLock(out var port))

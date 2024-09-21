@@ -36,7 +36,7 @@ public static class PluginManager
     /// </summary>
     public static void Init()
     {
-        RunDir = Path.GetFullPath(AppContext.BaseDirectory + Dir1);
+        RunDir = Path.GetFullPath(Program.RunDir + Dir1);
         Directory.CreateDirectory(RunDir);
 
         var list1 = Directory.GetDirectories(RunDir);

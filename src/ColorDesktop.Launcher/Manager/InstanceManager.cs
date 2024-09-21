@@ -41,7 +41,7 @@ public static class InstanceManager
     /// </summary>
     public static void Init()
     {
-        WorkDir = Path.GetFullPath(AppContext.BaseDirectory + Dir2);
+        WorkDir = Path.GetFullPath(Program.RunDir + Dir2);
         Directory.CreateDirectory(WorkDir);
         var info = new DirectoryInfo(WorkDir);
         foreach (var item in info.GetDirectories())
