@@ -17,6 +17,9 @@ public partial class InstanceWindow : Window, IInstanceWindow
     private IInstance _instance;
     private bool _update;
     private bool _close;
+    private bool _display;
+
+    private DateTime _time;
 
     public InstanceWindow()
     {
@@ -26,8 +29,8 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Closed += InstanceWindow_Closed;
 
         View1.PointerEntered += View1_PointerEntered;
-        HoverBorder.PointerExited += View1_PointerExited;
-        HoverBorder.PointerPressed += Border1_PointerPressed;
+        HoverBorder.PointerExited += HoverBorder_PointerExited;
+        HoverBorder.PointerPressed += HoverBorder_PointerPressed;
         PropertyChanged += InstanceWindow_PropertyChanged;
     }
 
@@ -55,19 +58,22 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Dispatcher.UIThread.Post(Move);
     }
 
-    private void View1_PointerExited(object? sender, PointerEventArgs e)
+    private void HoverBorder_PointerExited(object? sender, PointerEventArgs e)
     {
+        _display = false;
         HoverBorder.Opacity = 0;
         UIAnimation.HideAnimation.RunAsync(HoverBorder);
     }
 
     private void View1_PointerEntered(object? sender, PointerEventArgs e)
     {
+        _time = DateTime.Now;
+        _display = true;
         HoverBorder.Opacity = 1;
         UIAnimation.ShowAnimation.RunAsync(HoverBorder);
     }
 
-    private void Border1_PointerPressed(object? sender, PointerPressedEventArgs e)
+    private void HoverBorder_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
         BeginMoveDrag(e);
     }
@@ -121,6 +127,14 @@ public partial class InstanceWindow : Window, IInstanceWindow
         {
             return;
         }
+        if (_display)
+        {
+            var less = DateTime.Now - _time;
+            if(less.TotalSeconds > 10)
+            {
+                HoverBorder_PointerExited(null, null!);
+            }
+        }
         GetTopLevel(this)?.RequestAnimationFrame((t) =>
         {
             _instance.RenderTick();
@@ -148,6 +162,11 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Screen? targetScreen;
         if (_obj.Display != 1 && screens.Count > _obj.Display - 1)
         {
+            if (_obj.Display == 0)
+            {
+                _obj.Display = 1;
+                _obj.Save();
+            }
             targetScreen = screens[_obj.Display - 1];
         }
         else

@@ -1,0 +1,20 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.PointerClockControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    x:DataType="vm:PointerClockModel"
+    mc:Ignorable="d">
+    <Panel Width="{Binding Size, FallbackValue=200}">
+        <Svg Path="/clock.svg" />
+        <Svg Path="/pointer.svg" RenderTransform="{Binding Pointer1}" />
+        <Svg Path="/pointer_1.svg" RenderTransform="{Binding Pointer2}" />
+        <Svg
+            IsVisible="{Binding DisplaySecond}"
+            Path="/pointer_2.svg"
+            RenderTransform="{Binding Pointer3}" />
+        <Svg Path="{Binding Top}" />
+    </Panel>
+</UserControl>

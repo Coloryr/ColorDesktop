@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<svg id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" xml:space="preserve"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<style type="text/css">
+		.st2 {
+			fill: none;
+			stroke: #242C88;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-miterlimit: 10;
+		}
+
+		.st18 {
+			fill: #085eff;
+		}
+	</style>
+	<circle class="st18" cx="64" cy="64" r="5.7" />
+	<circle class="st2" cx="64" cy="64" r="5.7" />
+</svg>

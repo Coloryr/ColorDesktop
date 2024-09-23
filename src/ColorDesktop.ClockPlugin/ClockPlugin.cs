@@ -103,18 +103,18 @@ public class ClockPlugin : IPlugin
         return control;
     }
 
-    public void Stop()
-    {
-
-    }
-
-    Control IPlugin.OpenSetting(InstanceDataObj obj)
+    public Control OpenSetting(InstanceDataObj obj)
     {
         return new ClockInstanceSettingControl(obj);
     }
 
-    Control IPlugin.OpenSetting()
+    public Control OpenSetting()
     {
         return new ClockSettingControl();
+    }
+
+    public void Stop()
+    {
+
     }
 }

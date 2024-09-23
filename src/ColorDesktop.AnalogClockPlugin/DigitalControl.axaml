@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.DigitalControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:DigitalModel"
+    mc:Ignorable="d">
+    <Panel Margin="5">
+        <Path
+            Margin="{Binding MarginA}"
+            Data="{Binding PathA}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataA}" />
+        <Path
+            Margin="{Binding MarginB}"
+            HorizontalAlignment="Right"
+            Data="{Binding PathB}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataB}" />
+        <Path
+            Margin="{Binding MarginC}"
+            HorizontalAlignment="Right"
+            Data="{Binding PathB}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataC}" />
+        <Path
+            Margin="{Binding MarginD}"
+            Data="{Binding PathA}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataD}" />
+        <Path
+            Margin="{Binding MarginE}"
+            Data="{Binding PathB}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataE}" />
+        <Path
+            Margin="{Binding MarginF}"
+            Data="{Binding PathB}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataF}" />
+        <Path
+            Margin="{Binding MarginG}"
+            Data="{Binding PathA}"
+            Fill="{Binding Color}"
+            Opacity="{Binding DataG}" />
+    </Panel>
+</UserControl>

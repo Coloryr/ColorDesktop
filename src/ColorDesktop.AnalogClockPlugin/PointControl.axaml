@@ -1,0 +1,17 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.PointControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:PointModel"
+    mc:Ignorable="d">
+    <StackPanel VerticalAlignment="Center" Opacity="{Binding Display}">
+        <Path
+            Margin="{Binding MarginA}"
+            Data="{Binding Path}"
+            Fill="{Binding Color}" />
+        <Path Data="{Binding Path}" Fill="{Binding Color}" />
+    </StackPanel>
+</UserControl>

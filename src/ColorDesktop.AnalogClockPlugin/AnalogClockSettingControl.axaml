@@ -1,0 +1,55 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.AnalogClockSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:AnalogClockSettingModel"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </UserControl.Resources>
+    <Border Classes="t2">
+        <StackPanel Margin="10">
+            <TextBlock Margin="0,0,0,10" Text="组件设置" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="时钟样式" />
+                <RadioButton
+                    Margin="0,0,10,0"
+                    Content="模拟指针时钟"
+                    GroupName="Type"
+                    IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Analog}}" />
+                <RadioButton
+                    Content="数码管时钟"
+                    GroupName="Type"
+                    IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="大小" />
+                <NumericUpDown
+                    Width="120"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding ClockSize}" />
+                <CheckBox Content="显示秒" IsChecked="{Binding Display}" />
+            </StackPanel>
+            <StackPanel IsVisible="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="颜色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding Color}" />
+                <CheckBox Content="冒号闪烁" IsChecked="{Binding Blink}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

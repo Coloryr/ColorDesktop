@@ -15,7 +15,9 @@
     MinWidth="800"
     MinHeight="450"
     x:DataType="vm:MainViewModel"
+    Background="Transparent"
     Icon="/Resource/icon.ico"
+    TransparencyBackgroundFallback="Transparent"
     mc:Ignorable="d">
     <dialog:DialogHost DisableOpeningAnimation="True" Identifier="MainWindow">
         <dialog:DialogHost.DataTemplates>
@@ -148,7 +150,9 @@
                     </ListBoxItem>
                 </ListBox>
             </DockPanel>
-            <Decorator Name="View1" />
+            <Border Background="#99FFFFFF">
+                <Decorator Name="View1" />
+            </Border>
         </DockPanel>
     </dialog:DialogHost>
 </Window>

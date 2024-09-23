@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.analogclock",
   "Name": "模拟时钟",
-  "Describe": "使用表盘方式显示系统时间",
+  "Describe": "使用表盘方式显示系统时间，依赖与组件coloryr.clock",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.AnalogClockPlugin" ],
   "Dependents": [

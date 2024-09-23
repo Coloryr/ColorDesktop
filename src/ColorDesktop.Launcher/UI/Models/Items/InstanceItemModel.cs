@@ -1,4 +1,5 @@
-﻿using ColorDesktop.Api;
+﻿using System.Threading.Tasks;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;
@@ -85,9 +86,11 @@ public partial class InstanceItemModel : ObservableObject
     }
 
     [RelayCommand]
-    public void OpenSetting()
+    public async Task OpenSetting()
     {
-        InstanceManager.OpenSetting(_obj);
+        await InstanceManager.OpenSetting(_obj);
+        Update();
+        OnPropertyChanged(nameof(Nick));
     }
 
     [RelayCommand]

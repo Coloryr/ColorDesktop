@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -308,7 +309,7 @@ public static class InstanceManager
     /// 打开实例设置
     /// </summary>
     /// <param name="obj"></param>
-    public static async void OpenSetting(InstanceDataObj obj)
+    public static async Task OpenSetting(InstanceDataObj obj)
     {
         if (RunInstances.TryGetValue(obj.UUID, out var run)
             && PluginManager.PluginAssemblys.TryGetValue(obj.Plugin, out var plugin))

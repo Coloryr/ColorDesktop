@@ -5,6 +5,7 @@ using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Controls;
 using ColorDesktop.Launcher.UI.Models.Main;
+using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.UI.Windows;
 
@@ -31,6 +32,11 @@ public partial class MainWindow : Window
         if (ConfigHelper.Config.AutoMin)
         {
             Hide();
+        }
+
+        if (SystemInfo.Os != OsType.Linux)
+        {
+            TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
         }
     }
 
