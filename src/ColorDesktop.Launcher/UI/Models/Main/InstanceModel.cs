@@ -4,6 +4,7 @@ using System.Linq;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Items;
 using ColorDesktop.Launcher.UI.Windows;
@@ -96,15 +97,15 @@ public partial class MainViewModel
             }
         }
         EnableInstance = count;
-        ErrorInstance = InstanceManager.LoadError.Count;
-        FailInstance = InstanceManager.LoadFail.Count;
+        ErrorInstance = InstanceManager.InstanceStates.Count(item=>item.Value == InstanceState.LoadError);
+        FailInstance = InstanceManager.InstanceStates.Count(item => item.Value == InstanceState.LoadFail);
     }
 
     public async void Delete(InstanceItemModel model)
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = string.Format("是否要删除实例 {0}，该操作不可逆", model.Nick)
+            Text = string.Format(App.Lang("MainWindow.Info5"), model.Nick)
         }, MainWindow.DialogHostName);
 
         if (res is true)

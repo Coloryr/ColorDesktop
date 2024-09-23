@@ -17,7 +17,7 @@
                 Height="35"
                 HorizontalAlignment="Right"
                 Command="{Binding Exit}"
-                Content="退出软件"
+                Content="{setting:Localize MainWindow.Text33}"
                 DockPanel.Dock="Bottom" />
             <TextBlock
                 DockPanel.Dock="Top"
@@ -30,9 +30,9 @@
                 <WrapPanel Margin="10" Orientation="Horizontal">
                     <CheckBox
                         Margin="0,0,10,0"
-                        Content="开机启动"
+                        Content="{setting:Localize MainWindow.Text34}"
                         IsChecked="{Binding AutoStart}" />
-                    <CheckBox Content="自动最小化主窗口" IsChecked="{Binding AutoMin}" />
+                    <CheckBox Content="{setting:Localize MainWindow.Text35}" IsChecked="{Binding AutoMin}" />
                 </WrapPanel>
             </Border>
             <Border
@@ -44,32 +44,32 @@
                         Width="100"
                         Height="35"
                         Command="{Binding OpenDir}"
-                        Content="打开工作路径" />
+                        Content="{setting:Localize MainWindow.Text36}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding OpenPluginDir}"
-                        Content="打开组件路径" />
+                        Content="{setting:Localize MainWindow.Text37}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding ReloadPlugin}"
-                        Content="重载组件" />
+                        Content="{setting:Localize MainWindow.Text38}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding DisableAllPlugin}"
-                        Content="禁用所有组件" />
+                        Content="{setting:Localize MainWindow.Text39}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding ReloadInstance}"
-                        Content="重载实例" />
+                        Content="{setting:Localize MainWindow.Text40}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding DisableAllInstance}"
-                        Content="禁用所有实例" />
+                        Content="{setting:Localize MainWindow.Text41}" />
                 </WrapPanel>
             </Border>
         </DockPanel>

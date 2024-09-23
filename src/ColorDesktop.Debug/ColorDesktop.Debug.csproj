@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
-    <ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
-    <ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ColorDesktop.AnalogClockPlugin\ColorDesktop.AnalogClockPlugin.csproj" />
+		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
+		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
+		<ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
+	</ItemGroup>
 
 </Project>

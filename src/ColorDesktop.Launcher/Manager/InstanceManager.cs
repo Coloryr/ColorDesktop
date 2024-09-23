@@ -18,18 +18,9 @@ public static class InstanceManager
     public static readonly Dictionary<string, InstanceWindowObj> RunInstances = [];
     public static readonly Dictionary<string, InstanceState> InstanceStates = [];
 
-    public static readonly List<string> KnowUUID = [];
+    public static readonly HashSet<string> KnowUUID = [];
 
     public static readonly Dictionary<string, InstanceDataObj> Instances = [];
-
-    /// <summary>
-    /// 读取时失败
-    /// </summary>
-    public static readonly List<string> LoadError = [];
-    /// <summary>
-    /// 加载时失败
-    /// </summary>
-    public static readonly List<string> LoadFail = [];
 
     public const string Dir2 = "instances";
     public const string FileName = "instance.json";
@@ -44,11 +35,14 @@ public static class InstanceManager
         WorkDir = Path.GetFullPath(Program.RunDir + Dir2);
         Directory.CreateDirectory(WorkDir);
         var info = new DirectoryInfo(WorkDir);
+
+        var list = new List<string>();
+
         foreach (var item in info.GetDirectories())
         {
+            var uuid = item.Name;
             try
             {
-                var uuid = item.Name;
                 KnowUUID.Add(uuid);
                 var config = item.GetFiles().FirstOrDefault(item => item.Name.Equals(FileName, StringComparison.CurrentCultureIgnoreCase));
                 if (config != null)
@@ -64,12 +58,13 @@ public static class InstanceManager
                         ConfigUtils.Save(obj, config.FullName);
                     }
                     Instances.Add(uuid, obj);
-                    InstanceStates.Add(uuid, InstanceState.Disable);
+                    SetInstanceState(uuid, InstanceState.Disable);
                 }
             }
             catch (Exception e)
             {
-                LoadError.Add(item.Name);
+                list.Add(uuid);
+                SetInstanceState(uuid, InstanceState.LoadError);
                 Logs.Error(string.Format("实例 {0} 加载失败", item.Name), e);
             }
         }
@@ -78,17 +73,13 @@ public static class InstanceManager
         {
             if (!PluginManager.PluginAssemblys.ContainsKey(item.Value.Plugin))
             {
-                LoadFail.Add(item.Key);
+                list.Add(item.Key);
+                SetInstanceState(item.Key, InstanceState.PluginNotFound);
                 Logs.Error(string.Format("实例 {0} 没有找到插件 {1}", item.Key, item.Value.Plugin));
             }
         }
 
-        foreach (var item1 in LoadError)
-        {
-            ConfigHelper.Config.EnableInstance.Remove(item1);
-        }
-
-        foreach (var item1 in LoadFail)
+        foreach (var item1 in list)
         {
             ConfigHelper.Config.EnableInstance.Remove(item1);
         }
@@ -368,7 +359,7 @@ public static class InstanceManager
     {
         if (InstanceStates.TryGetValue(id, out var state))
         {
-            return state == InstanceState.Fail;
+            return state == InstanceState.LoadFail;
         }
 
         return false;
@@ -436,7 +427,7 @@ public static class InstanceManager
 
                 view.Start();
 
-                SetInstanceState(obj.UUID, InstanceState.Run);
+                SetInstanceState(obj.UUID, InstanceState.Enable);
             }
             else
             {
@@ -445,7 +436,7 @@ public static class InstanceManager
         }
         catch (Exception e)
         {
-            SetInstanceState(obj.UUID, InstanceState.Fail);
+            SetInstanceState(obj.UUID, InstanceState.LoadFail);
             Logs.Error(string.Format("实例 {0} 加载失败", obj.UUID), e);
         }
     }
@@ -488,6 +479,9 @@ public static class InstanceManager
         KnowUUID.Remove(uuid);
     }
 
+    /// <summary>
+    /// 重载所有实例
+    /// </summary>
     public static void Reload()
     {
         foreach (var item in RunInstances.Values.ToArray())
@@ -498,8 +492,6 @@ public static class InstanceManager
         InstanceStates.Clear();
         Instances.Clear();
         KnowUUID.Clear();
-        LoadError.Clear();
-        LoadFail.Clear();
         Init();
         StartInstance();
     }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
+using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
 using ColorDesktop.Launcher.Utils;
@@ -16,18 +17,10 @@ public static class PluginManager
 {
     public static readonly Dictionary<string, PluginDataObj> Plugins = [];
     public static readonly Dictionary<string, PluginAssembly> PluginAssemblys = [];
-    public static readonly Dictionary<string, List<string>> Deps = [];
-
-    /// <summary>
-    /// 读取时失败
-    /// </summary>
-    public static readonly List<string> LoadError = [];
-    /// <summary>
-    /// 加载时失败
-    /// </summary>
-    public static readonly List<string> EnableError = [];
+    public static readonly Dictionary<string, PluginState> PluginStates = [];
 
     public const string Dir1 = "plugins";
+    public const string ConfigName = "plugin.json";
 
     public static string RunDir { get; private set; }
 
@@ -39,60 +32,105 @@ public static class PluginManager
         RunDir = Path.GetFullPath(Program.RunDir + Dir1);
         Directory.CreateDirectory(RunDir);
 
-        var list1 = Directory.GetDirectories(RunDir);
-        foreach (var item in list1)
+        var list = new HashSet<string>();
+
+        foreach (var item in Directory.GetDirectories(RunDir))
         {
             try
             {
                 var list2 = PathHelper.GetAllFile(item);
-                var config = list2.FirstOrDefault(item => item.Name.Equals("plugin.json", StringComparison.CurrentCultureIgnoreCase));
-                if (config != null)
+                var config = list2.FirstOrDefault(item => 
+                    item.Name.Equals(ConfigName, StringComparison.CurrentCultureIgnoreCase));
+                if (config == null)
                 {
-                    var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
-                    if (obj == null)
-                    {
-                        continue;
-                    }
-                    if (Plugins.ContainsKey(obj.ID))
-                    {
-                        Logs.Error(string.Format("组件 {0} 存在重复的ID", item));
-                        continue;
-                    }
-
-                    var ass = new PluginAssembly(config.DirectoryName!, obj);
-                    PluginAssemblys.Add(obj.ID, ass);
-                    Plugins.Add(obj.ID, obj);
+                    continue;
                 }
+                var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+                if (obj == null)
+                {
+                    continue;
+                }
+
+                if (Plugins.ContainsKey(obj.ID))
+                {
+                    Logs.Error(string.Format("组件 {0} 存在重复的ID", item));
+                    continue;
+                }
+
+                Plugins.Add(obj.ID, obj);
+
+                if (obj.ApiVersion != Program.ApiVersion)
+                {
+                    Logs.Error(string.Format("组件 {0} 的API版本不一致", item));
+                    list.Add(item);
+                    SetPluginState(item, PluginState.LoadError);
+                    continue;
+                }
+
+                PluginAssemblys.Add(obj.ID, new PluginAssembly(config.DirectoryName!, obj));
             }
             catch (Exception e)
             {
-                LoadError.Add(item);
+                list.Add(item);
+                SetPluginState(item, PluginState.LoadError);
                 Logs.Error(string.Format("组件 {0} 加载失败", item), e);
             }
         }
 
-        foreach (var item in Plugins)
+        foreach (var item in PluginAssemblys)
         {
-            foreach (var item1 in item.Value.Dependents)
+            foreach (var item1 in item.Value.Obj.Dependents)
             {
-                if (!PluginAssemblys.ContainsKey(item1))
+                if (!PluginAssemblys.TryGetValue(item1.ID, out var ass1))
                 {
-                    LoadError.Add(item.Key);
+                    list.Add(item.Key);
+                    SetPluginState(item.Key, PluginState.LoadError);
                     Logs.Error(string.Format("组件 {0} 加载失败，没有找到依赖 {1}", item, item1));
                     break;
                 }
-                if (Deps.TryGetValue(item1, out var list))
+
+                if (item1.Type == "Load")
                 {
-                    list.Add(item.Key);
+                    try
+                    {
+                        item.Value.AddLoad(ass1);
+                    }
+                    catch (Exception e)
+                    {
+                        list.Add(item.Key);
+                        SetPluginState(item.Key, PluginState.LoadError);
+                        Logs.Error(string.Format("组件 {0} 加载依赖失败", item), e);
+                    }
                 }
-                else
+                else if (item1.Type == "Share")
                 {
-                    Deps.Add(item1, [item.Key]);
+                    item.Value.AddShare(ass1);
                 }
+            }
+
+            try
+            {
+                item.Value.FindDll();
+            }
+            catch (Exception e)
+            {
+                list.Add(item.Key);
+                SetPluginState(item.Key, PluginState.LoadError);
+                Logs.Error(string.Format("组件 {0} 加载失败", item), e);
             }
         }
 
-        foreach (var item in LoadError)
+
+        foreach (var item in list.ToArray())
+        {
+            foreach (var item1 in PluginAssemblys.Values.Where(item2 => 
+                item2.Obj.Dependents.Any(item3 => item3.ID == item)).ToArray())
+            {
+                list.Add(item1.Obj.ID);
+            }
+        }
+
+        foreach (var item in list)
         {
             if (PluginAssemblys.Remove(item, out var ass))
             {
@@ -118,7 +156,7 @@ public static class PluginManager
             {
                 ConfigHelper.Config.EnablePlugin.Remove(item.Key);
                 item.Value.Enable = false;
-                AddEnableFail(item.Key);
+                SetPluginState(item.Key, PluginState.EnableError);
                 Logs.Error(string.Format("组件 {0} 初始化失败", item), e);
             }
         }
@@ -136,7 +174,7 @@ public static class PluginManager
                 catch (Exception e)
                 {
                     plugin.Enable = false;
-                    AddEnableFail(item);
+                    SetPluginState(item, PluginState.EnableError);
                     Logs.Error(string.Format("组件 {0} 启用失败", item), e);
                 }
             }
@@ -145,10 +183,7 @@ public static class PluginManager
                 remove.Add(item);
             }
         }
-        foreach (var item in EnableError)
-        {
-            ConfigHelper.Config.EnablePlugin.Remove(item);
-        }
+
         foreach (var item in remove)
         {
             ConfigHelper.Config.EnablePlugin.Remove(item);
@@ -194,7 +229,7 @@ public static class PluginManager
             try
             {
                 item.Plugin.Enable();
-                EnableError.Remove(id);
+                SetPluginState(id, PluginState.Enable);
                 item.Enable = true;
 
                 ConfigHelper.EnablePlugin(id);
@@ -203,7 +238,7 @@ public static class PluginManager
             catch (Exception e)
             {
                 item.Enable = false;
-                AddEnableFail(id);
+                SetPluginState(id, PluginState.EnableError);
                 Logs.Error(string.Format("组件 {0} 启用失败", item), e);
             }
         }
@@ -237,9 +272,8 @@ public static class PluginManager
             item.Value.Unload();
         }
         PluginAssemblys.Clear();
-        Deps.Clear();
-        LoadError.Clear();
-        EnableError.Clear();
+        PluginStates.Clear();
+
         Init();
         StartPlugin();
         InstanceManager.StartInstance();
@@ -283,7 +317,12 @@ public static class PluginManager
     /// <returns></returns>
     public static bool IsEnableFail(string id)
     {
-        return EnableError.Contains(id);
+        if (PluginStates.TryGetValue(id, out var state))
+        {
+            return state == PluginState.EnableError;
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -293,7 +332,12 @@ public static class PluginManager
     /// <returns></returns>
     public static bool IsFail(string id)
     {
-        return LoadError.Contains(id);
+        if (PluginStates.TryGetValue(id, out var state))
+        {
+            return state is PluginState.LoadError or PluginState.DepNotFound;
+        }
+
+        return false;
     }
 
     public static bool HavePluginSetting(string id)
@@ -306,14 +350,6 @@ public static class PluginManager
         return false;
     }
 
-    private static void AddEnableFail(string id)
-    {
-        if (!EnableError.Contains(id))
-        {
-            EnableError.Add(id);
-        }
-    }
-
     private static void DisablePlugin(string id, IPlugin plugin)
     {
         try
@@ -322,8 +358,21 @@ public static class PluginManager
         }
         catch (Exception e)
         {
-            AddEnableFail(id);
+            SetPluginState(id, PluginState.EnableError);
             Logs.Error(string.Format("组件 {0} 禁用失败", id), e);
+        }
+    }
+
+    /// <summary>
+    /// 设置插件状态
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="state"></param>
+    private static void SetPluginState(string id, PluginState state)
+    {
+        if (!PluginStates.TryAdd(id, state))
+        {
+            PluginStates[id] = state;
         }
     }
 }

@@ -53,7 +53,6 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _instance.Update(obj);
         Topmost = _obj.TopModel;
         Dispatcher.UIThread.Post(Move);
-
     }
 
     private void View1_PointerExited(object? sender, PointerEventArgs e)

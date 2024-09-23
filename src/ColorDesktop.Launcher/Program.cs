@@ -13,6 +13,7 @@ namespace ColorDesktop.Launcher;
 public class Program
 {
     public const string Version = "1.0.0";
+    public const string ApiVersion = "1";
 
     private static FileStream s_lock;
 

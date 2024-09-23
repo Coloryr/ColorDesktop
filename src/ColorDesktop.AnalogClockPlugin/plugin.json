@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.analogclock",
+  "Name": "模拟时钟",
+  "Describe": "使用表盘方式显示系统时间",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.AnalogClockPlugin" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.clock"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "1"
+}

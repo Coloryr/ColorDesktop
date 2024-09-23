@@ -21,8 +21,9 @@ public static class NtpClient
             do
             {
                 res = await GetTime();
+                Thread.Sleep(1000);
             }
-            while (res);
+            while (!res);
         });
     }
 

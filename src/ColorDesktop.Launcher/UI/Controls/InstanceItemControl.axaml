@@ -15,41 +15,41 @@
                     <ToggleSwitch
                         Margin="5,0,0,0"
                         IsChecked="{Binding Enable}"
-                        OffContent="关闭"
-                        OnContent="开启" />
+                        OffContent="{setting:Localize MainWindow.Text21}"
+                        OnContent="{setting:Localize MainWindow.Text22}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding OpenSetting}"
-                        Content="实例设置" />
+                        Content="{setting:Localize MainWindow.Text23}" />
                     <Button
                         Width="100"
                         Height="35"
                         Command="{Binding Delete}"
-                        Content="删除实例" />
+                        Content="{setting:Localize MainWindow.Text24}" />
                 </StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="名字：" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text25}" />
                         <TextBlock Text="{Binding Nick}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="组件ID：" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text26}" />
                         <TextBlock Text="{Binding Plugin}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="UUID：" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text27}" />
                         <TextBlock Text="{Binding UUID}" />
                     </StackPanel>
                     <TextBlock
                         Foreground="Red"
                         IsVisible="{Binding EnableFail, FallbackValue=false}"
-                        Text="启用错误，无法显示" />
+                        Text="{setting:Localize MainWindow.Text28}" />
                 </StackPanel>
             </DockPanel>
             <Border Background="#AAEFEFEF" IsVisible="{Binding PluginDisable, FallbackValue=false}">
                 <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock FontSize="16" Text="插件未加载" />
+                    <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text29}" />
                 </Panel>
             </Border>
         </Panel>

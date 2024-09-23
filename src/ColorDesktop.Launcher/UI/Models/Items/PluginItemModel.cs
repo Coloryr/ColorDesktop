@@ -60,7 +60,7 @@ public partial class PluginItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = "是否要启用该插件"
+                Text = App.Lang("MainWindow.Info3")
             }, MainWindow.DialogHostName);
 
             if (res is not true)
@@ -78,7 +78,7 @@ public partial class PluginItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = "是否要禁用该插件"
+                Text = App.Lang("MainWindow.Info4")
             }, MainWindow.DialogHostName);
 
             if (res is not true)

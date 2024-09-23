@@ -2,6 +2,12 @@
 
 namespace ColorDesktop.Api;
 
+public record PluginDependentObj
+{ 
+    public string Type { get; set; }
+    public string ID { get; set; }
+}
+
 public record PluginDataObj
 {
     /// <summary>
@@ -27,11 +33,15 @@ public record PluginDataObj
     /// <summary>
     /// 依赖其他组件
     /// </summary>
-    public List<string> Dependents { get; set; }
+    public List<PluginDependentObj> Dependents { get; set; }
     /// <summary>
     /// 版本
     /// </summary>
     public string Version { get; set; }
+    /// <summary>
+    /// API版本号
+    /// </summary>
+    public string ApiVersion { get; set; }
 
     [JsonIgnore]
     public string Local;

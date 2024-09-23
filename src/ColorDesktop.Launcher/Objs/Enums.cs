@@ -2,5 +2,10 @@
 
 public enum InstanceState
 {
-    Disable, Run, Fail, PluginDisable
+    LoadError, LoadFail, PluginDisable, PluginNotFound, Disable, Enable
+}
+
+public enum PluginState
+{ 
+    LoadError, EnableError, DepNotFound, Disable, Enable
 }

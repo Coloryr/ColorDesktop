@@ -21,7 +21,7 @@
                         Width="100"
                         Height="35"
                         Command="{Binding CreateInstance}"
-                        Content="新建实例"
+                        Content="{setting:Localize MainWindow.Text30}"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
@@ -44,12 +44,12 @@
                     <TextBlock
                         Foreground="Red"
                         IsVisible="{Binding EnableFail, FallbackValue=false}"
-                        Text="启用错误，无法使用" />
+                        Text="{setting:Localize MainWindow.Text31}" />
                 </StackPanel>
             </DockPanel>
             <Border Background="#AAEFEFEF" IsVisible="{Binding LoadFail, FallbackValue=false}">
                 <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Foreground="Red" Text="加载错误，无法使用" />
+                    <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text32}" />
                 </Panel>
             </Border>
         </Panel>

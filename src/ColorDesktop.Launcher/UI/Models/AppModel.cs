@@ -11,12 +11,6 @@ public partial class AppModel : ObservableObject
         App.ShowMainWindow();
     }
 
-    //[RelayCommand]
-    //public void ShowSetting()
-    //{
-
-    //}
-
     [RelayCommand]
     public void Exit()
     {

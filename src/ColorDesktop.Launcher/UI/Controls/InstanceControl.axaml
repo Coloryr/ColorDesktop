@@ -21,19 +21,19 @@
             <Decorator Margin="10">
                 <WrapPanel Margin="0,0,0,-5">
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text8}" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text17}" />
                         <TextBlock Text="{Binding AllInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text9}" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text18}" />
                         <TextBlock Text="{Binding EnableInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text10}" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text19}" />
                         <TextBlock Text="{Binding ErrorInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text11}" />
+                        <TextBlock Text="{setting:Localize MainWindow.Text20}" />
                         <TextBlock Text="{Binding FailInstance}" />
                     </StackPanel>
                 </WrapPanel>

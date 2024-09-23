@@ -63,13 +63,13 @@
                     <TabControl Margin="0,0,0,10">
                         <TabItem>
                             <TabItem.Header>
-                                <TextBlock FontSize="16" Text="位置设置" />
+                                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text42}" />
                             </TabItem.Header>
                             <dialogview:CreateControl DataContext="{Binding}" />
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
-                                <TextBlock FontSize="16" Text="实例设置" />
+                                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text23}" />
                             </TabItem.Header>
                             <Decorator Child="{Binding Control}" />
                         </TabItem>
@@ -86,7 +86,7 @@
                         Height="35"
                         HorizontalAlignment="Center"
                         Command="{Binding Done}"
-                        Content="确定"
+                        Content="{setting:Localize Button.Confirm}"
                         DockPanel.Dock="Bottom" />
                     <Decorator Margin="10" Child="{Binding Control}" />
                 </DockPanel>

@@ -133,7 +133,7 @@
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="顶层显示"
+                Content="{setting:Localize CreateControl.Text15}"
                 IsChecked="{Binding TopModel}" />
         </StackPanel>
     </StackPanel>

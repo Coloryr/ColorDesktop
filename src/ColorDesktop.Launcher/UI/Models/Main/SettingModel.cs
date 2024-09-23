@@ -57,7 +57,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = "是否要重新读取组件"
+            Text = App.Lang("MainWindow.Info6")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -70,7 +70,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = "是否要禁用所有组件"
+            Text = App.Lang("MainWindow.Info7")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -83,7 +83,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = "是否要重新读取实例"
+            Text = App.Lang("MainWindow.Info8")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -96,7 +96,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = "是否要禁用所有实例"
+            Text = App.Lang("MainWindow.Info9")
         }, MainWindow.DialogHostName);
         if (res is true)
         {

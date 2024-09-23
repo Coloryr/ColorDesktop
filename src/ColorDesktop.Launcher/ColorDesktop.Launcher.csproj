@@ -1,62 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <LangVersion>latest</LangVersion>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    <OutputType>WinExe</OutputType>
-    <BaseOutputPath>..\build_out</BaseOutputPath>
-  </PropertyGroup>
-
+	
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<OutputType>WinExe</OutputType>
+		<BaseOutputPath>..\build_out</BaseOutputPath>
+	</PropertyGroup>
   
-  <ItemGroup>
-    <AvaloniaResource Include="Resource\**" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<AvaloniaResource Include="Resource\**" />
+	</ItemGroup>
   
-  <ItemGroup>
-    <AvaloniaResource Remove="Resource\Lang\en-us.json" />
-    <AvaloniaResource Remove="Resource\Lang\zh-cn.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Remove="Resource\Lang\en-us.json" />
+		<AvaloniaResource Remove="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<None Remove="Resource\icon.ico" />
+		<None Remove="Resource\Icon\icon1.svg" />
+		<None Remove="Resource\Lang\en-us.json" />
+		<None Remove="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
   
-  <ItemGroup>
-    <None Remove="Resource\icon.ico" />
-    <None Remove="Resource\Icon\icon1.svg" />
-    <None Remove="Resource\Lang\en-us.json" />
-    <None Remove="Resource\Lang\zh-cn.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resource\Lang\en-us.json" />
+		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
 
-  
-  <ItemGroup>
-    <EmbeddedResource Include="Resource\Lang\en-us.json" />
-    <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Skia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0.1" />
+		<PackageReference Include="DialogHost.Avalonia" Version="0.8.1" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
+		<PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.0.10" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="SkiaSharp" Version="2.88.8" />
+		<PackageReference Include="DotNetty.Buffers" Version="0.7.6" />
+		<PackageReference Include="DotNetty.Common" Version="0.7.6" />
+		<PackageReference Include="DotNetty.Handlers" Version="0.7.6" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
-	<PackageReference Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
-	<PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
-	  <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvaloniaVersion)" />
-	<PackageReference Include="Avalonia.Skia" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
-    <PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0.1" />
-	<PackageReference Include="DialogHost.Avalonia" Version="0.8.1" />
-	  <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
-	  <PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.0.10" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="SkiaSharp" Version="2.88.8" />
-	  <PackageReference Include="DotNetty.Buffers" Version="0.7.6" />
-	  <PackageReference Include="DotNetty.Common" Version="0.7.6" />
-	  <PackageReference Include="DotNetty.Handlers" Version="0.7.6" />
-	<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
+	</ItemGroup>
 	
 </Project>

@@ -4,6 +4,7 @@ using System.Linq;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Items;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -64,8 +65,8 @@ public partial class MainViewModel
             }
         }
         EnablePlugin = count;
-        ErrorPlugin = PluginManager.LoadError.Count;
-        FailPlugin = PluginManager.EnableError.Count;
+        ErrorPlugin = PluginManager.PluginStates.Count(item=>item.Value == PluginState.LoadError);
+        FailPlugin = PluginManager.PluginStates.Count(item => item.Value == PluginState.EnableError);
     }
 
     private void LoadPluginList()

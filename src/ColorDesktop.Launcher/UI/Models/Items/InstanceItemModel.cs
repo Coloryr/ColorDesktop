@@ -49,7 +49,7 @@ public partial class InstanceItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = "是否要启用该实例"
+                Text = App.Lang("MainWindow.Info1")
             }, MainWindow.DialogHostName);
 
             if (res is not true)
@@ -67,7 +67,7 @@ public partial class InstanceItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = "是否要禁用该实例"
+                Text = App.Lang("MainWindow.Info2")
             }, MainWindow.DialogHostName);
 
             if (res is not true)

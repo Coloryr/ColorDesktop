@@ -72,7 +72,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
 
     private void ToMargin(InstanceDataObj obj)
     {
-        obj.Margin = new(Right, Top, Left, Bottom);
+        obj.Margin = new(Left, Right, Top, Bottom);
     }
 
     private void MarginTo(InstanceDataObj obj)

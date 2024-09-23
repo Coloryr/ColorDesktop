@@ -5,28 +5,23 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\build_out\Debug\net8.0\plugins\ClockPlugin</BaseOutputPath>
+		<BaseOutputPath>..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="icon.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="icon.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Update="plugin.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" >
+			<Private>False</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" >
+			<Private>False</Private>
+		</ProjectReference>
 	</ItemGroup>
 	
 </Project>
