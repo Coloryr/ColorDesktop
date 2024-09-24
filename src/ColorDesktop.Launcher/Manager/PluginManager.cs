@@ -39,7 +39,7 @@ public static class PluginManager
             try
             {
                 var list2 = PathHelper.GetAllFile(item);
-                var config = list2.FirstOrDefault(item => 
+                var config = list2.FirstOrDefault(item =>
                     item.Name.Equals(ConfigName, StringComparison.CurrentCultureIgnoreCase));
                 if (config == null)
                 {
@@ -123,7 +123,7 @@ public static class PluginManager
 
         foreach (var item in list.ToArray())
         {
-            foreach (var item1 in PluginAssemblys.Values.Where(item2 => 
+            foreach (var item1 in PluginAssemblys.Values.Where(item2 =>
                 item2.Obj.Dependents.Any(item3 => item3.ID == item)).ToArray())
             {
                 list.Add(item1.Obj.ID);

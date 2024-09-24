@@ -1,0 +1,22 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.FlipClockControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="local:FlipClockModel"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <local:FlipControl DataContext="{Binding HourA}" />
+        <local:FlipControl Margin="0,0,10,0" DataContext="{Binding HourB}" />
+        <local:FlipControl DataContext="{Binding MinuteA}" />
+        <local:FlipControl DataContext="{Binding MinuteB}" />
+        <StackPanel Orientation="Horizontal">
+            <local:FlipControl Margin="10,0,0,0" DataContext="{Binding SecondA}" />
+            <local:FlipControl DataContext="{Binding SecondB}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

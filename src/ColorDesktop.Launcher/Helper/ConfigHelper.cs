@@ -1,5 +1,4 @@
-﻿using System;
-using ColorDesktop.Api;
+﻿using ColorDesktop.Api;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;

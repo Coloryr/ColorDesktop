@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.AnalogClockPlugin;
+﻿namespace ColorDesktop.AnalogClockPlugin;
 
 public enum ClockType
 {
-    Analog, Digital
+    Analog, Digital, Flip
 }
 
 public record AnalogClockConfigObj
@@ -18,4 +12,10 @@ public record AnalogClockConfigObj
     public bool DisplaySecond { get; set; }
     public string Color { get; set; }
     public bool Blink { get; set; }
+    public int TextSize { get; set; }
+    public string TextColor { get; set; }
+    public string BackColor { get; set; }
+    public string BorderColor { get; set; }
+    public bool UseFont { get; set; }
+    public string Font { get; set; }
 }

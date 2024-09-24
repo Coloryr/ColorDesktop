@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
@@ -32,7 +27,11 @@ public class AnalogClockPlugin : IPlugin
         {
             Size = 100,
             Type = ClockType.Analog,
-            Color = "Red"
+            Color = "Red",
+            TextSize = 120,
+            TextColor = "#FFFFFF",
+            BackColor = "#0000CD",
+            BorderColor = "#EEEEEE"
         }, InstanceLocal + "/" + obj.UUID + "/" + ConfigName);
 
         s_configs.Add(obj.UUID, obj1);
@@ -72,12 +71,12 @@ public class AnalogClockPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Bitmap? GetIcon()
@@ -112,6 +111,6 @@ public class AnalogClockPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

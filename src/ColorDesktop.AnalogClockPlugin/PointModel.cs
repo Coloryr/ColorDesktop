@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -34,7 +29,7 @@ public partial class PointModel : ObservableObject
 
         var size = obj.Size / 5;
 
-        MarginA = new(0,0,0, size * 3);
+        MarginA = new(0, 0, 0, size * 3);
 
         Path = $"M 0,0 L 0,{size} L {size},{size} L {size},0 Z";
     }

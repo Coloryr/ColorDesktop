@@ -97,7 +97,7 @@ public partial class MainViewModel
             }
         }
         EnableInstance = count;
-        ErrorInstance = InstanceManager.InstanceStates.Count(item=>item.Value == InstanceState.LoadError);
+        ErrorInstance = InstanceManager.InstanceStates.Count(item => item.Value == InstanceState.LoadError);
         FailInstance = InstanceManager.InstanceStates.Count(item => item.Value == InstanceState.LoadFail);
     }
 

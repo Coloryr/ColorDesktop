@@ -130,7 +130,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         if (_display)
         {
             var less = DateTime.Now - _time;
-            if(less.TotalSeconds > 10)
+            if (less.TotalSeconds > 10)
             {
                 HoverBorder_PointerExited(null, null!);
             }

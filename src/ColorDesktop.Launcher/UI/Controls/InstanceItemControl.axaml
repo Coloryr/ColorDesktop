@@ -21,7 +21,8 @@
                         Width="100"
                         Height="35"
                         Command="{Binding OpenSetting}"
-                        Content="{setting:Localize MainWindow.Text23}" />
+                        Content="{setting:Localize MainWindow.Text23}"
+                        IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"

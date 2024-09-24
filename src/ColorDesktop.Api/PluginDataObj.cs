@@ -3,7 +3,7 @@
 namespace ColorDesktop.Api;
 
 public record PluginDependentObj
-{ 
+{
     public string Type { get; set; }
     public string ID { get; set; }
 }

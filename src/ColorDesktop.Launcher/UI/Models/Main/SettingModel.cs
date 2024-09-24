@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Dialog;

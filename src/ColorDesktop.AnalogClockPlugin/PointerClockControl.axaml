@@ -8,12 +8,12 @@
     x:DataType="vm:PointerClockModel"
     mc:Ignorable="d">
     <Panel Width="{Binding Size, FallbackValue=200}">
-        <Svg Path="/clock.svg" />
-        <Svg Path="/pointer.svg" RenderTransform="{Binding Pointer1}" />
-        <Svg Path="/pointer_1.svg" RenderTransform="{Binding Pointer2}" />
+        <Svg Path="/Resource/clock.svg" />
+        <Svg Path="/Resource/pointer.svg" RenderTransform="{Binding Pointer1}" />
+        <Svg Path="/Resource/pointer_1.svg" RenderTransform="{Binding Pointer2}" />
         <Svg
             IsVisible="{Binding DisplaySecond}"
-            Path="/pointer_2.svg"
+            Path="/Resource/pointer_2.svg"
             RenderTransform="{Binding Pointer3}" />
         <Svg Path="{Binding Top}" />
     </Panel>

@@ -20,16 +20,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Include="clock.svg">
+	  <AvaloniaResource Include="Resource\clock.svg">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </AvaloniaResource>
-	  <AvaloniaResource Include="clock_top.svg">
+	  <AvaloniaResource Include="Resource\clock_top.svg">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </AvaloniaResource>
-	  <AvaloniaResource Include="clock_top_1.svg" />
-	  <AvaloniaResource Include="pointer.svg" />
-	  <AvaloniaResource Include="pointer_1.svg" />
-	  <AvaloniaResource Include="pointer_2.svg" />
+	  <AvaloniaResource Include="Resource\clock_top_1.svg" />
+	  <AvaloniaResource Include="Resource\pointer.svg" />
+	  <AvaloniaResource Include="Resource\pointer_1.svg" />
+	  <AvaloniaResource Include="Resource\pointer_2.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

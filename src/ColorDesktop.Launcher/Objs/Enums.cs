@@ -6,6 +6,6 @@ public enum InstanceState
 }
 
 public enum PluginState
-{ 
+{
     LoadError, EnableError, DepNotFound, Disable, Enable
 }

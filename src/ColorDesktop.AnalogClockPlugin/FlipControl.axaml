@@ -1,0 +1,58 @@
+<UserControl
+    x:Class="ColorDesktop.AnalogClockPlugin.FlipControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:FlipModel"
+    mc:Ignorable="d">
+    <StackPanel Width="{Binding Size1}">
+        <Panel Width="{Binding Size}">
+            <Border
+                Background="{Binding Color}"
+                BorderBrush="{Binding Color1}"
+                BorderThickness="1,1,1,0"
+                CornerRadius="5,5,0,0">
+                <Image Name="Image1" />
+            </Border>
+            <Border
+                Name="ImageCov"
+                Background="{Binding Color}"
+                BorderBrush="{Binding Color1}"
+                BorderThickness="1,1,1,0"
+                CornerRadius="5,5,0,0"
+                IsVisible="False">
+                <Border.RenderTransform>
+                    <Rotate3DTransform CenterY="{Binding Size2}" Depth="1200" />
+                </Border.RenderTransform>
+                <Image Name="Image3" />
+            </Border>
+        </Panel>
+        <Border
+            Width="{Binding Size}"
+            BorderBrush="{Binding Color1}"
+            BorderThickness="0,1,0,0" />
+        <Panel Width="{Binding Size}">
+            <Border
+                Background="{Binding Color}"
+                BorderBrush="{Binding Color1}"
+                BorderThickness="1,0,1,1"
+                CornerRadius="0,0,5,5">
+                <Image Name="Image2" />
+            </Border>
+            <Border
+                Name="ImageCov1"
+                Background="{Binding Color}"
+                BorderBrush="{Binding Color1}"
+                BorderThickness="1,0,1,1"
+                CornerRadius="0,0,5,5"
+                IsVisible="False">
+                <Border.RenderTransform>
+                    <Rotate3DTransform CenterY="{Binding Size3}" Depth="1200" />
+                </Border.RenderTransform>
+                <Image Name="Image4" />
+            </Border>
+        </Panel>
+    </StackPanel>
+</UserControl>

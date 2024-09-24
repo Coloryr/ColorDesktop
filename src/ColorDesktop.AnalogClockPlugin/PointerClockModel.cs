@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Media;
+﻿using Avalonia.Media;
 using ColorDesktop.ClockPlugin;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -27,7 +22,7 @@ public partial class PointerClockModel : ObservableObject
     [ObservableProperty]
     private bool _displaySecond;
 
-    private readonly string[] ClockTops = ["/clock_top.svg", "/clock_top_!.svg"];
+    private readonly string[] ClockTops = ["/Resource/clock_top.svg", "/Resource/clock_top_1.svg"];
 
     public void Tick()
     {

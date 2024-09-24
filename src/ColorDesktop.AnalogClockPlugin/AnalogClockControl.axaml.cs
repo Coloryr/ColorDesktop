@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.AnalogClockPlugin;
@@ -27,12 +25,12 @@ public partial class AnalogClockControl : UserControl, IInstance
 
     public void Start()
     {
-        
+
     }
 
     public void Stop()
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)
@@ -42,9 +40,13 @@ public partial class AnalogClockControl : UserControl, IInstance
         {
             View.Child = new PointerClockControl();
         }
-        else if(config.Type == ClockType. Digital && View.Child is not DigitalClockControl)
+        else if (config.Type == ClockType.Digital && View.Child is not DigitalClockControl)
         {
             View.Child = new DigitalClockControl();
+        }
+        else if (config.Type == ClockType.Flip && View.Child is not FlipClockControl)
+        {
+            View.Child = new FlipClockControl();
         }
 
         if (View.Child is IClock control)

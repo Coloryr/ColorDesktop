@@ -65,7 +65,7 @@ public partial class MainViewModel
             }
         }
         EnablePlugin = count;
-        ErrorPlugin = PluginManager.PluginStates.Count(item=>item.Value == PluginState.LoadError);
+        ErrorPlugin = PluginManager.PluginStates.Count(item => item.Value == PluginState.LoadError);
         FailPlugin = PluginManager.PluginStates.Count(item => item.Value == PluginState.EnableError);
     }
 
