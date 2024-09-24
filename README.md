@@ -64,3 +64,38 @@
 ## 我要开发组件
 
 前往组件[开发指南](./dev.md)
+
+## 依赖/引用的项目
+[AvaloniaUI](https://github.com/AvaloniaUI/Avalonia) 跨平台UI框架  
+[DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia) 弹窗库
+[CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) MVVM工具  
+[Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia) Svg图像显示  
+[SkiaSharp](https://github.com/mono/SkiaSharp) Skia图像库  
+[DotNetty](https://github.com/Azure/DotNetty) 异步通信框架
+[Newtonsoft.Json](https://www.newtonsoft.com/json) JSON解析器  
+
+## 开源协议
+Apache 2.0  
+
+```
+Copyright 2024 coloryr
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+附属的开源协议  
+MIT  
+BSD
+
+## 使用的IDE开发工具
+[Visual Studio 2022](https://visualstudio.microsoft.com/)  

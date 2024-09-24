@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
 using ColorDesktop.Launcher.Helper;
+using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
 using Tmds.DBus.Protocol;
 
@@ -16,6 +17,8 @@ public class Program
     public const string ApiVersion = "1";
 
     private static FileStream s_lock;
+
+    public static RunType RunType { get; private set; } = RunType.AppBuilder;
 
     public static string RunDir { get; private set; }
 
@@ -40,6 +43,8 @@ public class Program
         };
 
         SystemInfo.Init();
+
+        RunType = RunType.Program;
 
 #if !DEBUG
         if (SystemInfo.Os == OsType.Linux)
@@ -98,6 +103,12 @@ public class Program
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
     {
+        if (RunType == RunType.AppBuilder)
+        {
+            RunDir = AppContext.BaseDirectory;
+
+            SystemInfo.Init();
+        }
         var builder = AppBuilder.Configure<App>();
         if (SystemInfo.Os == OsType.MacOS)
         {

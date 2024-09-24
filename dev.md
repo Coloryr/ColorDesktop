@@ -145,3 +145,8 @@ return new InstanceDataObj()
 开始进行显示实例创建会调用`MakeInstances(InstanceDataObj obj)`，此时你需要返回一个显示实例
 
 更多具体内容可以参考[示例插件](./src/ColorDesktop.ClockPlugin/ClockPlugin.cs)和[示例显示实例](./src/ColorDesktop.ClockPlugin/ClockControl.axaml.cs)
+
+## 预览
+
+如果你使用了VS2022，并安装了Avalonia插件，但是无法预览页面  
+此时你需要将[ColorDesktop.Debug](./src//ColorDesktop.Debug/ColorDesktop.Debug.csproj)引入到你的解决方案中，然后编译，选择启动项为`ColorDesktop.Debug`即可
