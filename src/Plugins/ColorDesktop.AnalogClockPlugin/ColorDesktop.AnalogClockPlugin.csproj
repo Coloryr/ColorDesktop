@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
+		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	</PropertyGroup>
 
@@ -43,12 +43,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
-			<Private>False</Private>
-		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
 	</ItemGroup>
 	
 </Project>
