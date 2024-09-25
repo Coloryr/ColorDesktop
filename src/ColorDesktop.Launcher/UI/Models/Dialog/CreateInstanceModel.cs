@@ -2,10 +2,6 @@
 
 namespace ColorDesktop.Launcher.UI.Models.Dialog;
 
-public class CreateInstanceModel : CreateInstanceBaseModel
+public class CreateInstanceModel(InstanceDataObj obj) : CreateInstanceBaseModel(obj)
 {
-    public CreateInstanceModel(InstanceDataObj obj) : base(obj)
-    {
-
-    }
 }

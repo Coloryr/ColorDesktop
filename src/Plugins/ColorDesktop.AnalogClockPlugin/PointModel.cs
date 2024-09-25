@@ -23,7 +23,7 @@ public partial class PointModel : ObservableObject
         Display = display ? 1.0 : 0.0;
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         Color = Brush.Parse(obj.Color);
 

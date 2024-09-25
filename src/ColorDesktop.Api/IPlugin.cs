@@ -6,6 +6,10 @@ namespace ColorDesktop.Api;
 public interface IPlugin
 {
     /// <summary>
+    /// 是否为核心库
+    /// </summary>
+    public bool IsCoreLib { get; }
+    /// <summary>
     /// 是否有组件设置
     /// </summary>
     public bool HavePluginSetting { get; }

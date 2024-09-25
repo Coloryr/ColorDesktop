@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 
 namespace ColorDesktop.ClockPlugin;
 
@@ -11,22 +12,11 @@ public class ClockPlugin : IPlugin
 
     public const string ConfigName = "clock.json";
 
-    public static string Local;
-    public static string InstanceLocal;
-
-    public static void SaveConfig()
-    {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.clock.config",
-            Local = Local,
-            Obj = Config
-        });
-    }
+    private static string s_local;
 
     public static ClockInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return ConfigUtils.Config<ClockInstanceObj>(new()
+        return InstanceUtils.GetConfig(obj, new ClockInstanceObj()
         {
             Color = "#000000",
             Size = 50,
@@ -39,22 +29,39 @@ public class ClockPlugin : IPlugin
             SecondSize = 50,
             ColonSize = 50,
             BackGround = "#00000000"
-        }, InstanceLocal + "/" + obj.UUID + "/" + ConfigName);
+        }, ConfigName);
     }
 
     public static void SaveConfig(InstanceDataObj obj, ClockInstanceObj config)
     {
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
+    }
+
+    public static void SaveConfig()
+    {
         ConfigSave.AddItem(new()
         {
-            Name = "coloryr.clock.config" + obj.UUID,
-            Local = InstanceLocal + "/" + obj.UUID + "/" + ConfigName,
-            Obj = config
+            Name = "coloryr.clock.config",
+            Local = s_local,
+            Obj = Config
         });
+    }
+
+    public static void ReadConfig()
+    {
+        Config = ConfigUtils.Config<ClockConfigObj>(new()
+        {
+            NtpIp = "cn.pool.ntp.org",
+            NtpUpdateTime = 180,
+            TimeZone = 8
+        }, s_local);
     }
 
     public bool HavePluginSetting => true;
 
     public bool HaveInstanceSetting => true;
+
+    public bool IsCoreLib => false;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -86,14 +93,8 @@ public class ClockPlugin : IPlugin
 
     public void Init(string local, string local1, LanguageType type)
     {
-        Local = local + "/" + ConfigName;
-        InstanceLocal = local1;
-        Config = ConfigUtils.Config<ClockConfigObj>(new()
-        {
-            NtpIp = "cn.pool.ntp.org",
-            NtpUpdateTime = 180,
-            TimeZone = 8
-        }, Local);
+        s_local = local + "/" + ConfigName;
+        ReadConfig();
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

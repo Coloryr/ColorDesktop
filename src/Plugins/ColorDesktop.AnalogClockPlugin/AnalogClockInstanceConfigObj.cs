@@ -5,7 +5,7 @@ public enum ClockType
     Analog, Digital, Flip
 }
 
-public record AnalogClockConfigObj
+public record AnalogClockInstanceConfigObj
 {
     public ClockType Type { get; set; }
     public int Size { get; set; }

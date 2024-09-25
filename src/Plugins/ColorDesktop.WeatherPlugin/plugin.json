@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.weather",
+  "Name": "天气",
+  "Describe": "通过网络API查询并显示天气",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.WeatherPlugin" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "1"
+}

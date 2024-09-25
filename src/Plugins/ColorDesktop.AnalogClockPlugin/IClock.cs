@@ -2,6 +2,6 @@
 
 public interface IClock
 {
-    void Update(AnalogClockConfigObj obj);
+    void Update(AnalogClockInstanceConfigObj obj);
     void Tick();
 }

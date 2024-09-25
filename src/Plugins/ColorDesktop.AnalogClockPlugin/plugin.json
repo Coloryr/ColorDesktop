@@ -8,6 +8,10 @@
     {
       "Type": "Share",
       "ID": "coloryr.clock"
+    },
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
     }
   ],
   "Version": "1.0.0",

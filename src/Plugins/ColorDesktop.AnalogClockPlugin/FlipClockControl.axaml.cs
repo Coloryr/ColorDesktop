@@ -11,7 +11,7 @@ public partial class FlipClockControl : UserControl, IClock
         DataContext = new FlipClockModel();
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         if (DataContext is FlipClockModel model)
         {

@@ -19,7 +19,7 @@ public partial class DigitalClockControl : UserControl, IClock
         }
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         if (DataContext is DigitalClockModel model)
         {

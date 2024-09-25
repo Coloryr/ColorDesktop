@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
 using ColorDesktop.Api;
-using ColorDesktop.ClockPlugin;
+using ColorDesktop.CoreLib.View.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.AnalogClockPlugin;
@@ -37,7 +37,7 @@ public partial class AnalogClockSettingModel : ObservableObject
     [ObservableProperty]
     private bool _useFont;
 
-    private readonly AnalogClockConfigObj _config;
+    private readonly AnalogClockInstanceConfigObj _config;
     private readonly InstanceDataObj _obj;
 
     public AnalogClockSettingModel(InstanceDataObj obj)

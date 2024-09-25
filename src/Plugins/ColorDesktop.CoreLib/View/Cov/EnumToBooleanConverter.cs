@@ -2,7 +2,7 @@
 using Avalonia.Data;
 using Avalonia.Data.Converters;
 
-namespace ColorDesktop.AnalogClockPlugin;
+namespace ColorDesktop.CoreLib.View.Cov;
 
 public class EnumToBooleanConverter : IValueConverter
 {

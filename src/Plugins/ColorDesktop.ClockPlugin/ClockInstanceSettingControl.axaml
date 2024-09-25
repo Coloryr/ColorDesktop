@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Border Classes="t2">
         <StackPanel Margin="10">
-            <TextBlock Margin="0,0,0,10" Text="组件设置" />
+            <TextBlock Margin="0,0,0,10" Text="时钟实例设置" />
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <CheckBox
                     Margin="0,0,10,0"

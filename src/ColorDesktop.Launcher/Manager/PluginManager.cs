@@ -350,6 +350,16 @@ public static class PluginManager
         return false;
     }
 
+    public static bool IsCoreLib(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var plugin))
+        {
+            return plugin.Plugin.IsCoreLib;
+        }
+
+        return false;
+    }
+
     private static void DisablePlugin(string id, IPlugin plugin)
     {
         try

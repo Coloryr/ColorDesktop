@@ -19,7 +19,7 @@ public partial class PointerClockControl : UserControl, IClock
         }
     }
 
-    public void Update(AnalogClockConfigObj config)
+    public void Update(AnalogClockInstanceConfigObj config)
     {
         if (DataContext is PointerClockModel model)
         {

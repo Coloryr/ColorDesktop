@@ -1,6 +1,6 @@
 ﻿using Avalonia.Media;
 
-namespace ColorDesktop.ClockPlugin;
+namespace ColorDesktop.CoreLib.View.Model;
 
 public record FontDisplayModel
 {

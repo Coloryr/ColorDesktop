@@ -141,7 +141,7 @@ public partial class DigitalModel : ObservableObject
         }
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         Color = Brush.Parse(obj.Color);
 

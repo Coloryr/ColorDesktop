@@ -30,7 +30,7 @@ public partial class FlipClockModel : ObservableObject
         SecondB.SetImage(_numbers[time.Second % 10, 0], _numbers[time.Second % 10, 1]);
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         HourA.Size = obj.Size;
         HourB.Size = obj.Size;

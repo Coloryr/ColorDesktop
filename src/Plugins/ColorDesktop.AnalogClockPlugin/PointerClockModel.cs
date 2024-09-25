@@ -55,7 +55,7 @@ public partial class PointerClockModel : ObservableObject
         }
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         Size = obj.Size;
         DisplaySecond = obj.DisplaySecond;

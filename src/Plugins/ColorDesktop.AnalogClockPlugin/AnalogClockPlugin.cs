@@ -2,28 +2,17 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 
 namespace ColorDesktop.AnalogClockPlugin;
 
 public class AnalogClockPlugin : IPlugin
 {
-    public static AnalogClockConfigObj Config { get; set; }
-
     public const string ConfigName = "analogclock.json";
 
-    public static string Local;
-    public static string InstanceLocal;
-
-    private static Dictionary<string, AnalogClockConfigObj> s_configs = [];
-
-    public static AnalogClockConfigObj GetConfig(InstanceDataObj obj)
+    public static AnalogClockInstanceConfigObj GetConfig(InstanceDataObj obj)
     {
-        if (s_configs.TryGetValue(obj.UUID, out var data))
-        {
-            return data;
-        }
-
-        var obj1 = ConfigUtils.Config<AnalogClockConfigObj>(new()
+        return InstanceUtils.GetConfig(obj, new AnalogClockInstanceConfigObj()
         {
             Size = 100,
             Type = ClockType.Analog,
@@ -32,31 +21,19 @@ public class AnalogClockPlugin : IPlugin
             TextColor = "#FFFFFF",
             BackColor = "#0000CD",
             BorderColor = "#EEEEEE"
-        }, InstanceLocal + "/" + obj.UUID + "/" + ConfigName);
-
-        s_configs.Add(obj.UUID, obj1);
-
-        return obj1;
+        }, ConfigName);
     }
 
-    public static void SaveConfig(InstanceDataObj obj, AnalogClockConfigObj config)
+    public static void SaveConfig(InstanceDataObj obj, AnalogClockInstanceConfigObj config)
     {
-        if (!s_configs.TryAdd(obj.UUID, config))
-        {
-            s_configs[obj.UUID] = config;
-        }
-
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.analogclock.config" + obj.UUID,
-            Local = InstanceLocal + "/" + obj.UUID + "/" + ConfigName,
-            Obj = config
-        });
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
     }
 
     public bool HavePluginSetting => false;
 
     public bool HaveInstanceSetting => true;
+
+    public bool IsCoreLib => false;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -88,8 +65,7 @@ public class AnalogClockPlugin : IPlugin
 
     public void Init(string local, string local1, LanguageType type)
     {
-        Local = local + "/" + ConfigName;
-        InstanceLocal = local1;
+        
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

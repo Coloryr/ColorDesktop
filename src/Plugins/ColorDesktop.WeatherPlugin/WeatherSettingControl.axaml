@@ -1,0 +1,47 @@
+<UserControl
+    x:Class="ColorDesktop.WeatherPlugin.WeatherSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:WeatherSettingModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <StackPanel Margin="10">
+            <TextBlock Margin="0,0,0,10" Text="天气设置" />
+            <TextBlock Margin="0,0,0,10" Text="显示地区" />
+            <ComboBox
+                Width="200"
+                Margin="0,0,0,10"
+                ItemsSource="{Binding City}"
+                SelectedIndex="{Binding CityIndex1}" />
+            <ComboBox
+                Width="200"
+                Margin="0,0,0,10"
+                IsVisible="{Binding CityDisplay1}"
+                ItemsSource="{Binding City1}"
+                SelectedIndex="{Binding CityIndex2}" />
+            <ComboBox
+                Width="200"
+                Margin="0,0,0,10"
+                IsVisible="{Binding CityDisplay2}"
+                ItemsSource="{Binding City2}"
+                SelectedIndex="{Binding CityIndex3}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="背景色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体颜色" />
+                <ColorPicker Color="{Binding TextColor}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

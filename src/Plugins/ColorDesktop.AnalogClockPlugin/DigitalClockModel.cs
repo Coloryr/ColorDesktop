@@ -49,7 +49,7 @@ public partial class DigitalClockModel : ObservableObject
         }
     }
 
-    public void Update(AnalogClockConfigObj obj)
+    public void Update(AnalogClockInstanceConfigObj obj)
     {
         HourA.Update(obj);
         HourB.Update(obj);

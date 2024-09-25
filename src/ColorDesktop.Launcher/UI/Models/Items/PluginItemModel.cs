@@ -11,42 +11,28 @@ using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher.UI.Models.Items;
 
-public partial class PluginItemModel : ObservableObject
+public partial class PluginItemModel(MainViewModel model, PluginDataObj obj) : ObservableObject
 {
-    private readonly PluginDataObj _obj;
-    private readonly MainViewModel _model;
+    [ObservableProperty]
+    private bool _enable = PluginManager.IsEnable(obj.ID);
 
     [ObservableProperty]
-    private bool _enable;
-
+    private bool _loadFail = PluginManager.IsFail(obj.ID);
     [ObservableProperty]
-    private bool _loadFail;
-    [ObservableProperty]
-    private bool _enableFail;
+    private bool _enableFail = PluginManager.IsEnableFail(obj.ID);
 
-    public string ID => _obj.ID;
-    public string Name => _obj.Name;
-    public string Describe => _obj.Describe;
-    public string Auther => _obj.Auther;
-    public string Version => _obj.Version;
+    public bool Core { get; init; } = PluginManager.IsCoreLib(obj.ID);
+    public string ID => obj.ID;
+    public string Name => obj.Name;
+    public string Describe => obj.Describe;
+    public string Auther => obj.Auther;
+    public string Version => obj.Version;
     public Task<Bitmap?> Image => GetImage();
 
     private bool _edit;
     private bool _work;
 
-    public bool HaveSetting { get; init; }
-
-    public PluginItemModel(MainViewModel model, PluginDataObj obj)
-    {
-        _obj = obj;
-        _model = model;
-
-        _enable = PluginManager.IsEnable(obj.ID);
-        _loadFail = PluginManager.IsFail(obj.ID);
-        _enableFail = PluginManager.IsEnableFail(obj.ID);
-
-        HaveSetting = PluginManager.HavePluginSetting(obj.ID);
-    }
+    public bool HaveSetting { get; init; } = PluginManager.HavePluginSetting(obj.ID);
 
     async partial void OnEnableChanged(bool value)
     {
@@ -72,7 +58,7 @@ public partial class PluginItemModel : ObservableObject
                 return;
             }
 
-            PluginManager.EnablePlugin(_obj.ID);
+            PluginManager.EnablePlugin(obj.ID);
         }
         else
         {
@@ -90,14 +76,14 @@ public partial class PluginItemModel : ObservableObject
                 return;
             }
 
-            PluginManager.DisablePlugin(_obj.ID);
+            PluginManager.DisablePlugin(obj.ID);
         }
 
-        Enable = PluginManager.IsEnable(_obj.ID);
-        LoadFail = PluginManager.IsFail(_obj.ID);
-        EnableFail = PluginManager.IsEnableFail(_obj.ID);
+        Enable = PluginManager.IsEnable(obj.ID);
+        LoadFail = PluginManager.IsFail(obj.ID);
+        EnableFail = PluginManager.IsEnableFail(obj.ID);
 
-        _model.LoadCount();
+        model.LoadCount();
 
         _work = false;
     }
@@ -109,7 +95,7 @@ public partial class PluginItemModel : ObservableObject
         {
             return;
         }
-        PluginManager.OpenSetting(_obj);
+        PluginManager.OpenSetting(obj);
     }
 
     [RelayCommand]
@@ -119,14 +105,14 @@ public partial class PluginItemModel : ObservableObject
         {
             return;
         }
-        InstanceManager.CreateInstance(_obj);
+        InstanceManager.CreateInstance(obj);
     }
 
     public Task<Bitmap?> GetImage()
     {
         return Task.Run(() =>
         {
-            if (PluginManager.PluginAssemblys.TryGetValue(_obj.ID, out var dll))
+            if (PluginManager.PluginAssemblys.TryGetValue(obj.ID, out var dll))
             {
                 return dll.Plugin.GetIcon();
             }
@@ -137,8 +123,8 @@ public partial class PluginItemModel : ObservableObject
 
     public void Update()
     {
-        Enable = PluginManager.IsEnable(_obj.ID);
-        LoadFail = PluginManager.IsFail(_obj.ID);
-        EnableFail = PluginManager.IsEnableFail(_obj.ID);
+        Enable = PluginManager.IsEnable(obj.ID);
+        LoadFail = PluginManager.IsFail(obj.ID);
+        EnableFail = PluginManager.IsEnableFail(obj.ID);
     }
 }

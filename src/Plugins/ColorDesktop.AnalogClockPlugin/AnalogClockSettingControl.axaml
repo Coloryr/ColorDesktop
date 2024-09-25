@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ColorDesktop.AnalogClockPlugin;assembly=ColorDesktop.AnalogClockPlugin"
+    xmlns:local1="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:AnalogClockSettingModel"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+        <local1:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </UserControl.Resources>
     <Border Classes="t2">
         <StackPanel Margin="10">

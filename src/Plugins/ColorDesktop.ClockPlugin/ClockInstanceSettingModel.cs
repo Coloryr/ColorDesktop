@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib.View.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.ClockPlugin;
