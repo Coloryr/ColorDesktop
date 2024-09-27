@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using ColorDesktop.WeatherPlugin.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,7 +8,7 @@ namespace ColorDesktop.WeatherPlugin;
 
 public partial class WeatherModel : ObservableObject
 {
-    private static readonly Dictionary<string, string> WindIcon = new()
+    public static readonly Dictionary<string, string> WindIcon = new()
     {
         { "东北", "/Resource/Wind/north_east.svg" },
         { "东", "/Resource/Wind/east.svg" },
@@ -26,7 +20,7 @@ public partial class WeatherModel : ObservableObject
         { "北", "/Resource/Wind/north.svg" }
     };
 
-    private static readonly Dictionary<string, string> WeaterIcon = new()
+    public static readonly Dictionary<string, string> WeaterIcon = new()
     {
         { "晴", "/Resource/Weather/sun.svg" },
         { "少云", "/Resource/Weather/cloud.svg" },
@@ -129,8 +123,57 @@ public partial class WeatherModel : ObservableObject
     private bool _isUpdate;
     [ObservableProperty]
     private bool _haveWindPower;
+    [ObservableProperty]
+    private bool _showNextDay;
+    [ObservableProperty]
+    private bool _nextDayLoad;
+    [ObservableProperty]
+    private bool _nextDayLoadError;
+
+    public ObservableCollection<WeatherDayModel> WeatherDays { get; init; } = [];
 
     private City1Obj? _obj;
+
+    [RelayCommand]
+    public async Task NextDay()
+    {
+        if (_obj == null)
+        {
+            NextDayLoadError = true;
+            NextDayLoad = false;
+            return;
+        }
+
+        if (ShowNextDay)
+        {
+            ShowNextDay = false;
+        }
+        else
+        {
+            ShowNextDay = true;
+
+            NextDayLoad = true;
+
+            var data = await AmapApi.GetData(_obj.Adcode, true);
+
+            if (data?.Forecasts.FirstOrDefault() is { } res)
+            {
+                NextDayLoadError = false;
+                WeatherDays.Clear();
+
+                foreach (var item in res.Casts)
+                {
+                    WeatherDays.Add(new(item));
+                }
+            }
+            else
+            {
+                NextDayLoadError = true;
+            }
+
+            NextDayLoad = false;
+        }
+    }
 
     [RelayCommand]
     public async Task Update()

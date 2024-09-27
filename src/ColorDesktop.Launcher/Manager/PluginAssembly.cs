@@ -34,9 +34,14 @@ public class PluginAssembly : AssemblyLoadContext
     {
         foreach (var item in Deps)
         {
-            return item.Assemblies
-                .Where(a => a.GetName().FullName == name.FullName)
+            var ass = item.Assemblies
+                .Where(a => a.GetName().Name == name.Name)
                 .FirstOrDefault();
+
+            if (ass != null)
+            {
+                return ass;
+            }
         }
 
         return null;

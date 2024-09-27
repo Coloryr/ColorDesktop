@@ -8,126 +8,182 @@
     xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
     x:DataType="vm:WeatherModel"
     mc:Ignorable="d">
-    <Border Background="{Binding BackColor, FallbackValue=Black}" CornerRadius="20">
-        <Panel>
-            <StackPanel
-                Margin="50"
-                IsVisible="{Binding !IsUpdate}"
-                Orientation="Horizontal">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Svg
-                        Width="120"
-                        Height="120"
-                        Path="{Binding Img}" />
+    <Border
+        Background="{Binding BackColor, FallbackValue=Black}"
+        CornerRadius="20"
+        RenderOptions.TextRenderingMode="Antialias">
+        <StackPanel>
+            <Panel>
+                <StackPanel
+                    Margin="30"
+                    IsVisible="{Binding !IsUpdate}"
+                    Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Svg
+                            Width="120"
+                            Height="120"
+                            Path="{Binding Img}" />
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="30"
+                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                            Text="{Binding State, FallbackValue=晴}" />
+                    </StackPanel>
+                    <StackPanel Margin="20,0,0,0">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding Province, FallbackValue=北京}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding City, FallbackValue=北京}" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                FontSize="70"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding Value, FallbackValue=30}" />
+                            <TextBlock
+                                FontSize="70"
+                                Foreground="{Binding TextColor, FallbackValue=#000000}"
+                                Text="℃" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="湿度" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding Humidity}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="%" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <svg:SvgControl
+                                Height="20"
+                                Margin="0,0,5,0"
+                                Path="/Resource/icon1.svg"
+                                Stroke="{Binding TextColor, FallbackValue=#FFFFFF}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding Winddirection}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                IsVisible="{Binding HaveWindPower}"
+                                Text="风" />
+                            <svg:SvgControl
+                                Height="20"
+                                Margin="5,0,0,0"
+                                IsVisible="{Binding HaveWindPower}"
+                                Path="{Binding Wind}"
+                                Stroke="{Binding TextColor, FallbackValue=#FFFFFF}" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding Windpower}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="级" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Margin="10"
+                    VerticalAlignment="Bottom"
+                    IsVisible="{Binding !IsUpdate}"
+                    Orientation="Horizontal">
+                    <TextBlock Foreground="{Binding TextColor, FallbackValue=#FFFFFF}" Text="更新时间" />
                     <TextBlock
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Center"
-                        FontSize="30"
+                        Margin="5,0,0,0"
                         Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                        Text="{Binding State, FallbackValue=晴}" />
+                        Text="{Binding Time}" />
                 </StackPanel>
-                <StackPanel Margin="20,0,0,0">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding Province, FallbackValue=北京}" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding City, FallbackValue=北京}" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,5,0"
-                            FontSize="70"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding Value, FallbackValue=30}" />
-                        <TextBlock
-                            FontSize="70"
-                            Foreground="{Binding TextColor, FallbackValue=#000000}"
-                            Text="℃" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,5,0"
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="湿度" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding Humidity}" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="%" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <svg:SvgControl
-                            Height="20"
-                            Margin="0,0,5,0"
-                            Path="/Resource/icon1.svg"
-                            Stroke="{Binding TextColor, FallbackValue=#FFFFFF}" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding Winddirection}" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            IsVisible="{Binding HaveWindPower}"
-                            Text="风" />
-                        <svg:SvgControl
-                            Height="20"
-                            Margin="5,0,0,0"
-                            IsVisible="{Binding HaveWindPower}"
-                            Path="{Binding Wind}"
-                            Stroke="{Binding TextColor, FallbackValue=#FFFFFF}" />
-                        <TextBlock
-                            Margin="10,0,0,0"
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding Windpower}" />
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="级" />
-                    </StackPanel>
-                </StackPanel>
+                <TextBlock
+                    Margin="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="50"
+                    Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                    IsVisible="{Binding Error}"
+                    Text="获取错误" />
+                <TextBlock
+                    Margin="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="50"
+                    Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                    IsVisible="{Binding IsUpdate}"
+                    Text="正在加载" />
+                <Button
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Content="明日天气"
+                    CornerRadius="5"
+                    Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                    IsEnabled="{Binding !Error}" />
+                <Button
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding Update}"
+                    CornerRadius="5"
+                    IsEnabled="{Binding !IsUpdate}">
+                    <svg:SvgControl
+                        Width="30"
+                        Fill="{Binding TextColor, FallbackValue=#FFFFFF}"
+                        Path="/Resource/icon.svg" />
+                </Button>
+            </Panel>
+            <StackPanel IsVisible="{Binding ShowNextDay}">
+                <TextBlock
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                    Text="天气预报" />
+                <Panel Margin="20">
+                    <Decorator IsVisible="{Binding !NextDayLoadError}">
+                        <ItemsControl IsVisible="{Binding !NextDayLoad}" ItemsSource="{Binding WeatherDays}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <vm:WetherDayControl DataContext="{Binding}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Decorator>
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                        IsVisible="{Binding NextDayLoad}"
+                        Text="正在加载" />
+                    <TextBlock
+                        FontSize="20"
+                        Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                        IsVisible="{Binding NextDayLoadError}"
+                        Text="获取失败" />
+                </Panel>
             </StackPanel>
-            <TextBlock
-                Margin="50"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="50"
-                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                IsVisible="{Binding Error}"
-                Text="获取错误" />
-            <TextBlock
-                Margin="50"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="50"
-                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                IsVisible="{Binding IsUpdate}"
-                Text="正在加载" />
-            <Button
-                Margin="5"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding Update}"
-                CornerRadius="5"
-                IsEnabled="{Binding !IsUpdate}">
-                <svg:SvgControl
-                    Width="40"
-                    Fill="{Binding TextColor, FallbackValue=#FFFFFF}"
-                    Path="/Resource/icon.svg" />
-            </Button>
-        </Panel>
+        </StackPanel>
     </Border>
 </UserControl>

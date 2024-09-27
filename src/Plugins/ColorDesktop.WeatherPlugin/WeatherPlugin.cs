@@ -19,7 +19,7 @@ public class WeatherPlugin : IPlugin
         return InstanceUtils.GetConfig(obj, new WeatherInstanceObj()
         {
             City = "110000",
-            BackColor = "#0294FF",
+            BackColor = "#57000000",
             TextColor = "#FFFFFF"
         }, ConfigName);
     }

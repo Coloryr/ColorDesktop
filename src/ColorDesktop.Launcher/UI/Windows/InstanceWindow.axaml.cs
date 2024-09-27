@@ -55,6 +55,25 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _obj = obj;
         _instance.Update(obj);
         Topmost = _obj.TopModel;
+        switch (obj.Tran)
+        {
+            case WindowTransparencyType.None:
+                TransparencyLevelHint = [WindowTransparencyLevel.None];
+                break;
+            case WindowTransparencyType.Transparent:
+                TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
+                break;
+            case WindowTransparencyType.Blur:
+                TransparencyLevelHint = [WindowTransparencyLevel.Blur];
+                break;
+            case WindowTransparencyType.AcrylicBlur:
+                TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
+                break;
+            case WindowTransparencyType.Mica:
+                TransparencyLevelHint = [WindowTransparencyLevel.Mica];
+                break;
+        }
+       
         Dispatcher.UIThread.Post(Move);
     }
 

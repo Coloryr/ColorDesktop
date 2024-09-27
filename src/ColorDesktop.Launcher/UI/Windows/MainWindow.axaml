@@ -42,7 +42,7 @@
                             Content="{setting:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
                     </StackPanel>
-                    <dialogview:CreateControl Margin="0,0,0,10" DataContext="{Binding}" />
+                    <dialogview:InstanceSettingControl Margin="0,0,0,10" DataContext="{Binding}" />
                 </DockPanel>
             </DataTemplate>
             <DataTemplate DataType="dialogmodel:CreateInstanceOtherModel">
@@ -71,7 +71,7 @@
                             <TabItem.Header>
                                 <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text42}" />
                             </TabItem.Header>
-                            <dialogview:CreateControl DataContext="{Binding}" />
+                            <dialogview:InstanceSettingControl DataContext="{Binding}" />
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>

@@ -1,4 +1,6 @@
-﻿using ColorDesktop.Api;
+﻿using Avalonia.Controls;
+using ColorDesktop.Api;
+using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.UI.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -35,6 +37,11 @@ public partial class CreateInstanceBaseModel : ObservableObject
     [ObservableProperty]
     private bool _topModel;
 
+    [ObservableProperty]
+    private WindowTransparencyType _tran;
+
+    public string[] TranTypes { get; init; } = LangHelper.GetWindowTranTypeLang();
+
     private readonly InstanceDataObj _obj;
 
     public CreateInstanceBaseModel(InstanceDataObj obj)
@@ -44,6 +51,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
         _display = obj.Display;
         _pos = obj.Pos;
         _topModel = obj.TopModel;
+        _tran = obj.Tran;
         MarginTo(obj);
         _maxDisplay = App.MainWindow!.Screens.ScreenCount;
         if (_display == 0 || _display > _maxDisplay)
@@ -59,6 +67,7 @@ public partial class CreateInstanceBaseModel : ObservableObject
         _obj.Nick = Nick;
         _obj.Display = Display;
         _obj.TopModel = TopModel;
+        _obj.Tran = Tran;
         ToMargin(_obj);
 
         DialogHost.Close(MainWindow.DialogHostName, true);

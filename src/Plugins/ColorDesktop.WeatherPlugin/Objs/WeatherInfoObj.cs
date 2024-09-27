@@ -39,7 +39,7 @@ public record WeatherInfoObj
         public record CastObj
         {
             [JsonProperty("date")]
-            public DateTime Date { get; set; }
+            public string Date { get; set; }
             [JsonProperty("week")]
             public string Week { get; set; }
             [JsonProperty("dayweather")]

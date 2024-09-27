@@ -55,5 +55,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ColorDesktop.Api\ColorDesktop.Api.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="UI\Controls\Dialog\InstanceSettingControl.axaml.cs">
+	    <DependentUpon>InstanceSettingControl.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 	
 </Project>
