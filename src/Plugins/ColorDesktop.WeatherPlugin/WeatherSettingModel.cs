@@ -84,6 +84,7 @@ public partial class WeatherSettingModel : ObservableObject
             {
                 CityDisplay1 = false;
                 CityIndex2 = -1;
+                CityIndex3 = -1;
                 return;
             }
             if (!_isLoad)
@@ -111,6 +112,7 @@ public partial class WeatherSettingModel : ObservableObject
                 City2.AddRange(list);
                 if (!_isLoad)
                 {
+                    CityIndex3 = -1;
                     CityIndex3 = 0;
                 }
             }

@@ -2,6 +2,7 @@
     x:Class="ColorDesktop.WeatherPlugin.WeatherControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia_controls_presenters="using:Avalonia.Controls.Presenters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
@@ -13,6 +14,13 @@
         CornerRadius="20"
         RenderOptions.TextRenderingMode="Antialias">
         <StackPanel>
+            <StackPanel.Styles>
+                <Style Selector="Button.over">
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+                    </Style>
+                </Style>
+            </StackPanel.Styles>
             <Panel>
                 <StackPanel
                     Margin="30"
@@ -135,9 +143,11 @@
                     Background="Transparent"
                     BorderBrush="Transparent"
                     BorderThickness="0"
+                    Classes="over"
+                    Command="{Binding NextDay}"
                     Content="明日天气"
                     CornerRadius="5"
-                    Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                    Foreground="{Binding TextColor}"
                     IsEnabled="{Binding !Error}" />
                 <Button
                     Margin="5"
@@ -157,27 +167,46 @@
             </Panel>
             <StackPanel IsVisible="{Binding ShowNextDay}">
                 <TextBlock
-                    Margin="0,0,10,0"
                     HorizontalAlignment="Center"
                     FontSize="20"
                     Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
                     Text="天气预报" />
-                <Panel Margin="20">
-                    <Decorator IsVisible="{Binding !NextDayLoadError}">
-                        <ItemsControl IsVisible="{Binding !NextDayLoad}" ItemsSource="{Binding WeatherDays}">
+                <Panel>
+                    <StackPanel IsVisible="{Binding !NextDayLoadError}">
+                        <ItemsControl
+                            Margin="20,10,20,0"
+                            IsVisible="{Binding !NextDayLoad}"
+                            ItemsSource="{Binding WeatherDays}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <vm:WetherDayControl DataContext="{Binding}" />
+                                    <vm:WetherDayControl Margin="0,0,0,5" DataContext="{Binding}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </Decorator>
+                        <StackPanel
+                            Margin="10"
+                            VerticalAlignment="Bottom"
+                            IsVisible="{Binding !NextDayLoad}"
+                            Orientation="Horizontal">
+                            <TextBlock Foreground="{Binding TextColor, FallbackValue=#FFFFFF}" Text="更新时间" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                                Text="{Binding TimeNext}" />
+                        </StackPanel>
+                    </StackPanel>
                     <TextBlock
+                        Margin="20,10,20,20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
                         IsVisible="{Binding NextDayLoad}"
                         Text="正在加载" />
                     <TextBlock
+                        Margin="20,10,20,20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         FontSize="20"
                         Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
                         IsVisible="{Binding NextDayLoadError}"

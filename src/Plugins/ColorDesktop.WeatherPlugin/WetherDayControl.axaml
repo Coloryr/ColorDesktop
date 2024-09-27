@@ -5,41 +5,79 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:DataType="vm:WeatherDayModel"
     mc:Ignorable="d">
     <StackPanel>
         <StackPanel Margin="0,0,5,0" Orientation="Horizontal">
-            <TextBlock Margin="0,0,10,0" Text="{Binding Date}" />
-            <TextBlock Text="星期" />
-            <TextBlock Text="{Binding Week}" />
+            <TextBlock
+                Margin="0,0,10,0"
+                Foreground="{Binding TextColor}"
+                Text="{Binding Date}" />
+            <TextBlock Foreground="{Binding TextColor}" Text="星期" />
+            <TextBlock Foreground="{Binding TextColor}" Text="{Binding Week}" />
         </StackPanel>
-        <UniformGrid Rows="2">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="白天" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel
+                Margin="0,0,20,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="白天" />
                 <StackPanel>
                     <Svg
                         Width="30"
                         Height="30"
                         Path="{Binding DayIcon}" />
-                    <TextBlock Text="{Binding DayWeather}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Foreground="{Binding TextColor}"
+                        Text="{Binding DayWeather}" />
                 </StackPanel>
-                <TextBlock VerticalAlignment="Center" Text="气温" />
-                <TextBlock Text="{Binding DayTemp}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="气温" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding DayTemp}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="夜晚" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="夜晚" />
                 <StackPanel>
                     <Svg
                         Width="30"
                         Height="30"
                         Path="{Binding NightIcon}" />
-                    <TextBlock Text="{Binding NightWeather}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Foreground="{Binding TextColor}"
+                        Text="{Binding NightWeather}" />
                 </StackPanel>
-                <TextBlock VerticalAlignment="Center" Text="气温" />
-                <TextBlock Text="{Binding NightTemp}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="气温" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding NightTemp}" />
             </StackPanel>
-        </UniformGrid>
+        </StackPanel>
     </StackPanel>
 </UserControl>

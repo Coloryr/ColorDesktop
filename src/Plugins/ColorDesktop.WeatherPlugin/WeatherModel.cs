@@ -25,7 +25,7 @@ public partial class WeatherModel : ObservableObject
         { "晴", "/Resource/Weather/sun.svg" },
         { "少云", "/Resource/Weather/cloud.svg" },
         { "晴间多云", "/Resource/Weather/sun_cloud.svg" },
-        { "多云", "/Resource/Weather/cloud_log.svg" },
+        { "多云", "/Resource/Weather/cloud_lot.svg" },
         { "阴", "/Resource/Weather/cloud.svg" },
         { "有风", "/Resource/Weather/wind.svg" },
         { "平静", "/Resource/Weather/wind.svg" },
@@ -111,6 +111,8 @@ public partial class WeatherModel : ObservableObject
     private string _time;
     [ObservableProperty]
     private string _wind;
+    [ObservableProperty]
+    private string _timeNext;
 
     [ObservableProperty]
     private IBrush _backColor;
@@ -163,8 +165,14 @@ public partial class WeatherModel : ObservableObject
 
                 foreach (var item in res.Casts)
                 {
-                    WeatherDays.Add(new(item));
+                    var obj = new WeatherDayModel(item)
+                    {
+                        TextColor = TextColor
+                    };
+                    WeatherDays.Add(obj);
                 }
+
+                TimeNext = res.Reporttime.ToString();
             }
             else
             {
@@ -196,7 +204,7 @@ public partial class WeatherModel : ObservableObject
             Winddirection = res.Winddirection;
             Windpower = res.Windpower;
             Humidity = res.HumidityFloat;
-            Time = res.Reporttime.ToString("U");
+            Time = res.Reporttime.ToString();
 
             if (res.Windpower == "无风向" || res.Windpower == "旋转不定")
             {
@@ -243,11 +251,15 @@ public partial class WeatherModel : ObservableObject
         //await Update();
     }
 
-    public async void Update(WeatherInstanceObj obj)
+    public void Update(WeatherInstanceObj obj)
     {
         BackColor = Brush.Parse(obj.BackColor);
         TextColor = Brush.Parse(obj.TextColor);
         _obj = AmapApi.GetCityAdcode(int.Parse(obj.City));
-        await Update();
+        _ = Update();
+        if (ShowNextDay)
+        {
+            _ = NextDay();
+        }
     }
 }

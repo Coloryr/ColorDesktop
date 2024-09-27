@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:DataType="vm:WeatherSettingModel"
     mc:Ignorable="d">
     <Border Classes="t2">

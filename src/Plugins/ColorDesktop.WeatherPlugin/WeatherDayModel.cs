@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Media;
 using ColorDesktop.WeatherPlugin.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -30,6 +31,8 @@ public partial class WeatherDayModel : ObservableObject
     public string NightWeather => _obj.Nightweather;
     public string NightIcon { get; init; }
     public string NightTemp => _obj.Nighttemp;
+
+    public IBrush TextColor { get; init; }
 
     private readonly WeatherInfoObj.ForecastObj.CastObj _obj;
 
