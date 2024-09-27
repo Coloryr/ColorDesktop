@@ -23,12 +23,14 @@
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding CreateInstance}"
                         Content="{setting:Localize MainWindow.Text30}"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding OpenSetting}"
                         Content="{setting:Localize MainWindow.Text16}"
                         IsEnabled="{Binding Enable}"

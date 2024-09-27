@@ -16,6 +16,7 @@
                 Width="100"
                 Height="35"
                 HorizontalAlignment="Right"
+                Classes="top"
                 Command="{Binding Exit}"
                 Content="{setting:Localize MainWindow.Text33}"
                 DockPanel.Dock="Bottom" />
@@ -43,31 +44,37 @@
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding OpenDir}"
                         Content="{setting:Localize MainWindow.Text36}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding OpenPluginDir}"
                         Content="{setting:Localize MainWindow.Text37}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding ReloadPlugin}"
                         Content="{setting:Localize MainWindow.Text38}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding DisableAllPlugin}"
                         Content="{setting:Localize MainWindow.Text39}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding ReloadInstance}"
                         Content="{setting:Localize MainWindow.Text40}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding DisableAllInstance}"
                         Content="{setting:Localize MainWindow.Text41}" />
                 </WrapPanel>

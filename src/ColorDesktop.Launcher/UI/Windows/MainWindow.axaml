@@ -30,12 +30,14 @@
                         <Button
                             Width="100"
                             Height="35"
+                            Classes="top"
                             Command="{Binding Done}"
                             Content="{setting:Localize Button.Confirm}" />
                         <Button
                             Width="100"
                             Height="35"
                             Margin="20,0,0,0"
+                            Classes="top"
                             Command="{Binding Cancel}"
                             Content="{setting:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
@@ -52,12 +54,14 @@
                         <Button
                             Width="100"
                             Height="35"
+                            Classes="top"
                             Command="{Binding Done}"
                             Content="{setting:Localize Button.Confirm}" />
                         <Button
                             Width="100"
                             Height="35"
                             Margin="20,0,0,0"
+                            Classes="top"
                             Command="{Binding Cancel}"
                             Content="{setting:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
@@ -87,6 +91,7 @@
                         Width="100"
                         Height="35"
                         HorizontalAlignment="Center"
+                        Classes="top"
                         Command="{Binding Done}"
                         Content="{setting:Localize Button.Confirm}"
                         DockPanel.Dock="Bottom" />

@@ -48,6 +48,7 @@
                     Width="100"
                     Height="35"
                     VerticalAlignment="Center"
+                    Classes="top"
                     Command="{Binding LoadInstanceData}"
                     Content="{setting:Localize MainWindow.Text12}"
                     DockPanel.Dock="Right" />

@@ -20,12 +20,14 @@
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding OpenSetting}"
                         Content="{setting:Localize MainWindow.Text23}"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"
+                        Classes="top"
                         Command="{Binding Delete}"
                         Content="{setting:Localize MainWindow.Text24}" />
                 </StackPanel>

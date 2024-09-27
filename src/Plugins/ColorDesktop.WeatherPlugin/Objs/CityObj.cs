@@ -14,3 +14,12 @@ public record CityObj
     public string NameE { get; set; }
     public List<CityObj> Childs { get; set; }
 }
+
+
+public record City1Obj
+{
+    public int Adcode { get; set; }
+    public int Citycode { get; set; }
+    public string Name { get; set; }
+    public List<City1Obj> Childs { get; set; }
+}
