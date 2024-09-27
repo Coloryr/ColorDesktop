@@ -132,6 +132,8 @@ public partial class WeatherModel : ObservableObject
     [ObservableProperty]
     private bool _nextDayLoadError;
 
+    private DateTime _date;
+
     public ObservableCollection<WeatherDayModel> WeatherDays { get; init; } = [];
 
     private City1Obj? _obj;
@@ -240,19 +242,25 @@ public partial class WeatherModel : ObservableObject
         IsUpdate = false;
     }
 
-    public void Tick()
+    public async void Tick()
     {
-        //if (_test)
-        //{
-        //    return;
-        //}
-        //_test = true;
+        if (WeatherPlugin.Config.AutoUpdate == false)
+        {
+            return;
+        }
 
-        //await Update();
+        var now = DateTime.Now;
+        var less = now - _date;
+        if (less.TotalMinutes >= WeatherPlugin.Config.UpdateTime)
+        {
+            _date = now;
+            await Update();
+        }
     }
 
     public void Update(WeatherInstanceObj obj)
     {
+        _date = DateTime.Now;
         BackColor = Brush.Parse(obj.BackColor);
         TextColor = Brush.Parse(obj.TextColor);
         _obj = AmapApi.GetCityAdcode(int.Parse(obj.City));

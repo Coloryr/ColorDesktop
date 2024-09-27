@@ -89,6 +89,7 @@
                     Width="110"
                     Height="35"
                     Margin="0,0,10,0"
+                    FormatString="N0"
                     IsEnabled="{Binding !CustomSize}"
                     Maximum="999"
                     Minimum="1"
@@ -108,6 +109,7 @@
                     Width="110"
                     Height="35"
                     Margin="0,0,10,0"
+                    FormatString="N0"
                     Maximum="999"
                     Minimum="1"
                     Value="{Binding HourSize}" />
@@ -119,6 +121,7 @@
                     Width="110"
                     Height="35"
                     Margin="0,0,10,0"
+                    FormatString="N0"
                     Maximum="999"
                     Minimum="1"
                     Value="{Binding MinuteSize}" />
@@ -130,6 +133,7 @@
                     <NumericUpDown
                         Width="110"
                         Height="35"
+                        FormatString="N0"
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding SecondSize}" />
@@ -142,6 +146,7 @@
                     Width="110"
                     Height="35"
                     Margin="0,0,10,0"
+                    FormatString="N0"
                     Maximum="999"
                     Minimum="1"
                     Value="{Binding ColonSize}" />

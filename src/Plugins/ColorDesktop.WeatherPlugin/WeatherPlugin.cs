@@ -12,6 +12,8 @@ public class WeatherPlugin : IPlugin
 {
     public const string ConfigName = "weather.json";
 
+    public static WeatherConfigObj Config;
+
     private static string s_local;
 
     public static WeatherInstanceObj GetConfig(InstanceDataObj obj)
@@ -29,7 +31,24 @@ public class WeatherPlugin : IPlugin
         InstanceUtils.SaveConfig(obj, config, ConfigName);
     }
 
-    
+    public static void SaveConfig()
+    {
+        ConfigSave.AddItem(new()
+        {
+            Name = "coloryr.clock.config",
+            Local = s_local,
+            Obj = Config
+        });
+    }
+
+    public static void ReadConfig()
+    {
+        Config = ConfigUtils.Config<WeatherConfigObj>(new()
+        {
+            AutoUpdate = true,
+            UpdateTime = 360
+        }, s_local);
+    }
 
     public bool IsCoreLib => false;
 
@@ -67,7 +86,7 @@ public class WeatherPlugin : IPlugin
 
     public void Init(string local, string local1, LanguageType type)
     {
-        s_local = local;
+        s_local = local + "/" + ConfigName;
 
         var assm = Assembly.GetExecutingAssembly();
         var jsonSerializer = JsonSerializer.CreateDefault();
@@ -82,6 +101,8 @@ public class WeatherPlugin : IPlugin
             using var reader1 = new JsonTextReader(new StreamReader(item1));
             AmapApi.Citys = jsonSerializer.Deserialize<List<City1Obj>>(reader1)!;
         }
+
+        ReadConfig();
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -91,12 +112,12 @@ public class WeatherPlugin : IPlugin
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        return new WeatherSettingControl(instance);
+        return new WeatherInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()
     {
-        return new();
+        return new WeatherSettingControl();
     }
 
     public void Stop()

@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\WeatherPlugin</BaseOutputPath>
   </PropertyGroup>
 
@@ -110,6 +111,13 @@
 	<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
 		<Private>False</Private>
 	</ProjectReference>
+</ItemGroup>
+
+
+<ItemGroup>
+  <Compile Update="WeatherInstanceSettingControl.axaml.cs">
+    <DependentUpon>WeatherInstanceSettingControl.axaml</DependentUpon>
+  </Compile>
 </ItemGroup>
 	
   <ItemGroup>
