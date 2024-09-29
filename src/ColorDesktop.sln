@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorDesktop.CoreLib", "Plu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorDesktop.WeatherPlugin", "Plugins\ColorDesktop.WeatherPlugin\ColorDesktop.WeatherPlugin.csproj", "{CB372A9B-C39F-4A9B-B8C2-A0014CDDC5AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.Calendar", "Plugins\ColorDesktop.Calendar\ColorDesktop.Calendar.csproj", "{01FC89C4-2364-4F41-8240-68FDFE33F5B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorDesktop.CalendarPlugin", "Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj", "{01FC89C4-2364-4F41-8240-68FDFE33F5B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

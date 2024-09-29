@@ -3,8 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
+using Lunar;
 
-namespace ColorDesktop.Calendar;
+namespace ColorDesktop.CalendarPlugin;
 
 public class CalendarPlugin : IPlugin
 {
@@ -63,13 +64,13 @@ public class CalendarPlugin : IPlugin
 
     public void Enable()
     {
-        
+
     }
 
     public Bitmap? GetIcon()
     {
         var assm = Assembly.GetExecutingAssembly();
-        using var item = assm.GetManifestResourceStream("ColorDesktop.Calendar.icon.png")!;
+        using var item = assm.GetManifestResourceStream("ColorDesktop.CalendarPlugin.icon.png")!;
         return new Bitmap(item);
     }
 

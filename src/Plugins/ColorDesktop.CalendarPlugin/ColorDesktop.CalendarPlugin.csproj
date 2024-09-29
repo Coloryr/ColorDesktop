@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\CalendarPlugin</BaseOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="icon.png" />
+	</ItemGroup>
+
+	<Target Name="CopySpecificNuGetDll" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)lunar-csharp\1.5.11\lib\netstandard2.0\lunar.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+
+	<ItemGroup>
+		<PackageReference Include="lunar-csharp" Version="1.5.11" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="plugin.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>

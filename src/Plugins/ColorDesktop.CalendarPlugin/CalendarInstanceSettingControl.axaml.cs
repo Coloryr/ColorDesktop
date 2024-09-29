@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ColorDesktop.Calendar;
+namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarInstanceSettingControl : UserControl
 {

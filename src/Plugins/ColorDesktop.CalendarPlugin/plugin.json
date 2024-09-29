@@ -3,7 +3,7 @@
   "Name": "日历",
   "Describe": "使用显示系统年月日，依赖与组件coloryr.clock",
   "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.Calendar" ],
+  "Dlls": [ "ColorDesktop.CalendarPlugin", "lunar" ],
   "Dependents": [
     {
       "Type": "Share",
