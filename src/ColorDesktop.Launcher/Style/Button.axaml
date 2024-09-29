@@ -8,6 +8,16 @@
         </Border>
     </Design.PreviewWith>
 
+    <Style Selector="Button.over">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+        </Style>
+    </Style>
+
     <Style Selector="Button.top">
         <Setter Property="Foreground" Value="{setting:Theme FontColor}" />
         <Setter Property="BorderBrush" Value="{setting:Theme ButtonBorder}" />

@@ -99,9 +99,7 @@ public class ClockPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        var control = new ClockControl();
-        control.Update(obj);
-        return control;
+        return new ClockControl();
     }
 
     public Control OpenSetting(InstanceDataObj obj)

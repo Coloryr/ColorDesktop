@@ -3,9 +3,187 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
+    x:DataType="local:CalendarModel"
     mc:Ignorable="d">
-    Welcome to Avalonia!
+    <Border Background="{Binding BackColor}" CornerRadius="5">
+        <StackPanel Width="250">
+            <StackPanel Margin="10">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="30"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding Date}" />
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="{Binding TextColor}"
+                        Text="星期" />
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        FontSize="15"
+                        Foreground="{Binding TextColor}"
+                        Text="{Binding Week}" />
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="{Binding TextColor}"
+                        Text="农历" />
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="{Binding TextColor}"
+                        Text="{Binding LDate}" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        FontSize="15"
+                        Foreground="{Binding TextColor}"
+                        IsVisible="{Binding HaveJieqi}"
+                        Text="{Binding Jieqi}" />
+                </StackPanel>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="15"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding Tian}" />
+                <StackPanel IsVisible="{Binding IsOpenInfo}">
+                    <StackPanel Margin="10,10,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,20,0"
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="五行" />
+                        <TextBlock
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="{Binding Wuhang}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,20,0"
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="冲煞" />
+                        <TextBlock
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="{Binding Chongsha}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,20,0"
+                            VerticalAlignment="Center"
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="彭祖" />
+                        <TextBlock
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="{Binding Pengzu}" />
+                    </StackPanel>
+                    <DockPanel Margin="10,0,0,10">
+                        <Border
+                            Width="25"
+                            Height="25"
+                            Margin="0,0,20,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="#008000"
+                            CornerRadius="10">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="{Binding TextColor}"
+                                Text="宜" />
+                        </Border>
+                        <TextBlock
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="{Binding Yi}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                    <DockPanel Margin="10,0,0,10">
+                        <Border
+                            Width="25"
+                            Height="25"
+                            Margin="0,0,20,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="#ff0000"
+                            CornerRadius="10">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="{Binding TextColor}"
+                                Text="忌" />
+                        </Border>
+                        <TextBlock
+                            FontSize="15"
+                            Foreground="{Binding TextColor}"
+                            Text="{Binding Ji}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                </StackPanel>
+                <StackPanel IsVisible="{Binding IsOpenDate}">
+                    <DockPanel>
+                        <Panel>
+                            <Button HorizontalAlignment="Left" Classes="over">
+                                <svg:SvgControl
+                                    Width="20"
+                                    Height="20"
+                                    Fill="{Binding TextColor}"
+                                    Path="/Resource/left.svg" />
+                            </Button>
+                            <Button HorizontalAlignment="Right" Classes="over">
+                                <svg:SvgControl
+                                    Width="20"
+                                    Height="20"
+                                    Fill="{Binding TextColor}"
+                                    Path="/Resource/right.svg" />
+                            </Button>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        FontSize="15"
+                                        Foreground="{Binding TextColor}"
+                                        Text="{Binding NowYear}" />
+                                    <TextBlock
+                                        FontSize="15"
+                                        Foreground="{Binding TextColor}"
+                                        Text="年" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        FontSize="15"
+                                        Foreground="{Binding TextColor}"
+                                        Text="{Binding NowMouth}" />
+                                    <TextBlock
+                                        FontSize="15"
+                                        Foreground="{Binding TextColor}"
+                                        Text="月" />
+                                </StackPanel>
+                            </Button>
+                        </Panel>
+                    </DockPanel>
+                </StackPanel>
+            </StackPanel>
+            <Panel Margin="5,0,5,5" IsVisible="{Binding ShowButton}">
+                <Button
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Classes="over"
+                    Command="{Binding OpenInfo}"
+                    Content="展开详情"
+                    Foreground="{Binding TextColor}" />
+                <Button
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Classes="over"
+                    Command="{Binding OpenDate}"
+                    Content="展开日历"
+                    Foreground="{Binding TextColor}" />
+            </Panel>
+        </StackPanel>
+    </Border>
 </UserControl>

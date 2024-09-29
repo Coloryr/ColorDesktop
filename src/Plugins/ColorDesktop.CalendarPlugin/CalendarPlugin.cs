@@ -19,7 +19,8 @@ public class CalendarPlugin : IPlugin
     {
         return InstanceUtils.GetConfig(obj, new CalendarInstanceObj()
         {
-            
+            BackColor = "#000000",
+            TextColor = "#FFFFFF"
         }, ConfigName);
     }
 
@@ -54,7 +55,13 @@ public class CalendarPlugin : IPlugin
 
     public InstanceDataObj CreateInstanceDefault()
     {
-        throw new NotImplementedException();
+        return new InstanceDataObj()
+        {
+            Nick = "日历显示",
+            Plugin = "coloryr.calendar",
+            Pos = PosEnum.TopRight,
+            Margin = new(5)
+        };
     }
 
     public void Disable()
@@ -83,17 +90,17 @@ public class CalendarPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        throw new NotImplementedException();
+        return new CalendarControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        return new();
+        return new CalendarInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()
     {
-        return new();
+        return new CalendarSettingControl();
     }
 
     public void Stop()

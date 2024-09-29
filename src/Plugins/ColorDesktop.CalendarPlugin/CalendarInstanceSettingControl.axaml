@@ -3,7 +3,25 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d" />
+    x:DataType="local:CalendarInstanceSettingModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <StackPanel Margin="10">
+            <TextBlock Margin="0,0,0,10" Text="日历实例设置" />
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="背景色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体颜色" />
+                <ColorPicker Color="{Binding TextColor}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

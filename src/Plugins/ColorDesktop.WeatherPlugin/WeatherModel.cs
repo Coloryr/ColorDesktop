@@ -131,6 +131,8 @@ public partial class WeatherModel : ObservableObject
     private bool _nextDayLoad;
     [ObservableProperty]
     private bool _nextDayLoadError;
+    [ObservableProperty]
+    private bool _showButton;
 
     private DateTime _date;
 

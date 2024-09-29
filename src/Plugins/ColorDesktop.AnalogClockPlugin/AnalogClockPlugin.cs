@@ -70,9 +70,7 @@ public class AnalogClockPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        var control = new AnalogClockControl();
-        control.Update(obj);
-        return control;
+        return new AnalogClockControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)

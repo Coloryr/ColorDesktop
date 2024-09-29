@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Media;
+using ColorDesktop.Api;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.CalendarPlugin;
 
-public record CalendarInstanceObj
+public partial class CalendarSettingModel : ObservableObject
 {
-    public string BackColor { get; set; }
-    public string TextColor { get; set; }
+    
 }

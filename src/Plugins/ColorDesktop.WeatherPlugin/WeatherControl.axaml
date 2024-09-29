@@ -14,13 +14,6 @@
         CornerRadius="20"
         RenderOptions.TextRenderingMode="Antialias">
         <StackPanel>
-            <StackPanel.Styles>
-                <Style Selector="Button.over">
-                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                        <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
-                    </Style>
-                </Style>
-            </StackPanel.Styles>
             <Panel>
                 <StackPanel
                     Margin="30"
@@ -109,17 +102,19 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel
-                    Margin="10"
-                    VerticalAlignment="Bottom"
-                    IsVisible="{Binding !IsUpdate}"
-                    Orientation="Horizontal">
-                    <TextBlock Foreground="{Binding TextColor, FallbackValue=#FFFFFF}" Text="更新时间" />
-                    <TextBlock
-                        Margin="5,0,0,0"
-                        Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                        Text="{Binding Time}" />
-                </StackPanel>
+                <Decorator IsVisible="{Binding ShowButton}">
+                    <StackPanel
+                        Margin="10"
+                        VerticalAlignment="Bottom"
+                        IsVisible="{Binding !IsUpdate}"
+                        Orientation="Horizontal">
+                        <TextBlock Foreground="{Binding TextColor, FallbackValue=#FFFFFF}" Text="更新时间" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
+                            Text="{Binding Time}" />
+                    </StackPanel>
+                </Decorator>
                 <TextBlock
                     Margin="50"
                     HorizontalAlignment="Center"
@@ -140,25 +135,20 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
                     Classes="over"
                     Command="{Binding NextDay}"
                     Content="明日天气"
-                    CornerRadius="5"
                     Foreground="{Binding TextColor}"
-                    IsEnabled="{Binding !Error}" />
+                    IsEnabled="{Binding !Error}"
+                    IsVisible="{Binding ShowButton}" />
                 <Button
                     Margin="5"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
+                    Classes="over"
                     Command="{Binding Update}"
-                    CornerRadius="5"
-                    IsEnabled="{Binding !IsUpdate}">
+                    IsEnabled="{Binding !IsUpdate}"
+                    IsVisible="{Binding ShowButton}">
                     <svg:SvgControl
                         Width="30"
                         Fill="{Binding TextColor, FallbackValue=#FFFFFF}"

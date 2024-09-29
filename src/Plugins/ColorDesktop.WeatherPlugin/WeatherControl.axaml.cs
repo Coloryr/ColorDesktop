@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
@@ -12,6 +13,25 @@ public partial class WeatherControl : UserControl, IInstance
         InitializeComponent();
 
         DataContext = new WeatherModel();
+
+        PointerEntered += WeatherControl_PointerEntered;
+        PointerExited += WeatherControl_PointerExited;
+    }
+
+    private void WeatherControl_PointerExited(object? sender, PointerEventArgs e)
+    {
+        if (DataContext is WeatherModel model)
+        {
+            model.ShowButton = false;
+        }
+    }
+
+    private void WeatherControl_PointerEntered(object? sender, PointerEventArgs e)
+    {
+        if (DataContext is WeatherModel model)
+        {
+            model.ShowButton = true;
+        }
     }
 
     public Control CreateView()
