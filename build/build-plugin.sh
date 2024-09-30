@@ -6,7 +6,7 @@ build()
 {
     echo "build colordesktop-plugin-$1"
 
-    dotnet publish ./src/Plugins/$1 -p:PublishProfile=FolderProfile
+    dotnet build ./src/Plugins/$1 --configuration Release
 
     echo "colordesktop-plugin-$1 build done"
 }
