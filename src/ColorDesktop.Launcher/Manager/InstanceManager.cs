@@ -228,7 +228,7 @@ public static class InstanceManager
     {
         try
         {
-            instance.Instance.Stop();
+            instance.Instance.Stop(instance.Window);
             instance.Window.Close();
 
             RunInstances.Remove(instance.InstanceData.UUID);
@@ -425,8 +425,6 @@ public static class InstanceManager
 
                 RunInstances.Add(obj.UUID, new(window, view, obj));
                 window.Show();
-
-                view.Start();
 
                 SetInstanceState(obj.UUID, InstanceState.Enable);
             }

@@ -157,6 +157,17 @@ public partial class CalendarModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    public void BackNow()
+    {
+        if (NowYear != _last.Year)
+        {
+            NowYear = _last.Year;
+            OnPropertyChanged(LoadMonthName);
+        }
+        NowMouth = _last.Month;
+    }
+
     public void Update(CalendarInstanceObj config)
     {
         WeekStart = config.WeekStart;

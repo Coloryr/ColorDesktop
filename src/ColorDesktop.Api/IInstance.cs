@@ -8,12 +8,12 @@ public interface IInstance
     /// 实例启动
     /// </summary>
     /// <returns></returns>
-    void Start();
+    void Start(IInstanceWindow window);
     /// <summary>
     /// 实例停止
     /// </summary>
     /// <returns></returns>
-    void Stop();
+    void Stop(IInstanceWindow window);
 
     /// <summary>
     /// 渲染

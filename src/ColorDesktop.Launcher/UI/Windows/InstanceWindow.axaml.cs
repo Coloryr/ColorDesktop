@@ -28,10 +28,11 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Loaded += InstanceWindow_Loaded;
         Closed += InstanceWindow_Closed;
 
-        View1.PointerEntered += View1_PointerEntered;
-        HoverBorder.PointerExited += HoverBorder_PointerExited;
-        HoverBorder.PointerPressed += HoverBorder_PointerPressed;
+        PointerEntered += InstanceWindow_PointerEntered;
+        PointerExited += InstanceWindow_PointerExited;
         PropertyChanged += InstanceWindow_PropertyChanged;
+
+        HoverBorder.PointerPressed += HoverBorder_PointerPressed;
     }
 
     private void InstanceWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
@@ -77,14 +78,14 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Dispatcher.UIThread.Post(Move);
     }
 
-    private void HoverBorder_PointerExited(object? sender, PointerEventArgs e)
+    private void InstanceWindow_PointerExited(object? sender, PointerEventArgs e)
     {
         _display = false;
         HoverBorder.Opacity = 0;
         UIAnimation.HideAnimation.RunAsync(HoverBorder);
     }
 
-    private void View1_PointerEntered(object? sender, PointerEventArgs e)
+    private void InstanceWindow_PointerEntered(object? sender, PointerEventArgs e)
     {
         _time = DateTime.Now;
         _display = true;
@@ -151,7 +152,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
             var less = DateTime.Now - _time;
             if (less.TotalSeconds > 10)
             {
-                HoverBorder_PointerExited(null, null!);
+                InstanceWindow_PointerExited(null, null!);
             }
         }
         GetTopLevel(this)?.RequestAnimationFrame((t) =>
@@ -167,7 +168,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _instance = instance;
 
         View1.Child = instance.CreateView();
-        instance.Start();
+        instance.Start(this);
 
         Update(_obj);
     }

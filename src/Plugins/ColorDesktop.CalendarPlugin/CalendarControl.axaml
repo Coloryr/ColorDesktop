@@ -149,7 +149,10 @@
                                     Fill="{Binding TextColor}"
                                     Path="/Resource/right.svg" />
                             </Button>
-                            <Button HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding BackNow}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
                                         FontSize="15"

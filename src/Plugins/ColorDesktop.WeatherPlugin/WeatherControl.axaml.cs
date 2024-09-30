@@ -14,8 +14,7 @@ public partial class WeatherControl : UserControl, IInstance
 
         DataContext = new WeatherModel();
 
-        PointerEntered += WeatherControl_PointerEntered;
-        PointerExited += WeatherControl_PointerExited;
+        
     }
 
     private void WeatherControl_PointerExited(object? sender, PointerEventArgs e)
@@ -47,14 +46,22 @@ public partial class WeatherControl : UserControl, IInstance
         }
     }
 
-    public void Start()
+    public void Start(IInstanceWindow window)
     {
-        
+        if (window is Window window1)
+        {
+            window1.PointerEntered += WeatherControl_PointerEntered;
+            window1.PointerExited += WeatherControl_PointerExited;
+        }
     }
 
-    public void Stop()
+    public void Stop(IInstanceWindow window)
     {
-        
+        if (window is Window window1)
+        {
+            window1.PointerEntered -= WeatherControl_PointerEntered;
+            window1.PointerExited -= WeatherControl_PointerExited;
+        }
     }
 
     public void Update(InstanceDataObj obj)

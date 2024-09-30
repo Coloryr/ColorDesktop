@@ -23,12 +23,12 @@ public partial class AnalogClockControl : UserControl, IInstance
         }
     }
 
-    public void Start()
+    public void Start(IInstanceWindow window)
     {
 
     }
 
-    public void Stop()
+    public void Stop(IInstanceWindow window)
     {
 
     }

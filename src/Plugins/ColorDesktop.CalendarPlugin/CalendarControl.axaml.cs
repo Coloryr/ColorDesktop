@@ -27,9 +27,6 @@ public partial class CalendarControl : UserControl, IInstance
         model.PropertyChanged += Model_PropertyChanged;
         DataContext = model;
 
-        PointerEntered += CalendarControl_PointerEntered;
-        PointerExited += CalendarControl_PointerExited;
-
         for (int a = 0; a < 12; a++)
         {
             _months.Add(a, new());
@@ -83,14 +80,22 @@ public partial class CalendarControl : UserControl, IInstance
         }
     }
 
-    public void Start()
+    public void Start(IInstanceWindow window)
     {
-        
+        if (window is Window window1)
+        {
+            window1.PointerEntered += CalendarControl_PointerEntered;
+            window1.PointerExited += CalendarControl_PointerExited;
+        }
     }
 
-    public void Stop()
+    public void Stop(IInstanceWindow window)
     {
-        
+        if (window is Window window1)
+        {
+            window1.PointerEntered -= CalendarControl_PointerEntered;
+            window1.PointerExited -= CalendarControl_PointerExited;
+        }
     }
 
     public void Update(InstanceDataObj obj)
