@@ -10,7 +10,7 @@
     <Border Classes="t2">
         <StackPanel Margin="10">
             <TextBlock Margin="0,0,0,10" Text="日历实例设置" />
-            <StackPanel Margin="0,0,0,0" Orientation="Horizontal">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
@@ -21,6 +21,16 @@
                     VerticalAlignment="Center"
                     Text="字体颜色" />
                 <ColorPicker Color="{Binding TextColor}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="日历首位" />
+                <ComboBox
+                    Width="150"
+                    ItemsSource="{Binding WeekName}"
+                    SelectedIndex="{Binding WeekStart}" />
             </StackPanel>
         </StackPanel>
     </Border>

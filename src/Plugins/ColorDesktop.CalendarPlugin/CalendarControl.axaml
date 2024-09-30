@@ -128,15 +128,21 @@
                 </StackPanel>
                 <StackPanel IsVisible="{Binding IsOpenDate}">
                     <DockPanel>
-                        <Panel>
-                            <Button HorizontalAlignment="Left" Classes="over">
+                        <Panel DockPanel.Dock="Top">
+                            <Button
+                                HorizontalAlignment="Left"
+                                Classes="over"
+                                Command="{Binding LastMonth}">
                                 <svg:SvgControl
                                     Width="20"
                                     Height="20"
                                     Fill="{Binding TextColor}"
                                     Path="/Resource/left.svg" />
                             </Button>
-                            <Button HorizontalAlignment="Right" Classes="over">
+                            <Button
+                                HorizontalAlignment="Right"
+                                Classes="over"
+                                Command="{Binding NextMonth}">
                                 <svg:SvgControl
                                     Width="20"
                                     Height="20"
@@ -164,6 +170,10 @@
                                         Text="月" />
                                 </StackPanel>
                             </Button>
+                        </Panel>
+                        <Panel>
+                            <Decorator Name="Content1" HorizontalAlignment="Center" />
+                            <Decorator Name="Content2" HorizontalAlignment="Center" />
                         </Panel>
                     </DockPanel>
                 </StackPanel>

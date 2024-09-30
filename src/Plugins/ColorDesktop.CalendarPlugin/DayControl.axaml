@@ -1,0 +1,24 @@
+<UserControl
+    x:Class="ColorDesktop.CalendarPlugin.DayControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="30"
+    Height="40"
+    x:DataType="local:DayModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="20"
+            Foreground="{Binding Color}"
+            Text="{Binding Day}" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="10"
+            Foreground="{Binding Color}"
+            Text="{Binding Lunar}" />
+    </StackPanel>
+</UserControl>

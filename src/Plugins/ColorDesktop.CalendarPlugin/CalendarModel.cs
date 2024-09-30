@@ -13,6 +13,8 @@ namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarModel : ObservableObject
 {
+    public const string LoadMonthName = "LoadMonth";
+
     [ObservableProperty]
     private IBrush _backColor;
     [ObservableProperty]
@@ -53,6 +55,8 @@ public partial class CalendarModel : ObservableObject
     [ObservableProperty]
     private bool _haveJieqi;
 
+    public WeekStart WeekStart;
+
     private DateTime _last;
 
     public void Tick()
@@ -74,15 +78,16 @@ public partial class CalendarModel : ObservableObject
 
         LDate = lunar.MonthInChinese + "月" + lunar.DayInChinese;
         Week = solar.WeekInChinese;
-        Tian = lunar.YearInGanZhi + lunar.YearShengXiao + "年 " +lunar.MonthInGanZhi + "月 " + lunar.DayInGanZhi + "日";
+        Tian = lunar.YearInGanZhi + lunar.YearShengXiao + "年 " + lunar.MonthInGanZhi + "月 " + lunar.DayInGanZhi + "日";
         Wuhang = lunar.DayNaYin;
         Chongsha = "冲" + lunar.DayChongDesc + " 煞" + lunar.DaySha;
         Pengzu = lunar.PengZuGan + Environment.NewLine + lunar.PengZuZhi;
-
+        
         if (NowYear == 0)
         {
             NowYear = _last.Year;
         }
+        OnPropertyChanged(LoadMonthName);
         if (NowMouth == 0)
         {
             NowMouth = _last.Month;
@@ -122,9 +127,41 @@ public partial class CalendarModel : ObservableObject
         IsOpenDate = !IsOpenDate;
     }
 
+    [RelayCommand]
+    public void LastMonth()
+    {
+        if (NowMouth == 1)
+        {
+            NowYear--;
+            OnPropertyChanged(LoadMonthName);
+            NowMouth = 12;
+        }
+        else
+        {
+            NowMouth--;
+        }
+    }
+
+    [RelayCommand]
+    public void NextMonth()
+    {
+        if (NowMouth == 12)
+        {
+            NowYear++;
+            OnPropertyChanged(LoadMonthName);
+            NowMouth = 1;
+        }
+        else
+        {
+            NowMouth++;
+        }
+    }
+
     public void Update(CalendarInstanceObj config)
     {
+        WeekStart = config.WeekStart;
         BackColor = Brush.Parse(config.BackColor);
         TextColor = Brush.Parse(config.TextColor);
+        _last = DateTime.MinValue;
     }
 }

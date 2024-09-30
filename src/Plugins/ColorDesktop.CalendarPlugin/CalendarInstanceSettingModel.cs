@@ -11,11 +11,15 @@ namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarInstanceSettingModel : ObservableObject
 {
-    [ObservableProperty]
-    private Color _backColor;
+    public string[] WeekName { get; init; } = ["星期日", "星期六", "星期一"];
 
     [ObservableProperty]
+    private Color _backColor;
+    [ObservableProperty]
     private Color _textColor;
+
+    [ObservableProperty]
+    private WeekStart _weekStart;
 
     private readonly CalendarInstanceObj _config;
     private readonly InstanceDataObj _obj;
@@ -34,6 +38,14 @@ public partial class CalendarInstanceSettingModel : ObservableObject
         {
             _textColor = Colors.White;
         }
+
+        _weekStart = _config.WeekStart;
+    }
+
+    partial void OnWeekStartChanged(WeekStart value)
+    {
+        _config.WeekStart = value;
+        CalendarPlugin.SaveConfig(_obj, _config);
     }
 
     partial void OnBackColorChanged(Color value)

@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Media;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
@@ -21,6 +22,8 @@ public class Program
     public static RunType RunType { get; private set; } = RunType.AppBuilder;
 
     public static string RunDir { get; private set; }
+
+    public const string Font = "resm:ColorDesktop.Launcher.Resource.MiSans-Regular.ttf?assembly=ColorDesktop.Launcher#MiSans";
 
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -119,8 +122,12 @@ public class Program
             builder.With(opt);
         }
         return builder
-             .UsePlatformDetect()
-             .LogToTrace();
+                .With(new FontManagerOptions
+                {
+                    DefaultFamilyName = Font,
+                })
+                .UsePlatformDetect()
+                .LogToTrace();
     }
 
     private static bool IsLock(out int port)
