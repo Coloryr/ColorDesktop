@@ -21,7 +21,9 @@
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj" />
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj" >
+			<Private>False</Private>
+		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup>

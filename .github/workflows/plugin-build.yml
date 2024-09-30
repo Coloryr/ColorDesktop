@@ -27,32 +27,32 @@ jobs:
       working-directory: ./
       run: ./build/build-plugin.sh
 
-    - name: 上传 colordesktop-plugin-AnalogClock
+    - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
       with:
-        name: "colordesktop-plugin-AnalogClock"
-        path: src/build_out/Plugins/AnalogClock/**
+        name: "colordesktop-plugin-AnalogClockPlugin"
+        path: src/build_out/Debug/net8.0/plugins/AnalogClockPlugin/**
     
     - name: 上传 colordesktop-plugin-CalendarPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CalendarPlugin"
-        path: src/build_out/Plugins/CalendarPlugin/**
+        path: src/build_out/Debug/net8.0/plugins/CalendarPlugin/**
 
     - name: 上传 colordesktop-plugin-ClockPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-ClockPlugin"
-        path: src/build_out/Plugins/ClockPlugin/**
+        path: src/build_out/Debug/net8.0/plugins/ClockPlugin/**
 
     - name: 上传 colordesktop-plugin-CoreLib
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CoreLib"
-        path: src/build_out/Plugins/CoreLib/**
+        path: src/build_out/Debug/net8.0/plugins/CoreLib/**
 
     - name: 上传 colordesktop-plugin-WeatherPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-WeatherPlugin"
-        path: src/build_out/Plugins/WeatherPlugin/**
+        path: src/build_out/Debug/net8.0/plugins/WeatherPlugin/**
