@@ -11,7 +11,11 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnNowViewChanged(int value)
     {
-        if (NowView == 1)
+        if (NowView == 0)
+        {
+            LoadConfig();
+        }
+        else if (NowView == 1)
         {
             LoadPluginData();
         }

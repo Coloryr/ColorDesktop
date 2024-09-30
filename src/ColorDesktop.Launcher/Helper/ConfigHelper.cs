@@ -1,4 +1,5 @@
-﻿using ColorDesktop.Api;
+﻿using System;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
@@ -88,6 +89,12 @@ public static class ConfigHelper
     public static void SetAuto(bool value)
     {
         Config.AutoMin = value;
+        SaveConfig();
+    }
+
+    public static void SetWindowTran(WindowTransparencyType value)
+    {
+        Config.Tran = value;
         SaveConfig();
     }
 }

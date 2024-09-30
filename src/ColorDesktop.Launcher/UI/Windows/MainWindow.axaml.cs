@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Controls;
@@ -27,7 +28,7 @@ public partial class MainWindow : Window
         var model = new MainViewModel();
         DataContext = model;
         model.PropertyChanged += Model_PropertyChanged;
-        model.Load();
+        model.LoadConfig();
 
         if (ConfigHelper.Config.AutoMin)
         {
@@ -64,6 +65,30 @@ public partial class MainWindow : Window
                         break;
                     case 2:
                         View1.Child = _instances;
+                        break;
+                }
+            }
+        }
+        else if (e.PropertyName == nameof(MainViewModel.Type))
+        {
+            if (DataContext is MainViewModel model)
+            {
+                switch (model.Type)
+                {
+                    case WindowTransparencyType.None:
+                        TransparencyLevelHint = [WindowTransparencyLevel.None];
+                        break;
+                    case WindowTransparencyType.Transparent:
+                        TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
+                        break;
+                    case WindowTransparencyType.Blur:
+                        TransparencyLevelHint = [WindowTransparencyLevel.Blur];
+                        break;
+                    case WindowTransparencyType.AcrylicBlur:
+                        TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
+                        break;
+                    case WindowTransparencyType.Mica:
+                        TransparencyLevelHint = [WindowTransparencyLevel.Mica];
                         break;
                 }
             }

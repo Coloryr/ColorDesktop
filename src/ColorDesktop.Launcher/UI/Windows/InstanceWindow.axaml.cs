@@ -103,6 +103,11 @@ public partial class InstanceWindow : Window, IInstanceWindow
         // 初始时边框透明
         HoverBorder.Opacity = 0;
 
+        if (_instance == null)
+        {
+            return;
+        }
+
         _instance.RenderTick();
 
         PositionChanged += (a, b) =>

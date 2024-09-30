@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -11,12 +12,22 @@ namespace ColorDesktop.Launcher.UI.Models.Main;
 
 public partial class MainViewModel
 {
+    public string[] TranTypes { get; init; } = LangHelper.GetWindowTranTypeLang();
+
     [ObservableProperty]
     private bool _autoStart;
     [ObservableProperty]
     private bool _autoMin;
 
     private bool _load;
+
+    [ObservableProperty]
+    private WindowTransparencyType _type;
+
+    partial void OnTypeChanged(WindowTransparencyType value)
+    {
+        ConfigHelper.SetWindowTran(value);
+    }
 
     partial void OnAutoStartChanged(bool value)
     {
@@ -103,12 +114,13 @@ public partial class MainViewModel
         }
     }
 
-    public void Load()
+    public void LoadConfig()
     {
         _load = true;
 
         AutoStart = ConfigHelper.Config.AutoStart;
         AutoMin = ConfigHelper.Config.AutoMin;
+        Type = ConfigHelper.Config.Tran;
 
         _load = false;
     }
