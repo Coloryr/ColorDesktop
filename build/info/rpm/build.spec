@@ -1,7 +1,7 @@
 name:       colordesktop
 Version:    %version%
 Release:    1
-Summary:    A Minecraft Launcher
+Summary:    A Desktop Tools
 License:    Apache-2.0
 
 %description

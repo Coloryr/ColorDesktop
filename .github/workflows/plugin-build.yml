@@ -12,7 +12,8 @@ on:
 jobs:
   build-plugins:
     runs-on: ubuntu-latest
-
+    steps:
+    - uses: actions/checkout@v3
     - name: 设置.NET Core
       uses: actions/setup-dotnet@v4
       with:
