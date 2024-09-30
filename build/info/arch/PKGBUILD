@@ -1,0 +1,34 @@
+pkgname="colordesktop"
+pkgver="%version%"
+pkgrel="1"
+pkgdesc="A Desktop Tools"
+url="https://www.github.com/Coloryr/ColorDesktop"
+packager="colordesktop"
+arch=("%arch%")
+license=("Apache 2.0")
+sha512sums=("SKIP" "SKIP" "SKIP" 
+            "SKIP" "SKIP" "SKIP" "SKIP")
+OPTIONS=(!strip)
+source=("ColorDesktop.Api.pdb" "ColorDesktop.Launcher" "ColorDesktop.Launcher.pdb" 
+        "libHarfBuzzSharp.so" "libSkiaSharp.so" "ColorMC.desktop" "colormc.png")
+install=colordesktop.install
+
+package() {
+    mkdir -p ${pkgdir}/usr/share/ColorDesktop
+    mkdir -p ${pkgdir}/usr/share/applications
+    mkdir -p ${pkgdir}/usr/share/icons
+
+    dir="${pkgdir}/usr/share/ColorDesktop"
+
+    pdbs=("ColorDesktop.Api.pdb" "ColorDesktop.Launcher" "ColorDesktop.Launcher.pdb" 
+        "libHarfBuzzSharp.so" "libSkiaSharp.so")
+
+    for line in ${pdbs[@]}
+    do
+        cp ${srcdir}/$line \
+            $dir/$line
+    done
+
+    cp ${srcdir}/ColorDesktop.desktop ${pkgdir}/usr/share/applications/ColorDesktop.desktop
+    cp ${srcdir}/colordesktop.png ${pkgdir}/usr/share/icons/colordesktop.png
+}

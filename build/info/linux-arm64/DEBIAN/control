@@ -1,0 +1,8 @@
+Package: ColorDesktop       
+Version: %version%                
+Section: free             
+Prioritt: optional        
+Architecture: arm64     
+Maintainer: coloryr    
+Description: A Desktop Tools        
+

@@ -1,0 +1,59 @@
+name: 插件构建
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - 'releases/**'
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - '*'
+
+jobs:
+  build-plugins:
+    runs-on: ubuntu-latest
+
+    - name: 设置.NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.401
+
+    - name: 更新源码
+      shell: cmd
+      working-directory: ./
+      run: ./build/update.cmd
+
+    - name: 构建 源码
+      shell: cmd
+      working-directory: ./
+      run: ./build/build-plugin.sh
+
+    - name: 上传 colordesktop-plugin-AnalogClock
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-AnalogClock"
+        path: src/build_out/Plugins/AnalogClock/**
+    
+    - name: 上传 colordesktop-plugin-CalendarPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-CalendarPlugin"
+        path: src/build_out/Plugins/CalendarPlugin/**
+
+    - name: 上传 colordesktop-plugin-ClockPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-ClockPlugin"
+        path: src/build_out/Plugins/ClockPlugin/**
+
+    - name: 上传 colordesktop-plugin-CoreLib
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-CoreLib"
+        path: src/build_out/Plugins/CoreLib/**
+
+    - name: 上传 colordesktop-plugin-WeatherPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-WeatherPlugin"
+        path: src/build_out/Plugins/WeatherPlugin/**

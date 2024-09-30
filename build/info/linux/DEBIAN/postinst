@@ -1,0 +1,4 @@
+chmod a+x /usr/share/applications/ColorDesktop.desktop
+chmod a+x /usr/share/ColorDesktop/ColorDesktop.Launcher
+rm /usr/bin/ColorDesktop.Launcher
+ln -s /usr/share/ColorDesktop/ColorDesktop.Launcher /usr/bin/

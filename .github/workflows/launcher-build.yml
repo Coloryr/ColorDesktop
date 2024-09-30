@@ -1,0 +1,191 @@
+name: ColorDesktop构建
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - 'releases/**'
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - '*'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: 设置.NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.401
+
+    - name: Read version number
+      id: version
+      run: |
+        VERSION=$(cat ./build/version)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV  
+        MAINVERSION=$(cat ./build/main_version)
+        echo "MAINVERSION=$MAINVERSION" >> $GITHUB_ENV  
+
+    - name: 更新源码
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/update.sh
+        ./build/update.sh
+
+    - name: 构建源码
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/build-linux.sh
+        ./build/build-linux.sh
+
+    - name: 构建 deb
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/build-ubuntu.sh
+        ./build/build-ubuntu.sh
+
+    - name: 构建 rpm
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/build-rpm.sh
+        ./build/build-rpm.sh
+
+    - name: 构建 pkg
+      run: |
+        docker run --name build-container -v "${{ github.workspace }}:/github/workspace" archlinux:latest /bin/bash -c "\
+        pacman -Syu --noconfirm base-devel git && \
+        useradd -m builder && \
+        cd /github/workspace && \
+        chown -R builder:builder /github/workspace/ && \
+        chmod -R 777 /github/workspace/ && \
+        echo 'builder ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/builder && \
+        sudo -u builder ./build/build-arch.sh"
+
+    - name: 上传 colordesktop-linux-x86_64-rpm
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-x86_64-rpm"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-1.x86_64.rpm
+
+    - name: 上传 colordesktop-linux-aarch64-rpm
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-aarch64-rpm"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-1.aarch64.rpm
+
+    - name: 上传 colordesktop-linux-x86_64-pkg
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-x86_64-pkg"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-1-x86_64.pkg.tar.zst
+
+    - name: 上传 colordesktop-linux-x86_64-deb
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-x86_64-deb"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-x86_64.deb
+
+    - name: 上传 colormc-linux-aarch64-deb
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-aarch64-deb"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-arm64.deb
+
+    - name: 上传 linux-x64-appimage.deb
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-linux-x86_64-appimage"
+        path: build_out/colordesktop-linux-${{ env.MAINVERSION }}${{ env.VERSION }}-x86_64.AppImage
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: 设置.NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.401
+
+    - name: Read version number
+      id: version
+      run: |
+        VERSION=$(cat ./build/version)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV  
+        MAINVERSION=$(cat ./build/main_version)
+        echo "MAINVERSION=$MAINVERSION" >> $GITHUB_ENV  
+
+    - name: 更新源码
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/update.sh
+        ./build/update.sh
+
+    - name: 构建
+      shell: bash
+      working-directory: ./
+      run: |
+        chmod a+x ./build/build-macos.sh
+        ./build/build-macos.sh
+
+    - name: 上传 colordesktop-macos-x86_64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-macos-x86_64"
+        path: build_out/colordesktop-macos-${{ env.MAINVERSION }}${{ env.VERSION }}-x86_64.zip
+
+    - name: 上传 colordesktop-macos-aarch64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-macos-aarch64"
+        path: build_out/colordesktop-macos-${{ env.MAINVERSION }}${{ env.VERSION }}-aarch64.zip
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Read version number
+      id: version
+      run: |
+        $version = Get-Content ./build/version
+        echo "VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        $mainversion = Get-Content ./build/main_version
+        echo "MAINVERSION=$mainversion" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: 设置.NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.401
+
+    - name: 更新源码
+      shell: cmd
+      working-directory: ./
+      run: ./build/update.cmd
+
+    - name: 构建 源码
+      shell: cmd
+      working-directory: ./
+      run: ./build/build-windows.cmd
+
+    - name: 上传 colordesktop-windows-x86_64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-windows-x86_64"
+        path: src/build_out/win-x64-dotnet/colordesktop/**
+    
+    - name: 上传 colordesktop-windows-x86
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-windows-x86"
+        path: src/build_out/win-x86-dotnet/colordesktop/**
+
+    - name: 上传 colordesktop-windows-arm64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-windows-arm64"
+        path: src/build_out/win-arm64-dotnet/colordesktop/**

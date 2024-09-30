@@ -7,6 +7,7 @@
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<OutputType>WinExe</OutputType>
 		<BaseOutputPath>..\build_out</BaseOutputPath>
+		<ApplicationIcon>Resource\icon.ico</ApplicationIcon>
 	</PropertyGroup>
   
 	<ItemGroup>
@@ -24,6 +25,10 @@
 		<None Remove="Resource\Icon\icon1.svg" />
 		<None Remove="Resource\Lang\en-us.json" />
 		<None Remove="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resource\icon.ico" />
 	</ItemGroup>
   
 	<ItemGroup>
