@@ -30,36 +30,45 @@ jobs:
       run: |
         chmod a+x ./build/build-plugin.sh
         ./build/build-plugin.sh
+    
+    - name: 打包
+      working-directory: ./src/build_out/
+      run: |
+          zip -r AnalogClockPlugin.zip AnalogClockPlugin
+          zip -r CalendarPlugin.zip CalendarPlugin
+          zip -r WeatherPlugin.zip WeatherPlugin
+          zip -r ClockPlugin.zip ClockPlugin
+          zip -r CoreLib.zip CoreLib
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-AnalogClockPlugin"
-        path: src/build_out/Debug/net8.0/plugins/AnalogClockPlugin
+        path: src/build_out/Debug/net8.0/plugins/AnalogClockPlugin.zip
     
     - name: 上传 colordesktop-plugin-CalendarPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CalendarPlugin"
-        path: src/build_out/Debug/net8.0/plugins/CalendarPlugin
+        path: src/build_out/Debug/net8.0/plugins/CalendarPlugin.zip
 
     - name: 上传 colordesktop-plugin-ClockPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-ClockPlugin"
-        path: src/build_out/Debug/net8.0/plugins/ClockPlugin
+        path: src/build_out/Debug/net8.0/plugins/ClockPlugin.zip
 
     - name: 上传 colordesktop-plugin-CoreLib
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CoreLib"
-        path: src/build_out/Debug/net8.0/plugins/CoreLib
+        path: src/build_out/Debug/net8.0/plugins/CoreLib.zip
 
     - name: 上传 colordesktop-plugin-WeatherPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-WeatherPlugin"
-        path: src/build_out/Debug/net8.0/plugins/WeatherPlugin
+        path: src/build_out/Debug/net8.0/plugins/WeatherPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4
