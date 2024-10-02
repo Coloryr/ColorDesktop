@@ -16,3 +16,4 @@ build ColorDesktop.CalendarPlugin CalendarPlugin
 build ColorDesktop.ClockPlugin ClockPlugin
 build ColorDesktop.CoreLib CoreLib
 build ColorDesktop.WeatherPlugin WeatherPlugin
+build ColorDesktop.PGLauncherPlugin PGLauncherPlugin

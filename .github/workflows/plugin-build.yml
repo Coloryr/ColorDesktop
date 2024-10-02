@@ -39,6 +39,7 @@ jobs:
           zip -r WeatherPlugin.zip WeatherPlugin
           zip -r ClockPlugin.zip ClockPlugin
           zip -r CoreLib.zip CoreLib
+          zip -r PGLauncherPlugin.zip PGLauncherPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
@@ -69,6 +70,12 @@ jobs:
       with:
         name: "colordesktop-plugin-WeatherPlugin"
         path: src/build_out/Debug/net8.0/plugins/WeatherPlugin.zip
+
+    - name: 上传 colordesktop-plugin-PGLauncherPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-PGLauncherPlugin"
+        path: src/build_out/Debug/net8.0/plugins/PGLauncherPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4
