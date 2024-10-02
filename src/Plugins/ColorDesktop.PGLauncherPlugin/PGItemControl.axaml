@@ -1,0 +1,34 @@
+<UserControl
+    x:Class="ColorDesktop.PGLauncherPlugin.PGItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.PGLauncherPlugin;assembly=ColorDesktop.PGLauncherPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:PGItemModel"
+    mc:Ignorable="d">
+    <Border
+        Margin="{Binding Thickness}"
+        Background="{Binding BackColor}"
+        CornerRadius="5">
+        <Panel>
+            <StackPanel Margin="{Binding Border}">
+                <Image
+                    Width="{Binding Size}"
+                    Height="{Binding Size}"
+                    IsVisible="{Binding DisplayIcon}"
+                    Source="{Binding Icon}"
+                    Stretch="UniformToFill" />
+                <TextBlock
+                    FontSize="{Binding TextSize}"
+                    Foreground="{Binding TextColor}"
+                    IsVisible="{Binding DisplayText}"
+                    Text="{Binding Name}" />
+            </StackPanel>
+            <Border
+                Background="#88FFFFFF"
+                CornerRadius="5"
+                IsVisible="{Binding IsOver}" />
+        </Panel>
+    </Border>
+</UserControl>

@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.pglaunher",
+  "Name": "程序启动器",
+  "Describe": "用于启动进程",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.PGLauncherPlugin" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "1"
+}

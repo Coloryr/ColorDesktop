@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorDesktop.WeatherPlugin"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorDesktop.CalendarPlugin", "Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj", "{01FC89C4-2364-4F41-8240-68FDFE33F5B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.PGLauncherPlugin", "Plugins\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj", "{7E0123A7-2A99-416D-AB32-6B009690EA19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{01FC89C4-2364-4F41-8240-68FDFE33F5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01FC89C4-2364-4F41-8240-68FDFE33F5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01FC89C4-2364-4F41-8240-68FDFE33F5B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E0123A7-2A99-416D-AB32-6B009690EA19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E0123A7-2A99-416D-AB32-6B009690EA19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E0123A7-2A99-416D-AB32-6B009690EA19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E0123A7-2A99-416D-AB32-6B009690EA19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{2BA76A4C-0F7D-4B2E-8F93-252BC9966103} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
 		{CB372A9B-C39F-4A9B-B8C2-A0014CDDC5AB} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
 		{01FC89C4-2364-4F41-8240-68FDFE33F5B7} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
+		{7E0123A7-2A99-416D-AB32-6B009690EA19} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D90989C-AE86-4FC4-B699-6705CBC0D63E}

@@ -1,0 +1,18 @@
+<UserControl
+    x:Class="ColorDesktop.PGLauncherPlugin.PGLauncherControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.PGLauncherPlugin;assembly=ColorDesktop.PGLauncherPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="local:PGLauncherModel"
+    mc:Ignorable="d">
+    <ScrollViewer
+        Width="{Binding Width}"
+        Height="{Binding Height}"
+        VerticalScrollBarVisibility="Disabled">
+        <Decorator Name="View1" />
+    </ScrollViewer>
+</UserControl>

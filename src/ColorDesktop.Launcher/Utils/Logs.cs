@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
+using ColorDesktop.Api;
 
 namespace ColorDesktop.Launcher.Utils;
 

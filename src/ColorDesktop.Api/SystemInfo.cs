@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
-namespace ColorDesktop.Launcher.Utils;
+namespace ColorDesktop.Api;
 
 /// <summary>
 /// 位数

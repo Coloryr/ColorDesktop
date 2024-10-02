@@ -2,7 +2,6 @@
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
-using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.Helper;
 
