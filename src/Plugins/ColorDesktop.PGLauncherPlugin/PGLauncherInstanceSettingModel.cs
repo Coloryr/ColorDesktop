@@ -223,7 +223,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
 
     partial void OnBorderChanged(int value)
     {
-        if(_load)
+        if (_load)
         {
             return;
         }
@@ -345,9 +345,19 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
 
         var item = file[0].GetPath();
-        if (!File.Exists(item))
+        if (SystemInfo.Os == OsType.MacOS)
         {
-            return;
+            if (!Directory.Exists(item))
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (!File.Exists(item))
+            {
+                return;
+            }
         }
 
         Local = item;

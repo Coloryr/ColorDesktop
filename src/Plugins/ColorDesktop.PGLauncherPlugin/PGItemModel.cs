@@ -101,11 +101,10 @@ public partial class PGItemModel : ObservableObject
 
     public void Launch()
     {
-        if (string.IsNullOrWhiteSpace(_obj.Local)
-            || !File.Exists(_obj.Local))
+        if (string.IsNullOrWhiteSpace(_obj.Local))
         {
             return;
         }
-        Process.Start(_obj.Local, _obj.Arg);
+        SystemUtils.Launch(_obj);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -76,6 +77,31 @@ public static class SystemUtils
             return file.Path.AbsoluteUri;
         }
         return file.Path.LocalPath;
+    }
+
+    public static void Launch(PGItemObj obj)
+    {
+        if (SystemInfo.Os != OsType.MacOS)
+        {
+            if (!File.Exists(obj.Local))
+            {
+                return;
+            }
+            Process.Start(obj.Local, obj.Arg);
+        }
+        else
+        {
+            if (!Directory.Exists(obj.Local))
+            {
+                return;
+            }
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
+                Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
+                UseShellExecute = false // 使用系统外壳程序执行
+            });
+        }
     }
 }
 
@@ -193,7 +219,7 @@ public static class Win32IconUtils
             biClrUsed = 0,
             biClrImportant = 0
         };
-       
+
         var ptr1 = Marshal.AllocHGlobal(bmp.bmWidth * bmp.bmHeight * 4);
         var ptr2 = Marshal.AllocHGlobal(bmp.bmWidth * bmp.bmHeight * 4);
         GetDIBits(hdc, hBitmap, 0, (uint)bmp.bmHeight, ptr1, ref bih, 0); // DIB_RGB_COLORS
