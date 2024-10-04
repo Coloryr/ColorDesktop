@@ -25,6 +25,7 @@ public record PGItemObj
     public string TextColor { get; set; }
     public int BorderSize { get; set; }
     public int TextSize { get; set; }
+    public bool Admin { get; set; }
 }
 
 public record PGLauncherInstanceObj

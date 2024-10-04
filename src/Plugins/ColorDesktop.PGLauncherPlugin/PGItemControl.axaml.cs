@@ -16,7 +16,7 @@ public partial class PGItemControl : UserControl
 
     private void PGItemControl_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (DataContext is PGItemModel model)
+        if (DataContext is PGItemModel model && e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
             model.Launch();
         }

@@ -58,6 +58,8 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     private bool _enableImg;
     [ObservableProperty]
     private bool _enableItem;
+    [ObservableProperty]
+    private bool _admin;
 
     private bool _load;
 
@@ -260,6 +262,17 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
+    partial void OnAdminChanged(bool value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.Admin = value;
+        PGLauncherPlugin.SaveConfig(_obj, _config);
+    }
+
     partial void OnIndexChanged(int value)
     {
         if (value == -1)
@@ -282,6 +295,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         Bottom = item.Margin.Bottom;
         Border = item.BorderSize;
         TextSize = item.TextSize;
+        Admin = item.Admin;
         if (Color.TryParse(item.BackColor, out var color))
         {
             BackColor = color;

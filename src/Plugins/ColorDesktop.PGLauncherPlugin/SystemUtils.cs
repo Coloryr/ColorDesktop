@@ -183,7 +183,20 @@ public static class SystemUtils
             {
                 return;
             }
-            Process.Start(obj.Local, obj.Arg);
+            if (obj.Admin)
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    UseShellExecute = true,
+                    FileName = obj.Local,
+                    Verb = "runas",
+                    Arguments = obj.Arg
+                });
+            }
+            else
+            {
+                Process.Start(obj.Local, obj.Arg);
+            }
         }
         else if (SystemInfo.Os == OsType.MacOS)
         {

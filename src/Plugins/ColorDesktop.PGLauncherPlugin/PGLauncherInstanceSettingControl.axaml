@@ -120,6 +120,7 @@
                             Text="{Binding Arg}"
                             Watermark="启动参数" />
                     </StackPanel>
+                    <CheckBox Content="管理员方式运行" IsChecked="{Binding Admin}" />
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
