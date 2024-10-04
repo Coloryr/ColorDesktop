@@ -11,6 +11,8 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using ColorDesktop.Api;
+using IniParser;
+using IniParser.Model;
 
 namespace ColorDesktop.PGLauncherPlugin;
 
@@ -27,8 +29,32 @@ public static class SystemUtils
                 }
                 return Win32IconUtils.GetIconFromExe(local);
             case OsType.Linux:
-                if (!local.EndsWith(".desktop"))
+                if (local.EndsWith(".desktop"))
                 {
+                    var parser = new FileIniDataParser();
+                    IniData data = parser.ReadFile(local);
+                    var data1 = data["Desktop Entry"];
+                    if (data1.ContainsKey("Icon"))
+                    {
+                        var icon = data1["Icon"];
+                        if (File.Exists(icon))
+                        {
+                            return new(icon);
+                        }
+
+                        var icon1 = "/usr/share/icons/" + icon;
+                        if (File.Exists(icon1))
+                        {
+                            return new(icon1);
+                        }
+
+                        icon1 = "/usr/share/icons/" + icon + ".png";
+                        if (File.Exists(icon1))
+                        {
+                            return new(icon1);
+                        }
+                    }
+                    
                     return null;
                 }
                 break;
@@ -84,9 +110,29 @@ public static class SystemUtils
         return file.Path.LocalPath;
     }
 
+    public static bool IsExecutable(string file)
+    {
+        if (SystemInfo.Os == OsType.MacOS)
+        {
+            if (!Directory.Exists(file) || !File.Exists(file))
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (!File.Exists(file))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static void Launch(PGItemObj obj)
     {
-        if (SystemInfo.Os != OsType.MacOS)
+        if (SystemInfo.Os == OsType.Windows)
         {
             if (!File.Exists(obj.Local))
             {
@@ -94,18 +140,42 @@ public static class SystemUtils
             }
             Process.Start(obj.Local, obj.Arg);
         }
+        else if (SystemInfo.Os == OsType.MacOS)
+        {
+            if (Directory.Exists(obj.Local))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
+                    Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
+                    UseShellExecute = false // 使用系统外壳程序执行
+                });
+            }
+            else if (File.Exists(obj.Local))
+            {
+                Process.Start(obj.Local, obj.Arg);
+            }
+        }
         else
         {
-            if (!Directory.Exists(obj.Local))
+            if (obj.Local.EndsWith(".desktop"))
             {
-                return;
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(obj.Local);
+                var data1 = data["Desktop Entry"];
+                if (data1.ContainsKey("Exec"))
+                {
+                    Process.Start(data1["Exec"], obj.Arg);
+                }
             }
-            Process.Start(new ProcessStartInfo
+            else
             {
-                FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
-                Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
-                UseShellExecute = false // 使用系统外壳程序执行
-            });
+                if (!File.Exists(obj.Local))
+                {
+                    return;
+                }
+                Process.Start(obj.Local, obj.Arg);
+            }
         }
     }
 }

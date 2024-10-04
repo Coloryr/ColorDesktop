@@ -99,6 +99,13 @@ public partial class PGItemModel : ObservableObject
         {
             return;
         }
-        SystemUtils.Launch(_obj);
+        try
+        {
+            SystemUtils.Launch(_obj);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 }
