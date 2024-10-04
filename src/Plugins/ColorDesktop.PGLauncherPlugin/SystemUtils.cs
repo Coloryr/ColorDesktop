@@ -1,4 +1,10 @@
-﻿using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
@@ -76,6 +82,31 @@ public static class SystemUtils
             return file.Path.AbsoluteUri;
         }
         return file.Path.LocalPath;
+    }
+
+    public static void Launch(PGItemObj obj)
+    {
+        if (SystemInfo.Os != OsType.MacOS)
+        {
+            if (!File.Exists(obj.Local))
+            {
+                return;
+            }
+            Process.Start(obj.Local, obj.Arg);
+        }
+        else
+        {
+            if (!Directory.Exists(obj.Local))
+            {
+                return;
+            }
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
+                Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
+                UseShellExecute = false // 使用系统外壳程序执行
+            });
+        }
     }
 }
 
