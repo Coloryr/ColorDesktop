@@ -12,8 +12,10 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using ColorDesktop.Api;
+using ColorDesktop.PGLauncherPlugin.Icns;
 using IniParser;
 using IniParser.Model;
+using Microsoft.VisualBasic;
 
 namespace ColorDesktop.PGLauncherPlugin;
 
@@ -81,7 +83,19 @@ public static class SystemUtils
                     }
                     if (findicon)
                     {
-                        return new Bitmap(local + "/Contents/Resources/" + icon);
+                        var img = IcnsImageParser.GetImage(local + "/Contents/Resources/" + icon);
+                        if (img != null)
+                        {
+                            var bitmap = img.Bitmap;
+                            var img1 = new WriteableBitmap(new(bitmap.Width, bitmap.Height), new(96, 96));
+                            unsafe
+                            {
+                                using var temp = img1.Lock();
+                                var size = bitmap.Width * bitmap.Height * 4;
+                                Buffer.MemoryCopy((void*)bitmap.GetPixels(), (void*)temp.Address, size, size);
+                            }
+                            return img1;
+                        }
                     }
                 }
                 break;
