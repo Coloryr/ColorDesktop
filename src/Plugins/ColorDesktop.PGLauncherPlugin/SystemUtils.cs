@@ -15,6 +15,7 @@ using ColorDesktop.Api;
 using ColorDesktop.PGLauncherPlugin.Icns;
 using IniParser;
 using IniParser.Model;
+using MicroCom.Runtime;
 using Microsoft.VisualBasic;
 
 namespace ColorDesktop.PGLauncherPlugin;
@@ -265,6 +266,136 @@ public static class Win32IconUtils
     public static extern bool GetDIBits(IntPtr hdc, IntPtr hbmp, uint uStartScan, uint cScanLines,
         IntPtr lpvBits, ref BITMAPINFO lpbmi, uint uColorUse);
 
+    [DllImport("shell32.dll")]
+    private static extern IntPtr SHGetFileInfoA(string pszPath, uint dwFileAttributes, ref SHFILEINFO sfi, uint cbFileInfo, uint uFlags);
+
+    [DllImport("shell32.dll")]
+    private static extern int SHGetImageList(int iImageList, ref Guid riid, out IImageList ppv);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct IMAGEINFO
+    {
+        public IntPtr hbmImage;
+        public IntPtr hbmMask;
+        public int Unused1;
+        public int Unused2;
+        public RECT rcImage;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct RECT
+    {
+        public int left;
+        public int top;
+        public int right;
+        public int bottom;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct IMAGELISTDRAWPARAMS
+    {
+        public int cbSize;
+        public IntPtr himl;
+        public int i;
+        public IntPtr hdcDst;
+        public int x;
+        public int y;
+        public int cx;
+        public int cy;
+        public int xBitmap;
+        public int yBitmap;
+        public int rgbBk;
+        public int rgbFg;
+        public int fStyle;
+        public int dwRop;
+        public int fState;
+        public int Frame;
+        public int crEffect;
+    }
+
+    [ComImport]
+    [Guid("46EB5926-582E-4017-9FDF-E8998DAA0950")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    private interface IImageList : IUnknown
+    {
+        [PreserveSig]
+        int Add(IntPtr hbmImage, IntPtr hbmMask, ref int pi);
+        [PreserveSig]
+        int ReplaceIcon(int i, IntPtr hicon, ref int pi);
+        [PreserveSig]
+        int SetOverlayImage(int iImage, int iOverlay);
+        [PreserveSig]
+        int Replace(int i, IntPtr hbmImage, IntPtr hbmMask);
+        [PreserveSig]
+        int AddMasked(IntPtr hbmImage, int crMask, ref int pi);
+        [PreserveSig]
+        int Draw(ref IMAGELISTDRAWPARAMS pimldp);
+        [PreserveSig]
+        int Remove(int i);
+        [PreserveSig]
+        int GetIcon(int i, int flags, out IntPtr picon);
+        [PreserveSig]
+        int GetImageInfo(int i, out IMAGEINFO pImageInfo);
+        [PreserveSig]
+        int Copy(int iDst, IImageList punkSrc, int iSrc, int uFlags);
+        [PreserveSig]
+        int Merge(int i1, IImageList punk2, int i2, int dx, int dy, ref Guid riid, ref IntPtr ppv);
+        [PreserveSig]
+        int Clone(ref Guid riid, ref IntPtr ppv);
+        [PreserveSig]
+        int GetImageRect(int i, ref RECT prc);
+        [PreserveSig]
+        int GetIconSize(out int cx, out int cy);
+        [PreserveSig]
+        int SetIconSize(int cx, int cy);
+        [PreserveSig]
+        int GetImageCount(ref int pi);
+        [PreserveSig]
+        int SetImageCount(int uNewCount);
+        [PreserveSig]
+        int SetBkColor(int clrBk, ref int pclr);
+        [PreserveSig]
+        int GetBkColor(ref int pclr);
+        [PreserveSig]
+        int BeginDrag(int iTrack, int dxHotspot, int dyHotspot);
+        [PreserveSig]
+        int EndDrag();
+        [PreserveSig]
+        int DragEnter(IntPtr hwndLock, int x, int y);
+        [PreserveSig]
+        int DragLeave(IntPtr hwndLock);
+        [PreserveSig]
+        int DragMove(int x, int y);
+        [PreserveSig]
+        int SetDragCursorImage(ref IImageList punk, int iDrag, int dxHotspot, int dyHotspot);
+        [PreserveSig]
+        int DragShowNolock(int fShow);
+        [PreserveSig]
+        int GetDragImage(ref Point ppt, ref Point pptHotspot, ref Guid riid, ref IntPtr ppv);
+        [PreserveSig]
+        int GetItemFlags(int i, ref int dwFlags);
+        [PreserveSig]
+        int GetOverlayImage(int iOverlay, ref int piIndex);
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct SHFILEINFO
+    {
+        public IntPtr hIcon;
+        public int iIcon;
+        public uint dwAttributes;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+        public string szDisplayName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+        public string szTypeName;
+    }
+
+    private const uint SHGFI_SYSICONINDEX = 0x0000004000;
+    private const int SHIL_JUMBO = 4; // 大图标
+    private const int SHIL_SYSSMALL = 3;
+    private const int SHIL_EXTRALARGE = 2;
+    private const int ILD_TRANSPARENT = 0x00000001;
+
     [StructLayout(LayoutKind.Sequential)]
     public struct BITMAPINFO
     {
@@ -307,23 +438,61 @@ public static class Win32IconUtils
     private const uint IMAGE_ICON = 1;
     private const uint LR_COPYFROMRESOURCE = 0x00000002;
 
+    //public static Bitmap? GetIconFromExe(string exePath)
+    //{
+    //    int count = ExtractIconEx(exePath, -1, null!, null!, 0);
+
+    //    if (count < 1)
+    //    {
+    //        return null;
+    //    }
+
+    //    IntPtr[] largeIcons = new IntPtr[count];
+    //    ExtractIconEx(exePath, 0, largeIcons, null!, count);
+    //    var img = HIconToSKBitmap(largeIcons[0]);
+
+    //    foreach (var item in largeIcons)
+    //    {
+    //        DestroyIcon(item);
+    //    }
+
+    //    return img;
+    //}
+
+    public static IntPtr GetIcon(string exePath)
+    {
+        // 获取图标的图像列表索引
+        var sfi = new SHFILEINFO();
+        var result = SHGetFileInfoA(exePath, 0, ref sfi, (uint)Marshal.SizeOf(sfi), SHGFI_SYSICONINDEX);
+        if (result == IntPtr.Zero) return IntPtr.Zero;
+
+        // 获取大号图像列表
+        var iidIImageList = new Guid("46EB5926-582E-4017-9FDF-E8998DAA0950");
+        IImageList piml;
+        if (SHGetImageList(SHIL_JUMBO, ref iidIImageList, out piml) != 0) return IntPtr.Zero;
+
+        // 提取图标
+        IntPtr hico;
+        piml.GetIcon(sfi.iIcon, ILD_TRANSPARENT, out hico);
+        piml.GetIconSize(out var x, out var y);
+
+        // 清理资源
+        // piml.Release();
+
+        // 返回图标
+        return hico;
+    }
+
     public static Bitmap? GetIconFromExe(string exePath)
     {
-        int count = ExtractIconEx(exePath, -1, null!, null!, 0);
-
-        if (count < 1)
+        var icon = GetIcon(exePath);
+        if (icon == IntPtr.Zero)
         {
             return null;
         }
+        var img = HIconToSKBitmap(icon);
 
-        IntPtr[] largeIcons = new IntPtr[count];
-        ExtractIconEx(exePath, 0, largeIcons, null!, count);
-        var img = HIconToSKBitmap(largeIcons[0]);
-
-        foreach (var item in largeIcons)
-        {
-            DestroyIcon(item);
-        }
+        DestroyIcon(icon);
 
         return img;
     }
@@ -370,7 +539,40 @@ public static class Win32IconUtils
 
         Marshal.FreeHGlobal(ptr1);
 
-        var skbitmap = new Bitmap(PixelFormat.Bgra8888, AlphaFormat.Unpremul, ptr2, new PixelSize(bmp.bmWidth, bmp.bmHeight), new Vector(96, 96), rowSize);
+        int size = 16;
+        // 裁剪
+        unsafe
+        {
+            byte* ptr3 = (byte*)ptr2;
+            bool Test(int start, int end)
+            {
+                for (int a1 = start; a1 < end; a1++)
+                {
+                    int index = a1 * bmp.bmWidth * 4 + a1 * 4;
+                    if (ptr3[index] != 0 || ptr3[index + 1] != 0 || ptr3[index + 2] != 0 || ptr3[index + 3] != 0)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            if (Test(17, 255))
+            {
+                size = 32;
+                if (Test(33, 255))
+                {
+                    size = 48;
+                    if (Test(48, 255))
+                    {
+                        size = 256;
+                    }
+                }
+            }
+        }
+
+        var skbitmap = new Bitmap(PixelFormat.Bgra8888, AlphaFormat.Unpremul, ptr2, new PixelSize(size, size), new Vector(96, 96), rowSize);
 
         Marshal.FreeHGlobal(ptr2);
 
