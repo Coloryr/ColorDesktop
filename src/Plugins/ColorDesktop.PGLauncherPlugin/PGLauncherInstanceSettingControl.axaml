@@ -8,246 +8,248 @@
     x:DataType="local:PGLauncherInstanceSettingModel"
     mc:Ignorable="d">
     <ScrollViewer>
-        <StackPanel>
-            <TextBlock
-                Margin="0,0,0,10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="面板设置" />
-            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+        <Border Classes="t2">
+            <StackPanel Margin="10">
                 <TextBlock
-                    Margin="0,0,5,0"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Text="长" />
-                <NumericUpDown
-                    Width="130"
-                    Height="35"
-                    Margin="0,0,10,0"
-                    FormatString="N0"
-                    Maximum="999"
-                    Minimum="1"
-                    Value="{Binding Width}" />
-                <TextBlock
-                    Margin="0,0,5,0"
-                    VerticalAlignment="Center"
-                    Text="高" />
-                <NumericUpDown
-                    Width="130"
-                    Height="35"
-                    Margin="0,0,10,0"
-                    FormatString="N0"
-                    Maximum="999"
-                    Minimum="1"
-                    Value="{Binding Height}" />
-            </StackPanel>
-            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                <TextBlock
-                    Margin="0,0,5,0"
-                    VerticalAlignment="Center"
-                    Text="面板类型" />
-                <ComboBox
-                    Width="200"
-                    ItemsSource="{Binding PanelTypeName}"
-                    SelectedIndex="{Binding Type}" />
-            </StackPanel>
-            <TextBlock
-                Margin="0,0,0,10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="启动项目设置" />
-            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                <ComboBox
-                    Width="200"
-                    Margin="0,0,5,0"
-                    ItemsSource="{Binding Items}"
-                    SelectedIndex="{Binding Index}" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Margin="0,0,5,0"
-                    Classes="top"
-                    Command="{Binding NewItem}"
-                    Content="添加" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Classes="top"
-                    Command="{Binding DeleteItem}"
-                    Content="删除"
-                    IsEnabled="{Binding EnableItem}" />
-            </StackPanel>
-            <StackPanel IsEnabled="{Binding EnableItem}">
+                    Text="面板设置" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="名字" />
-                    <TextBox
-                        Width="300"
+                        Text="长" />
+                    <NumericUpDown
+                        Width="130"
                         Height="35"
-                        Text="{Binding Name}"
-                        Watermark="子项目名字" />
-                </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding Width}" />
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="路径" />
-                    <TextBox
-                        Width="300"
+                        Text="高" />
+                    <NumericUpDown
+                        Width="130"
                         Height="35"
-                        Margin="0,0,5,0"
-                        Text="{Binding Local}"
-                        Watermark="程序路径" />
-                    <Button
-                        Width="100"
-                        Height="35"
-                        Classes="top"
-                        Command="{Binding SelectFile}"
-                        CommandParameter="{Binding $self}"
-                        Content="选择文件" />
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding Height}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="参数" />
-                    <TextBox
-                        Width="300"
-                        Height="80"
-                        AcceptsReturn="True"
-                        Text="{Binding Arg}"
-                        Watermark="启动参数" />
-                </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="背景色" />
-                    <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="字体颜色" />
-                    <ColorPicker Color="{Binding TextColor}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="显示方式" />
+                        Text="面板类型" />
                     <ComboBox
                         Width="200"
-                        ItemsSource="{Binding DisplayTypeName}"
-                        SelectedIndex="{Binding Display}" />
+                        ItemsSource="{Binding PanelTypeName}"
+                        SelectedIndex="{Binding Type}" />
                 </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="大小" />
-                    <NumericUpDown
-                        Width="130"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1"
-                        Value="{Binding Size}" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="边框" />
-                    <NumericUpDown
-                        Width="130"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="0"
-                        Value="{Binding Border}" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="字体" />
-                    <NumericUpDown
-                        Width="130"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1"
-                        Value="{Binding TextSize}" />
-                </StackPanel>
-                <StackPanel
+                <TextBlock
                     Margin="0,0,0,10"
-                    IsEnabled="{Binding EnableImg}"
-                    IsVisible="{Binding EnableImg}"
-                    Orientation="Horizontal">
-                    <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="启动项目设置" />
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <ComboBox
+                        Width="200"
                         Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="图标" />
-                    <TextBox
-                        Width="300"
+                        ItemsSource="{Binding Items}"
+                        SelectedIndex="{Binding Index}" />
+                    <Button
+                        Width="100"
+                        Height="35"
                         Margin="0,0,5,0"
-                        Text="{Binding Img}"
-                        Watermark="用于显示的图标" />
+                        Classes="top"
+                        Command="{Binding NewItem}"
+                        Content="添加" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
-                        Command="{Binding SelectIcon}"
-                        CommandParameter="{Binding $self}"
-                        Content="选择文件" />
+                        Command="{Binding DeleteItem}"
+                        Content="删除"
+                        IsEnabled="{Binding EnableItem}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="边距" />
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="左" />
-                            <NumericUpDown
-                                Width="120"
-                                Margin="5,0,0,0"
-                                FormatString="N0"
-                                Minimum="0"
-                                Value="{Binding Left}" />
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="上" />
-                            <NumericUpDown
-                                Width="120"
-                                Margin="5,0,0,0"
-                                FormatString="N0"
-                                Minimum="0"
-                                Value="{Binding Top}" />
-                        </StackPanel>
-                        <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="右" />
-                            <NumericUpDown
-                                Width="120"
-                                Margin="5,0,0,0"
-                                FormatString="N0"
-                                Minimum="0"
-                                Value="{Binding Right}" />
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="下" />
-                            <NumericUpDown
-                                Width="120"
-                                Margin="5,0,0,0"
-                                FormatString="N0"
-                                Minimum="0"
-                                Value="{Binding Bottom}" />
+                <StackPanel IsEnabled="{Binding EnableItem}">
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="名字" />
+                        <TextBox
+                            Width="300"
+                            Height="35"
+                            Text="{Binding Name}"
+                            Watermark="子项目名字" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="路径" />
+                        <TextBox
+                            Width="300"
+                            Height="35"
+                            Margin="0,0,5,0"
+                            Text="{Binding Local}"
+                            Watermark="程序路径" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding SelectFile}"
+                            CommandParameter="{Binding $self}"
+                            Content="选择文件" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="参数" />
+                        <TextBox
+                            Width="300"
+                            Height="80"
+                            AcceptsReturn="True"
+                            Text="{Binding Arg}"
+                            Watermark="启动参数" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="背景色" />
+                        <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="字体颜色" />
+                        <ColorPicker Color="{Binding TextColor}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="显示方式" />
+                        <ComboBox
+                            Width="200"
+                            ItemsSource="{Binding DisplayTypeName}"
+                            SelectedIndex="{Binding Display}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="大小" />
+                        <NumericUpDown
+                            Width="130"
+                            Height="35"
+                            Margin="0,0,10,0"
+                            FormatString="N0"
+                            Maximum="999"
+                            Minimum="1"
+                            Value="{Binding Size}" />
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="边框" />
+                        <NumericUpDown
+                            Width="130"
+                            Height="35"
+                            Margin="0,0,10,0"
+                            FormatString="N0"
+                            Maximum="999"
+                            Minimum="0"
+                            Value="{Binding Border}" />
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="字体" />
+                        <NumericUpDown
+                            Width="130"
+                            Height="35"
+                            Margin="0,0,10,0"
+                            FormatString="N0"
+                            Maximum="999"
+                            Minimum="1"
+                            Value="{Binding TextSize}" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="0,0,0,10"
+                        IsEnabled="{Binding EnableImg}"
+                        IsVisible="{Binding EnableImg}"
+                        Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="图标" />
+                        <TextBox
+                            Width="300"
+                            Margin="0,0,5,0"
+                            Text="{Binding Img}"
+                            Watermark="用于显示的图标" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding SelectIcon}"
+                            CommandParameter="{Binding $self}"
+                            Content="选择文件" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="边距" />
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="左" />
+                                <NumericUpDown
+                                    Width="120"
+                                    Margin="5,0,0,0"
+                                    FormatString="N0"
+                                    Minimum="0"
+                                    Value="{Binding Left}" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="上" />
+                                <NumericUpDown
+                                    Width="120"
+                                    Margin="5,0,0,0"
+                                    FormatString="N0"
+                                    Minimum="0"
+                                    Value="{Binding Top}" />
+                            </StackPanel>
+                            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="右" />
+                                <NumericUpDown
+                                    Width="120"
+                                    Margin="5,0,0,0"
+                                    FormatString="N0"
+                                    Minimum="0"
+                                    Value="{Binding Right}" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Text="下" />
+                                <NumericUpDown
+                                    Width="120"
+                                    Margin="5,0,0,0"
+                                    FormatString="N0"
+                                    Minimum="0"
+                                    Value="{Binding Bottom}" />
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
     </ScrollViewer>
 </UserControl>

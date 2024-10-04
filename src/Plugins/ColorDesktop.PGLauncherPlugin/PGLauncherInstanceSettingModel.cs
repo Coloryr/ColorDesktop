@@ -341,14 +341,12 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
 
         var item = file[0].GetPath();
-        if (!SystemUtils.IsExecutable(item))
+        if (item == null || !SystemUtils.IsExecutable(item))
         {
             return;
         }
 
         Local = item;
-
-        PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
     [RelayCommand]
@@ -368,7 +366,5 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
 
         Img = item;
-
-        PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 }

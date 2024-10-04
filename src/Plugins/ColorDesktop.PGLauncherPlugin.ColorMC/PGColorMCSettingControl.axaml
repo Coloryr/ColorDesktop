@@ -1,0 +1,29 @@
+<UserControl
+    x:Class="ColorDesktop.PGLauncherPlugin.ColorMC.PGColorMCSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.PGLauncherPlugin.ColorMC;assembly=ColorDesktop.PGLauncherPlugin.ColorMC"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:PGColorMCSettingModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <StackPanel Margin="10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="ColorMC启动器位置" />
+            <TextBox
+                Width="300"
+                Margin="0,0,10,0"
+                Text="{Binding ColorMC}" />
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding SelectFile}"
+                CommandParameter="{Binding $self}"
+                Content="选择文件" />
+        </StackPanel>
+    </Border>
+</UserControl>

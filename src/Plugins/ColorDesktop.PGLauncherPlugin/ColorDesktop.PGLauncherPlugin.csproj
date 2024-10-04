@@ -1,36 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\PGLauncherPlugin</BaseOutputPath>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\PGLauncherPlugin</BaseOutputPath>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="icon.png" />
-    <None Remove="Resource\image1.png" />
-    <None Remove="Resource\image2.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="icon.png" />
+		<None Remove="Resource\image1.png" />
+		<None Remove="Resource\image2.png" />
+	</ItemGroup>
 
 	<Target Name="CopySpecificNuGetDll" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)ini-parser-netstandard\2.5.2\lib\netstandard2.0\INIFileParser.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
 
 	<ItemGroup>
-    <EmbeddedResource Include="Resource\image1.png" />
-    <EmbeddedResource Include="Resource\image2.png" />
-  </ItemGroup>
+		<EmbeddedResource Include="Resource\image1.png" />
+		<EmbeddedResource Include="Resource\image2.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="icon.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="icon.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
