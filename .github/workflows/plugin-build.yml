@@ -32,7 +32,7 @@ jobs:
         ./build/build-plugin.sh
     
     - name: 打包
-      working-directory: ./src/build_out/
+      working-directory: ./src/build_out/Debug/net8.0/plugins/
       run: |
           zip -r AnalogClockPlugin.zip AnalogClockPlugin
           zip -r CalendarPlugin.zip CalendarPlugin
@@ -40,6 +40,7 @@ jobs:
           zip -r ClockPlugin.zip ClockPlugin
           zip -r CoreLib.zip CoreLib
           zip -r PGLauncherPlugin.zip PGLauncherPlugin
+          zip -r PGColorMCPlugin.zip PGColorMCPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
@@ -76,6 +77,12 @@ jobs:
       with:
         name: "colordesktop-plugin-PGLauncherPlugin"
         path: src/build_out/Debug/net8.0/plugins/PGLauncherPlugin.zip
+
+    - name: 上传 colordesktop-plugin-PGColorMCPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-PGColorMCPlugin"
+        path: src/build_out/Debug/net8.0/plugins/PGColorMCPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4
