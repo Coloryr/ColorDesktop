@@ -72,7 +72,7 @@ public partial class PGItemModel : ObservableObject
         }
         else if (obj.Display is DisplayType.Icon or DisplayType.TextIcon)
         {
-            if (string.IsNullOrWhiteSpace(obj.Local) || !File.Exists(obj.Local))
+            if (!SystemUtils.IsExecutable(obj.Local))
             {
                 using var item = assm.GetManifestResourceStream("ColorDesktop.PGLauncherPlugin.Resource.image1.png")!;
                 Icon = new Bitmap(item);

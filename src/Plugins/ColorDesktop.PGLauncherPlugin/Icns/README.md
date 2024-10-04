@@ -1,0 +1,1 @@
+code来自https://github.com/BrokenEvent/CsIcnsReader

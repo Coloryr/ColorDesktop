@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
@@ -54,8 +55,34 @@ public static class SystemUtils
                             return new(icon1);
                         }
                     }
-                    
+
                     return null;
+                }
+                break;
+            case OsType.MacOS:
+                if (local.EndsWith(".app"))
+                {
+                    var document = new XmlDocument();
+                    document.Load(local + "/Contents/Info.plist");
+                    var node1 = document.GetElementsByTagName("dict")[0]!;
+                    bool findicon = false;
+                    string icon = "";
+                    foreach (XmlNode item in node1)
+                    {
+                        if (findicon)
+                        {
+                            icon = item.InnerText;
+                            break;
+                        }
+                        if (item.InnerText == "CFBundleIconFile")
+                        {
+                            findicon = true;
+                        }
+                    }
+                    if (findicon)
+                    {
+                        return new Bitmap(local + "/Contents/Resources/" + icon);
+                    }
                 }
                 break;
         }
@@ -112,9 +139,13 @@ public static class SystemUtils
 
     public static bool IsExecutable(string file)
     {
+        if (string.IsNullOrWhiteSpace(file))
+        {
+            return false;
+        }
         if (SystemInfo.Os == OsType.MacOS)
         {
-            if (!Directory.Exists(file) || !File.Exists(file))
+            if (!Directory.Exists(file) && !File.Exists(file))
             {
                 return false;
             }
