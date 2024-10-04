@@ -15,13 +15,21 @@
     <None Remove="Resource\image2.png" />
   </ItemGroup>
 
-  <ItemGroup>
+	<Target Name="CopySpecificNuGetDll" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)ini-parser-netstandard\2.5.2\lib\netstandard2.0\INIFileParser.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+
+	<ItemGroup>
     <EmbeddedResource Include="Resource\image1.png" />
     <EmbeddedResource Include="Resource\image2.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
   </ItemGroup>
 
 	<ItemGroup>
