@@ -1,7 +1,5 @@
 using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.PGLauncherPlugin;
@@ -88,7 +86,7 @@ public partial class PGLauncherControl : UserControl, IInstance
         var config = PGLauncherPlugin.GetConfig(obj);
         if (DataContext is PGLauncherModel model)
         {
-            model.Update(config); 
+            model.Update(config);
         }
     }
 }

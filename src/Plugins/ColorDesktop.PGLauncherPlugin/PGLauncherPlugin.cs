@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
@@ -64,7 +59,7 @@ public class PGLauncherPlugin : IPlugin
     {
         Config = ConfigUtils.Config<PGLauncherConfigObj>(new()
         {
-            
+
         }, s_local);
     }
 
@@ -87,12 +82,12 @@ public class PGLauncherPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Bitmap? GetIcon()
@@ -126,6 +121,6 @@ public class PGLauncherPlugin : IPlugin
 
     public void Stop()
     {
-       
+
     }
 }

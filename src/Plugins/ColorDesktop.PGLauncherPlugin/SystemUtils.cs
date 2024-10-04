@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using ColorDesktop.Api;
-using SkiaSharp;
 
 namespace ColorDesktop.PGLauncherPlugin;
 
@@ -26,6 +20,12 @@ public static class SystemUtils
                     return null;
                 }
                 return Win32IconUtils.GetIconFromExe(local);
+            case OsType.Linux:
+                if (!local.EndsWith(".desktop"))
+                {
+                    return null;
+                }
+                break;
         }
 
         return null;
@@ -193,7 +193,7 @@ public static class Win32IconUtils
             biClrUsed = 0,
             biClrImportant = 0
         };
-       
+
         var ptr1 = Marshal.AllocHGlobal(bmp.bmWidth * bmp.bmHeight * 4);
         var ptr2 = Marshal.AllocHGlobal(bmp.bmWidth * bmp.bmHeight * 4);
         GetDIBits(hdc, hBitmap, 0, (uint)bmp.bmHeight, ptr1, ref bih, 0); // DIB_RGB_COLORS

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Media;
 using ColorDesktop.Api;
@@ -223,7 +218,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
 
     partial void OnBorderChanged(int value)
     {
-        if(_load)
+        if (_load)
         {
             return;
         }
