@@ -29,11 +29,6 @@ public partial class MainWindow : Window
         model.PropertyChanged += Model_PropertyChanged;
         model.LoadConfig();
 
-        if (ConfigHelper.Config.AutoMin)
-        {
-            Hide();
-        }
-
         if (SystemInfo.Os != OsType.Linux)
         {
             TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
@@ -46,6 +41,11 @@ public partial class MainWindow : Window
         InstanceManager.StartInstance();
 
         ConfigHelper.SaveConfig();
+
+        if (ConfigHelper.Config.AutoMin)
+        {
+            Hide();
+        }
     }
 
     private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)

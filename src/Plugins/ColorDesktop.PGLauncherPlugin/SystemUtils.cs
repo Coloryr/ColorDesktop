@@ -184,10 +184,12 @@ public static class SystemUtils
             {
                 return;
             }
+            var info = new FileInfo(obj.Local);
             if (obj.Admin)
             {
                 Process.Start(new ProcessStartInfo()
                 {
+                    WorkingDirectory = info.DirectoryName,
                     UseShellExecute = true,
                     FileName = obj.Local,
                     Verb = "runas",
@@ -205,6 +207,7 @@ public static class SystemUtils
             {
                 Process.Start(new ProcessStartInfo
                 {
+                    WorkingDirectory = obj.Local,
                     FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
                     Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
                     UseShellExecute = false // 使用系统外壳程序执行
@@ -212,7 +215,13 @@ public static class SystemUtils
             }
             else if (File.Exists(obj.Local))
             {
-                Process.Start(obj.Local, obj.Arg);
+                var info = new FileInfo(obj.Local);
+                Process.Start(new ProcessStartInfo()
+                {
+                    WorkingDirectory = info.DirectoryName,
+                    FileName = obj.Local,
+                    Arguments = obj.Arg
+                });
             }
         }
         else
@@ -233,7 +242,13 @@ public static class SystemUtils
                 {
                     return;
                 }
-                Process.Start(obj.Local, obj.Arg);
+                var info = new FileInfo(obj.Local);
+                Process.Start(new ProcessStartInfo()
+                {
+                    WorkingDirectory = info.DirectoryName,
+                    FileName = obj.Local,
+                    Arguments = obj.Arg
+                });
             }
         }
     }
