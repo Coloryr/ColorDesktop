@@ -44,6 +44,13 @@ public partial class InstanceWindow : Window, IInstanceWindow
                 WindowState = WindowState.Normal;
             }
         }
+        else if (e.Property == SizeToContentProperty)
+        {
+            if (SizeToContent != SizeToContent.WidthAndHeight)
+            {
+                SizeToContent = SizeToContent.WidthAndHeight;
+            }
+        }
     }
 
     private void InstanceWindow_Closed(object? sender, EventArgs e)
@@ -74,7 +81,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
                 TransparencyLevelHint = [WindowTransparencyLevel.Mica];
                 break;
         }
-       
+
         Dispatcher.UIThread.Post(Move);
     }
 
