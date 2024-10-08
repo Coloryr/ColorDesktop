@@ -44,7 +44,7 @@
                     <TextBlock Text="{Binding ID}" />
                     <TextBlock Text="{Binding Name}" />
                     <TextBlock Text="{Binding Auther}" />
-                    <TextBlock Text="{Binding Describe}" />
+                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
                     <TextBlock Text="{Binding Version}" />
                     <TextBlock
                         Foreground="Red"

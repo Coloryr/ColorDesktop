@@ -6,7 +6,6 @@
 		<Nullable>enable</Nullable>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\ClockPlugin</BaseOutputPath>
-		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	</PropertyGroup>
 
 	<ItemGroup>

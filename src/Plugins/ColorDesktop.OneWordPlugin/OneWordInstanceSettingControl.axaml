@@ -1,0 +1,51 @@
+<UserControl
+    x:Class="ColorDesktop.OneWordPlugin.OneWordInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.OneWordPlugin;assembly=ColorDesktop.OneWordPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:OneWordInstanceModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <StackPanel Margin="10">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="宽度" />
+                <NumericUpDown
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Width}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体大小" />
+                <NumericUpDown
+                    Width="130"
+                    Height="35"
+                    FormatString="N0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Size}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="字体颜色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding Text}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="背景颜色" />
+                <ColorPicker Color="{Binding Back}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

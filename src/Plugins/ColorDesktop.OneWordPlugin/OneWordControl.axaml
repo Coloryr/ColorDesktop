@@ -1,0 +1,36 @@
+<UserControl
+    x:Class="ColorDesktop.OneWordPlugin.OneWordControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.OneWordPlugin;assembly=ColorDesktop.OneWordPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="local:OneWordModel"
+    mc:Ignorable="d">
+    <Panel RenderOptions.TextRenderingMode="Antialias">
+        <Border Background="{Binding BackColor}" CornerRadius="5">
+            <TextBlock
+                Margin="5"
+                FontSize="{Binding Size}"
+                Foreground="{Binding TextColor}"
+                Text="{Binding Text}"
+                TextAlignment="Center" />
+        </Border>
+        <Button
+            Margin="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Classes="over"
+            Command="{Binding Update}"
+            IsEnabled="{Binding !IsUpdate}"
+            IsVisible="{Binding ShowButton}">
+            <svg:SvgControl
+                Width="30"
+                Fill="{Binding TextColor, FallbackValue=#FFFFFF}"
+                Path="/Resource/icon.svg" />
+        </Button>
+    </Panel>
+</UserControl>

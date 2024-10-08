@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\OneWord</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="icon.png" />
+    <None Remove="Resource\icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Resource\icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="icon.png" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

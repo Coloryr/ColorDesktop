@@ -10,8 +10,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.AnalogClockPlugin\ColorDesktop.AnalogClockPlugin.csproj" />
+	  <ProjectReference Include="..\Plugins\ColorDesktop.BgmPlugin\ColorDesktop.BmPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
+	  <ProjectReference Include="..\Plugins\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin.ColorMC\ColorDesktop.PGLauncherPlugin.ColorMC.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.WeatherPlugin\ColorDesktop.WeatherPlugin.csproj" />

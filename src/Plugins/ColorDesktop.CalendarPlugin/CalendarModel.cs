@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media;
 using ColorDesktop.ClockPlugin;
+using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Lunar;
@@ -40,6 +41,8 @@ public partial class CalendarModel : ObservableObject
     private string _yi;
     [ObservableProperty]
     private string _ji;
+    [ObservableProperty]
+    private string _history;
 
     [ObservableProperty]
     private int _nowYear;
@@ -50,6 +53,8 @@ public partial class CalendarModel : ObservableObject
     private bool _isOpenInfo;
     [ObservableProperty]
     private bool _isOpenDate;
+    [ObservableProperty]
+    private bool _isOpenHistory;
     [ObservableProperty]
     private bool _showButton;
     [ObservableProperty]
@@ -166,6 +171,24 @@ public partial class CalendarModel : ObservableObject
             OnPropertyChanged(LoadMonthName);
         }
         NowMouth = _last.Month;
+    }
+
+    [RelayCommand]
+    public async Task OpenHistory()
+    {
+        IsOpenHistory = !IsOpenHistory;
+        if (IsOpenHistory)
+        {
+            try
+            {
+                var data = await HttpUtils.Client.GetStringAsync("https://xiaoapi.cn/API/lssdjt.php");
+                History = data.Trim();
+            }
+            catch
+            {
+                History = "获取失败";
+            }
+        }
     }
 
     public void Update(CalendarInstanceObj config)

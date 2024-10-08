@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Remove="icon.png" />
-    <None Remove="Resource\City.json" />
     <None Remove="Resource\City1.json" />
     <None Remove="Resource\east.svg" />
     <None Remove="Resource\icon.svg" />
@@ -100,7 +99,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="icon.png" />
-    <EmbeddedResource Include="Resource\City.json" />
   </ItemGroup>
 
 

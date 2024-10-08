@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColorDesktop.CoreLib;
 using ColorDesktop.WeatherPlugin.Objs;
 using Newtonsoft.Json;
 
@@ -10,8 +11,6 @@ namespace ColorDesktop.WeatherPlugin;
 
 public static class AmapApi
 {
-    public static HttpClient Client = new();
-
     public static List<City1Obj> Citys { get; set; }
 
     public static string[] GetCityName()
@@ -214,7 +213,7 @@ public static class AmapApi
     {
         try
         {
-            var data = await Client.GetStringAsync($"https://restapi.amap.com/v3/weather/weatherInfo?key=ca07fbb30c9d16e146c5652f7dd1faa7&city={code}&extensions={(isall ? "all" : "base")}");
+            var data = await HttpUtils.Client.GetStringAsync($"https://restapi.amap.com/v3/weather/weatherInfo?key=ca07fbb30c9d16e146c5652f7dd1faa7&city={code}&extensions={(isall ? "all" : "base")}");
 
             return JsonConvert.DeserializeObject<WeatherInfoObj>(data);
         }

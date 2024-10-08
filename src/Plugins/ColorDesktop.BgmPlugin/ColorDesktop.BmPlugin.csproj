@@ -5,32 +5,22 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\PGColorMCPlugin</BaseOutputPath>
+		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\BmPlugin</BaseOutputPath>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="icon.png" />
-		<None Remove="Resource\game.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="icon.png" />
-		<EmbeddedResource Include="Resource\game.png" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj">
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup>
-	<None Update="plugin.json">
-	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
+		<None Update="plugin.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

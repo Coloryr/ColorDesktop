@@ -41,6 +41,7 @@ jobs:
           zip -r CoreLib.zip CoreLib
           zip -r PGLauncherPlugin.zip PGLauncherPlugin
           zip -r PGColorMCPlugin.zip PGColorMCPlugin
+          zip -r OneWordPlugin.zip OneWordPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
@@ -83,6 +84,12 @@ jobs:
       with:
         name: "colordesktop-plugin-PGColorMCPlugin"
         path: src/build_out/Debug/net8.0/plugins/PGColorMCPlugin.zip
+
+    - name: 上传 colordesktop-plugin-OneWordPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-OneWordPlugin"
+        path: src/build_out/Debug/net8.0/plugins/OneWordPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4

@@ -31,8 +31,14 @@ public partial class InstanceWindow : Window, IInstanceWindow
         PointerEntered += InstanceWindow_PointerEntered;
         PointerExited += InstanceWindow_PointerExited;
         PropertyChanged += InstanceWindow_PropertyChanged;
+        Resized += InstanceWindow_Resized;
 
         HoverBorder.PointerPressed += HoverBorder_PointerPressed;
+    }
+
+    private void InstanceWindow_Resized(object? sender, WindowResizedEventArgs e)
+    {
+        Dispatcher.UIThread.Post(Move);
     }
 
     private void InstanceWindow_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
