@@ -17,4 +17,10 @@ public partial class AppModel : ObservableObject
     {
         App.Exit();
     }
+
+    [RelayCommand]
+    public void MoveWindow()
+    {
+        InstanceManager.Move();
+    }
 }

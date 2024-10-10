@@ -20,6 +20,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
     private bool _display;
 
     private DateTime _time;
+    private PixelRect _lastSize;
 
     public InstanceWindow()
     {
@@ -123,35 +124,49 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
         _instance.RenderTick();
 
+        var screen = GetTargetScreen();
+        if (screen != null)
+        {
+            _lastSize = screen.WorkingArea;
+        }
+
         PositionChanged += (a, b) =>
         {
             if (_update || _obj == null)
             {
                 return;
             }
-            // 获取当前屏幕
-            var screen = Screens.Primary;
-            if (screen == null)
+            Dispatcher.UIThread.Post(() =>
             {
-                return;
-            }
-            var workArea = screen.WorkingArea;
-
-            for (int i = 0; i < Screens.All.Count; i++)
-            {
-                if (Screens.All[i] == screen)
+                // 获取当前屏幕
+                var screen = GetTargetScreen();
+                if (screen == null)
                 {
-                    _obj.Display = i + 1;
-                    break;
+                    return;
                 }
-            }
-            // 计算新的 Margin
-            _obj.Margin.Left = Position.X - workArea.X;
-            _obj.Margin.Top = Position.Y - workArea.Y;
-            _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
-            _obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
+                var workArea = screen.WorkingArea;
+                if (workArea != _lastSize)
+                {
+                    _lastSize = workArea;
+                    Move();
+                    return;
+                }
+                for (int i = 0; i < Screens.All.Count; i++)
+                {
+                    if (Screens.All[i] == screen)
+                    {
+                        _obj.Display = i + 1;
+                        break;
+                    }
+                }
+                // 计算新的 Margin
+                _obj.Margin.Left = Position.X - workArea.X;
+                _obj.Margin.Top = Position.Y - workArea.Y;
+                _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
+                _obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
 
-            _obj.Save();
+                _obj.Save();
+            });
         };
 
         Dispatcher.UIThread.Post(Move);
@@ -195,22 +210,8 @@ public partial class InstanceWindow : Window, IInstanceWindow
     {
         _update = true;
         // 获取所有显示器的信息
-        var screens = Screens.All;
 
-        Screen? targetScreen;
-        if (_obj.Display != 1 && screens.Count > _obj.Display - 1)
-        {
-            if (_obj.Display == 0)
-            {
-                _obj.Display = 1;
-                _obj.Save();
-            }
-            targetScreen = screens[_obj.Display - 1];
-        }
-        else
-        {
-            targetScreen = Screens.Primary;
-        }
+        var targetScreen = GetTargetScreen();
 
         if (targetScreen != null)
         {
@@ -262,5 +263,27 @@ public partial class InstanceWindow : Window, IInstanceWindow
             Position = new(x, y);
         }
         _update = false;
+    }
+
+    private Screen? GetTargetScreen()
+    {
+        var screens = Screens.All;
+
+        Screen? targetScreen;
+        if (_obj.Display != 1 && screens.Count > _obj.Display - 1)
+        {
+            if (_obj.Display == 0)
+            {
+                _obj.Display = 1;
+                _obj.Save();
+            }
+            targetScreen = screens[_obj.Display - 1];
+        }
+        else
+        {
+            targetScreen = Screens.Primary;
+        }
+
+        return targetScreen;
     }
 }

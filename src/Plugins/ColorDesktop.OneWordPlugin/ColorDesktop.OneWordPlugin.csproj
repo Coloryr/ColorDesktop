@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\OneWord</BaseOutputPath>
+	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\OneWordPlugin</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

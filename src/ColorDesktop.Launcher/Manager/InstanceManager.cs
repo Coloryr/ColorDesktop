@@ -494,4 +494,15 @@ public static class InstanceManager
         Init();
         StartInstance();
     }
+
+    public static void Move()
+    {
+        foreach (var item in RunInstances.Values)
+        {
+            if (item.Window is InstanceWindow window)
+            {
+                window.Move();
+            }
+        }
+    }
 }

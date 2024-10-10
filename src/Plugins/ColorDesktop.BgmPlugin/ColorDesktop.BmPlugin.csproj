@@ -9,6 +9,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resource\icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="Resource\icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
