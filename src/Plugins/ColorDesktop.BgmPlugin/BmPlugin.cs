@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.Reflection;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 
@@ -14,7 +15,13 @@ public class BmPlugin : IPlugin
 
     public InstanceDataObj CreateInstanceDefault()
     {
-        throw new NotImplementedException();
+        return new InstanceDataObj()
+        {
+            Nick = "季度番剧",
+            Plugin = "coloryr.bm",
+            Pos = PosEnum.TopRight,
+            Margin = new(5)
+        };
     }
 
     public void Disable()
@@ -29,7 +36,9 @@ public class BmPlugin : IPlugin
 
     public Bitmap? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        using var item = assm.GetManifestResourceStream("ColorDesktop.BmPlugin.icon.png")!;
+        return new Bitmap(item);
     }
 
     public void Init(string local, string local1, LanguageType type)
@@ -39,17 +48,17 @@ public class BmPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        throw new NotImplementedException();
+        return new BmControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        throw new NotImplementedException();
+        return new();
     }
 
     public Control OpenSetting()
     {
-        throw new NotImplementedException();
+        return new();
     }
 
     public void Stop()

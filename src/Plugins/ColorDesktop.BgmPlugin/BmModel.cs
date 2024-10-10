@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,26 +11,70 @@ namespace ColorDesktop.BmPlugin;
 
 public partial class BmModel : ObservableObject
 {
+    public ObservableCollection<BmItemModel> BmItems { get; init; } = [];
+
     [ObservableProperty]
     private bool _isOver;
     [ObservableProperty]
     private bool _isUpdate;
+    [ObservableProperty]
+    private bool _isEmpty;
+
+    [ObservableProperty]
+    private DayOfWeek _week;
+
+    private List<BmObj> _bm;
+
+    partial void OnWeekChanged(DayOfWeek value)
+    {
+        if (_bm == null || _bm.Count == 0)
+        {
+            IsEmpty = true;
+            return;
+        }
+
+        BmItems.Clear();
+        var data = _bm[((int)value + 6) % 7].Items;
+        foreach (var item in data)
+        {
+            BmItems.Add(new(item));
+        }
+        IsEmpty = false;
+    }
+
+    public void Init()
+    {
+        var date = DateTime.Now;
+
+        Week = date.DayOfWeek;
+    }
 
     public void Tick()
     {
-        
+
     }
 
     [RelayCommand]
-    public void Load()
+    public async Task Load()
     {
+        IsUpdate = true;
         try
+        {
+            var bm = await BmApi.GetBm();
+            if (bm == null)
+            {
+                IsEmpty = true;
+                IsUpdate = false;
+                return;
+            }
+
+            _bm = bm;
+            OnWeekChanged(Week);
+        }
+        catch
         {
 
         }
-        catch
-        { 
-            
-        }
+        IsUpdate = false;
     }
 }

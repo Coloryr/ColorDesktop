@@ -169,7 +169,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
             });
         };
 
-        Dispatcher.UIThread.Post(Move);
+        //Dispatcher.UIThread.Post(Move);
 
         Render();
     }

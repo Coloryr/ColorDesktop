@@ -2,21 +2,122 @@
     x:Class="ColorDesktop.BmPlugin.BmControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cov="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ColorDesktop.BmPlugin;assembly=ColorDesktop.BmPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-	 xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
+    xmlns:sys="using:System"
+    Width="180"
     x:DataType="local:BmModel"
     mc:Ignorable="d">
-	<Panel>
-		<StackPanel>
-			<TextBlock Text="本季度番剧" />
-
-
-		</StackPanel>
-		<Button
+    <UserControl.Resources>
+        <cov:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </UserControl.Resources>
+    <Panel RenderOptions.TextRenderingMode="Antialias">
+        <StackPanel>
+            <StackPanel.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="FontSize" Value="12" />
+                </Style>
+                <Style Selector="RadioButton.top">
+                    <Setter Property="Template">
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border
+                                Name="RootBorder"
+                                Background="#DD000000"
+                                CornerRadius="2">
+                                <ContentPresenter
+                                    Name="PART_ContentPresenter"
+                                    Margin="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="#FFFFFF"
+                                    RecognizesAccessKey="True" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter>
+                    <Style Selector="^:pointerover /template/ Border#RootBorder">
+                        <Setter Property="Background" Value="#CCCCCC" />
+                    </Style>
+                    <Style Selector="^:checked /template/ Border#RootBorder">
+                        <Setter Property="Background" Value="#EFEFEF" />
+                    </Style>
+                    <Style Selector="^:checked /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="#000000" />
+                    </Style>
+                </Style>
+            </StackPanel.Styles>
+            <UniformGrid
+                Margin="0,0,0,2"
+                HorizontalAlignment="Center"
+                Columns="7"
+                Rows="1">
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="一"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Monday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="二"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Tuesday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="三"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Wednesday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="四"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Thursday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="五"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Friday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="六"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Saturday}}" />
+                <RadioButton
+                    Margin="2,0,2,0"
+                    Classes="top"
+                    Content="日"
+                    GroupName="Week"
+                    IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Sunday}}" />
+            </UniformGrid>
+            <ItemsControl IsVisible="{Binding !IsEmpty}" ItemsSource="{Binding BmItems}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:BmItemControl Margin="0,0,0,2" DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Border
+                Background="#CC000000"
+                CornerRadius="5"
+                IsVisible="{Binding IsEmpty}">
+                <TextBlock
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#FFFFFF"
+                    Text="没有数据" />
+            </Border>
+        </StackPanel>
+        <Button
             Margin="5"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
@@ -24,11 +125,10 @@
             Command="{Binding Load}"
             IsEnabled="{Binding !IsUpdate}"
             IsVisible="{Binding IsOver}">
-			<svg:SvgControl
+            <svg:SvgControl
                 Width="30"
-                Fill="{Binding #FFFFFF}"
+                Fill="#FFFFFF"
                 Path="/Resource/icon.svg" />
-		</Button>
-	</Panel>
-
+        </Button>
+    </Panel>
 </UserControl>

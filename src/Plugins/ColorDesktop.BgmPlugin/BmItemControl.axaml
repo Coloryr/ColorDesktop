@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="ColorDesktop.BmPlugin.BmItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.BmPlugin;assembly=ColorDesktop.BmPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:BmItemModel"
+    ToolTip.Tip="{Binding Text}"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="ToolTip">
+            <Setter Property="Foreground" Value="#000000" />
+        </Style>
+    </UserControl.Styles>
+    <DockPanel Width="180">
+        <DockPanel.Styles>
+            <Style Selector="Border#Border1">
+                <Setter Property="Background" Value="#CC000000" />
+                <Style Selector="^:pointerover">
+                    <Setter Property="Background" Value="#CCAAAAAA" />
+                </Style>
+            </Style>
+        </DockPanel.Styles>
+        <Border
+            Width="30"
+            Height="20"
+            Background="{Binding RatingColor}"
+            CornerRadius="2">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="#FFFFFF"
+                Text="{Binding Rating}" />
+        </Border>
+        <Border
+            Name="Border1"
+            Margin="5,0,0,0"
+            Classes="over"
+            CornerRadius="2">
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Foreground="#FFFFFF"
+                Text="{Binding Text}"
+                TextTrimming="CharacterEllipsis" />
+        </Border>
+    </DockPanel>
+</UserControl>

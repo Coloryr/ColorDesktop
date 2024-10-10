@@ -9,11 +9,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Resource\icon.svg" />
+		<None Remove="icon.png" />
+		<None Remove="Resource\icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AvaloniaResource Include="Resource\icon.svg" />
+		<AvaloniaResource Include="Resource\icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>

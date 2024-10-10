@@ -76,17 +76,17 @@ public record BmObj
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("url")]
-        public int Url { get; set; }
+        public string Url { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
         [JsonProperty("name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
         [JsonProperty("name_cn")]
-        public int NameCn { get; set; }
+        public string NameCn { get; set; }
         [JsonProperty("summary")]
-        public int Summary { get; set; }
+        public string Summary { get; set; }
         [JsonProperty("air_date")]
-        public int AirDate { get; set; }
+        public string AirDate { get; set; }
         [JsonProperty("air_weekday")]
         public int AirWeekday { get; set; }
         [JsonProperty("rating")]
