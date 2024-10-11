@@ -53,7 +53,9 @@ public partial class PluginItemModel : ObservableObject
         HaveSetting = PluginManager.HavePluginSetting(obj.ID);
         Core = PluginManager.IsCoreLib(obj.ID);
 
+        _edit = true;
         Update();
+        _edit = false;
     }
 
     async partial void OnEnableChanged(bool value)

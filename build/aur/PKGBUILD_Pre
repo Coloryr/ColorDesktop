@@ -1,0 +1,22 @@
+# Maintainer: coloryr <402067010@qq.com>
+
+pkgname=colordesktop-bin
+pkgver=%ver%
+pkgrel=%rel%
+pkgdesc="A Desktop Tools"
+url="https://www.github.com/Coloryr/ColorDesktop"
+arch=('x86_64')
+packager="colordesktop"
+license=('Apache 2.0')
+source=('%source%')
+sha256sums=('%sha%')
+OPTIONS=(!strip)
+install=colordesktop.install
+
+package() {
+    tar -I zstd -xf %file% -C "$pkgdir"
+    rm "$pkgdir/.BUILDINFO"
+    rm "$pkgdir/.INSTALL"
+    rm "$pkgdir/.MTREE"
+    rm "$pkgdir/.PKGINFO"
+}
