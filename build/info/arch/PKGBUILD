@@ -10,7 +10,7 @@ sha512sums=("SKIP" "SKIP" "SKIP"
             "SKIP" "SKIP" "SKIP" "SKIP")
 OPTIONS=(!strip)
 source=("ColorDesktop.Api.pdb" "ColorDesktop.Launcher" "ColorDesktop.Launcher.pdb" 
-        "libHarfBuzzSharp.so" "libSkiaSharp.so" "ColorMC.desktop" "colormc.png")
+        "libHarfBuzzSharp.so" "libSkiaSharp.so" "ColorDesktop.desktop" "colordesktop.png")
 install=colordesktop.install
 
 package() {
