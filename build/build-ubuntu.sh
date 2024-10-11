@@ -20,7 +20,7 @@ build_deb()
     echo "build $deb"
 
     base=./src/build_out/$1-dotnet
-    base_dir="$base/colormc_deb"
+    base_dir="$base/colordesktop_deb"
 
     mkdir $base_dir
 

@@ -17,19 +17,19 @@ done
 
 build_rpm()
 {
-    rpm=colormc-linux-$main_version$version-1.$2.rpm
+    rpm=colordesktop-linux-$main_version$version-1.$2.rpm
 
     echo "build $rpm"
 
     base=./src/build_out/$1-dotnet
-    base_dir="$base/colormc_rpm"
+    base_dir="$base/colordesktop_rpm"
 
     mkdir -p $base_dir/{BUILD,RPMS,SOURCES,SPECS,SRPMS,BUILDROOT}
 
     pdbs=("ColorDesktop.Api.pdb" "ColorDesktop.Launcher" "ColorDesktop.Launcher.pdb" 
         "libHarfBuzzSharp.so" "libSkiaSharp.so")
 
-    bindir=$base_dir/BUILDROOT/colormc-$version-1.$2/usr/share
+    bindir=$base_dir/BUILDROOT/colordesktop-$version-1.$2/usr/share
 
     mkdir -p $bindir
     mkdir -p $bindir/colordesktop
