@@ -9,6 +9,8 @@ public partial class ChoiseModel : ObservableObject
 {
     [ObservableProperty]
     public string _text;
+    [ObservableProperty]
+    private bool _haveCancel = true;
 
     [RelayCommand]
     public void Confirm()

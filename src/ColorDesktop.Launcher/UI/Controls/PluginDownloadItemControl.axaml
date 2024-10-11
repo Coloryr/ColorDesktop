@@ -1,0 +1,48 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.PluginDownloadItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
+    x:DataType="vm:PluginDownloadItemModel"
+    mc:Ignorable="d">
+    <Border Classes="t2">
+        <Panel Margin="10">
+            <DockPanel>
+                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Classes="top"
+                        Command="{Binding Download}"
+                        Content="{setting:Localize MainWindow.Text46}"
+                        IsEnabled="{Binding !Have}" />
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Classes="top"
+                        Command="{Binding Upgrade}"
+                        Content="{setting:Localize MainWindow.Text47}"
+                        IsEnabled="{Binding Update}" />
+                </StackPanel>
+                <Image
+                    Width="100"
+                    Height="100"
+                    Source="{Binding Image^}" />
+                <StackPanel Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{setting:Localize MainWindow.Text48}}" />
+                        <TextBlock Text="{Binding Source}" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding ID}" />
+                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Auther}" />
+                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding Version}" />
+                </StackPanel>
+            </DockPanel>
+        </Panel>
+    </Border>
+</UserControl>

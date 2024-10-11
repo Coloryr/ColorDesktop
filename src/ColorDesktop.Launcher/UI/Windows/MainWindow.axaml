@@ -85,6 +85,9 @@
             <DataTemplate DataType="dialogmodel:ChoiseModel">
                 <dialogview:ChoiseControl DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="dialogmodel:PluginSourceModel">
+                <dialogview:PluginSourceControl DataContext="{Binding}" />
+            </DataTemplate>
             <DataTemplate DataType="dialogmodel:PluginSettingModel">
                 <DockPanel>
                     <Button
@@ -151,6 +154,18 @@
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
                                 Text="{setting:Localize MainWindow.Text3}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Svg
+                                Width="24"
+                                Height="24"
+                                Path="/Resource/Icon/icon4.svg" />
+                            <TextBlock
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="{setting:Localize MainWindow.Text43}" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>

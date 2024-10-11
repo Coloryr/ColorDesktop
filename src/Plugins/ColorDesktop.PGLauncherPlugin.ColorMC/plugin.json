@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.pglaunher.colormc",
   "Name": "ColorMC启动器",
-  "Describe": "用于启动ColorMC游戏实例，需要依赖插件CoreLib，PGLauncherPlugin",
+  "Describe": "用于启动ColorMC游戏实例",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.PGLauncherPlugin.ColorMC" ],
   "Dependents": [

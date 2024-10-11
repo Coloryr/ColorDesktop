@@ -11,97 +11,95 @@
     <UserControl.Resources>
         <local1:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </UserControl.Resources>
-    <Border Classes="t2">
-        <StackPanel Margin="10">
-            <TextBlock Margin="0,0,0,10" Text="组件设置" />
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
+    <StackPanel>
+        <TextBlock Margin="0,0,0,10" Text="组件设置" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Text="时钟样式" />
+            <RadioButton
+                Margin="0,0,10,0"
+                Content="模拟指针时钟"
+                GroupName="Type"
+                IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Analog}}" />
+            <RadioButton
+                Margin="0,0,10,0"
+                Content="数码管时钟"
+                GroupName="Type"
+                IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" />
+            <RadioButton
+                Margin="0,0,10,0"
+                Content="翻页时钟"
+                GroupName="Type"
+                IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Flip}}" />
+        </StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Text="大小" />
+            <NumericUpDown
+                Width="120"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="999"
+                Minimum="1"
+                Value="{Binding ClockSize}" />
+            <CheckBox Content="显示秒" IsChecked="{Binding Display}" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Text="颜色" />
+            <ColorPicker Margin="0,0,10,0" Color="{Binding Color}" />
+            <CheckBox Content="冒号闪烁" IsChecked="{Binding Blink}" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Flip}}">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <CheckBox
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="时钟样式" />
-                <RadioButton
-                    Margin="0,0,10,0"
-                    Content="模拟指针时钟"
-                    GroupName="Type"
-                    IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Analog}}" />
-                <RadioButton
-                    Margin="0,0,10,0"
-                    Content="数码管时钟"
-                    GroupName="Type"
-                    IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" />
-                <RadioButton
-                    Margin="0,0,10,0"
-                    Content="翻页时钟"
-                    GroupName="Type"
-                    IsChecked="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Flip}}" />
+                    Content="使用自定义字体"
+                    IsChecked="{Binding UseFont}" />
+                <ComboBox
+                    Width="300"
+                    Height="35"
+                    IsEnabled="{Binding UseFont}"
+                    ItemsSource="{Binding FontList}"
+                    SelectedItem="{Binding FontItem}" />
             </StackPanel>
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="大小" />
+                    Text="字体大小" />
                 <NumericUpDown
                     Width="120"
                     Margin="0,0,10,0"
                     FormatString="N0"
                     Maximum="999"
                     Minimum="1"
-                    Value="{Binding ClockSize}" />
-                <CheckBox Content="显示秒" IsChecked="{Binding Display}" />
+                    Value="{Binding TextSize}" />
             </StackPanel>
-            <StackPanel IsVisible="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Digital}}" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="颜色" />
-                <ColorPicker Margin="0,0,10,0" Color="{Binding Color}" />
-                <CheckBox Content="冒号闪烁" IsChecked="{Binding Blink}" />
-            </StackPanel>
-            <StackPanel IsVisible="{Binding ClockType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:ClockType.Flip}}">
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <CheckBox
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        Content="使用自定义字体"
-                        IsChecked="{Binding UseFont}" />
-                    <ComboBox
-                        Width="300"
-                        Height="35"
-                        IsEnabled="{Binding UseFont}"
-                        ItemsSource="{Binding FontList}"
-                        SelectedItem="{Binding FontItem}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        Text="字体大小" />
-                    <NumericUpDown
-                        Width="120"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1"
-                        Value="{Binding TextSize}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        Text="字体颜色" />
-                    <ColorPicker Margin="0,0,20,0" Color="{Binding TextColor}" />
-                    <TextBlock
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        Text="背景颜色" />
-                    <ColorPicker Color="{Binding BackColor}" />
-                    <TextBlock
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        Text="边框颜色" />
-                    <ColorPicker Color="{Binding BorderColor}" />
-                </StackPanel>
+                    Text="字体颜色" />
+                <ColorPicker Margin="0,0,20,0" Color="{Binding TextColor}" />
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="背景颜色" />
+                <ColorPicker Color="{Binding BackColor}" />
+                <TextBlock
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="边框颜色" />
+                <ColorPicker Color="{Binding BorderColor}" />
             </StackPanel>
         </StackPanel>
-    </Border>
+    </StackPanel>
 </UserControl>

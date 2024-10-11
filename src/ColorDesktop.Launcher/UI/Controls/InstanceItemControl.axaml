@@ -8,8 +8,8 @@
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
     x:DataType="vm:InstanceItemModel"
     mc:Ignorable="d">
-    <Border Classes="t2">
-        <Panel>
+    <Panel>
+        <Border Classes="t2">
             <DockPanel Margin="10">
                 <StackPanel DockPanel.Dock="Right">
                     <ToggleSwitch
@@ -50,11 +50,11 @@
                         Text="{setting:Localize MainWindow.Text28}" />
                 </StackPanel>
             </DockPanel>
-            <Border Background="#AAEFEFEF" IsVisible="{Binding PluginDisable, FallbackValue=false}">
-                <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text29}" />
-                </Panel>
-            </Border>
-        </Panel>
-    </Border>
+        </Border>
+        <Border Classes="t1" IsVisible="{Binding PluginDisable, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text29}" />
+            </Panel>
+        </Border>
+    </Panel>
 </UserControl>

@@ -23,5 +23,9 @@ public partial class MainViewModel : ObservableObject
         {
             LoadInstanceData();
         }
+        else if (NowView == 3)
+        {
+            GetDownloadList();
+        }
     }
 }

@@ -9,74 +9,72 @@
     d:DesignWidth="800"
     x:DataType="local:PGColorMCInstanceSettingModel"
     mc:Ignorable="d">
-    <Border Classes="t2">
-        <Panel Margin="10">
-            <StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="游戏分组" />
-                    <ComboBox
-                        Width="200"
-                        ItemsSource="{Binding Groups}"
-                        SelectedItem="{Binding Group}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="显示方式" />
-                    <ComboBox
-                        Width="200"
-                        ItemsSource="{Binding DisplayNames}"
-                        SelectedIndex="{Binding Display}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="长" />
-                    <NumericUpDown
-                        Width="130"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1"
-                        Value="{Binding Width}" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="高" />
-                    <NumericUpDown
-                        Width="130"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1"
-                        Value="{Binding Height}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="背景色" />
-                    <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="文字颜色" />
-                    <ColorPicker Margin="0,0,10,0" Color="{Binding TextColor}" />
-                </StackPanel>
-            </StackPanel>
-            <Panel Background="#EEFFFFFF" IsVisible="{Binding !HaveColorMC}">
+    <Panel>
+        <StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
-                    HorizontalAlignment="Center"
+                    Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="没有找到ColorMC" />
-            </Panel>
+                    Text="游戏分组" />
+                <ComboBox
+                    Width="200"
+                    ItemsSource="{Binding Groups}"
+                    SelectedItem="{Binding Group}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="显示方式" />
+                <ComboBox
+                    Width="200"
+                    ItemsSource="{Binding DisplayNames}"
+                    SelectedIndex="{Binding Display}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="长" />
+                <NumericUpDown
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Width}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="高" />
+                <NumericUpDown
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Height}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="背景色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="文字颜色" />
+                <ColorPicker Margin="0,0,10,0" Color="{Binding TextColor}" />
+            </StackPanel>
+        </StackPanel>
+        <Panel Background="#EEFFFFFF" IsVisible="{Binding !HaveColorMC}">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="没有找到ColorMC" />
         </Panel>
-    </Border>
+    </Panel>
 </UserControl>

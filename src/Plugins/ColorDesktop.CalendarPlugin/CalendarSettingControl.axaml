@@ -1,9 +1,0 @@
-<UserControl
-    x:Class="ColorDesktop.CalendarPlugin.CalendarSettingControl"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:DataType="local:CalendarSettingModel"
-    mc:Ignorable="d" />

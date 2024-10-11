@@ -2,6 +2,8 @@
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
+using ColorDesktop.Launcher.UI.Models.Items;
+using ColorDesktop.Launcher.Utils;
 
 namespace ColorDesktop.Launcher.Helper;
 
@@ -14,11 +16,27 @@ public static class ConfigHelper
         Config = ConfigUtils.Config(new ConfigObj()
         {
             EnablePlugin = [],
-            EnableInstance = []
+            EnableInstance = [],
+            PluginSource = 
+            [
+                new()
+                {
+                    Url = HttpUtils.Url,
+                    Enable = true
+                }
+            ]
         }, Program.RunDir + "config.json");
 
         Config.EnablePlugin ??= [];
         Config.EnableInstance ??= [];
+        Config.PluginSource ??= 
+        [
+            new()
+            {
+                Url = HttpUtils.Url,
+                Enable = true
+            }
+        ];
     }
 
     public static void SaveConfig()
@@ -94,6 +112,77 @@ public static class ConfigHelper
     public static void SetWindowTran(WindowTransparencyType value)
     {
         Config.Tran = value;
+        SaveConfig();
+    }
+
+    public static void SetSourceEnable(string url, bool value)
+    {
+        foreach (var item in Config.PluginSource)
+        {
+            if (item.Url == url)
+            {
+                item.Enable = value;
+                SaveConfig();
+                return;
+            }
+        }
+    }
+
+    public static bool HaveSource(string url)
+    {
+        foreach (var item in Config.PluginSource)
+        {
+            if (item.Url == url)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void SetSourceUrl(string url, string newValue)
+    {
+        foreach (var item in Config.PluginSource)
+        {
+            if (item.Url == url)
+            {
+                item.Url = newValue;
+                SaveConfig();
+                return;
+            }
+        }
+    }
+
+    public static void RemoveSource(string? url)
+    {
+        foreach (var item in Config.PluginSource)
+        {
+            if (item.Url == url)
+            {
+                Config.PluginSource.Remove(item);
+                SaveConfig();
+                return;
+            }
+        }
+    }
+
+    public static void AddSource(PluginSourceItemModel model)
+    {
+        foreach (var item in Config.PluginSource)
+        {
+            if (item.Url == model.Url)
+            {
+                return;
+            }
+        }
+
+        Config.PluginSource.Add(new()
+        {
+            Enable = model.Enable,
+            Url = model.Url!
+        });
+
         SaveConfig();
     }
 }

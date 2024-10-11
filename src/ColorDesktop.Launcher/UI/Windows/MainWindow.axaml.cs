@@ -16,6 +16,7 @@ public partial class MainWindow : Window
     private readonly SettingControl _setting = new();
     private readonly PluginControl _plugins = new();
     private readonly InstanceControl _instances = new();
+    private readonly PluginDownloadControl _download = new();
 
     public MainWindow()
     {
@@ -64,6 +65,9 @@ public partial class MainWindow : Window
                         break;
                     case 2:
                         View1.Child = _instances;
+                        break;
+                    case 3:
+                        View1.Child = _download;
                         break;
                 }
             }

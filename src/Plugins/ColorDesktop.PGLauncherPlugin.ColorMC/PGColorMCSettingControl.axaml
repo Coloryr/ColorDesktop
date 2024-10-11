@@ -7,23 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:PGColorMCSettingModel"
     mc:Ignorable="d">
-    <Border Classes="t2">
-        <StackPanel Margin="10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="ColorMC启动器位置" />
-            <TextBox
-                Width="300"
-                Margin="0,0,10,0"
-                Text="{Binding ColorMC}" />
-            <Button
-                Width="100"
-                Height="35"
-                Classes="top"
-                Command="{Binding SelectFile}"
-                CommandParameter="{Binding $self}"
-                Content="选择文件" />
-        </StackPanel>
-    </Border>
+    <StackPanel Orientation="Horizontal">
+        <TextBlock
+            Margin="0,0,5,0"
+            VerticalAlignment="Center"
+            Text="ColorMC启动器位置" />
+        <TextBox
+            Width="300"
+            Margin="0,0,10,0"
+            Text="{Binding ColorMC}" />
+        <Button
+            Width="100"
+            Height="35"
+            Classes="top"
+            Command="{Binding SelectFile}"
+            CommandParameter="{Binding $self}"
+            Content="选择文件" />
+    </StackPanel>
 </UserControl>

@@ -100,6 +100,7 @@ public partial class App : Application
 
         PluginManager.Init();
         InstanceManager.Init();
+        TempManager.Init();
 
         AvaloniaXamlLoader.Load(this);
 

@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.Reflection;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 
@@ -30,9 +31,11 @@ public class CoreLib : IPlugin
         
     }
 
-    public Bitmap? GetIcon()
+    public Stream? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.CoreLib.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1, LanguageType type)
@@ -48,12 +51,12 @@ public class CoreLib : IPlugin
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        throw new NotImplementedException();
+        return new();
     }
 
     public Control OpenSetting()
     {
-        throw new NotImplementedException();
+        return new();
     }
 
     public void Stop()

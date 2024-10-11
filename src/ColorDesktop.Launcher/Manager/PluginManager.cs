@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -84,7 +85,7 @@ public static class PluginManager
                 if (!PluginAssemblys.TryGetValue(item1.ID, out var ass1))
                 {
                     list.Add(item.Key);
-                    SetPluginState(item.Key, PluginState.LoadError);
+                    SetPluginState(item.Key, PluginState.DepNotFound);
                     Logs.Error(string.Format("组件 {0} 加载失败，没有找到依赖 {1}", item, item1));
                     break;
                 }
@@ -98,7 +99,7 @@ public static class PluginManager
                     catch (Exception e)
                     {
                         list.Add(item.Key);
-                        SetPluginState(item.Key, PluginState.LoadError);
+                        SetPluginState(item.Key, PluginState.DepNotFound);
                         Logs.Error(string.Format("组件 {0} 加载依赖失败", item), e);
                     }
                 }
@@ -151,6 +152,7 @@ public static class PluginManager
             try
             {
                 item.Value.Plugin.Init(item.Value.Local, InstanceManager.WorkDir, LanguageType.zh_cn);
+                SetPluginState(item.Key, PluginState.Disable);
             }
             catch (Exception e)
             {
@@ -310,34 +312,14 @@ public static class PluginManager
         return false;
     }
 
-    /// <summary>
-    /// 组件是否启用错误
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public static bool IsEnableFail(string id)
+    public static PluginState GetPluginState(string id)
     {
         if (PluginStates.TryGetValue(id, out var state))
         {
-            return state == PluginState.EnableError;
+            return state;
         }
 
-        return false;
-    }
-
-    /// <summary>
-    /// 组件是否加载错误
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public static bool IsFail(string id)
-    {
-        if (PluginStates.TryGetValue(id, out var state))
-        {
-            return state is PluginState.LoadError or PluginState.DepNotFound;
-        }
-
-        return false;
+        return PluginState.LoadError;
     }
 
     public static bool HavePluginSetting(string id)
@@ -358,6 +340,21 @@ public static class PluginManager
         }
 
         return false;
+    }
+
+    public static bool HavePlugin(string id)
+    {
+        return Plugins.ContainsKey(id);
+    }
+
+    public static string? GetPluginVersion(string id)
+    {
+        if (Plugins.TryGetValue(id, out var obj))
+        {
+            return obj.Version;
+        }
+
+        return null;
     }
 
     private static void DisablePlugin(string id, IPlugin plugin)
@@ -384,5 +381,52 @@ public static class PluginManager
         {
             PluginStates[id] = state;
         }
+    }
+
+    public static async Task<bool> Download(PluginDownloadObj.ItemObj obj, string baseurl)
+    {
+        var dir = RunDir + "/" + obj.ID;
+        int a = 1;
+        while (Directory.Exists(dir))
+        {
+            dir = RunDir + "/" + obj.ID + $" ({a ++})";
+        }
+
+        Directory.CreateDirectory(dir);
+
+        foreach (var item in obj.Files)
+        {
+            var res = await TempManager.Download(baseurl + obj.Url + "/" + item.Name, dir + "/" + item.Name, item.Sha1);
+            if (!res)
+            {
+                Directory.Delete(dir, true);
+                return false;
+            }
+        }
+
+        var list2 = PathHelper.GetAllFile(dir);
+        var config = list2.FirstOrDefault(item =>
+            item.Name.Equals(ConfigName, StringComparison.CurrentCultureIgnoreCase));
+        if (config == null)
+        {
+            return false;
+        }
+        var obj1 = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+        if (obj1 == null)
+        {
+            return false;
+        }
+
+        Plugins.Add(obj.ID, obj1);
+
+        if (obj1.ApiVersion != Program.ApiVersion)
+        {
+            Logs.Error(string.Format("组件 {0} 的API版本不一致", obj1.ID));
+            SetPluginState(obj1.ID, PluginState.LoadError);
+            return false;
+        }
+
+        SetPluginState(obj1.ID, PluginState.Unload);
+        return true;
     }
 }

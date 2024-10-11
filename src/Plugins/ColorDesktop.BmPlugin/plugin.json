@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.bm",
   "Name": "每日番剧",
-  "Describe": "用于查询每日番剧，需要依赖插件CoreLib",
+  "Describe": "用于查询每日番剧",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.BmPlugin" ],
   "Dependents": [

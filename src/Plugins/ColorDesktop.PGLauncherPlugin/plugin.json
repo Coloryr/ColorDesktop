@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.pglaunher",
   "Name": "程序启动器",
-  "Describe": "用于启动进程，需要依赖插件CoreLib",
+  "Describe": "用于启动进程",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.PGLauncherPlugin", "INIFileParser" ],
   "Dependents": [

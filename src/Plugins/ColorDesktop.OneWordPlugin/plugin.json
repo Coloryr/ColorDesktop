@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.oneword",
   "Name": "每日一言",
-  "Describe": "获取并显示每日一言，需要依赖插件CoreLib",
+  "Describe": "获取并显示每日一言",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.OneWordPlugin" ],
   "Dependents": [

@@ -7,10 +7,11 @@
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
     x:DataType="vm:PluginItemModel"
+    ToolTip.Tip="{Binding Tip}"
     mc:Ignorable="d">
-    <Border Classes="t2">
-        <Panel Margin="10">
-            <DockPanel>
+    <Panel>
+        <Border Classes="t2">
+            <DockPanel Margin="10">
                 <StackPanel
                     VerticalAlignment="Center"
                     DockPanel.Dock="Right"
@@ -52,11 +53,21 @@
                         Text="{setting:Localize MainWindow.Text31}" />
                 </StackPanel>
             </DockPanel>
-            <Border Background="#AAEFEFEF" IsVisible="{Binding LoadFail, FallbackValue=false}">
-                <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text32}" />
-                </Panel>
-            </Border>
-        </Panel>
-    </Border>
+        </Border>
+        <Border Classes="t1" IsVisible="{Binding LoadFail, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text32}" />
+            </Panel>
+        </Border>
+        <Border Classes="t1" IsVisible="{Binding IsUnload, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text29}" />
+            </Panel>
+        </Border>
+        <Border Classes="t1" IsVisible="{Binding NotDep, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text50}" />
+            </Panel>
+        </Border>
+    </Panel>
 </UserControl>

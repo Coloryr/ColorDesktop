@@ -7,7 +7,30 @@ public enum InstanceState
 
 public enum PluginState
 {
-    LoadError, EnableError, DepNotFound, Disable, Enable
+    /// <summary>
+    /// 加载错误
+    /// </summary>
+    LoadError, 
+    /// <summary>
+    /// 启用错误
+    /// </summary>
+    EnableError, 
+    /// <summary>
+    /// 缺少前置
+    /// </summary>
+    DepNotFound,
+    /// <summary>
+    /// 禁用
+    /// </summary>
+    Disable, 
+    /// <summary>
+    /// 启用
+    /// </summary>
+    Enable, 
+    /// <summary>
+    /// 未加载
+    /// </summary>
+    Unload
 }
 
 /// <summary>

@@ -10,4 +10,5 @@ public record ConfigObj
     public WindowTransparencyType Tran { get; set; }
     public List<string> EnablePlugin { get; set; }
     public List<string> EnableInstance { get; set; }
+    public List<PluginSourceObj> PluginSource { get; set; }
 }

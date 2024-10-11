@@ -1,0 +1,68 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.Dialog.PluginSourceControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Dialog"
+    x:DataType="vm:PluginSourceModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding Done}"
+                Content="{setting:Localize Button.Confirm}"
+                DockPanel.Dock="Right" />
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding AddSource}"
+                Content="{setting:Localize PluginSourceControl.Text5}"
+                DockPanel.Dock="Right" />
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Text="{setting:Localize PluginSourceControl.Text1}" />
+        </DockPanel>
+        <DataGrid
+            Name="DataGrid1"
+            Width="600"
+            Height="300"
+            AutoGenerateColumns="False"
+            CanUserResizeColumns="True"
+            CanUserSortColumns="True"
+            ItemsSource="{Binding Sources}"
+            SelectedItem="{Binding Select}">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding Enable}" Header="{setting:Localize PluginSourceControl.Text2}" />
+                <DataGridTextColumn
+                    MinWidth="200"
+                    Binding="{Binding Url}"
+                    Header="{setting:Localize PluginSourceControl.Text3}" />
+                <DataGridTextColumn
+                    Binding="{Binding IsWork}"
+                    Header="{setting:Localize PluginSourceControl.Text4}"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Panel>
+                                <Button
+                                    Width="100"
+                                    Height="35"
+                                    Classes="top"
+                                    Command="{Binding Test}"
+                                    Content="{setting:Localize PluginSourceControl.Text6}" />
+                            </Panel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

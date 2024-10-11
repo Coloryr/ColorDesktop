@@ -1,7 +1,7 @@
 ﻿{
   "ID": "coloryr.calendar",
   "Name": "日历",
-  "Describe": "使用显示系统年月日，依赖与组件coloryr.clock",
+  "Describe": "使用显示系统年月日",
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.CalendarPlugin", "lunar" ],
   "Dependents": [

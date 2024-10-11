@@ -84,11 +84,11 @@ public class ClockPlugin : IPlugin
         NtpClient.Start();
     }
 
-    public Bitmap? GetIcon()
+    public Stream? GetIcon()
     {
         var assm = Assembly.GetExecutingAssembly();
-        using var item = assm.GetManifestResourceStream("ColorDesktop.ClockPlugin.icon.png")!;
-        return new Bitmap(item);
+        var item = assm.GetManifestResourceStream("ColorDesktop.ClockPlugin.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1, LanguageType type)

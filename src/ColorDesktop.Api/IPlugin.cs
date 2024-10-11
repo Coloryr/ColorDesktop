@@ -32,7 +32,7 @@ public interface IPlugin
     /// 获取图标
     /// </summary>
     /// <returns></returns>
-    Bitmap? GetIcon();
+    Stream? GetIcon();
     /// <summary>
     /// 打开实例设置
     /// </summary>

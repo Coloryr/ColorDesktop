@@ -49,7 +49,7 @@ public class CalendarPlugin : IPlugin
 
     public bool IsCoreLib => false;
 
-    public bool HavePluginSetting => true;
+    public bool HavePluginSetting => false;
 
     public bool HaveInstanceSetting => true;
 
@@ -74,11 +74,11 @@ public class CalendarPlugin : IPlugin
 
     }
 
-    public Bitmap? GetIcon()
+    public Stream? GetIcon()
     {
         var assm = Assembly.GetExecutingAssembly();
-        using var item = assm.GetManifestResourceStream("ColorDesktop.CalendarPlugin.icon.png")!;
-        return new Bitmap(item);
+        var item = assm.GetManifestResourceStream("ColorDesktop.CalendarPlugin.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1, LanguageType type)
@@ -100,7 +100,7 @@ public class CalendarPlugin : IPlugin
 
     public Control OpenSetting()
     {
-        return new CalendarSettingControl();
+        return new();
     }
 
     public void Stop()
