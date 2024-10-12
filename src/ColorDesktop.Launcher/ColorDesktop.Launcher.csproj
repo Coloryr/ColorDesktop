@@ -17,6 +17,7 @@
 	<ItemGroup>
 		<AvaloniaResource Remove="Resource\Lang\en-us.json" />
 		<AvaloniaResource Remove="Resource\Lang\zh-cn.json" />
+		<AvaloniaResource Remove="Resource\linux.service" />
 		<AvaloniaResource Remove="Resource\MiSans-Regular.ttf" />
 	</ItemGroup>
 
@@ -25,6 +26,7 @@
 		<None Remove="Resource\Icon\icon1.svg" />
 		<None Remove="Resource\Lang\en-us.json" />
 		<None Remove="Resource\Lang\zh-cn.json" />
+		<None Remove="Resource\linux.service" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,6 +36,7 @@
 	<ItemGroup>
 		<EmbeddedResource Include="Resource\Lang\en-us.json" />
 		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+		<EmbeddedResource Include="Resource\linux.service" />
 		<EmbeddedResource Include="Resource\MiSans-Regular.ttf" />
 	</ItemGroup>
 
