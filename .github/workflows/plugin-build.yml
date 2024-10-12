@@ -34,62 +34,69 @@ jobs:
     - name: 打包
       working-directory: ./src/build_out/Debug/net8.0/plugins/
       run: |
-          zip -r AnalogClockPlugin.zip AnalogClockPlugin
-          zip -r CalendarPlugin.zip CalendarPlugin
-          zip -r WeatherPlugin.zip WeatherPlugin
-          zip -r ClockPlugin.zip ClockPlugin
-          zip -r CoreLib.zip CoreLib
-          zip -r PGLauncherPlugin.zip PGLauncherPlugin
-          zip -r PGColorMCPlugin.zip PGColorMCPlugin
-          zip -r OneWordPlugin.zip OneWordPlugin
+          zip -r AnalogClockPlugin.zip ../AnalogClockPlugin
+          zip -r CalendarPlugin.zip ../CalendarPlugin
+          zip -r WeatherPlugin.zip ../WeatherPlugin
+          zip -r ClockPlugin.zip ../ClockPlugin
+          zip -r CoreLib.zip ../CoreLib
+          zip -r PGLauncherPlugin.zip ../PGLauncherPlugin
+          zip -r PGColorMCPlugin.zip ../PGColorMCPlugin
+          zip -r OneWordPlugin.zip ../OneWordPlugin
+          zip -r BmPlugin.zip ../BmPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-AnalogClockPlugin"
-        path: src/build_out/Debug/net8.0/plugins/AnalogClockPlugin.zip
+        path: src/build_out/Debug/net8.0/AnalogClockPlugin.zip
     
     - name: 上传 colordesktop-plugin-CalendarPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CalendarPlugin"
-        path: src/build_out/Debug/net8.0/plugins/CalendarPlugin.zip
+        path: src/build_out/Debug/net8.0/CalendarPlugin.zip
 
     - name: 上传 colordesktop-plugin-ClockPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-ClockPlugin"
-        path: src/build_out/Debug/net8.0/plugins/ClockPlugin.zip
+        path: src/build_out/Debug/net8.0/ClockPlugin.zip
 
     - name: 上传 colordesktop-plugin-CoreLib
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-CoreLib"
-        path: src/build_out/Debug/net8.0/plugins/CoreLib.zip
+        path: src/build_out/Debug/net8.0/CoreLib.zip
 
     - name: 上传 colordesktop-plugin-WeatherPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-WeatherPlugin"
-        path: src/build_out/Debug/net8.0/plugins/WeatherPlugin.zip
+        path: src/build_out/Debug/net8.0/WeatherPlugin.zip
 
     - name: 上传 colordesktop-plugin-PGLauncherPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-PGLauncherPlugin"
-        path: src/build_out/Debug/net8.0/plugins/PGLauncherPlugin.zip
+        path: src/build_out/Debug/net8.0/PGLauncherPlugin.zip
 
     - name: 上传 colordesktop-plugin-PGColorMCPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-PGColorMCPlugin"
-        path: src/build_out/Debug/net8.0/plugins/PGColorMCPlugin.zip
+        path: src/build_out/Debug/net8.0/PGColorMCPlugin.zip
 
     - name: 上传 colordesktop-plugin-OneWordPlugin
       uses: actions/upload-artifact@v4
       with:
         name: "colordesktop-plugin-OneWordPlugin"
-        path: src/build_out/Debug/net8.0/plugins/OneWordPlugin.zip
+        path: src/build_out/Debug/net8.0/OneWordPlugin.zip
+
+    - name: 上传 colordesktop-plugin-BmPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-BmPlugin"
+        path: src/build_out/Debug/net8.0/BmPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4
