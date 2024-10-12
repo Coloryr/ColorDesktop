@@ -22,20 +22,20 @@ public class Linux
                     {
                         var assm = Assembly.GetExecutingAssembly();
                         using var item = assm.GetManifestResourceStream("ColorDesktop.Launcher.Resource.linux.service")!;
-                        using var file = File.Open(Program.RunDir + "/colordesktop.service", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
+                        using var file = File.Open(Program.RunDir + "colordesktop.service", FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
                         item.CopyTo(file);
                     }
-                    Run("cp " + Program.RunDir + "/colordesktop.service" + " /etc/systemd/user/colordesktop.service");
-                    Run("systemctl daemon-reloade");
+                    Run("cp " + Program.RunDir + "colordesktop.service" + " /etc/systemd/user/colordesktop.service");
+                    Run("systemctl --user daemon-reload");
                 }
 
                 if (start)
                 {
-                    Run("systemctl enable colordesktop.service");
+                    Run("systemctl --user enable colordesktop.service");
                 }
                 else
                 {
-                    Run("systemctl disable colordesktop.service");
+                    Run("systemctl --user disable colordesktop.service");
                 }
             }
             catch (Exception e)
@@ -47,7 +47,7 @@ public class Linux
 
     private static void Run(string cmd)
     {
-        var p = Process.Start("sudo", cmd);
+        var p = Process.Start("pkexec", cmd);
         p.WaitForExit();
     }
 }
