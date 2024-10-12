@@ -347,7 +347,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     [RelayCommand]
     public async Task SelectFile(Control? control)
     {
-        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control), 
+        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
             "选择程序文件", SystemInfo.Os == OsType.Windows ? ["*.exe"] : [], "程序");
         if (file == null || file.Count == 0)
         {
@@ -366,7 +366,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     [RelayCommand]
     public async Task SelectIcon(Control? control)
     {
-        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control), 
+        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
             "选择图片文件", ["*.png", "*.jpg", "*.bmp"], "图片");
         if (file == null || file.Count == 0)
         {

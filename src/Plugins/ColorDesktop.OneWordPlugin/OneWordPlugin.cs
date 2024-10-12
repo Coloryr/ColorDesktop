@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 
@@ -45,12 +44,12 @@ public class OneWordPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -62,7 +61,7 @@ public class OneWordPlugin : IPlugin
 
     public void Init(string local, string local1, LanguageType type)
     {
-        
+
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -82,6 +81,6 @@ public class OneWordPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

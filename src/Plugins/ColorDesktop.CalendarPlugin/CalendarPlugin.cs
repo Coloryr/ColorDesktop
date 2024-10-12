@@ -1,9 +1,7 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
-using Lunar;
 
 namespace ColorDesktop.CalendarPlugin;
 
@@ -43,7 +41,7 @@ public class CalendarPlugin : IPlugin
     {
         Config = ConfigUtils.Config<CalendarConfigObj>(new()
         {
-            
+
         }, s_local);
     }
 
@@ -66,7 +64,7 @@ public class CalendarPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
@@ -105,6 +103,6 @@ public class CalendarPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

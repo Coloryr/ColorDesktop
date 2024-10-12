@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;

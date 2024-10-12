@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 
@@ -68,12 +67,12 @@ public class PGColorMCPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -107,6 +106,6 @@ public class PGColorMCPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

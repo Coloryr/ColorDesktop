@@ -1,8 +1,6 @@
 using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.CalendarPlugin;

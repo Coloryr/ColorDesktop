@@ -21,7 +21,7 @@ public static class TempManager
     public static async Task<Bitmap?> LoadImage(string url)
     {
         var file = s_run + "/" + GenSha1(url);
-        
+
         try
         {
             if (File.Exists(file))
@@ -35,7 +35,7 @@ public static class TempManager
             return new Bitmap(temp);
         }
         catch
-        { 
+        {
 
         }
         return null;

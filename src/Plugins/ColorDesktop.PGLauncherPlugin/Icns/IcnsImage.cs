@@ -1,5 +1,3 @@
-using System;
-using Avalonia.Media.Imaging;
 using SkiaSharp;
 
 namespace ColorDesktop.PGLauncherPlugin.Icns;

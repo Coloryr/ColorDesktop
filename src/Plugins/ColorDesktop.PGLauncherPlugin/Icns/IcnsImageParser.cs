@@ -116,7 +116,7 @@ public static class IcnsImageParser
 
     public static void WriteImage(SKBitmap src, Stream stream)
     {
-        var imageType = IcnsType.FindType(src.Width, src.Height, 32, IcnsType.TypeDetails.None) 
+        var imageType = IcnsType.FindType(src.Width, src.Height, 32, IcnsType.TypeDetails.None)
             ?? throw new NotSupportedException($"Invalid/unsupported source: {src.Width}x{src.Height}");
         Write4Bytes(stream, ICNS_MAGIC);
         Write4Bytes(stream, 4 + 4 + 4 + 4 + 4 * imageType.Width * imageType.Height + 4 + 4 + imageType.Width * imageType.Height);

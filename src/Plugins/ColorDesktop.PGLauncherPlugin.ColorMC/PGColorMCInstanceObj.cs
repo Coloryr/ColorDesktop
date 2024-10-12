@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.PGLauncherPlugin.ColorMC;
+﻿namespace ColorDesktop.PGLauncherPlugin.ColorMC;
 
 public enum DisplayType
-{ 
+{
     Name, Icon, NameIcon
 }
 

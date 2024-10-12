@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
@@ -28,7 +27,7 @@ public partial class PluginItemModel : ObservableObject
     [ObservableProperty]
     private bool _isUnload;
 
-    public bool Core { get; init; } 
+    public bool Core { get; init; }
     public string ID => _obj.ID;
     public string Name => _obj.Name;
     public string Describe => _obj.Describe;

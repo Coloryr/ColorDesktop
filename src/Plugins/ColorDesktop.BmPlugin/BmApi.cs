@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.CoreLib;
+﻿using ColorDesktop.CoreLib;
 using Newtonsoft.Json;
 
 namespace ColorDesktop.BmPlugin;
@@ -20,8 +14,8 @@ public static class BmApi
             return JsonConvert.DeserializeObject<List<BmObj>?>(data);
         }
         catch
-        { 
-            
+        {
+
         }
 
         return null;

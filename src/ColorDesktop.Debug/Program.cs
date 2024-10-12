@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using ColorDesktop.Launcher;
 
 namespace ColorDesktop.Debug;
 

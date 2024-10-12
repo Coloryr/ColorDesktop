@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Avalonia;
 using Avalonia.Controls;
@@ -16,7 +11,6 @@ using ColorDesktop.PGLauncherPlugin.Icns;
 using IniParser;
 using IniParser.Model;
 using MicroCom.Runtime;
-using Microsoft.VisualBasic;
 
 namespace ColorDesktop.PGLauncherPlugin;
 

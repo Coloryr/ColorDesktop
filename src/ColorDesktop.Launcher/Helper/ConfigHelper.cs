@@ -1,5 +1,4 @@
-﻿using System;
-using ColorDesktop.Api;
+﻿using ColorDesktop.Api;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Items;
@@ -17,7 +16,7 @@ public static class ConfigHelper
         {
             EnablePlugin = [],
             EnableInstance = [],
-            PluginSource = 
+            PluginSource =
             [
                 new()
                 {
@@ -29,7 +28,7 @@ public static class ConfigHelper
 
         Config.EnablePlugin ??= [];
         Config.EnableInstance ??= [];
-        Config.PluginSource ??= 
+        Config.PluginSource ??=
         [
             new()
             {

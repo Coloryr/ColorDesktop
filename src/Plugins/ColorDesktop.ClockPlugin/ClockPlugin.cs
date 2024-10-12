@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 
@@ -76,12 +75,12 @@ public class ClockPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()

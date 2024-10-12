@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.CoreLib;
+﻿using ColorDesktop.CoreLib;
 using ColorDesktop.WeatherPlugin.Objs;
 using Newtonsoft.Json;
 

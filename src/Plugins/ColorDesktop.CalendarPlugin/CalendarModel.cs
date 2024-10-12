@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Media;
+﻿using Avalonia.Media;
 using ColorDesktop.ClockPlugin;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -87,7 +82,7 @@ public partial class CalendarModel : ObservableObject
         Wuhang = lunar.DayNaYin;
         Chongsha = "冲" + lunar.DayChongDesc + " 煞" + lunar.DaySha;
         Pengzu = lunar.PengZuGan + Environment.NewLine + lunar.PengZuZhi;
-        
+
         if (NowYear == 0)
         {
             NowYear = _last.Year;

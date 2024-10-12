@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Avalonia.Threading;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
-using ColorDesktop.Launcher.UI.Models.Main;
-using ColorDesktop.Launcher.UI.Windows;
 using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DialogHostAvalonia;
 using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.UI.Models.Items;

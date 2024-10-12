@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;
 using ColorDesktop.Launcher.UI.Windows;
-using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
@@ -45,7 +39,7 @@ public partial class PluginDownloadItemModel : ObservableObject
         _update = HaveUpdate();
         _source = source;
         _baseurl = baseurl;
-    } 
+    }
 
     [RelayCommand]
     public async Task Download()

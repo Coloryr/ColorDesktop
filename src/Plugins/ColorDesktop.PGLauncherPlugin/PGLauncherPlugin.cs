@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 

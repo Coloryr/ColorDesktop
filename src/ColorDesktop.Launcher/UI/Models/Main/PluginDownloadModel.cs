@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -34,15 +31,15 @@ public partial class MainViewModel
 
     [RelayCommand]
     public void EditSource()
-    { 
+    {
         var model = new PluginSourceModel();
         DialogHost.Show(model, MainWindow.DialogHostName);
     }
 
     [RelayCommand]
     public void SourceReload()
-    { 
-        
+    {
+
     }
 
     private async void GetDownloadList()

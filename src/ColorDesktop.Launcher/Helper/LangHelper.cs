@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ColorDesktop.Launcher.Helper;
+﻿namespace ColorDesktop.Launcher.Helper;
 
 public static class LangHelper
 {

@@ -10,11 +10,11 @@ public enum PluginState
     /// <summary>
     /// 加载错误
     /// </summary>
-    LoadError, 
+    LoadError,
     /// <summary>
     /// 启用错误
     /// </summary>
-    EnableError, 
+    EnableError,
     /// <summary>
     /// 缺少前置
     /// </summary>
@@ -22,11 +22,11 @@ public enum PluginState
     /// <summary>
     /// 禁用
     /// </summary>
-    Disable, 
+    Disable,
     /// <summary>
     /// 启用
     /// </summary>
-    Enable, 
+    Enable,
     /// <summary>
     /// 未加载
     /// </summary>

@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using ColorDesktop.Api;
@@ -53,7 +52,7 @@ public partial class BmControl : UserControl, IInstance
 
     public void Update(InstanceDataObj obj)
     {
-        
+
     }
 
     private void Window1_PointerExited(object? sender, PointerEventArgs e)

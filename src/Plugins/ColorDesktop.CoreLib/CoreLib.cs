@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.CoreLib;
@@ -23,12 +22,12 @@ public class CoreLib : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -61,6 +60,6 @@ public class CoreLib : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

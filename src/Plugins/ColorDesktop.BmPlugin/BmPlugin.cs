@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.BmPlugin;
@@ -26,12 +25,12 @@ public class BmPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -43,7 +42,7 @@ public class BmPlugin : IPlugin
 
     public void Init(string local, string local1, LanguageType type)
     {
-        
+
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -63,6 +62,6 @@ public class BmPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

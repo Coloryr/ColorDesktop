@@ -1,7 +1,5 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.WeatherPlugin;
@@ -14,7 +12,7 @@ public partial class WeatherControl : UserControl, IInstance
 
         DataContext = new WeatherModel();
 
-        
+
     }
 
     private void WeatherControl_PointerExited(object? sender, PointerEventArgs e)

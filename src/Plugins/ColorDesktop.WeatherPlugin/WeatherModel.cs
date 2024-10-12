@@ -195,7 +195,7 @@ public partial class WeatherModel : ObservableObject
             Error = true;
             return;
         }
-        
+
         IsUpdate = true;
         var data = await AmapApi.GetData(_obj.Adcode, false);
         if (data?.Lives.FirstOrDefault() is { } res)

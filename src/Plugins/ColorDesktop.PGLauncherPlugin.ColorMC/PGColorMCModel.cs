@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
-using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.PGLauncherPlugin.ColorMC;

@@ -26,7 +26,7 @@ public partial class PGColorMCInstanceSettingModel : ObservableObject
     private Color _backColor;
     [ObservableProperty]
     private Color _textColor;
-    
+
     private readonly InstanceDataObj _obj;
     private readonly PGColorMCInstanceObj _config;
 

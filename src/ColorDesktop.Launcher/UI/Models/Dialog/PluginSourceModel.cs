@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.UI.Models.Items;
 using ColorDesktop.Launcher.UI.Windows;
-using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;

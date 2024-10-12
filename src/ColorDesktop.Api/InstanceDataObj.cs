@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls;
-
-namespace ColorDesktop.Api;
+﻿namespace ColorDesktop.Api;
 
 public record MarginObj
 {
@@ -25,7 +23,7 @@ public record MarginObj
 }
 
 public enum WindowTransparencyType
-{ 
+{
     None, Transparent, Blur, AcrylicBlur, Mica
 }
 

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ColorDesktop.PluginList;
+﻿namespace ColorDesktop.PluginList;
 
 public record PluginDownloadObj
 {
     public record ItemObj
     {
         public record FileObj
-        { 
+        {
             public string Name { get; set; }
             public string Sha1 { get; set; }
         }
