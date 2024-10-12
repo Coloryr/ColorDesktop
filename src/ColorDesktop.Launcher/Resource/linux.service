@@ -1,0 +1,8 @@
+﻿[Unit]
+Description=colordesktop
+
+[Service]
+ExecStart=ColorDesktop.Launcher
+
+[Install]
+WantedBy=multi-user.target

@@ -100,6 +100,10 @@ public static class ConfigHelper
         {
             Win32.SetLaunch(start);
         }
+        else if (SystemInfo.Os == OsType.Linux)
+        {
+            Linux.SetLaunch(start);
+        }
     }
 
     public static void SetAuto(bool value)

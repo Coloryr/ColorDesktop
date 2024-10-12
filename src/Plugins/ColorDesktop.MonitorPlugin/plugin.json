@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.monitor",
+  "Name": "传感器",
+  "Describe": "获取电脑传感器信息",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.MonitorPlugin", "LibreHardwareMonitorLib", "HidSharp", "System.CodeDom", "System.IO.Ports", "Mono.Posix.NETStandard" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "1"
+}

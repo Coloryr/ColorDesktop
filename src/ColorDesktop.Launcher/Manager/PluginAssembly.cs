@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using ColorDesktop.Api;
+using ColorDesktop.Launcher.Helper;
 
 namespace ColorDesktop.Launcher.Manager;
 
@@ -17,22 +18,71 @@ public class PluginAssembly : AssemblyLoadContext
 
     public bool Enable { get; set; }
 
-    public readonly List<PluginAssembly> Deps = [];
+    private readonly List<PluginAssembly> _deps = [];
+
+    private readonly Dictionary<string, string> _natives = [];
 
     public PluginAssembly(string local, PluginDataObj obj) : base(obj.ID, true)
     {
         Local = local;
         Obj = obj;
 
+        var dir1 = local + "/runtimes";
+        var list = new List<FileInfo>();
+        void ReadList(string dir)
+        {
+            if (Directory.Exists(dir))
+            {
+                var list1 = PathHelper.GetAllFile(dir);
+                foreach (var item in list1)
+                {
+                    if (item.DirectoryName!.Contains("native"))
+                    {
+                        _natives.Add(item.Name, item.FullName);
+                        continue;
+                    }
+                    list.Add(item);
+                }
+                
+            }
+        }
+        if (Directory.Exists(dir1))
+        {
+            switch (SystemInfo.Os)
+            {
+                case OsType.Windows:
+                    var dir2 = dir1 + "/win";
+                    ReadList(dir2);
+                    if (SystemInfo.IsArm)
+                    {
+                        dir2 = dir1 + "/win-arm64";
+                        ReadList(dir2);
+                    }
+                    else
+                    {
+                        dir2 = dir1 + "/win-x64";
+                        ReadList(dir2);
+                    }
+                    break;
+            }
+        }
+
         foreach (var item in obj.Dlls)
         {
-            LoadDll(local, item);
+            if (list.FirstOrDefault(item1 => item1.Name.Replace(".dll", "") == item) is { } item2)
+            {
+                LoadDll(item2.DirectoryName!, item2.Name.Replace(".dll", ""));
+            }
+            else
+            {
+                LoadDll(local, item);
+            }
         }
     }
 
     protected override Assembly? Load(AssemblyName name)
     {
-        foreach (var item in Deps)
+        foreach (var item in _deps)
         {
             var ass = item.Assemblies
                 .Where(a => a.GetName().Name == name.Name)
@@ -47,9 +97,23 @@ public class PluginAssembly : AssemblyLoadContext
         return null;
     }
 
+    protected new IntPtr LoadUnmanagedDllFromPath(string unmanagedDllPath)
+    {
+        return base.LoadUnmanagedDllFromPath(unmanagedDllPath);
+    }
+
+    protected override nint LoadUnmanagedDll(string unmanagedDllName)
+    {
+        if (_natives.TryGetValue(unmanagedDllName, out var dir))
+        { 
+            
+        }
+        return base.LoadUnmanagedDll(unmanagedDllName);
+    }
+
     public void AddShare(PluginAssembly ass)
     {
-        Deps.Add(ass);
+        _deps.Add(ass);
     }
 
     public void AddLoad(PluginAssembly ass)

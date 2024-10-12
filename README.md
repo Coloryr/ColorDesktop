@@ -3,7 +3,7 @@
 一个桌面小组件软件
 
 只支持Windows、Linux和macos  
-**目前还在开发中，暂不提供构建二进制，需要自行构建**
+[组件列表](./plugin.md)
 
 ![](/pic/pic1.png)
 
@@ -74,6 +74,10 @@
 [DotNetty](https://github.com/Azure/DotNetty) 异步通信框架
 [Newtonsoft.Json](https://www.newtonsoft.com/json) JSON解析器  
 
+## 组件依赖/引用的项目
+[LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 传感器读取  
+[lunar-csharp](https://github.com/6tail/lunar-csharp) 农历节气天干地支等计算
+
 ## 开源协议
 Apache 2.0  
 
@@ -95,7 +99,8 @@ limitations under the License.
 
 附属的开源协议  
 MIT  
-BSD
+BSD  
+MPL2.0(部分插件使用该协议)
 
 ## 使用的IDE开发工具
 [Visual Studio 2022](https://visualstudio.microsoft.com/)  
