@@ -26,12 +26,17 @@ public partial class OneWordControl : UserControl, IInstance
         }
     }
 
-    public void Start(IInstanceWindow window)
+    public async void Start(IInstanceWindow window)
     {
         if (window is Window window1)
         {
             window1.PointerEntered += Window1_PointerEntered;
             window1.PointerExited += Window1_PointerExited;
+        }
+
+        if (DataContext is OneWordModel model)
+        {
+            await model.Update();
         }
     }
 
