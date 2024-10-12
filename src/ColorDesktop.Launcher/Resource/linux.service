@@ -5,4 +5,4 @@ Description=colordesktop
 ExecStart=ColorDesktop.Launcher
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=gnome-session.target

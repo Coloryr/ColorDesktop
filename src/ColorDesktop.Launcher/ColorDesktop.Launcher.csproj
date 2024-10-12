@@ -27,6 +27,7 @@
 		<None Remove="Resource\Lang\en-us.json" />
 		<None Remove="Resource\Lang\zh-cn.json" />
 		<None Remove="Resource\linux.service" />
+		<None Remove="Resource\linux.desktop" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,6 +38,7 @@
 		<EmbeddedResource Include="Resource\Lang\en-us.json" />
 		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
 		<EmbeddedResource Include="Resource\linux.service" />
+		<EmbeddedResource Include="Resource\linux.desktop" />
 		<EmbeddedResource Include="Resource\MiSans-Regular.ttf" />
 	</ItemGroup>
 
