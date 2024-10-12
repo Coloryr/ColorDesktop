@@ -56,17 +56,26 @@
         </Border>
         <Border Classes="t1" IsVisible="{Binding LoadFail, FallbackValue=false}">
             <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text32}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Red"
+                    Text="{setting:Localize MainWindow.Text32}" />
             </Panel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding IsUnload, FallbackValue=false}">
             <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text29}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Red"
+                    Text="{setting:Localize MainWindow.Text29}" />
             </Panel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding NotDep, FallbackValue=false}">
             <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Foreground="Red" Text="{setting:Localize MainWindow.Text50}" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Red"
+                    Text="{setting:Localize MainWindow.Text50}" />
             </Panel>
         </Border>
     </Panel>

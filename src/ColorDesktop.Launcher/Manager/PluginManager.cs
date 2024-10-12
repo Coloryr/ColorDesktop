@@ -19,6 +19,7 @@ public static class PluginManager
     public static readonly Dictionary<string, PluginDataObj> Plugins = [];
     public static readonly Dictionary<string, PluginAssembly> PluginAssemblys = [];
     public static readonly Dictionary<string, PluginState> PluginStates = [];
+    public static readonly Dictionary<string, string> PluginDir = [];
 
     public const string Dir1 = "plugins";
     public const string ConfigName = "plugin.json";
@@ -59,6 +60,7 @@ public static class PluginManager
                 }
 
                 Plugins.Add(obj.ID, obj);
+                PluginDir.Add(obj.ID, config.DirectoryName!);
 
                 if (obj.ApiVersion != Program.ApiVersion)
                 {
@@ -199,7 +201,7 @@ public static class PluginManager
     {
         foreach (var item in PluginAssemblys)
         {
-            DisablePlugin(item.Key, item.Value.Plugin);
+            StopPlugin(item.Key, item.Value.Plugin);
         }
     }
 
@@ -256,8 +258,11 @@ public static class PluginManager
             ConfigHelper.DisablePlugin(item.Key);
             InstanceManager.DisablePlugin(item.Key);
 
-            DisablePlugin(item.Key, item.Value.Plugin);
-            item.Value.Enable = false;
+            if (item.Value.Enable)
+            {
+                DisablePlugin(item.Key, item.Value.Plugin);
+                item.Value.Enable = false;
+            }
         }
     }
 
@@ -266,13 +271,19 @@ public static class PluginManager
     /// </summary>
     public static void Reload()
     {
-        Plugins.Clear();
         foreach (var item in PluginAssemblys)
         {
             InstanceManager.DisablePlugin(item.Key);
-            DisablePlugin(item.Key, item.Value.Plugin);
+            if (item.Value.Enable)
+            {
+                DisablePlugin(item.Key, item.Value.Plugin);
+                item.Value.Enable = false;
+            }
+            StopPlugin(item.Key, item.Value.Plugin);
             item.Value.Unload();
         }
+        PluginDir.Clear();
+        Plugins.Clear();
         PluginAssemblys.Clear();
         PluginStates.Clear();
 
@@ -357,39 +368,25 @@ public static class PluginManager
         return null;
     }
 
-    private static void DisablePlugin(string id, IPlugin plugin)
+    public static string? DeletePlugin(PluginDownloadObj.ItemObj obj)
     {
-        try
+        if (PluginDir.TryGetValue(obj.ID, out var dir))
         {
-            plugin.Disable();
+            Directory.Delete(dir, true);
+
+            return dir;
         }
-        catch (Exception e)
-        {
-            SetPluginState(id, PluginState.EnableError);
-            Logs.Error(string.Format("组件 {0} 禁用失败", id), e);
-        }
+
+        return null;
     }
 
-    /// <summary>
-    /// 设置插件状态
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="state"></param>
-    private static void SetPluginState(string id, PluginState state)
+    public static async Task<bool> Download(PluginDownloadObj.ItemObj obj, string baseurl, string? dir = null)
     {
-        if (!PluginStates.TryAdd(id, state))
-        {
-            PluginStates[id] = state;
-        }
-    }
-
-    public static async Task<bool> Download(PluginDownloadObj.ItemObj obj, string baseurl)
-    {
-        var dir = RunDir + "/" + obj.ID;
+        dir ??= RunDir + "/" + obj.ID;
         int a = 1;
         while (Directory.Exists(dir))
         {
-            dir = RunDir + "/" + obj.ID + $" ({a ++})";
+            dir = RunDir + "/" + obj.ID + $" ({a++})";
         }
 
         Directory.CreateDirectory(dir);
@@ -404,29 +401,45 @@ public static class PluginManager
             }
         }
 
-        var list2 = PathHelper.GetAllFile(dir);
-        var config = list2.FirstOrDefault(item =>
-            item.Name.Equals(ConfigName, StringComparison.CurrentCultureIgnoreCase));
-        if (config == null)
-        {
-            return false;
-        }
-        var obj1 = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
-        if (obj1 == null)
-        {
-            return false;
-        }
-
-        Plugins.Add(obj.ID, obj1);
-
-        if (obj1.ApiVersion != Program.ApiVersion)
-        {
-            Logs.Error(string.Format("组件 {0} 的API版本不一致", obj1.ID));
-            SetPluginState(obj1.ID, PluginState.LoadError);
-            return false;
-        }
-
-        SetPluginState(obj1.ID, PluginState.Unload);
         return true;
+    }
+
+    private static void DisablePlugin(string id, IPlugin plugin)
+    {
+        try
+        {
+            plugin.Disable();
+        }
+        catch (Exception e)
+        {
+            SetPluginState(id, PluginState.EnableError);
+            Logs.Error(string.Format("组件 {0} 禁用失败", id), e);
+        }
+    }
+
+    private static void StopPlugin(string id, IPlugin plugin)
+    {
+        try
+        {
+            plugin.Stop();
+        }
+        catch (Exception e)
+        {
+            SetPluginState(id, PluginState.EnableError);
+            Logs.Error(string.Format("组件 {0} 停止失败", id), e);
+        }
+    }
+
+    /// <summary>
+    /// 设置插件状态
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="state"></param>
+    private static void SetPluginState(string id, PluginState state)
+    {
+        if (!PluginStates.TryAdd(id, state))
+        {
+            PluginStates[id] = state;
+        }
     }
 }

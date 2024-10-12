@@ -41,8 +41,8 @@ public partial class PluginDownloadItemModel : ObservableObject
     {
         _model = model;
         _obj = obj;
-        _update = HaveUpdate();
         _have = PluginManager.HavePlugin(obj.ID);
+        _update = HaveUpdate();
         _source = source;
         _baseurl = baseurl;
     } 
@@ -82,9 +82,47 @@ public partial class PluginDownloadItemModel : ObservableObject
     }
 
     [RelayCommand]
-    public void Upgrade()
+    public async Task Upgrade()
     {
-        
+        var model = new ChoiseModel()
+        {
+            Text = string.Format(App.Lang("MainWindow.Info16"), _obj.Name, _obj.Version)
+        };
+        var res = await DialogHost.Show(model, MainWindow.DialogHostName);
+        if (res is not true)
+        {
+            return;
+        }
+
+        _ = DialogHost.Show(App.Lang("MainWindow.Info13"), MainWindow.DialogHostName);
+        var dir = PluginManager.DeletePlugin(_obj);
+        if (dir == null)
+        {
+            DialogHost.Close(MainWindow.DialogHostName);
+            _ = DialogHost.Show(new ChoiseModel()
+            {
+                Text = App.Lang("MainWindow.Info14"),
+                HaveCancel = false
+            }, MainWindow.DialogHostName);
+        }
+        res = await PluginManager.Download(_obj, _baseurl, dir);
+        DialogHost.Close(MainWindow.DialogHostName);
+        if (res is not true)
+        {
+            _ = DialogHost.Show(new ChoiseModel()
+            {
+                Text = App.Lang("MainWindow.Info14"),
+                HaveCancel = false
+            }, MainWindow.DialogHostName);
+        }
+        else
+        {
+            _ = DialogHost.Show(new ChoiseModel()
+            {
+                Text = App.Lang("MainWindow.Info15"),
+                HaveCancel = false
+            }, MainWindow.DialogHostName);
+        }
     }
 
     public Task<Bitmap?> GetImage()

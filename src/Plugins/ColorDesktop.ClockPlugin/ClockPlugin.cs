@@ -76,12 +76,12 @@ public class ClockPlugin : IPlugin
 
     public void Disable()
     {
-        NtpClient.Stop();
+        
     }
 
     public void Enable()
     {
-        NtpClient.Start();
+        
     }
 
     public Stream? GetIcon()
@@ -95,6 +95,7 @@ public class ClockPlugin : IPlugin
     {
         s_local = local + "/" + ConfigName;
         ReadConfig();
+        NtpClient.Start();
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -114,6 +115,6 @@ public class ClockPlugin : IPlugin
 
     public void Stop()
     {
-
+        NtpClient.Stop();
     }
 }
