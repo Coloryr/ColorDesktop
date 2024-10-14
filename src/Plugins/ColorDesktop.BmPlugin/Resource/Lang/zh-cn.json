@@ -1,0 +1,11 @@
+﻿{
+    "BmPlugin.Name": "季度番剧",
+    "BmPluginControl.Text1": "一",
+    "BmPluginControl.Text2": "二",
+    "BmPluginControl.Text3": "三",
+    "BmPluginControl.Text4": "四",
+    "BmPluginControl.Text5": "五",
+    "BmPluginControl.Text6": "六",
+    "BmPluginControl.Text7": "日",
+    "BmPluginControl.Text8": "没有数据"
+}

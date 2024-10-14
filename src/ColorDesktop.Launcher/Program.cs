@@ -15,8 +15,8 @@ namespace ColorDesktop.Launcher;
 
 public class Program
 {
-    public const string Version = "1.0.0";
-    public const string ApiVersion = "1";
+    public const string Version = "A2.2024.10.14";
+    public const string ApiVersion = "2";
 
     private static FileStream s_lock;
 
@@ -40,10 +40,10 @@ public class Program
         {
             if (e.Exception.InnerException is DBusException)
             {
-                Logs.Error(App.Lang("App.Error1"), e.Exception);
+                Logs.Error(LangApi.GetLang("App.Error1"), e.Exception);
                 return;
             }
-            PathHelper.OpenFileWithExplorer(Logs.Crash(App.Lang("Gui Error"), e.Exception));
+            PathHelper.OpenFileWithExplorer(Logs.Crash(LangApi.GetLang("Gui Error"), e.Exception));
         };
 
         SystemInfo.Init();

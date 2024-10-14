@@ -153,7 +153,8 @@ public static class PluginManager
         {
             try
             {
-                item.Value.Plugin.Init(item.Value.Local, InstanceManager.WorkDir, LanguageType.zh_cn);
+                item.Value.Plugin.Init(item.Value.Local, InstanceManager.WorkDir);
+                item.Value.Plugin.LoadLang(App.Lang);
                 SetPluginState(item.Key, PluginState.Disable);
             }
             catch (Exception e)

@@ -21,6 +21,8 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     private int _width;
     [ObservableProperty]
     private int _height;
+    [ObservableProperty]
+    private bool _autoSize;
 
     [ObservableProperty]
     private PanelType _type;
@@ -76,6 +78,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         _width = _config.Width;
         _height = _config.Height;
         _type = _config.PanelType;
+        _autoSize = _config.AutoSize;
 
         foreach (var item in _config.Items)
         {
@@ -86,6 +89,12 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         {
             Index = 0;
         }
+    }
+
+    partial void OnAutoSizeChanged(bool value)
+    {
+        _config.AutoSize = value;
+        PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
     partial void OnTypeChanged(PanelType value)

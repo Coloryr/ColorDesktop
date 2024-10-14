@@ -72,7 +72,7 @@ public class PGLauncherPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "程序启动器",
+            Nick = LangApi.GetLang("PGLauncherPlugin.Name"),
             Plugin = "coloryr.pglaunher",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -96,11 +96,9 @@ public class PGLauncherPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
-
-
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -121,5 +119,22 @@ public class PGLauncherPlugin : IPlugin
     public void Stop()
     {
 
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.PGLauncherPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.PGLauncherPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

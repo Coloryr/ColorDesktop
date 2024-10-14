@@ -50,7 +50,7 @@ public partial class InstanceItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info1")
+                Text = LangApi.GetLang("MainWindow.Info1")
             }, MainWindow.DialogHostName);
 
             if (res is not true)
@@ -68,7 +68,7 @@ public partial class InstanceItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info2")
+                Text = LangApi.GetLang("MainWindow.Info2")
             }, MainWindow.DialogHostName);
 
             if (res is not true)

@@ -66,7 +66,7 @@ public class ClockPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "桌面时钟",
+            Nick = LangApi.GetLang("ClockPlugin.Name"),
             Plugin = "coloryr.clock",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -90,7 +90,7 @@ public class ClockPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
         ReadConfig();
@@ -115,5 +115,22 @@ public class ClockPlugin : IPlugin
     public void Stop()
     {
         NtpClient.Stop();
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.ClockPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.ClockPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

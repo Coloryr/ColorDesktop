@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
@@ -18,12 +19,12 @@
                 HorizontalAlignment="Right"
                 Classes="top"
                 Command="{Binding Exit}"
-                Content="{setting:Localize MainWindow.Text33}"
+                Content="{lang:Localize MainWindow.Text33}"
                 DockPanel.Dock="Bottom" />
             <TextBlock
                 DockPanel.Dock="Top"
                 FontSize="20"
-                Text="{setting:Localize MainWindow.Text5}" />
+                Text="{lang:Localize MainWindow.Text5}" />
             <Border
                 Margin="0,10,0,5"
                 Classes="t2"
@@ -31,9 +32,9 @@
                 <WrapPanel Margin="10" Orientation="Horizontal">
                     <CheckBox
                         Margin="0,0,10,0"
-                        Content="{setting:Localize MainWindow.Text34}"
+                        Content="{lang:Localize MainWindow.Text34}"
                         IsChecked="{Binding AutoStart}" />
-                    <CheckBox Content="{setting:Localize MainWindow.Text35}" IsChecked="{Binding AutoMin}" />
+                    <CheckBox Content="{lang:Localize MainWindow.Text35}" IsChecked="{Binding AutoMin}" />
                 </WrapPanel>
             </Border>
             <Border
@@ -61,37 +62,37 @@
                         Height="35"
                         Classes="top"
                         Command="{Binding OpenDir}"
-                        Content="{setting:Localize MainWindow.Text36}" />
+                        Content="{lang:Localize MainWindow.Text36}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding OpenPluginDir}"
-                        Content="{setting:Localize MainWindow.Text37}" />
+                        Content="{lang:Localize MainWindow.Text37}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding ReloadPlugin}"
-                        Content="{setting:Localize MainWindow.Text38}" />
+                        Content="{lang:Localize MainWindow.Text38}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding DisableAllPlugin}"
-                        Content="{setting:Localize MainWindow.Text39}" />
+                        Content="{lang:Localize MainWindow.Text39}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding ReloadInstance}"
-                        Content="{setting:Localize MainWindow.Text40}" />
+                        Content="{lang:Localize MainWindow.Text40}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding DisableAllInstance}"
-                        Content="{setting:Localize MainWindow.Text41}" />
+                        Content="{lang:Localize MainWindow.Text41}" />
                 </WrapPanel>
             </Border>
         </DockPanel>

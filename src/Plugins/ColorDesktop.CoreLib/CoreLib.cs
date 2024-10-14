@@ -37,10 +37,15 @@ public class CoreLib : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         Local = local;
         InstanceLocal = local1;
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

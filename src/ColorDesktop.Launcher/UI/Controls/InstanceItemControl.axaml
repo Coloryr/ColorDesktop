@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
@@ -15,45 +16,45 @@
                     <ToggleSwitch
                         Margin="5,0,0,0"
                         IsChecked="{Binding Enable}"
-                        OffContent="{setting:Localize MainWindow.Text21}"
-                        OnContent="{setting:Localize MainWindow.Text22}" />
+                        OffContent="{lang:Localize MainWindow.Text21}"
+                        OnContent="{lang:Localize MainWindow.Text22}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding OpenSetting}"
-                        Content="{setting:Localize MainWindow.Text23}"
+                        Content="{lang:Localize MainWindow.Text23}"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding Delete}"
-                        Content="{setting:Localize MainWindow.Text24}" />
+                        Content="{lang:Localize MainWindow.Text24}" />
                 </StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text25}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text25}" />
                         <TextBlock Text="{Binding Nick}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text26}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text26}" />
                         <TextBlock Text="{Binding Plugin}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text27}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text27}" />
                         <TextBlock Text="{Binding UUID}" />
                     </StackPanel>
                     <TextBlock
                         Foreground="Red"
                         IsVisible="{Binding EnableFail, FallbackValue=false}"
-                        Text="{setting:Localize MainWindow.Text28}" />
+                        Text="{lang:Localize MainWindow.Text28}" />
                 </StackPanel>
             </DockPanel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding PluginDisable, FallbackValue=false}">
             <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text29}" />
+                <TextBlock FontSize="16" Text="{lang:Localize MainWindow.Text29}" />
             </Panel>
         </Border>
     </Panel>

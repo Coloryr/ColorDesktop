@@ -5,6 +5,6 @@
   "Auther": "Coloryr",
   "Dlls": [ "ColorDesktop.CoreLib" ],
   "Dependents": [],
-  "Version": "1.0.0",
-  "ApiVersion": "1"
+  "Version": "1.0.1",
+  "ApiVersion": "2"
 }

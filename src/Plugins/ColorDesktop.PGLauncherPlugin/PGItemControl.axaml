@@ -12,19 +12,22 @@
         Background="{Binding BackColor}"
         CornerRadius="5">
         <Panel>
-            <StackPanel Margin="{Binding Border}">
+            <DockPanel Margin="{Binding Border}">
                 <Image
                     Width="{Binding Size}"
                     Height="{Binding Size}"
+                    DockPanel.Dock="Top"
                     IsVisible="{Binding DisplayIcon}"
                     Source="{Binding Icon}"
                     Stretch="UniformToFill" />
                 <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     FontSize="{Binding TextSize}"
                     Foreground="{Binding TextColor}"
                     IsVisible="{Binding DisplayText}"
                     Text="{Binding Name}" />
-            </StackPanel>
+            </DockPanel>
             <Border
                 Background="#88FFFFFF"
                 CornerRadius="5"

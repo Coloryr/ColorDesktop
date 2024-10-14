@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:ColorDesktop.OneWordPlugin;assembly=ColorDesktop.OneWordPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:DataType="local:OneWordModel"
     mc:Ignorable="d">
     <Panel RenderOptions.TextRenderingMode="Antialias">

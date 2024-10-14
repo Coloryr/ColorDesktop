@@ -16,6 +16,13 @@ public interface IPlugin
     /// 是否有实例设置
     /// </summary>
     public bool HaveInstanceSetting { get; }
+
+    /// <summary>
+    /// 加载语言
+    /// </summary>
+    /// <param name="type"></param>
+    void LoadLang(LanguageType type);
+
     /// <summary>
     /// 初始化显示实例，你可以在此阶段设置实例的独立配置文件
     /// </summary>
@@ -41,6 +48,7 @@ public interface IPlugin
     /// 打开组件设置
     /// </summary>
     Control OpenSetting();
+
     /// <summary>
     /// 组件初始化，可以设置组件全体配置
     /// </summary>
@@ -48,7 +56,7 @@ public interface IPlugin
     /// <param name="local">实例跟目录</param>
     /// <param name="type">默认语言</param>
     /// <returns></returns>
-    void Init(string local, string local1, LanguageType type);
+    void Init(string local, string local1);
     /// <summary>
     /// 组件启用
     /// </summary>

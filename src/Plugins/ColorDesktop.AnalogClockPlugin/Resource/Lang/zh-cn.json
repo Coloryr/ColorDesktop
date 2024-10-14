@@ -1,0 +1,17 @@
+﻿{
+    "AnalogClock.Name": "模拟时钟",
+    "AnalogClockSettingControl.Text1": "组件设置",
+    "AnalogClockSettingControl.Text2": "时钟样式",
+    "AnalogClockSettingControl.Text3": "模拟指针时钟",
+    "AnalogClockSettingControl.Text4": "数码管时钟",
+    "AnalogClockSettingControl.Text5": "翻页时钟",
+    "AnalogClockSettingControl.Text6": "大小",
+    "AnalogClockSettingControl.Text7": "显示秒",
+    "AnalogClockSettingControl.Text8": "颜色",
+    "AnalogClockSettingControl.Text9": "冒号闪烁",
+    "AnalogClockSettingControl.Text10": "使用自定义字体",
+    "AnalogClockSettingControl.Text11": "字体大小",
+    "AnalogClockSettingControl.Text12": "字体颜色",
+    "AnalogClockSettingControl.Text13": "背景颜色",
+    "AnalogClockSettingControl.Text14": "边框颜色"
+}

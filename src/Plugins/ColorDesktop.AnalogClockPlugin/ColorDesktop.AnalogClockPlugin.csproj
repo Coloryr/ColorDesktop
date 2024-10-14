@@ -16,6 +16,8 @@
 		<None Remove="pointer.svg" />
 		<None Remove="pointer_1.svg" />
 		<None Remove="pointer_2.svg" />
+		<None Remove="Resource\Lang\en-us.json" />
+		<None Remove="Resource\Lang\zh-cn.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,6 +35,8 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="icon.png" />
+		<EmbeddedResource Include="Resource\Lang\en-us.json" />
+		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,10 +49,10 @@
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" >
+		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
 			<Private>False</Private>
 		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj" >
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>

@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
     x:DataType="vm:WeatherDayModel"
@@ -13,7 +14,7 @@
                 Margin="0,0,10,0"
                 Foreground="{Binding TextColor}"
                 Text="{Binding Date}" />
-            <TextBlock Foreground="{Binding TextColor}" Text="星期" />
+            <TextBlock Foreground="{Binding TextColor}" Text="{lang:Localize WetherDayControl.Text1}" />
             <TextBlock Foreground="{Binding TextColor}" Text="{Binding Week}" />
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -26,7 +27,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     Foreground="{Binding TextColor}"
-                    Text="白天" />
+                    Text="{lang:Localize WetherDayControl.Text2}" />
                 <StackPanel>
                     <Svg
                         Width="30"
@@ -42,7 +43,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     Foreground="{Binding TextColor}"
-                    Text="气温" />
+                    Text="{lang:Localize WetherDayControl.Text3}" />
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="20"
@@ -55,7 +56,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     Foreground="{Binding TextColor}"
-                    Text="夜晚" />
+                    Text="{lang:Localize WetherDayControl.Text4}" />
                 <StackPanel>
                     <Svg
                         Width="30"
@@ -71,7 +72,7 @@
                     VerticalAlignment="Center"
                     FontSize="20"
                     Foreground="{Binding TextColor}"
-                    Text="气温" />
+                    Text="{lang:Localize WetherDayControl.Text3}" />
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="20"

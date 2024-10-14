@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -46,7 +47,7 @@ public partial class PluginDownloadItemModel : ObservableObject
     {
         var model = new ChoiseModel()
         {
-            Text = string.Format(App.Lang("MainWindow.Info11"), _obj.Name)
+            Text = string.Format(LangApi.GetLang("MainWindow.Info11"), _obj.Name)
         };
         var res = await DialogHost.Show(model, MainWindow.DialogHostName);
         if (res is not true)
@@ -54,14 +55,14 @@ public partial class PluginDownloadItemModel : ObservableObject
             return;
         }
 
-        _ = DialogHost.Show(App.Lang("MainWindow.Info13"), MainWindow.DialogHostName);
+        _ = DialogHost.Show(LangApi.GetLang("MainWindow.Info13"), MainWindow.DialogHostName);
         res = await PluginManager.Download(_obj, _baseurl);
         DialogHost.Close(MainWindow.DialogHostName);
         if (res is not true)
         {
             _ = DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info14"),
+                Text = LangApi.GetLang("MainWindow.Info14"),
                 HaveCancel = false
             }, MainWindow.DialogHostName);
         }
@@ -69,7 +70,7 @@ public partial class PluginDownloadItemModel : ObservableObject
         {
             _ = DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info15"),
+                Text = LangApi.GetLang("MainWindow.Info15"),
                 HaveCancel = false
             }, MainWindow.DialogHostName);
         }
@@ -80,7 +81,7 @@ public partial class PluginDownloadItemModel : ObservableObject
     {
         var model = new ChoiseModel()
         {
-            Text = string.Format(App.Lang("MainWindow.Info16"), _obj.Name, _obj.Version)
+            Text = string.Format(LangApi.GetLang("MainWindow.Info16"), _obj.Name, _obj.Version)
         };
         var res = await DialogHost.Show(model, MainWindow.DialogHostName);
         if (res is not true)
@@ -88,14 +89,14 @@ public partial class PluginDownloadItemModel : ObservableObject
             return;
         }
 
-        _ = DialogHost.Show(App.Lang("MainWindow.Info13"), MainWindow.DialogHostName);
+        _ = DialogHost.Show(LangApi.GetLang("MainWindow.Info13"), MainWindow.DialogHostName);
         var dir = PluginManager.DeletePlugin(_obj);
         if (dir == null)
         {
             DialogHost.Close(MainWindow.DialogHostName);
             _ = DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info14"),
+                Text = LangApi.GetLang("MainWindow.Info14"),
                 HaveCancel = false
             }, MainWindow.DialogHostName);
         }
@@ -105,7 +106,7 @@ public partial class PluginDownloadItemModel : ObservableObject
         {
             _ = DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info14"),
+                Text = LangApi.GetLang("MainWindow.Info14"),
                 HaveCancel = false
             }, MainWindow.DialogHostName);
         }
@@ -113,7 +114,7 @@ public partial class PluginDownloadItemModel : ObservableObject
         {
             _ = DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info15"),
+                Text = LangApi.GetLang("MainWindow.Info15"),
                 HaveCancel = false
             }, MainWindow.DialogHostName);
         }

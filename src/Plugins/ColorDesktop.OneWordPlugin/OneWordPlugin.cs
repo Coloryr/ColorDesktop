@@ -35,7 +35,7 @@ public class OneWordPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "每日一言",
+            Nick = LangApi.GetLang("OneWordPlugin.Name"),
             Plugin = "coloryr.oneword",
             Pos = PosEnum.Top,
             Margin = new(5)
@@ -59,7 +59,7 @@ public class OneWordPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
 
     }
@@ -82,5 +82,22 @@ public class OneWordPlugin : IPlugin
     public void Stop()
     {
 
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.OneWordPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.OneWordPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

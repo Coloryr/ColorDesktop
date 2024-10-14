@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Avalonia.Threading;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -67,23 +68,23 @@ public partial class PluginSourceItemModel : ObservableObject
     [RelayCommand]
     public async Task Test()
     {
-        IsWork = App.Lang("PluginSourceControl.Info1");
+        IsWork = LangApi.GetLang("PluginSourceControl.Info1");
         try
         {
             var data = await HttpUtils.Client.GetStringAsync(Url);
             var obj = JsonConvert.DeserializeObject<PluginDownloadObj>(data);
             if (obj != null && obj.Plugins?.Count > 0)
             {
-                IsWork = App.Lang("PluginSourceControl.Info2");
+                IsWork = LangApi.GetLang("PluginSourceControl.Info2");
             }
             else
             {
-                IsWork = App.Lang("PluginSourceControl.Info3");
+                IsWork = LangApi.GetLang("PluginSourceControl.Info3");
             }
         }
         catch
         {
-            IsWork = App.Lang("PluginSourceControl.Info3");
+            IsWork = LangApi.GetLang("PluginSourceControl.Info3");
         }
     }
 }

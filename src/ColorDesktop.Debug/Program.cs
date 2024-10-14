@@ -1,4 +1,6 @@
 ﻿using Avalonia;
+using ColorDesktop.Api;
+using ColorDesktop.PGLauncherPlugin.ColorMC;
 
 namespace ColorDesktop.Debug;
 
@@ -12,5 +14,17 @@ internal class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-        => Launcher.Program.BuildAvaloniaApp();
+    {
+        new AnalogClockPlugin.AnalogClockPlugin().LoadLang(LanguageType.zh_cn);
+        new BmPlugin.BmPlugin().LoadLang(LanguageType.zh_cn);
+        new CalendarPlugin.CalendarPlugin().LoadLang(LanguageType.zh_cn);
+        new ClockPlugin.ClockPlugin().LoadLang(LanguageType.zh_cn);
+        new MonitorPlugin.MonitorPlugin().LoadLang(LanguageType.zh_cn);
+        new OneWordPlugin.OneWordPlugin().LoadLang(LanguageType.zh_cn);
+        new PGLauncherPlugin.PGLauncherPlugin().LoadLang(LanguageType.zh_cn);
+        new PGColorMCPlugin().LoadLang(LanguageType.zh_cn);
+        new WeatherPlugin.WeatherPlugin().LoadLang(LanguageType.zh_cn);
+
+        return Launcher.Program.BuildAvaloniaApp();
+    }
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:item="using:ColorDesktop.Launcher.UI.Controls"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
@@ -13,7 +14,7 @@
         <TextBlock
             DockPanel.Dock="Top"
             FontSize="20"
-            Text="{setting:Localize MainWindow.Text3}" />
+            Text="{lang:Localize MainWindow.Text3}" />
         <Border
             Margin="0,10,0,5"
             Classes="t2"
@@ -21,19 +22,19 @@
             <Decorator Margin="10">
                 <WrapPanel Margin="0,0,0,-5">
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text17}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text17}" />
                         <TextBlock Text="{Binding AllInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text18}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text18}" />
                         <TextBlock Text="{Binding EnableInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text19}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text19}" />
                         <TextBlock Text="{Binding ErrorInstance}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,10,5" Orientation="Horizontal">
-                        <TextBlock Text="{setting:Localize MainWindow.Text20}" />
+                        <TextBlock Text="{lang:Localize MainWindow.Text20}" />
                         <TextBlock Text="{Binding FailInstance}" />
                     </StackPanel>
                 </WrapPanel>
@@ -50,7 +51,7 @@
                     VerticalAlignment="Center"
                     Classes="top"
                     Command="{Binding LoadInstanceData}"
-                    Content="{setting:Localize MainWindow.Text12}"
+                    Content="{lang:Localize MainWindow.Text12}"
                     DockPanel.Dock="Right" />
                 <ComboBox
                     Width="120"

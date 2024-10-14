@@ -3,16 +3,17 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.ClockPlugin;assembly=ColorDesktop.ClockPlugin"
     x:DataType="vm:ClockSettingModel"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBlock Text="时钟总体设置" />
+        <TextBlock Text="{lang:Localize ClockSettingControl.Text1}" />
         <StackPanel>
             <CheckBox
                 Margin="0,0,10,0"
-                Content="使用NTP时间"
+                Content="{lang:Localize ClockSettingControl.Text2}"
                 IsChecked="{Binding Ntp}" />
             <StackPanel
                 Margin="0,0,0,5"
@@ -21,7 +22,7 @@
                 <TextBlock
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="NTP服务器地址" />
+                    Text="{lang:Localize ClockSettingControl.Text3}" />
                 <TextBox
                     Width="200"
                     Margin="0,0,10,0"
@@ -30,7 +31,7 @@
                     Width="100"
                     Height="35"
                     Command="{Binding TestNtp}"
-                    Content="同步时间" />
+                    Content="{lang:Localize ClockSettingControl.Text4}" />
             </StackPanel>
             <StackPanel Margin="0,0,0,10">
                 <TextBlock Text="{Binding NtpTest}" />
@@ -39,7 +40,7 @@
                 <TextBlock
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="NTP同步间隔" />
+                    Text="{lang:Localize ClockSettingControl.Text5}" />
                 <NumericUpDown
                     Width="150"
                     Height="35"
@@ -48,13 +49,13 @@
                     Maximum="99999"
                     Minimum="1"
                     Value="{Binding UpdateTime}" />
-                <TextBlock VerticalAlignment="Center" Text="秒" />
+                <TextBlock VerticalAlignment="Center" Text="{lang:Localize ClockInstanceSettingControl.Text10}" />
             </StackPanel>
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,10,0"
                     VerticalAlignment="Center"
-                    Text="时区" />
+                    Text="{lang:Localize ClockSettingControl.Text6}" />
                 <NumericUpDown
                     Width="150"
                     Height="35"
@@ -64,7 +65,7 @@
                     Minimum="-12"
                     Value="{Binding TimeZone}" />
             </StackPanel>
-            <TextBlock VerticalAlignment="Center" Text="修改时区会在下一次同步生效" />
+            <TextBlock VerticalAlignment="Center" Text="{lang:Localize ClockSettingControl.Text7}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

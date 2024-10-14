@@ -3,17 +3,18 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.ClockPlugin;assembly=ColorDesktop.ClockPlugin"
     x:DataType="vm:ClockInstanceSettingModel"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="时钟实例设置" />
+        <TextBlock Margin="0,0,0,10" Text="{lang:Localize ClockInstanceSettingControl.Text1}" />
         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="使用自定义字体"
+                Content="{lang:Localize ClockInstanceSettingControl.Text2}"
                 IsChecked="{Binding UseFont}" />
             <ComboBox
                 Width="300"
@@ -26,25 +27,24 @@
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="显示秒"
+                Content="{lang:Localize ClockInstanceSettingControl.Text3}"
                 IsChecked="{Binding DisplaySecond}" />
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="冒号闪烁"
+                Content="{lang:Localize ClockInstanceSettingControl.Text4}"
                 IsChecked="{Binding Blink}" />
-
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="背景色" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text5}" />
             <ColorPicker Margin="0,0,10,0" Color="{Binding BackGround}" />
         </StackPanel>
         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="字体颜色" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text6}" />
             <ColorPicker
                 Margin="0,0,10,0"
                 IsEnabled="{Binding !CustomColor}"
@@ -52,30 +52,30 @@
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="细分颜色"
+                Content="{lang:Localize ClockInstanceSettingControl.Text7}"
                 IsChecked="{Binding CustomColor}" />
             <WrapPanel IsEnabled="{Binding CustomColor}">
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="时" />
+                    Text="{lang:Localize ClockInstanceSettingControl.Text8}" />
                 <ColorPicker Margin="0,0,10,0" Color="{Binding HourColor}" />
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="分" />
+                    Text="{lang:Localize ClockInstanceSettingControl.Text9}" />
                 <ColorPicker Margin="0,0,10,0" Color="{Binding MinuteColor}" />
                 <StackPanel IsEnabled="{Binding DisplaySecond}" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="秒" />
+                        Text="{lang:Localize ClockInstanceSettingControl.Text10}" />
                     <ColorPicker Color="{Binding SecondColor}" />
                 </StackPanel>
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="冒号" />
+                    Text="{lang:Localize ClockInstanceSettingControl.Text11}" />
                 <ColorPicker Margin="0,0,10,0" Color="{Binding ColonColor}" />
             </WrapPanel>
         </StackPanel>
@@ -83,7 +83,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="字体大小" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text12}" />
             <NumericUpDown
                 Width="110"
                 Height="35"
@@ -96,14 +96,14 @@
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="细分大小"
+                Content="{lang:Localize ClockInstanceSettingControl.Text13}"
                 IsChecked="{Binding CustomSize}" />
         </StackPanel>
         <WrapPanel IsEnabled="{Binding CustomSize}">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="时" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text8}" />
             <NumericUpDown
                 Width="110"
                 Height="35"
@@ -115,7 +115,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="分" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text9}" />
             <NumericUpDown
                 Width="110"
                 Height="35"
@@ -128,7 +128,7 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="秒" />
+                    Text="{lang:Localize ClockInstanceSettingControl.Text10}" />
                 <NumericUpDown
                     Width="110"
                     Height="35"
@@ -140,7 +140,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="冒号" />
+                Text="{lang:Localize ClockInstanceSettingControl.Text11}" />
             <NumericUpDown
                 Width="110"
                 Height="35"

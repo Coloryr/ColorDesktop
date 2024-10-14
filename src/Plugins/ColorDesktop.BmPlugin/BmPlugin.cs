@@ -16,7 +16,7 @@ public class BmPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "季度番剧",
+            Nick = LangApi.GetLang("BmPlugin.Name"),
             Plugin = "coloryr.bm",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -40,9 +40,26 @@ public class BmPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
+        
+    }
 
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.BmPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.BmPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

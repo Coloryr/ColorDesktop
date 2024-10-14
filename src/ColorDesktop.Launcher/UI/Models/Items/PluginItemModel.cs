@@ -69,7 +69,7 @@ public partial class PluginItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info3")
+                Text = LangApi.GetLang("MainWindow.Info3")
             }, MainWindow.DialogHostName);
 
             if (res is not true)
@@ -87,7 +87,7 @@ public partial class PluginItemModel : ObservableObject
         {
             var res = await DialogHost.Show(new ChoiseModel()
             {
-                Text = App.Lang("MainWindow.Info4")
+                Text = LangApi.GetLang("MainWindow.Info4")
             }, MainWindow.DialogHostName);
 
             if (res is not true)
@@ -165,7 +165,7 @@ public partial class PluginItemModel : ObservableObject
         var builder = new StringBuilder();
         builder.AppendLine(_obj.Describe)
             .AppendLine()
-            .Append(App.Lang("MainWindow.Info10"));
+            .Append(LangApi.GetLang("MainWindow.Info10"));
         foreach (var item in _obj.Dependents)
         {
             builder.Append(item.ID).Append(' ');

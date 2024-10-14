@@ -3,29 +3,30 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:CalendarInstanceSettingModel"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="日历实例设置" />
+        <TextBlock Margin="0,0,0,10" Text="{lang:Localize CalendarInstanceSettingControl.Text1}" />
         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="背景色" />
+                Text="{lang:Localize CalendarInstanceSettingControl.Text2}" />
             <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="字体颜色" />
+                Text="{lang:Localize CalendarInstanceSettingControl.Text3}" />
             <ColorPicker Color="{Binding TextColor}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="日历首位" />
+                Text="{lang:Localize CalendarInstanceSettingControl.Text4}" />
             <ComboBox
                 Width="150"
                 ItemsSource="{Binding WeekName}"

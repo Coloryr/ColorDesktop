@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cov="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.BmPlugin;assembly=ColorDesktop.BmPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
@@ -58,43 +59,43 @@
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="一"
+                    Content="{lang:Localize BmPluginControl.Text1}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Monday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="二"
+                    Content="{lang:Localize BmPluginControl.Text2}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Tuesday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="三"
+                    Content="{lang:Localize BmPluginControl.Text3}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Wednesday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="四"
+                    Content="{lang:Localize BmPluginControl.Text4}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Thursday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="五"
+                    Content="{lang:Localize BmPluginControl.Text5}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Friday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="六"
+                    Content="{lang:Localize BmPluginControl.Text6}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Saturday}}" />
                 <RadioButton
                     Margin="2,0,2,0"
                     Classes="top"
-                    Content="日"
+                    Content="{lang:Localize BmPluginControl.Text7}"
                     GroupName="Week"
                     IsChecked="{Binding Week, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static sys:DayOfWeek.Sunday}}" />
             </UniformGrid>
@@ -114,7 +115,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Foreground="#FFFFFF"
-                    Text="没有数据" />
+                    Text="{lang:Localize BmPluginControl.Text8}" />
             </Border>
         </StackPanel>
         <Button

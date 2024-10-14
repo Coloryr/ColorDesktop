@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.PGLauncherPlugin.ColorMC;assembly=ColorDesktop.PGLauncherPlugin.ColorMC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -18,7 +19,7 @@
                 CornerRadius="5"
                 DockPanel.Dock="Top">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <TextBlock Foreground="{Binding TextColor}" Text="游戏分组：" />
+                    <TextBlock Foreground="{Binding TextColor}" Text="{lang:Localize PGColorMCControl.Text1}" />
                     <TextBlock Foreground="{Binding TextColor}" Text="{Binding Group}" />
                 </StackPanel>
             </Border>
@@ -47,7 +48,7 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 Foreground="#FFFFFF"
-                Text="没有找到ColorMC"
+                Text="{lang:Localize PGColorMCControl.Text2}"
                 TextWrapping="Wrap" />
         </Panel>
     </Panel>

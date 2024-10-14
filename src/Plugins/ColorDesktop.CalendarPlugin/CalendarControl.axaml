@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
@@ -23,7 +24,7 @@
                     <TextBlock
                         FontSize="15"
                         Foreground="{Binding TextColor}"
-                        Text="星期" />
+                        Text="{lang:Localize CalendarPluginControl.Text1}" />
                     <TextBlock
                         Margin="0,0,10,0"
                         FontSize="15"
@@ -32,7 +33,7 @@
                     <TextBlock
                         FontSize="15"
                         Foreground="{Binding TextColor}"
-                        Text="农历" />
+                        Text="{lang:Localize CalendarPluginControl.Text2}" />
                     <TextBlock
                         FontSize="15"
                         Foreground="{Binding TextColor}"
@@ -55,7 +56,7 @@
                             Margin="0,0,20,0"
                             FontSize="15"
                             Foreground="{Binding TextColor}"
-                            Text="五行" />
+                            Text="{lang:Localize CalendarPluginControl.Text3}" />
                         <TextBlock
                             FontSize="15"
                             Foreground="{Binding TextColor}"
@@ -66,7 +67,7 @@
                             Margin="0,0,20,0"
                             FontSize="15"
                             Foreground="{Binding TextColor}"
-                            Text="冲煞" />
+                            Text="{lang:Localize CalendarPluginControl.Text4}" />
                         <TextBlock
                             FontSize="15"
                             Foreground="{Binding TextColor}"
@@ -78,7 +79,7 @@
                             VerticalAlignment="Center"
                             FontSize="15"
                             Foreground="{Binding TextColor}"
-                            Text="彭祖" />
+                            Text="{lang:Localize CalendarPluginControl.Text5}" />
                         <TextBlock
                             FontSize="15"
                             Foreground="{Binding TextColor}"
@@ -98,7 +99,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 Foreground="{Binding TextColor}"
-                                Text="宜" />
+                                Text="{lang:Localize CalendarPluginControl.Text6}" />
                         </Border>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -121,7 +122,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 Foreground="{Binding TextColor}"
-                                Text="忌" />
+                                Text="{lang:Localize CalendarPluginControl.Text7}" />
                         </Border>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -166,7 +167,7 @@
                                     <TextBlock
                                         FontSize="15"
                                         Foreground="{Binding TextColor}"
-                                        Text="年" />
+                                        Text="{lang:Localize CalendarPluginControl.Text8}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
                                         FontSize="15"
@@ -175,7 +176,7 @@
                                     <TextBlock
                                         FontSize="15"
                                         Foreground="{Binding TextColor}"
-                                        Text="月" />
+                                        Text="{lang:Localize CalendarPluginControl.Text9}" />
                                 </StackPanel>
                             </Button>
                         </Panel>
@@ -192,7 +193,7 @@
                             HorizontalAlignment="Center"
                             FontSize="15"
                             Foreground="{Binding TextColor}"
-                            Text="历史上的今天" />
+                            Text="{lang:Localize CalendarPluginControl.Text10}" />
                         <TextBlock
                             Foreground="{Binding TextColor}"
                             Text="{Binding History}"
@@ -206,21 +207,21 @@
                     VerticalAlignment="Bottom"
                     Classes="over"
                     Command="{Binding OpenInfo}"
-                    Content="展开详情"
+                    Content="{lang:Localize CalendarPluginControl.Text11}"
                     Foreground="{Binding TextColor}" />
                 <Button
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     Classes="over"
                     Command="{Binding OpenHistory}"
-                    Content="历史今天"
+                    Content="{lang:Localize CalendarPluginControl.Text12}"
                     Foreground="{Binding TextColor}" />
                 <Button
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Classes="over"
                     Command="{Binding OpenDate}"
-                    Content="展开日历"
+                    Content="{lang:Localize CalendarPluginControl.Text13}"
                     Foreground="{Binding TextColor}" />
             </Panel>
         </StackPanel>

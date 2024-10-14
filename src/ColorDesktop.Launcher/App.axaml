@@ -3,16 +3,17 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:model="clr-namespace:ColorDesktop.Launcher.ViewModels"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     x:Name="ColorDesktop"
     x:DataType="model:AppModel">
     <NativeMenu.Menu>
         <NativeMenu>
-            <NativeMenuItem Command="{Binding ShowWindow}" Header="{setting:Localize ToolSetting.Text1}" />
-            <NativeMenuItem Command="{Binding MoveWindow}" Header="{setting:Localize ToolSetting.Text4}" />
+            <NativeMenuItem Command="{Binding ShowWindow}" Header="{lang:Localize ToolSetting.Text1}" />
+            <NativeMenuItem Command="{Binding MoveWindow}" Header="{lang:Localize ToolSetting.Text4}" />
             <NativeMenuItemSeparator />
-            <NativeMenuItem Command="{Binding Exit}" Header="{setting:Localize ToolSetting.Text3}" />
+            <NativeMenuItem Command="{Binding Exit}" Header="{lang:Localize ToolSetting.Text3}" />
         </NativeMenu>
     </NativeMenu.Menu>
     <TrayIcon.Icons>
@@ -21,13 +22,13 @@
                 Command="{Binding ShowWindow}"
                 Icon="/Resource/icon.ico"
                 MacOSProperties.IsTemplateIcon="true"
-                ToolTipText="{setting:Localize ToolTitle}">
+                ToolTipText="{lang:Localize ToolTitle}">
                 <TrayIcon.Menu>
                     <NativeMenu>
-                        <NativeMenuItem Command="{Binding ShowWindow}" Header="{setting:Localize ToolSetting.Text1}" />
-                        <NativeMenuItem Command="{Binding MoveWindow}" Header="{setting:Localize ToolSetting.Text4}" />
+                        <NativeMenuItem Command="{Binding ShowWindow}" Header="{lang:Localize ToolSetting.Text1}" />
+                        <NativeMenuItem Command="{Binding MoveWindow}" Header="{lang:Localize ToolSetting.Text4}" />
                         <NativeMenuItemSeparator />
-                        <NativeMenuItem Command="{Binding Exit}" Header="{setting:Localize ToolSetting.Text3}" />
+                        <NativeMenuItem Command="{Binding Exit}" Header="{lang:Localize ToolSetting.Text3}" />
                     </NativeMenu>
                 </TrayIcon.Menu>
             </TrayIcon>

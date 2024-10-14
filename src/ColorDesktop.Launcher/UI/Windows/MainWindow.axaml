@@ -6,10 +6,11 @@
     xmlns:dialog="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:dialogmodel="clr-namespace:ColorDesktop.Launcher.UI.Models.Dialog"
     xmlns:dialogview="clr-namespace:ColorDesktop.Launcher.UI.Controls.Dialog"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
-    Title="{setting:Localize MainWindow.Title}"
+    Title="{lang:Localize MainWindow.Title}"
     Width="800"
     Height="450"
     MinWidth="800"
@@ -32,14 +33,14 @@
                             Height="35"
                             Classes="top"
                             Command="{Binding Done}"
-                            Content="{setting:Localize Button.Confirm}" />
+                            Content="{lang:Localize Button.Confirm}" />
                         <Button
                             Width="100"
                             Height="35"
                             Margin="20,0,0,0"
                             Classes="top"
                             Command="{Binding Cancel}"
-                            Content="{setting:Localize Button.Cancel}"
+                            Content="{lang:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
                     </StackPanel>
                     <dialogview:InstanceSettingControl Margin="0,0,0,10" DataContext="{Binding}" />
@@ -56,26 +57,26 @@
                             Height="35"
                             Classes="top"
                             Command="{Binding Done}"
-                            Content="{setting:Localize Button.Confirm}" />
+                            Content="{lang:Localize Button.Confirm}" />
                         <Button
                             Width="100"
                             Height="35"
                             Margin="20,0,0,0"
                             Classes="top"
                             Command="{Binding Cancel}"
-                            Content="{setting:Localize Button.Cancel}"
+                            Content="{lang:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
                     </StackPanel>
                     <TabControl Margin="0,0,0,10">
                         <TabItem>
                             <TabItem.Header>
-                                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text42}" />
+                                <TextBlock FontSize="16" Text="{lang:Localize MainWindow.Text42}" />
                             </TabItem.Header>
                             <dialogview:InstanceSettingControl DataContext="{Binding}" />
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
-                                <TextBlock FontSize="16" Text="{setting:Localize MainWindow.Text23}" />
+                                <TextBlock FontSize="16" Text="{lang:Localize MainWindow.Text23}" />
                             </TabItem.Header>
                             <Decorator Child="{Binding Control}" />
                         </TabItem>
@@ -96,7 +97,7 @@
                         HorizontalAlignment="Center"
                         Classes="top"
                         Command="{Binding Done}"
-                        Content="{setting:Localize Button.Confirm}"
+                        Content="{lang:Localize Button.Confirm}"
                         DockPanel.Dock="Bottom" />
                     <Decorator Margin="10" Child="{Binding Control}" />
                 </DockPanel>
@@ -111,11 +112,11 @@
                     Text="ColorDesktop" />
                 <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                     <TextBlock
-                        Margin="10"
+                        Margin="10,0,0,10"
                         Foreground="{setting:Theme WindowSideFont}"
-                        Text="{setting:Localize MainWindow.Text4}" />
+                        Text="{lang:Localize MainWindow.Text4}" />
                     <TextBlock
-                        Margin="10"
+                        Margin="0,0,10,10"
                         Foreground="{setting:Theme WindowSideFont}"
                         Text="{Binding Version}" />
                 </StackPanel>
@@ -129,7 +130,7 @@
                             <TextBlock
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{setting:Localize MainWindow.Text5}" />
+                                Text="{lang:Localize MainWindow.Text5}" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -141,7 +142,7 @@
                             <TextBlock
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{setting:Localize MainWindow.Text2}" />
+                                Text="{lang:Localize MainWindow.Text2}" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -153,7 +154,7 @@
                             <TextBlock
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{setting:Localize MainWindow.Text3}" />
+                                Text="{lang:Localize MainWindow.Text3}" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -165,7 +166,7 @@
                             <TextBlock
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="{setting:Localize MainWindow.Text43}" />
+                                Text="{lang:Localize MainWindow.Text43}" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>

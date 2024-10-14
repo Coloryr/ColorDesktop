@@ -1,21 +1,45 @@
 ﻿using System.Diagnostics;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using LibreHardwareMonitor.Hardware;
 
 namespace ColorDesktop.MonitorPlugin;
 
 public class MonitorPlugin : IPlugin
 {
+    public const string ConfigName = "monitor.json";
+
+    public static MonitorInstanceObj GetConfig(InstanceDataObj obj)
+    {
+        return InstanceUtils.GetConfig(obj, new MonitorInstanceObj()
+        {
+            
+        }, ConfigName);
+    }
+
+    public static void SaveConfig(InstanceDataObj obj, MonitorInstanceObj config)
+    {
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
+    }
+
     public bool IsCoreLib => false;
 
-    public bool HavePluginSetting => true;
+    public bool HavePluginSetting => false;
 
     public bool HaveInstanceSetting => true;
 
+    private Computer computer;
+
     public InstanceDataObj CreateInstanceDefault()
     {
-        throw new NotImplementedException();
+        return new InstanceDataObj()
+        {
+            Nick = "硬件监控",
+            Plugin = "coloryr.monitor",
+            Pos = PosEnum.TopRight,
+            Margin = new(5)
+        };
     }
 
     public void Disable()
@@ -48,9 +72,9 @@ public class MonitorPlugin : IPlugin
         public void VisitParameter(IParameter parameter) { }
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
-        Computer computer = new Computer
+        computer = new Computer
         {
             IsCpuEnabled = true,
             IsGpuEnabled = true,
@@ -63,30 +87,31 @@ public class MonitorPlugin : IPlugin
             IsPsuEnabled = true
         };
 
-        computer.Open();
-        computer.Accept(new UpdateVisitor());
-
-        foreach (IHardware hardware in computer.Hardware)
+        Task.Run(() =>
         {
-            Console.WriteLine("Hardware: {0}", hardware.Name);
+            computer.Open();
+            computer.Accept(new UpdateVisitor());
 
-            foreach (IHardware subhardware in hardware.SubHardware)
+            foreach (IHardware hardware in computer.Hardware)
             {
-                Console.WriteLine("\tSubhardware: {0}", subhardware.Name);
+                Console.WriteLine("Hardware: {0}", hardware.Name);
 
-                foreach (ISensor sensor in subhardware.Sensors)
+                foreach (IHardware subhardware in hardware.SubHardware)
                 {
-                    Console.WriteLine("\t\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
+                    Console.WriteLine("\tSubhardware: {0}", subhardware.Name);
+
+                    foreach (ISensor sensor in subhardware.Sensors)
+                    {
+                        Console.WriteLine("\t\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
+                    }
+                }
+
+                foreach (ISensor sensor in hardware.Sensors)
+                {
+                    Console.WriteLine("\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
                 }
             }
-
-            foreach (ISensor sensor in hardware.Sensors)
-            {
-                Console.WriteLine("\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
-            }
-        }
-
-        //computer.Close();
+        });
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
@@ -96,7 +121,7 @@ public class MonitorPlugin : IPlugin
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        throw new NotImplementedException();
+        return new MonitorInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()
@@ -105,6 +130,11 @@ public class MonitorPlugin : IPlugin
     }
 
     public void Stop()
+    {
+        computer.Close();
+    }
+
+    public void LoadLang(LanguageType type)
     {
         
     }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:item="using:ColorDesktop.Launcher.UI.Controls"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
@@ -13,19 +14,19 @@
         <TextBlock
             DockPanel.Dock="Top"
             FontSize="20"
-            Text="{setting:Localize MainWindow.Text43}" />
+            Text="{lang:Localize MainWindow.Text43}" />
         <Border
             Margin="0,10,0,5"
             Classes="t2"
             DockPanel.Dock="Top">
             <DockPanel Margin="10">
-                <TextBlock VerticalAlignment="Center" Text="{setting:Localize MainWindow.Text25}" />
+                <TextBlock VerticalAlignment="Center" Text="{lang:Localize MainWindow.Text25}" />
                 <Button
                     Width="100"
                     Height="35"
                     Classes="top"
                     Command="{Binding EditSource}"
-                    Content="{setting:Localize MainWindow.Text45}"
+                    Content="{lang:Localize MainWindow.Text45}"
                     DockPanel.Dock="Right" />
                 <Button
                     Width="100"
@@ -33,7 +34,7 @@
                     Margin="5,0,0,0"
                     Classes="top"
                     Command="{Binding SourceReload}"
-                    Content="{setting:Localize MainWindow.Text44}"
+                    Content="{lang:Localize MainWindow.Text44}"
                     DockPanel.Dock="Right" />
                 <TextBox Text="{Binding DownloadText}" />
             </DockPanel>

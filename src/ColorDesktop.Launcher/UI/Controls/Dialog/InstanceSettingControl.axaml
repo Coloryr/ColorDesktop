@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cov="clr-namespace:ColorDesktop.Launcher.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
@@ -14,60 +15,60 @@
         <cov:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </UserControl.Resources>
     <StackPanel>
-        <TextBlock HorizontalAlignment="Center" Text="{setting:Localize CreateControl.Text1}" />
+        <TextBlock HorizontalAlignment="Center" Text="{lang:Localize CreateControl.Text1}" />
         <DockPanel Margin="0,5,0,0">
-            <TextBlock VerticalAlignment="Center" Text="{setting:Localize CreateControl.Text2}" />
+            <TextBlock VerticalAlignment="Center" Text="{lang:Localize CreateControl.Text2}" />
             <TextBox Margin="5,0,0,0" Text="{Binding Nick}" />
         </DockPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{setting:Localize CreateControl.Text3}" />
+                Text="{lang:Localize CreateControl.Text3}" />
             <UniformGrid Columns="3" Rows="3">
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text4}"
+                    Content="{lang:Localize CreateControl.Text4}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.TopLeft}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text5}"
+                    Content="{lang:Localize CreateControl.Text5}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Top}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text6}"
+                    Content="{lang:Localize CreateControl.Text6}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.TopRight}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text7}"
+                    Content="{lang:Localize CreateControl.Text7}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Left}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text8}"
+                    Content="{lang:Localize CreateControl.Text8}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Center}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text9}"
+                    Content="{lang:Localize CreateControl.Text9}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Right}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text10}"
+                    Content="{lang:Localize CreateControl.Text10}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.BottomLeft}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text11}"
+                    Content="{lang:Localize CreateControl.Text11}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.Bottom}}" />
                 <RadioButton
                     Margin="0,0,5,0"
-                    Content="{setting:Localize CreateControl.Text12}"
+                    Content="{lang:Localize CreateControl.Text12}"
                     GroupName="Pos"
                     IsChecked="{Binding Pos, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:PosEnum.BottomRight}}" />
             </UniformGrid>
@@ -76,10 +77,10 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{setting:Localize CreateControl.Text13}" />
+                Text="{lang:Localize CreateControl.Text13}" />
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Text="{setting:Localize CreateControl.Text7}" />
+                    <TextBlock VerticalAlignment="Center" Text="{lang:Localize CreateControl.Text7}" />
                     <NumericUpDown
                         Width="120"
                         Margin="5,0,0,0"
@@ -89,7 +90,7 @@
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
-                        Text="{setting:Localize CreateControl.Text5}" />
+                        Text="{lang:Localize CreateControl.Text5}" />
                     <NumericUpDown
                         Width="120"
                         Margin="5,0,0,0"
@@ -98,7 +99,7 @@
                         Value="{Binding Top}" />
                 </StackPanel>
                 <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Text="{setting:Localize CreateControl.Text9}" />
+                    <TextBlock VerticalAlignment="Center" Text="{lang:Localize CreateControl.Text9}" />
                     <NumericUpDown
                         Width="120"
                         Margin="5,0,0,0"
@@ -108,7 +109,7 @@
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
-                        Text="{setting:Localize CreateControl.Text11}" />
+                        Text="{lang:Localize CreateControl.Text11}" />
                     <NumericUpDown
                         Width="120"
                         Margin="5,0,0,0"
@@ -122,7 +123,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{setting:Localize CreateControl.Text14}" />
+                Text="{lang:Localize CreateControl.Text14}" />
             <NumericUpDown
                 Width="120"
                 Margin="0,0,10,0"
@@ -133,14 +134,14 @@
             <CheckBox
                 Margin="0,0,10,0"
                 VerticalAlignment="Center"
-                Content="{setting:Localize CreateControl.Text15}"
+                Content="{lang:Localize CreateControl.Text15}"
                 IsChecked="{Binding TopModel}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{setting:Localize CreateControl.Text16}" />
+                Text="{lang:Localize CreateControl.Text16}" />
             <ComboBox
                 Width="200"
                 ItemsSource="{Binding TranTypes}"

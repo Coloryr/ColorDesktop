@@ -1,0 +1,20 @@
+﻿{
+    "CalendarPlugin.Name": "日历显示",
+    "CalendarPluginControl.Text1": "星期",
+    "CalendarPluginControl.Text2": "农历",
+    "CalendarPluginControl.Text3": "五行",
+    "CalendarPluginControl.Text4": "冲煞",
+    "CalendarPluginControl.Text5": "彭祖",
+    "CalendarPluginControl.Text6": "宜",
+    "CalendarPluginControl.Text7": "忌",
+    "CalendarPluginControl.Text8": "年",
+    "CalendarPluginControl.Text9": "月",
+    "CalendarPluginControl.Text10": "历史上的今天",
+    "CalendarPluginControl.Text11": "展开详情",
+    "CalendarPluginControl.Text12": "历史今天",
+    "CalendarPluginControl.Text13": "展开日历",
+     "CalendarInstanceSettingControl.Text1": "日历实例设置",
+     "CalendarInstanceSettingControl.Text2": "背景色",
+     "CalendarInstanceSettingControl.Text3": "字体颜色",
+     "CalendarInstanceSettingControl.Text4": "日历首位"
+}

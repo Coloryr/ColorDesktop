@@ -14,6 +14,8 @@
     <None Remove="Resource\east.svg" />
     <None Remove="Resource\icon.svg" />
     <None Remove="Resource\icon1.svg" />
+    <None Remove="Resource\Lang\en-us.json" />
+    <None Remove="Resource\Lang\zh-cn.json" />
     <None Remove="Resource\north.svg" />
     <None Remove="Resource\north_east.svg" />
     <None Remove="Resource\north_west.svg" />
@@ -99,6 +101,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="icon.png" />
+    <EmbeddedResource Include="Resource\Lang\en-us.json" />
+    <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
   </ItemGroup>
 
 

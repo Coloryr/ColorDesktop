@@ -11,11 +11,15 @@
 	<ItemGroup>
 		<None Remove="icon.png" />
 		<None Remove="Resource\game.png" />
+		<None Remove="Resource\Lang\en-us.json" />
+		<None Remove="Resource\Lang\zh-cn.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="icon.png" />
 		<EmbeddedResource Include="Resource\game.png" />
+		<EmbeddedResource Include="Resource\Lang\en-us.json" />
+		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
 	</ItemGroup>
 
 	<ItemGroup>

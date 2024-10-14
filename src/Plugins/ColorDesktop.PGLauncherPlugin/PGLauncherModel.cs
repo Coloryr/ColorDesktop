@@ -12,9 +12,9 @@ public partial class PGLauncherModel : ObservableObject
     public PanelType PanelType { get; set; }
 
     [ObservableProperty]
-    public int _width;
+    public double _width;
     [ObservableProperty]
-    public int _height;
+    public double _height;
 
     public void Update(PGLauncherInstanceObj obj)
     {
@@ -26,8 +26,15 @@ public partial class PGLauncherModel : ObservableObject
             Items.Add(new(item));
         }
 
-        Width = obj.Width;
-        Height = obj.Height;
+        if (obj.AutoSize)
+        {
+            Width = Height = double.NaN;
+        }
+        else
+        {
+            Width = obj.Width;
+            Height = obj.Height;
+        }
 
         OnPropertyChanged(PanelName);
     }

@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.OneWordPlugin;assembly=ColorDesktop.OneWordPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:OneWordInstanceModel"
@@ -12,7 +13,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="宽度" />
+                Text="{lang:Localize OneWordInstanceSettingControl.Text1}" />
             <NumericUpDown
                 Width="130"
                 Height="35"
@@ -24,7 +25,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="字体大小" />
+                Text="{lang:Localize OneWordInstanceSettingControl.Text2}" />
             <NumericUpDown
                 Width="130"
                 Height="35"
@@ -37,12 +38,12 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="字体颜色" />
+                Text="{lang:Localize OneWordInstanceSettingControl.Text3}" />
             <ColorPicker Margin="0,0,10,0" Color="{Binding Text}" />
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="背景颜色" />
+                Text="{lang:Localize OneWordInstanceSettingControl.Text4}" />
             <ColorPicker Color="{Binding Back}" />
         </StackPanel>
     </StackPanel>

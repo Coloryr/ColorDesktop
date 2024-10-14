@@ -55,7 +55,7 @@ public class CalendarPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "日历显示",
+            Nick = LangApi.GetLang("CalendarPlugin.Name"),
             Plugin = "coloryr.calendar",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -79,7 +79,7 @@ public class CalendarPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
 
@@ -104,5 +104,22 @@ public class CalendarPlugin : IPlugin
     public void Stop()
     {
 
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.CalendarPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.CalendarPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

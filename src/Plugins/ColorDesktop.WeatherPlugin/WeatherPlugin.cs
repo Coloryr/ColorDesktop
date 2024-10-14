@@ -59,7 +59,7 @@ public class WeatherPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "天气查询",
+            Nick = LangApi.GetLang("WeatherPlugin.Name"),
             Plugin = "coloryr.weather",
             Pos = PosEnum.TopLeft,
             Margin = new(5)
@@ -83,7 +83,7 @@ public class WeatherPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
 
@@ -114,5 +114,22 @@ public class WeatherPlugin : IPlugin
     public void Stop()
     {
 
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.WeatherPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.WeatherPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

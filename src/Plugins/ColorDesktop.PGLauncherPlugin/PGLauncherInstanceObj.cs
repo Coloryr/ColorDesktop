@@ -32,6 +32,7 @@ public record PGLauncherInstanceObj
 {
     public int Height { get; set; }
     public int Width { get; set; }
+    public bool AutoSize { get; set; }
     public List<PGItemObj> Items { get; set; }
     public PanelType PanelType { get; set; }
 }

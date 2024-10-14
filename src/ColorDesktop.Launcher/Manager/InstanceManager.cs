@@ -232,6 +232,8 @@ public static class InstanceManager
             instance.Window.Close();
 
             RunInstances.Remove(instance.InstanceData.UUID);
+
+            LangSel.Remove();
         }
         catch (Exception e)
         {

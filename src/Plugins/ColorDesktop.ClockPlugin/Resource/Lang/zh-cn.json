@@ -1,0 +1,23 @@
+﻿{
+    "ClockPlugin.Name": "桌面时钟",
+    "ClockInstanceSettingControl.Text1": "时钟实例设置",
+    "ClockInstanceSettingControl.Text2": "使用自定义字体",
+    "ClockInstanceSettingControl.Text3": "显示秒",
+    "ClockInstanceSettingControl.Text4": "冒号闪烁",
+    "ClockInstanceSettingControl.Text5": "背景色",
+    "ClockInstanceSettingControl.Text6": "字体颜色",
+    "ClockInstanceSettingControl.Text7": "细分颜色",
+    "ClockInstanceSettingControl.Text8": "时",
+    "ClockInstanceSettingControl.Text9": "分",
+    "ClockInstanceSettingControl.Text10": "秒",
+    "ClockInstanceSettingControl.Text11": "冒号",
+    "ClockInstanceSettingControl.Text12": "字体大小",
+    "ClockInstanceSettingControl.Text13": "细分大小",
+    "ClockSettingControl.Text1": "时钟总体设置",
+    "ClockSettingControl.Text2": "使用NTP时间",
+    "ClockSettingControl.Text3": "NTP服务器地址",
+    "ClockSettingControl.Text4": "同步时间",
+    "ClockSettingControl.Text5": "NTP同步间隔",
+    "ClockSettingControl.Text6": "时区",
+    "ClockSettingControl.Text7": "修改时区会在下一次同步生效"
+}

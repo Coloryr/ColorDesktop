@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.WeatherPlugin;assembly=ColorDesktop.WeatherPlugin"
     x:DataType="vm:WeatherSettingModel"
@@ -10,7 +11,7 @@
     <StackPanel Orientation="Horizontal">
         <CheckBox
             Margin="0,0,5,0"
-            Content="自动更新天气信息，间隔"
+            Content="{lang:Localize WeatherSettingControl.Text1}"
             IsChecked="{Binding AutoUpdate}" />
         <NumericUpDown
             Width="150"
@@ -21,6 +22,6 @@
             Maximum="9999"
             Minimum="1"
             Value="{Binding Time}" />
-        <TextBlock VerticalAlignment="Center" Text="分" />
+        <TextBlock VerticalAlignment="Center" Text="{lang:Localize WeatherSettingControl.Text2}" />
     </StackPanel>
 </UserControl>

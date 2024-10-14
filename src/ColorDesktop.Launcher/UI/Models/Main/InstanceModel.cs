@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using AvaloniaEdit.Utils;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Objs;
@@ -105,7 +106,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = string.Format(App.Lang("MainWindow.Info5"), model.Nick)
+            Text = string.Format(LangApi.GetLang("MainWindow.Info5"), model.Nick)
         }, MainWindow.DialogHostName);
 
         if (res is true)

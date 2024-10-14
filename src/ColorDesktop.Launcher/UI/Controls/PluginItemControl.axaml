@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
@@ -19,21 +20,21 @@
                     <ToggleSwitch
                         Margin="5,0,0,0"
                         IsChecked="{Binding Enable}"
-                        OffContent="{setting:Localize MainWindow.Text13}"
-                        OnContent="{setting:Localize MainWindow.Text14}" />
+                        OffContent="{lang:Localize MainWindow.Text13}"
+                        OnContent="{lang:Localize MainWindow.Text14}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding CreateInstance}"
-                        Content="{setting:Localize MainWindow.Text30}"
+                        Content="{lang:Localize MainWindow.Text30}"
                         IsEnabled="{Binding Enable}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding OpenSetting}"
-                        Content="{setting:Localize MainWindow.Text16}"
+                        Content="{lang:Localize MainWindow.Text16}"
                         IsEnabled="{Binding Enable}"
                         IsVisible="{Binding HaveSetting}" />
                 </StackPanel>
@@ -50,7 +51,7 @@
                     <TextBlock
                         Foreground="Red"
                         IsVisible="{Binding EnableFail, FallbackValue=false}"
-                        Text="{setting:Localize MainWindow.Text31}" />
+                        Text="{lang:Localize MainWindow.Text31}" />
                 </StackPanel>
             </DockPanel>
         </Border>
@@ -59,7 +60,7 @@
                 <TextBlock
                     FontSize="16"
                     Foreground="Red"
-                    Text="{setting:Localize MainWindow.Text32}" />
+                    Text="{lang:Localize MainWindow.Text32}" />
             </Panel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding IsUnload, FallbackValue=false}">
@@ -67,7 +68,7 @@
                 <TextBlock
                     FontSize="16"
                     Foreground="Red"
-                    Text="{setting:Localize MainWindow.Text29}" />
+                    Text="{lang:Localize MainWindow.Text29}" />
             </Panel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding NotDep, FallbackValue=false}">
@@ -75,7 +76,7 @@
                 <TextBlock
                     FontSize="16"
                     Foreground="Red"
-                    Text="{setting:Localize MainWindow.Text50}" />
+                    Text="{lang:Localize MainWindow.Text50}" />
             </Panel>
         </Border>
     </Panel>

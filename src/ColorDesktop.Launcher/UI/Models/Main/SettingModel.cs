@@ -67,7 +67,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = App.Lang("MainWindow.Info6")
+            Text = LangApi.GetLang("MainWindow.Info6")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -80,7 +80,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = App.Lang("MainWindow.Info7")
+            Text = LangApi.GetLang("MainWindow.Info7")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -93,7 +93,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = App.Lang("MainWindow.Info8")
+            Text = LangApi.GetLang("MainWindow.Info8")
         }, MainWindow.DialogHostName);
         if (res is true)
         {
@@ -106,7 +106,7 @@ public partial class MainViewModel
     {
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = App.Lang("MainWindow.Info9")
+            Text = LangApi.GetLang("MainWindow.Info9")
         }, MainWindow.DialogHostName);
         if (res is true)
         {

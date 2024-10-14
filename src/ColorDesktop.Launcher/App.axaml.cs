@@ -19,16 +19,11 @@ namespace ColorDesktop.Launcher;
 
 public partial class App : Application
 {
-    private static readonly Language s_language = new();
+    public static LanguageType Lang { get; set; } = LanguageType.zh_cn;
 
     private static Application ThisApp;
 
     public static MainWindow MainWindow { get; set; }
-
-    public static string Lang(string key)
-    {
-        return s_language.GetLanguage(key);
-    }
 
     public static void LoadLanguage(LanguageType type)
     {
@@ -44,7 +39,7 @@ public partial class App : Application
         };
         using var item = assm.GetManifestResourceStream(name)!;
         using var reader = new StreamReader(item);
-        s_language.Load(reader.ReadToEnd());
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 
     public static void ShowMainWindow()
@@ -91,7 +86,7 @@ public partial class App : Application
 
     public override void Initialize()
     {
-        LoadLanguage(LanguageType.zh_cn);
+        LoadLanguage(Lang);
 
         ConfigHelper.LoadConfig();
 

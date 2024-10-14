@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using AvaloniaEdit.Utils;
+using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -39,12 +40,12 @@ public partial class MainViewModel
     [RelayCommand]
     public void SourceReload()
     {
-
+        GetDownloadList();
     }
 
     private async void GetDownloadList()
     {
-        _ = DialogHost.Show(App.Lang("MainWindow.Info12"), MainWindow.DialogHostName);
+        _ = DialogHost.Show(LangApi.GetLang("MainWindow.Info12"), MainWindow.DialogHostName);
         _downloads.Clear();
 
         foreach (var item in ConfigHelper.Config.PluginSource)

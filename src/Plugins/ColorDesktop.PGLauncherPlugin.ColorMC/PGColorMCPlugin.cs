@@ -58,7 +58,7 @@ public class PGColorMCPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "ColorMC实例启动器",
+            Nick = LangApi.GetLang("PGColorMCPlugin.Name"),
             Plugin = "coloryr.pglaunher.colormc",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -82,7 +82,7 @@ public class PGColorMCPlugin : IPlugin
         return item;
     }
 
-    public void Init(string local, string local1, LanguageType type)
+    public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
 
@@ -107,5 +107,22 @@ public class PGColorMCPlugin : IPlugin
     public void Stop()
     {
 
+    }
+
+    public void LoadLang(LanguageType type)
+    {
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.PGLauncherPlugin.ColorMC.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.PGLauncherPlugin.ColorMC.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

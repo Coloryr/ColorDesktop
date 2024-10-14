@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.PGLauncherPlugin;assembly=ColorDesktop.PGLauncherPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:PGLauncherInstanceSettingModel"
@@ -13,38 +14,41 @@
                 Margin="0,0,0,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="面板设置" />
+                Text="{lang:Localize PGInstanceSettingControl.Text1}" />
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="长" />
+                    Text="{lang:Localize PGInstanceSettingControl.Text2}" />
                 <NumericUpDown
                     Width="130"
                     Height="35"
                     Margin="0,0,10,0"
                     FormatString="N0"
+                    IsEnabled="{Binding !AutoSize}"
                     Maximum="999"
                     Minimum="1"
                     Value="{Binding Width}" />
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="高" />
+                    Text="{lang:Localize PGInstanceSettingControl.Text3}" />
                 <NumericUpDown
                     Width="130"
                     Height="35"
                     Margin="0,0,10,0"
                     FormatString="N0"
+                    IsEnabled="{Binding !AutoSize}"
                     Maximum="999"
                     Minimum="1"
                     Value="{Binding Height}" />
+                <CheckBox Content="{lang:Localize PGInstanceSettingControl.Text29}" IsChecked="{Binding AutoSize}" />
             </StackPanel>
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="面板类型" />
+                    Text="{lang:Localize PGInstanceSettingControl.Text4}" />
                 <ComboBox
                     Width="200"
                     ItemsSource="{Binding PanelTypeName}"
@@ -54,7 +58,7 @@
                 Margin="0,0,0,10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="启动项目设置" />
+                Text="{lang:Localize PGInstanceSettingControl.Text5}" />
             <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <ComboBox
                     Width="200"
@@ -67,13 +71,13 @@
                     Margin="0,0,5,0"
                     Classes="top"
                     Command="{Binding NewItem}"
-                    Content="添加" />
+                    Content="{lang:Localize PGInstanceSettingControl.Text6}" />
                 <Button
                     Width="100"
                     Height="35"
                     Classes="top"
                     Command="{Binding DeleteItem}"
-                    Content="删除"
+                    Content="{lang:Localize PGInstanceSettingControl.Text7}"
                     IsEnabled="{Binding EnableItem}" />
             </StackPanel>
             <StackPanel IsEnabled="{Binding EnableItem}">
@@ -81,62 +85,62 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="名字" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text8}" />
                     <TextBox
                         Width="300"
                         Height="35"
                         Text="{Binding Name}"
-                        Watermark="子项目名字" />
+                        Watermark="{lang:Localize PGInstanceSettingControl.Text9}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="路径" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text10}" />
                     <TextBox
                         Width="300"
                         Height="35"
                         Margin="0,0,5,0"
                         Text="{Binding Local}"
-                        Watermark="程序路径" />
+                        Watermark="{lang:Localize PGInstanceSettingControl.Text11}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding SelectFile}"
                         CommandParameter="{Binding $self}"
-                        Content="选择文件" />
+                        Content="{lang:Localize PGInstanceSettingControl.Text12}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="参数" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text13}" />
                     <TextBox
                         Width="300"
                         Height="80"
                         AcceptsReturn="True"
                         Text="{Binding Arg}"
-                        Watermark="启动参数" />
+                        Watermark="{lang:Localize PGInstanceSettingControl.Text14}" />
                 </StackPanel>
-                <CheckBox Content="管理员方式运行" IsChecked="{Binding Admin}" />
+                <CheckBox Content="{lang:Localize PGInstanceSettingControl.Text15}" IsChecked="{Binding Admin}" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="背景色" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text16}" />
                     <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="字体颜色" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text17}" />
                     <ColorPicker Color="{Binding TextColor}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="显示方式" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text18}" />
                     <ComboBox
                         Width="200"
                         ItemsSource="{Binding DisplayTypeName}"
@@ -146,7 +150,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="大小" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text19}" />
                     <NumericUpDown
                         Width="130"
                         Height="35"
@@ -158,7 +162,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="边框" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text20}" />
                     <NumericUpDown
                         Width="130"
                         Height="35"
@@ -170,7 +174,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="字体" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text21}" />
                     <NumericUpDown
                         Width="130"
                         Height="35"
@@ -188,28 +192,28 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="图标" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text22}" />
                     <TextBox
                         Width="300"
                         Margin="0,0,5,0"
                         Text="{Binding Img}"
-                        Watermark="用于显示的图标" />
+                        Watermark="{lang:Localize PGInstanceSettingControl.Text23}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding SelectIcon}"
                         CommandParameter="{Binding $self}"
-                        Content="选择文件" />
+                        Content="{lang:Localize PGInstanceSettingControl.Text12}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="边距" />
+                        Text="{lang:Localize PGInstanceSettingControl.Text24}" />
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="左" />
+                            <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSettingControl.Text25}" />
                             <NumericUpDown
                                 Width="120"
                                 Margin="5,0,0,0"
@@ -219,7 +223,7 @@
                             <TextBlock
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="上" />
+                                Text="{lang:Localize PGInstanceSettingControl.Text26}" />
                             <NumericUpDown
                                 Width="120"
                                 Margin="5,0,0,0"
@@ -228,7 +232,7 @@
                                 Value="{Binding Top}" />
                         </StackPanel>
                         <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="右" />
+                            <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSettingControl.Text27}" />
                             <NumericUpDown
                                 Width="120"
                                 Margin="5,0,0,0"
@@ -238,7 +242,7 @@
                             <TextBlock
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="下" />
+                                Text="{lang:Localize PGInstanceSettingControl.Text28}" />
                             <NumericUpDown
                                 Width="120"
                                 Margin="5,0,0,0"
