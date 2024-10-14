@@ -58,10 +58,13 @@ public class MonitorPlugin : IPlugin
             IsMotherboardEnabled = true,
             IsControllerEnabled = true,
             IsNetworkEnabled = true,
-            IsStorageEnabled = true
+            IsStorageEnabled = true,
+            IsBatteryEnabled = true,
+            IsPsuEnabled = true
         };
 
         computer.Open();
+        computer.Accept(new UpdateVisitor());
 
         foreach (IHardware hardware in computer.Hardware)
         {
@@ -83,7 +86,7 @@ public class MonitorPlugin : IPlugin
             }
         }
 
-        computer.Close();
+        //computer.Close();
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

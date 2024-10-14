@@ -43,7 +43,6 @@ public class PluginAssembly : AssemblyLoadContext
                     }
                     list.Add(item);
                 }
-                
             }
         }
         if (Directory.Exists(dir1))
@@ -64,14 +63,47 @@ public class PluginAssembly : AssemblyLoadContext
                         ReadList(dir2);
                     }
                     break;
+                case OsType.Linux:
+                    dir2 = dir1 + "/unix";
+                    ReadList(dir2);
+                    dir2 = dir1 + "/linux";
+                    ReadList(dir2);
+                    if (SystemInfo.IsArm)
+                    {
+                        dir2 = dir1 + "/linux-arm64";
+                        ReadList(dir2);
+                    }
+                    else
+                    {
+                        dir2 = dir1 + "/linux-x64";
+                        ReadList(dir2);
+                    }
+                    break;
+                case OsType.MacOS:
+                    dir2 = dir1 + "/unix";
+                    ReadList(dir2);
+                    dir2 = dir1 + "/osx";
+                    ReadList(dir2);
+                    if (SystemInfo.IsArm)
+                    {
+                        dir2 = dir1 + "/osx-arm64";
+                        ReadList(dir2);
+                    }
+                    else
+                    {
+                        dir2 = dir1 + "/osx-x64";
+                        ReadList(dir2);
+                    }
+                    break;
             }
         }
 
         foreach (var item in obj.Dlls)
         {
-            if (list.FirstOrDefault(item1 => item1.Name.Replace(".dll", "") == item) is { } item2)
+            var name1 = item + ".dll";
+            if (list.FirstOrDefault(item1 => item1.Name == name1) is { } item2)
             {
-                LoadDll(item2.DirectoryName!, item2.Name.Replace(".dll", ""));
+                LoadDll(item2.DirectoryName!, item2.Name);
             }
             else
             {
@@ -97,16 +129,11 @@ public class PluginAssembly : AssemblyLoadContext
         return null;
     }
 
-    protected new IntPtr LoadUnmanagedDllFromPath(string unmanagedDllPath)
-    {
-        return base.LoadUnmanagedDllFromPath(unmanagedDllPath);
-    }
-
     protected override nint LoadUnmanagedDll(string unmanagedDllName)
     {
         if (_natives.TryGetValue(unmanagedDllName, out var dir))
-        { 
-            
+        {
+            return LoadUnmanagedDllFromPath(dir);
         }
         return base.LoadUnmanagedDll(unmanagedDllName);
     }
@@ -126,6 +153,10 @@ public class PluginAssembly : AssemblyLoadContext
 
     private void LoadDll(string local, string item)
     {
+        if (item.EndsWith(".dll"))
+        {
+            item = item.Replace(".dll", "");
+        }
         var local1 = Path.GetFullPath(local + "/" + item + ".dll");
         var local2 = Path.GetFullPath(local + "/" + item + ".pdb");
         if (!File.Exists(local1))
