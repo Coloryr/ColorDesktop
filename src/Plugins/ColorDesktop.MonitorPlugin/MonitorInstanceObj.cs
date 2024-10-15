@@ -9,7 +9,7 @@ namespace ColorDesktop.MonitorPlugin;
 
 public enum MonitorDisplayType
 { 
-    
+    Text, Number
 }
 
 public enum PanelType
@@ -24,6 +24,7 @@ public record MonitorItemObj
     public MarginObj Margin { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+    public string Sensor { get; set; }
 }
 
 public record MonitorInstanceObj

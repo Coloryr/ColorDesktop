@@ -1,5 +1,13 @@
 ﻿{
   "PGLauncherPlugin.Name": "程序启动器",
+  "PGPanelType.Type1": "堆叠面板",
+  "PGPanelType.Type2": "换行面板",
+  "PGPanelType.Type3": "坐标面板",
+  "PGDisplayType.Type1": "文字",
+  "PGDisplayType.Type2": "图片",
+  "PGDisplayType.Type3": "程序图标",
+  "PGDisplayType.Type4": "文字图片",
+  "PGDisplayType.Type5": "文字图标",
   "PGInstanceSettingControl.Text1": "面板设置",
   "PGInstanceSettingControl.Text2": "长",
   "PGInstanceSettingControl.Text3": "高",

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Xml;
 using Avalonia;
 using Avalonia.Controls;
@@ -16,6 +17,42 @@ namespace ColorDesktop.PGLauncherPlugin;
 
 public static class SystemUtils
 {
+    public static bool IsRunAsAdmin()
+    {
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+        else
+        {
+            // 检查当前用户是否是 root
+            if (Environment.UserName.Equals("root", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // 检查当前用户是否属于 sudo 组
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "groups",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            return output.Contains("sudo");
+        }
+    }
+
     public static Bitmap? GetIcon(string local)
     {
         switch (SystemInfo.Os)
@@ -190,6 +227,15 @@ public static class SystemUtils
                     Arguments = obj.Arg
                 });
             }
+            else if (IsRunAsAdmin())
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "RunAs",
+                    Arguments = $"/trustlevel:0x20000 \"{obj.Local} {obj.Arg}\"",
+                    WorkingDirectory = info.DirectoryName,
+                });
+            }
             else
             {
                 Process.Start(obj.Local, obj.Arg);
@@ -202,24 +248,48 @@ public static class SystemUtils
                 Process.Start(new ProcessStartInfo
                 {
                     WorkingDirectory = obj.Local,
-                    FileName = "open", // macOS的命令行工具，用于打开文件和应用程序
-                    Arguments = $"\"{obj.Local}\" {obj.Arg}", // 使用引号包裹路径并添加参数
-                    UseShellExecute = false // 使用系统外壳程序执行
+                    FileName = "open",
+                    Arguments = $"\"{obj.Local}\" {obj.Arg}",
                 });
             }
             else if (File.Exists(obj.Local))
             {
                 var info = new FileInfo(obj.Local);
-                Process.Start(new ProcessStartInfo()
+                if (obj.Admin)
                 {
-                    WorkingDirectory = info.DirectoryName,
-                    FileName = obj.Local,
-                    Arguments = obj.Arg
-                });
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        WorkingDirectory = info.DirectoryName,
+                        FileName = "sudo",
+                        Arguments = obj.Local + " " + obj.Arg,
+                        UseShellExecute = true
+                    });
+                }
+                else if (IsRunAsAdmin())
+                {
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        WorkingDirectory = info.DirectoryName,
+                        FileName = "sudo",
+                        Arguments = "su -c " + obj.Local + " " + obj.Arg,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        WorkingDirectory = info.DirectoryName,
+                        FileName = obj.Local,
+                        Arguments = obj.Arg
+                    });
+                }
             }
         }
         else
         {
+            string local = "";
+            string work = "";
             if (obj.Local.EndsWith(".desktop"))
             {
                 var parser = new FileIniDataParser();
@@ -227,7 +297,11 @@ public static class SystemUtils
                 var data1 = data["Desktop Entry"];
                 if (data1.ContainsKey("Exec"))
                 {
-                    Process.Start(data1["Exec"], obj.Arg);
+                    local = data1["Exec"];
+                }
+                else
+                {
+                    return;
                 }
             }
             else
@@ -236,11 +310,37 @@ public static class SystemUtils
                 {
                     return;
                 }
+
                 var info = new FileInfo(obj.Local);
+                local = obj.Local;
+                work = info.DirectoryName!;
+            }
+
+            if (obj.Admin)
+            {
                 Process.Start(new ProcessStartInfo()
                 {
-                    WorkingDirectory = info.DirectoryName,
-                    FileName = obj.Local,
+                    WorkingDirectory = work,
+                    FileName = "pkexec",
+                    Arguments = local + " " + obj.Arg
+                });
+            }
+            else if (IsRunAsAdmin())
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    WorkingDirectory = work,
+                    FileName = "sudo",
+                    Arguments = "su -c " + local + " " + obj.Arg,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    WorkingDirectory = work,
+                    FileName = local,
                     Arguments = obj.Arg
                 });
             }

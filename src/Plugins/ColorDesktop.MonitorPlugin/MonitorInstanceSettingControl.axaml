@@ -3,147 +3,218 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    xmlns:vm="clr-namespace:ColorDesktop.MonitorPlugin"
+    x:DataType="vm:MonitorInstanceSettingModel"
     mc:Ignorable="d">
-    <StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="硬件监视器设置" />
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="长" />
-            <NumericUpDown
-                Width="110"
-                Height="35"
-                Margin="0,0,10,0"
-                FormatString="N0"
-                Maximum="999"
-                Minimum="1" />
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="高" />
-            <NumericUpDown
-                Width="110"
-                Height="35"
-                Margin="0,0,10,0"
-                FormatString="N0"
-                Maximum="999"
-                Minimum="1" />
-        </StackPanel>
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="面板类型" />
-            <ComboBox Width="200" />
-        </StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="监视项目设置" />
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="名字" />
-            <TextBox Width="200" />
-        </StackPanel>
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="边距" />
-            <StackPanel>
-                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock Margin="0,0,0,10" Text="硬件监视器设置" />
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="长" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    IsEnabled="{Binding !AutoSize}"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Width}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="高" />
+                <NumericUpDown
+                    Width="110"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    FormatString="N0"
+                    IsEnabled="{Binding !AutoSize}"
+                    Maximum="999"
+                    Minimum="1"
+                    Value="{Binding Height}" />
+                <CheckBox Content="自动大小" IsChecked="{Binding AutoSize}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="面板类型" />
+                <ComboBox
+                    Width="200"
+                    ItemsSource="{Binding PanelTypeName}"
+                    SelectedIndex="{Binding Panel}" />
+            </StackPanel>
+            <TextBlock Margin="0,0,0,10" Text="监视项目设置" />
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <ComboBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    DisplayMemberBinding="{Binding Name}"
+                    ItemsSource="{Binding Items}"
+                    SelectedIndex="{Binding Index}" />
+                <Button
+                    Width="100"
+                    Height="35"
+                    Margin="0,0,5,0"
+                    Classes="top"
+                    Command="{Binding NewItem}"
+                    Content="{lang:Localize PGInstanceSettingControl.Text6}" />
+                <Button
+                    Width="100"
+                    Height="35"
+                    Classes="top"
+                    Command="{Binding DeleteItem}"
+                    Content="{lang:Localize PGInstanceSettingControl.Text7}"
+                    IsEnabled="{Binding EnableItem}" />
+            </StackPanel>
+            <StackPanel IsEnabled="{Binding EnableItem}">
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="左" />
-                    <NumericUpDown
-                        Width="110"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="上" />
-                    <NumericUpDown
-                        Width="110"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1" />
+                        Text="名字" />
+                    <TextBox Width="200" Text="{Binding Name}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="右" />
-                    <NumericUpDown
-                        Width="110"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1" />
-                    <TextBlock
-                        Margin="0,0,5,0"
-                        VerticalAlignment="Center"
-                        Text="下" />
-                    <NumericUpDown
-                        Width="110"
-                        Height="35"
-                        Margin="0,0,10,0"
-                        FormatString="N0"
-                        Maximum="999"
-                        Minimum="1" />
+                        Text="边距" />
+                    <StackPanel>
+                        <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="左" />
+                            <NumericUpDown
+                                Width="110"
+                                Height="35"
+                                Margin="0,0,10,0"
+                                FormatString="N0"
+                                Maximum="999"
+                                Minimum="1"
+                                Value="{Binding Left}" />
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="上" />
+                            <NumericUpDown
+                                Width="110"
+                                Height="35"
+                                Margin="0,0,10,0"
+                                FormatString="N0"
+                                Maximum="999"
+                                Minimum="1"
+                                Value="{Binding Top}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="右" />
+                            <NumericUpDown
+                                Width="110"
+                                Height="35"
+                                Margin="0,0,10,0"
+                                FormatString="N0"
+                                Maximum="999"
+                                Minimum="1"
+                                Value="{Binding Right}" />
+                            <TextBlock
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="下" />
+                            <NumericUpDown
+                                Width="110"
+                                Height="35"
+                                Margin="0,0,10,0"
+                                FormatString="N0"
+                                Maximum="999"
+                                Minimum="1"
+                                Value="{Binding Bottom}" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="显示类型" />
+                    <ComboBox
+                        Width="200"
+                        ItemsSource="{Binding DisplayTypeName}"
+                        SelectedIndex="{Binding ValueType}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="长" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding ValueWidth}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="高" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding ValueHeight}" />
+                </StackPanel>
+                <TextBlock Margin="0,0,0,10" Text="传感器数据选择" />
+                <StackPanel Orientation="">
+                    <Button
+                        Width="100"
+                        Height="35"
+                        Classes="top"
+                        Command="{Binding Refrsh}"
+                        Content="刷新" />
+                </StackPanel>
+                <DataGrid
+                    Height="300"
+                    MinWidth="500"
+                    ItemsSource="{Binding Sensors}"
+                    SelectedItem="{Binding SelectItem}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding Name}"
+                            Header="名字"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Binding="{Binding Type}"
+                            Header="类型"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Binding="{Binding Value}"
+                            Header="当前值"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Binding="{Binding MaxValue}"
+                            Header="最大值"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Binding="{Binding MinValue}"
+                            Header="最小值"
+                            IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </StackPanel>
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="显示类型" />
-            <ComboBox Width="200" />
-        </StackPanel>
-        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="长" />
-            <NumericUpDown
-                Width="110"
-                Height="35"
-                Margin="0,0,10,0"
-                FormatString="N0"
-                Maximum="999"
-                Minimum="1" />
-            <TextBlock
-                Margin="0,0,5,0"
-                VerticalAlignment="Center"
-                Text="高" />
-            <NumericUpDown
-                Width="110"
-                Height="35"
-                Margin="0,0,10,0"
-                FormatString="N0"
-                Maximum="999"
-                Minimum="1" />
-        </StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="传感器数据选择" />
-        <DataGrid>
-            <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="200" Header="名字" />
-                <DataGridTextColumn Header="类型" IsReadOnly="True" />
-                <DataGridTextColumn Header="当前值" IsReadOnly="True" />
-                <DataGridTextColumn Header="最大值" IsReadOnly="True" />
-                <DataGridTextColumn Header="最小值" IsReadOnly="True" />
-            </DataGrid.Columns>
-        </DataGrid>
-    </StackPanel>
+    </ScrollViewer>
 </UserControl>

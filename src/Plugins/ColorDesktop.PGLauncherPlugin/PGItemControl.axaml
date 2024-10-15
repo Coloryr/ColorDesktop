@@ -12,7 +12,10 @@
         Background="{Binding BackColor}"
         CornerRadius="5">
         <Panel>
-            <DockPanel Margin="{Binding Border}">
+            <DockPanel
+                Margin="{Binding Border}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <Image
                     Width="{Binding Size}"
                     Height="{Binding Size}"
@@ -22,7 +25,6 @@
                     Stretch="UniformToFill" />
                 <TextBlock
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     FontSize="{Binding TextSize}"
                     Foreground="{Binding TextColor}"
                     IsVisible="{Binding DisplayText}"

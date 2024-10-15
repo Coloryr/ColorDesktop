@@ -99,6 +99,7 @@ public class PGLauncherPlugin : IPlugin
     public void Init(string local, string local1)
     {
         s_local = local + "/" + ConfigName;
+        ReadConfig();
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

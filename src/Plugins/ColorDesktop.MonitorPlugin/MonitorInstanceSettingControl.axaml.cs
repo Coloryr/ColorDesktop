@@ -1,6 +1,7 @@
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
@@ -18,5 +19,15 @@ public partial class MonitorInstanceSettingControl : UserControl
         InitializeComponent();
 
         DataContext = new MonitorInstanceSettingModel(obj);
+    }
+
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        base.OnUnloaded(e);
+
+        if (DataContext is MonitorInstanceSettingModel model)
+        {
+            model.Stop();
+        }
     }
 }

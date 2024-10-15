@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Principal;
 using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
@@ -10,11 +11,26 @@ public class MonitorPlugin : IPlugin
 {
     public const string ConfigName = "monitor.json";
 
+    public static MonitorConfigObj Config { get; set; }
+
+    public static Computer Computer { get; private set; }
+    public static UpdateVisitor UpdateVisitor = new();
+
+    private static string s_local;
+
+    private static Thread _timer;
+    private static bool _run;
+    private static bool _gethw;
+
     public static MonitorInstanceObj GetConfig(InstanceDataObj obj)
     {
         return InstanceUtils.GetConfig(obj, new MonitorInstanceObj()
         {
-            
+            Items = [],
+            AutoSize = false,
+            Width = 300,
+            Height = 500,
+            PanelType = PanelType.Wrap
         }, ConfigName);
     }
 
@@ -22,14 +38,109 @@ public class MonitorPlugin : IPlugin
     {
         InstanceUtils.SaveConfig(obj, config, ConfigName);
     }
+    public static void SaveConfig()
+    {
+        ConfigSave.AddItem(new()
+        {
+            Name = "coloryr.monitor.config",
+            Local = s_local,
+            Obj = Config
+        });
+    }
+
+    public static void ReadConfig()
+    {
+        Config = ConfigUtils.Config<MonitorConfigObj>(new()
+        {
+            Time = 1000
+        }, s_local);
+    }
+
+    public static MonitorItemObj MakeNewItem()
+    {
+        return new()
+        {
+            Name = "新建项目",
+            Display = MonitorDisplayType.Text,
+            Margin = new MarginObj(5),
+            Width = 200,
+            Height= 30
+        };
+    }
+
+    public static void UpdateSensor()
+    {
+        Computer.Accept(UpdateVisitor);
+    }
+
+    public static void Update(object? sender)
+    {
+        while (_run)
+        {
+            if (!_gethw)
+            {
+                UpdateSensor();
+            }
+            if (Config.Time > 20)
+            {
+                Thread.Sleep(Config.Time);
+            }
+            else
+            {
+                Thread.Sleep(1000);
+            }
+        }
+    }
+
+    public static bool IsRunAsAdmin()
+    {
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+        else
+        {
+            // 检查当前用户是否是 root
+            if (Environment.UserName.Equals("root", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // 检查当前用户是否属于 sudo 组
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "groups",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+
+            return output.Contains("sudo");
+        }
+    }
+    public static IList<IHardware> GetHardwares()
+    {
+        _gethw = true;
+        var list = Computer.Hardware;
+        _gethw = false;
+        return list;
+    }
+
 
     public bool IsCoreLib => false;
 
-    public bool HavePluginSetting => false;
+    public bool HavePluginSetting => true;
 
     public bool HaveInstanceSetting => true;
-
-    private Computer computer;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -51,30 +162,18 @@ public class MonitorPlugin : IPlugin
     {
         
     }
-
+        
     public Stream? GetIcon()
     {
         return null;
     }
 
-    public class UpdateVisitor : IVisitor
-    {
-        public void VisitComputer(IComputer computer)
-        {
-            computer.Traverse(this);
-        }
-        public void VisitHardware(IHardware hardware)
-        {
-            hardware.Update();
-            foreach (IHardware subHardware in hardware.SubHardware) subHardware.Accept(this);
-        }
-        public void VisitSensor(ISensor sensor) { }
-        public void VisitParameter(IParameter parameter) { }
-    }
-
     public void Init(string local, string local1)
     {
-        computer = new Computer
+        s_local = local + "/" + ConfigName;
+        ReadConfig();
+
+        Computer = new Computer
         {
             IsCpuEnabled = true,
             IsGpuEnabled = true,
@@ -89,34 +188,17 @@ public class MonitorPlugin : IPlugin
 
         Task.Run(() =>
         {
-            computer.Open();
-            computer.Accept(new UpdateVisitor());
+            Computer.Open();
 
-            foreach (IHardware hardware in computer.Hardware)
-            {
-                Console.WriteLine("Hardware: {0}", hardware.Name);
-
-                foreach (IHardware subhardware in hardware.SubHardware)
-                {
-                    Console.WriteLine("\tSubhardware: {0}", subhardware.Name);
-
-                    foreach (ISensor sensor in subhardware.Sensors)
-                    {
-                        Console.WriteLine("\t\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
-                    }
-                }
-
-                foreach (ISensor sensor in hardware.Sensors)
-                {
-                    Console.WriteLine("\tSensor: {0}, value: {1}", sensor.Name, sensor.Value);
-                }
-            }
+            _run = true;
+            _timer = new(Update);
+            _timer.Start();
         });
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        throw new NotImplementedException();
+        return new MonitorControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)
@@ -126,12 +208,13 @@ public class MonitorPlugin : IPlugin
 
     public Control OpenSetting()
     {
-        throw new NotImplementedException();
+        return new MonitorSettingControl();
     }
 
     public void Stop()
     {
-        computer.Close();
+        Computer.Close();
+        _run = false;
     }
 
     public void LoadLang(LanguageType type)

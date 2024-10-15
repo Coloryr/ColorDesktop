@@ -9,10 +9,16 @@ namespace ColorDesktop.PGLauncherPlugin;
 
 public partial class PGLauncherInstanceSettingModel : ObservableObject
 {
-    public ObservableCollection<string> Items { get; init; } = [];
+    public partial class ItemNameModel : ObservableObject
+    {
+        [ObservableProperty]
+        private string _name;
+    }
 
-    public string[] PanelTypeName { get; init; } = ["堆叠面板", "换行面板", "相对面板"];
-    public string[] DisplayTypeName { get; init; } = ["文字", "图片", "程序图标", "文字图片", "文字图标"];
+    public ObservableCollection<ItemNameModel> Items { get; init; } = [];
+
+    public string[] PanelTypeName { get; init; } = [LangApi.GetLang("PGPanelType.Type1"), LangApi.GetLang("PGPanelType.Type2"), LangApi.GetLang("PGPanelType.Type3")];
+    public string[] DisplayTypeName { get; init; } = [LangApi.GetLang("PGDisplayType.Type1"), LangApi.GetLang("PGDisplayType.Type2"), LangApi.GetLang("PGDisplayType.Type3"), LangApi.GetLang("PGDisplayType.Type4"), LangApi.GetLang("PGDisplayType.Type5")];
 
     [ObservableProperty]
     private int _index = -1;
@@ -82,7 +88,10 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
 
         foreach (var item in _config.Items)
         {
-            Items.Add(item.Name);
+            Items.Add(new()
+            { 
+                Name = item.Name
+            });
         }
 
         if (Items.Count > 0)
@@ -157,6 +166,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
             return;
         }
         var item = _config.Items[Index];
+        Items[Index].Name = value;
         item.Name = value;
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
@@ -330,7 +340,10 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     public void NewItem()
     {
         var item = PGLauncherPlugin.MakeNewItem();
-        Items.Add(item.Name);
+        Items.Add(new()
+        { 
+            Name = item.Name
+        });
         _config.Items.Add(item);
         PGLauncherPlugin.SaveConfig(_obj, _config);
         Index = Items.Count - 1;
