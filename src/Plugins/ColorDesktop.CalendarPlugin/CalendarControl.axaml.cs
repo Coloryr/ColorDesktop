@@ -2,51 +2,18 @@ using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Input;
 using ColorDesktop.Api;
+using ColorDesktop.CalendarPlugin.Skin1;
+using ColorDesktop.CalendarPlugin.Skin2;
 
 namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarControl : UserControl, IInstance
 {
-    public static readonly SelfPageSlideX PageSlide500 = new(TimeSpan.FromMilliseconds(500));
-
-    private readonly Dictionary<int, MonthControl> _months = [];
-
-    private CancellationTokenSource _cancel = new();
-
-    private bool _switch1 = false;
-
-    private int _now = -1;
-
     public CalendarControl()
     {
         InitializeComponent();
 
-        var model = new CalendarModel();
-        model.PropertyChanged += Model_PropertyChanged;
-        DataContext = model;
-
-        for (int a = 0; a < 12; a++)
-        {
-            _months.Add(a, new());
-        }
-    }
-
-    private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(CalendarModel.NowMouth))
-        {
-            var model = (DataContext as CalendarModel)!;
-            Go(_months[model.NowMouth - 1]);
-            _now = model.NowMouth;
-        }
-        else if (e.PropertyName == CalendarModel.LoadMonthName)
-        {
-            var model = (DataContext as CalendarModel)!;
-            for (int a = 0; a < 12; a++)
-            {
-                _months[a].DataContext = new MonthModel(model.NowYear, a + 1, model.TextColor, model.WeekStart);
-            }
-        }
+        DataContext = new CalendarModel();
     }
 
     private void CalendarControl_PointerExited(object? sender, PointerEventArgs e)
@@ -103,39 +70,16 @@ public partial class CalendarControl : UserControl, IInstance
         {
             model.Update(config);
         }
-    }
 
-    private void Go(Control to)
-    {
-        _cancel.Cancel();
-        _cancel.Dispose();
-
-        _cancel = new();
-
-        var model = (DataContext as CalendarModel)!;
-
-        if (_now == -1)
+        if (config.Skin == SkinType.Skin1
+            && View.Child is not Skin1Control)
         {
-            Content1.Child = to;
-            return;
+            View.Child = new Skin1Control();
         }
-
-        SwitchTo(_switch1, to, _now < model.NowMouth, _cancel.Token);
-
-        _switch1 = !_switch1;
-    }
-
-    public void SwitchTo(bool dir, Control control, bool dir1, CancellationToken token)
-    {
-        if (!dir)
+        else if (config.Skin == SkinType.Skin2
+            && View.Child is not Skin2Control)
         {
-            Content2.Child = control;
-            PageSlide500.Start(Content1, Content2, dir1, token);
-        }
-        else
-        {
-            Content1.Child = control;
-            PageSlide500.Start(Content2, Content1, dir1, token);
+            View.Child = new Skin2Control();
         }
     }
 }

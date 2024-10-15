@@ -2,4 +2,5 @@
 
 public record CalendarConfigObj
 {
+
 }

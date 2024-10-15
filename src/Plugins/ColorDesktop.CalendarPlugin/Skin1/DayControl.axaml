@@ -1,9 +1,9 @@
 <UserControl
-    x:Class="ColorDesktop.CalendarPlugin.DayControl"
+    x:Class="ColorDesktop.CalendarPlugin.Skin1.DayControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
+    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin.Skin1"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="30"
     Height="40"

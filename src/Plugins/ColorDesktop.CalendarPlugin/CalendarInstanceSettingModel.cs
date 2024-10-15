@@ -7,6 +7,7 @@ namespace ColorDesktop.CalendarPlugin;
 public partial class CalendarInstanceSettingModel : ObservableObject
 {
     public string[] WeekName { get; init; } = ["星期日", "星期六", "星期一"];
+    public string[] SkinName { get; init; } = ["初始皮肤", "皮肤1"];
 
     [ObservableProperty]
     private Color _backColor;
@@ -16,6 +17,9 @@ public partial class CalendarInstanceSettingModel : ObservableObject
     [ObservableProperty]
     private WeekStart _weekStart;
 
+    [ObservableProperty]
+    private SkinType _skin;
+
     private readonly CalendarInstanceObj _config;
     private readonly InstanceDataObj _obj;
 
@@ -23,6 +27,8 @@ public partial class CalendarInstanceSettingModel : ObservableObject
     {
         _config = CalendarPlugin.GetConfig(obj);
         _obj = obj;
+
+        _skin = _config.Skin;
 
         if (!Color.TryParse(_config.BackColor, out _backColor))
         {
@@ -35,6 +41,12 @@ public partial class CalendarInstanceSettingModel : ObservableObject
         }
 
         _weekStart = _config.WeekStart;
+    }
+
+    partial void OnSkinChanged(SkinType value)
+    {
+        _config.Skin = value;
+        CalendarPlugin.SaveConfig(_obj, _config);
     }
 
     partial void OnWeekStartChanged(WeekStart value)

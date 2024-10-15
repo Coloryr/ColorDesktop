@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ColorDesktop.CalendarPlugin;
+namespace ColorDesktop.CalendarPlugin.Skin1;
 
 public partial class MonthControl : UserControl
 {

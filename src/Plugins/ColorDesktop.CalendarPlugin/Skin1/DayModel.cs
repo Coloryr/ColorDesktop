@@ -1,8 +1,9 @@
 ﻿using Avalonia.Media;
+using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Lunar;
 
-namespace ColorDesktop.CalendarPlugin;
+namespace ColorDesktop.CalendarPlugin.Skin1;
 
 public partial class DayModel : ObservableObject
 {
@@ -25,7 +26,7 @@ public partial class DayModel : ObservableObject
         }
         else if (temp.Day == 1)
         {
-            Lunar = temp.MonthInChinese + "月";
+            Lunar = temp.MonthInChinese + LangApi.GetLang("CalendarPluginControl.Text9");
         }
         else
         {
