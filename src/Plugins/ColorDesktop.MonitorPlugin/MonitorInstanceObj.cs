@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.Api;
+﻿using ColorDesktop.Api;
 
 namespace ColorDesktop.MonitorPlugin;
 
@@ -30,11 +25,27 @@ public record MonitorItemObj
     public MarginObj Margin { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+    /// <summary>
+    /// 传感器ID
+    /// </summary>
     public string Sensor { get; set; }
-    public float Min { get; set; }
-    public float Max { get; set; }
-    public string Format { get; set; }
 
+    /// <summary>
+    /// 字体大小
+    /// </summary>
+    public int FontSize { get; set; }
+    /// <summary>
+    /// 格式化样式
+    /// </summary>
+    public string Format { get; set; }
+    /// <summary>
+    /// 最小数值
+    /// </summary>
+    public float Min { get; set; }
+    /// <summary>
+    /// 最大数值
+    /// </summary>
+    public float Max { get; set; }
     /// <summary>
     /// 背景色
     /// </summary>

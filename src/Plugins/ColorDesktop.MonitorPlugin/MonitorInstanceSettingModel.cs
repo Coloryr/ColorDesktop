@@ -37,6 +37,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
 
     public string[] DisplayTypeName { get; init; } = [LangApi.GetLang("MonitorPanelType.Type1"), LangApi.GetLang("MonitorPanelType.Type2"), LangApi.GetLang("MonitorPanelType.Type3")];
 
+    public string[] ValueTypeName { get; init; } = [LangApi.GetLang("MonitorPanelType.Type1"), LangApi.GetLang("MonitorPanelType.Type2"), LangApi.GetLang("MonitorPanelType.Type3")];
+
     public ObservableCollection<ItemNameModel> Items { get; init; } = [];
     public ObservableCollection<SensorDataModel> Sensors { get; init; } = [];
 
@@ -64,16 +66,25 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     [ObservableProperty]
     private int _bottom;
     [ObservableProperty]
-    private MonitorDisplayType _valueType;
+    private MonitorDisplayType _displayType;
+    [ObservableProperty]
+    private ValueType _valueType;
     [ObservableProperty]
     private int _valueWidth;
     [ObservableProperty]
     private int _valueHeight;
     [ObservableProperty]
     private SensorDataModel? _selectItem;
+    [ObservableProperty]
+    private int _fontSize;
 
     [ObservableProperty]
     private bool _enableItem;
+
+    [ObservableProperty]
+    private bool _displaySize;
+    [ObservableProperty]
+    private bool _displayFontSize;
 
     private bool _load;
     private bool _run = true;
@@ -111,6 +122,17 @@ public partial class MonitorInstanceSettingModel : ObservableObject
             Update();
             return _run;
         }, TimeSpan.FromSeconds(1));
+    }
+
+    partial void OnValueTypeChanged(ValueType value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.ValueType = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
     }
 
     partial void OnLeftChanged(int value)
@@ -169,8 +191,13 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
-    partial void OnValueTypeChanged(MonitorDisplayType value)
+    partial void OnDisplayTypeChanged(MonitorDisplayType value)
     {
+        switch (value)
+        {
+            case MonitorDisplayType.Text:
+                break;
+        }
         if (_load)
         {
             return;
@@ -228,7 +255,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         Top = item.Margin.Top;
         Right = item.Margin.Right;
         Bottom = item.Margin.Bottom;
-        ValueType = item.Display;
+        DisplayType = item.Display;
+        ValueType = item.ValueType;
         ValueWidth = item.Width;
         ValueHeight = item.Height;
         SelectItem = Sensors.FirstOrDefault(item1 => item1.Sensor.Identifier.ToString() == item.Sensor);

@@ -8,16 +8,26 @@ namespace ColorDesktop.PGLauncherPlugin;
 
 public partial class PGItemModel : ObservableObject
 {
-    public string Name => _obj.Name;
-    public int Size => _obj.Size;
-    public int TextSize => _obj.TextSize;
-    public Thickness Thickness => new(_obj.Margin.Left, _obj.Margin.Top, _obj.Margin.Right, _obj.Margin.Bottom);
-    public Thickness Border => new(_obj.BorderSize);
-    public IBrush BackColor => Brush.Parse(_obj.BackColor);
-    public IBrush TextColor => Brush.Parse(_obj.TextColor);
+    [ObservableProperty]
+    private string _name;
+    [ObservableProperty]
+    private int _size;
+    [ObservableProperty]
+    private int _textSize;
 
-    public bool DisplayIcon { get; init; }
-    public bool DisplayText { get; init; }
+    public Thickness Thickness => Demo ? new(0) : new (_obj.Margin.Left, _obj.Margin.Top, _obj.Margin.Right, _obj.Margin.Bottom);
+    [ObservableProperty]
+    private Thickness _border;
+
+    [ObservableProperty]
+    private IBrush _backColor;
+    [ObservableProperty]
+    private IBrush _textColor;
+
+    [ObservableProperty]
+    private bool _displayIcon;
+    [ObservableProperty]
+    private bool _displayText;
     public Bitmap Icon { get; init; }
 
     [ObservableProperty]
@@ -25,26 +35,20 @@ public partial class PGItemModel : ObservableObject
 
     private readonly PGItemObj _obj;
 
+    public bool Demo = false;
+
     public PGItemModel(PGItemObj obj)
     {
         _obj = obj;
 
-        switch (obj.Display)
-        {
-            case DisplayType.Text:
-                DisplayIcon = false;
-                DisplayText = true;
-                break;
-            case DisplayType.Img:
-            case DisplayType.Icon:
-                DisplayIcon = true;
-                DisplayText = false;
-                break;
-            default:
-                DisplayIcon = true;
-                DisplayText = true;
-                break;
-        }
+        _size = _obj.Size;
+        _textSize = _obj.TextSize;
+        _backColor = Brush.Parse(_obj.BackColor);
+        _textColor = Brush.Parse(_obj.TextColor);
+        _name = _obj.Name;
+        _border = new(_obj.BorderSize);
+
+        DisplayChange();
 
         var assm = Assembly.GetExecutingAssembly();
 
@@ -92,9 +96,29 @@ public partial class PGItemModel : ObservableObject
         }
     }
 
+    public void DisplayChange()
+    {
+        switch (_obj.Display)
+        {
+            case DisplayType.Text:
+                DisplayIcon = false;
+                DisplayText = true;
+                break;
+            case DisplayType.Img:
+            case DisplayType.Icon:
+                DisplayIcon = true;
+                DisplayText = false;
+                break;
+            default:
+                DisplayIcon = true;
+                DisplayText = true;
+                break;
+        }
+    }
+
     public void Launch()
     {
-        if (string.IsNullOrWhiteSpace(_obj.Local))
+        if (Demo || string.IsNullOrWhiteSpace(_obj.Local))
         {
             return;
         }

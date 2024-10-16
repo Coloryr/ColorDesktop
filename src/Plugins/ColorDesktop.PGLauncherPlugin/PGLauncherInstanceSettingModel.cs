@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -17,8 +18,23 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
 
     public ObservableCollection<ItemNameModel> Items { get; init; } = [];
 
-    public string[] PanelTypeName { get; init; } = [LangApi.GetLang("PGPanelType.Type1"), LangApi.GetLang("PGPanelType.Type2"), LangApi.GetLang("PGPanelType.Type3")];
-    public string[] DisplayTypeName { get; init; } = [LangApi.GetLang("PGDisplayType.Type1"), LangApi.GetLang("PGDisplayType.Type2"), LangApi.GetLang("PGDisplayType.Type3"), LangApi.GetLang("PGDisplayType.Type4"), LangApi.GetLang("PGDisplayType.Type5")];
+    [ObservableProperty]
+    public PGItemModel _model;
+
+    public string[] PanelTypeName { get; init; } = 
+    [
+        LangApi.GetLang("PGPanelType.Type1"), 
+        LangApi.GetLang("PGPanelType.Type2"), 
+        LangApi.GetLang("PGPanelType.Type3")
+    ];
+    public string[] DisplayTypeName { get; init; } = 
+    [
+        LangApi.GetLang("PGDisplayType.Type1"), 
+        LangApi.GetLang("PGDisplayType.Type2"), 
+        LangApi.GetLang("PGDisplayType.Type3"), 
+        LangApi.GetLang("PGDisplayType.Type4"), 
+        LangApi.GetLang("PGDisplayType.Type5")
+    ];
 
     [ObservableProperty]
     private int _index = -1;
@@ -68,6 +84,8 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     private bool _enableItem;
     [ObservableProperty]
     private bool _admin;
+    [ObservableProperty]
+    private bool _enableFontSize;
 
     private bool _load;
 
@@ -127,13 +145,14 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     partial void OnDisplayChanged(DisplayType value)
     {
         EnableImg = value is DisplayType.Img or DisplayType.TextImg;
-
+        EnableFontSize = value is DisplayType.Text or DisplayType.TextIcon or DisplayType.TextImg;
         if (_load)
         {
             return;
         }
         var item = _config.Items[Index];
         item.Display = value;
+        ModelLoad(item);
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -179,6 +198,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Icon = value;
+        ModelLoad(item);
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -190,6 +210,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Size = value;
+        Model.Size = value;
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -245,6 +266,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.BorderSize = value;
+        Model.Border = new(value);
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -256,6 +278,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.BackColor = value.ToString();
+        Model.BackColor = new SolidColorBrush(value, 1);
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -267,6 +290,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.TextColor = value.ToString();
+        Model.TextColor = new SolidColorBrush(value, 1);
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -278,6 +302,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.TextSize = value;
+        Model.TextSize = value;
         PGLauncherPlugin.SaveConfig(_obj, _config);
     }
 
@@ -332,8 +357,12 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
             TextColor = Colors.White;
         }
 
+        EnableImg = item.Display is DisplayType.Img or DisplayType.TextImg;
+        EnableFontSize = item.Display is DisplayType.Text or DisplayType.TextIcon or DisplayType.TextImg;
+
         _load = false;
         EnableItem = true;
+        ModelLoad(item);
     }
 
     [RelayCommand]
@@ -402,5 +431,13 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         }
 
         Img = item;
+    }
+
+    private void ModelLoad(PGItemObj item)
+    {
+        Model = new(item)
+        { 
+            Demo = true
+        };
     }
 }

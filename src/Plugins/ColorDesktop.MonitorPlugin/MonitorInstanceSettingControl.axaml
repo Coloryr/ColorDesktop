@@ -149,33 +149,61 @@
                     <ComboBox
                         Width="200"
                         ItemsSource="{Binding DisplayTypeName}"
+                        SelectedIndex="{Binding DisplayType}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="显示数据" />
+                    <ComboBox
+                        Width="200"
+                        ItemsSource="{Binding ValueTypeName}"
                         SelectedIndex="{Binding ValueType}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
+                        IsVisible="{Binding DisplaySize}"
                         Text="长" />
                     <NumericUpDown
                         Width="110"
                         Height="35"
                         Margin="0,0,10,0"
                         FormatString="N0"
+                        IsVisible="{Binding DisplaySize}"
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding ValueWidth}" />
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
+                        IsVisible="{Binding DisplaySize}"
                         Text="高" />
                     <NumericUpDown
                         Width="110"
                         Height="35"
                         Margin="0,0,10,0"
                         FormatString="N0"
+                        IsVisible="{Binding DisplaySize}"
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding ValueHeight}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        IsVisible="{Binding FontSize}"
+                        Text="字体大小" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        IsVisible="{Binding DisplayFontSize}"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding FontSize}" />
                 </StackPanel>
                 <TextBlock Margin="0,0,0,10" Text="传感器数据选择" />
                 <StackPanel Orientation="">
