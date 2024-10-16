@@ -28,12 +28,8 @@ public partial class BmItemModel(BmObj.ItemObj item) : ObservableObject
         if (percentage < 0 || percentage > 1)
             throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage must be between 0 and 1.");
 
-        // 计算插值
-        byte r = (byte)(colorA.R + (colorB.R - colorA.R) * percentage);
-        byte g = (byte)(colorA.G + (colorB.G - colorA.G) * percentage);
-        byte b = (byte)(colorA.B + (colorB.B - colorA.B) * percentage);
-        byte a = (byte)(colorA.A + (colorB.A - colorA.A) * percentage);
+        var hsv = new HsvColor(1, 120d * percentage.Value, 1, 1);
 
-        return new ImmutableSolidColorBrush(Color.FromArgb(a, r, g, b));
+        return new ImmutableSolidColorBrush(hsv.ToRgb());
     }
 }

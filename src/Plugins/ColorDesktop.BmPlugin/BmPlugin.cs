@@ -1,16 +1,32 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 
 namespace ColorDesktop.BmPlugin;
 
 public class BmPlugin : IPlugin
 {
+    public const string ConfigName = "bm.json";
+
+    public static BmInstanceObj GetConfig(InstanceDataObj obj)
+    {
+        return InstanceUtils.GetConfig(obj, new BmInstanceObj()
+        {
+            Skin = SkinType.Skin1
+        }, ConfigName);
+    }
+
+    public static void SaveConfig(InstanceDataObj obj, BmInstanceObj config)
+    {
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
+    }
+
     public bool IsCoreLib => false;
 
     public bool HavePluginSetting => false;
 
-    public bool HaveInstanceSetting => false;
+    public bool HaveInstanceSetting => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -69,7 +85,7 @@ public class BmPlugin : IPlugin
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        return new();
+        return new BmInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()

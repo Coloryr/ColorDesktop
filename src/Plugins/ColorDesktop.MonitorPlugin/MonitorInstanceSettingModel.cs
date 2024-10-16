@@ -271,26 +271,12 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     public void Refrsh()
     {
         Sensors.Clear();
-        foreach (var hardware in MonitorPlugin.GetHardwares())
+        foreach (var sensor in MonitorPlugin.GetSensors())
         {
-            foreach (var subhardware in hardware.SubHardware)
+            Sensors.Add(new()
             {
-                foreach (var sensor in subhardware.Sensors)
-                {
-                    Sensors.Add(new()
-                    {
-                        Sensor = sensor
-                    });
-                }
-            }
-
-            foreach (var sensor in hardware.Sensors)
-            {
-                Sensors.Add(new()
-                {
-                    Sensor = sensor
-                });
-            }
+                Sensor = sensor
+            });
         }
     }
 

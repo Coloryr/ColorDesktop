@@ -1,15 +1,21 @@
 <UserControl
-    x:Class="ColorDesktop.BmPlugin.BmControl"
+    x:Class="ColorDesktop.BmPlugin.BmInstanceSettingControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cov="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.BmPlugin;assembly=ColorDesktop.BmPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
-    xmlns:sys="using:System"
-    x:DataType="local:BmModel"
+    x:DataType="local:BmInstanceSettingModel"
     mc:Ignorable="d">
-    <Decorator Name="View1" />
+    <StackPanel Orientation="Horizontal">
+        <TextBlock
+            Margin="0,0,5,0"
+            VerticalAlignment="Center"
+            Text="样式" />
+        <ComboBox
+            Width="200"
+            ItemsSource="{Binding SkinName}"
+            SelectedIndex="{Binding Skin}" />
+    </StackPanel>
 </UserControl>

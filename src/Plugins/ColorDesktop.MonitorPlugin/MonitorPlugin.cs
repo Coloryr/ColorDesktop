@@ -135,6 +135,28 @@ public class MonitorPlugin : IPlugin
         return list;
     }
 
+    public static List<ISensor> GetSensors()
+    {
+        var list = new List<ISensor>();
+
+        foreach (var hardware in GetHardwares())
+        {
+            foreach (var subhardware in hardware.SubHardware)
+            {
+                foreach (var sensor in subhardware.Sensors)
+                {
+                    list.Add(sensor);
+                }
+            }
+
+            foreach (var sensor in hardware.Sensors)
+            {
+                list.Add(sensor);
+            }
+        }
+
+        return list;
+    }
 
     public bool IsCoreLib => false;
 

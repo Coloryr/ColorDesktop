@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 
-namespace ColorDesktop.BmPlugin;
+namespace ColorDesktop.BmPlugin.Skin2;
 
 public partial class BmItemControl : UserControl
 {

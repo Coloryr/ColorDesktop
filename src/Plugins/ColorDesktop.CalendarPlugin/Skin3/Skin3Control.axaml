@@ -249,8 +249,8 @@
                         </Button>
                     </Panel>
                     <Panel>
-                        <Decorator Name="Content1" HorizontalAlignment="Center" />
-                        <Decorator Name="Content2" HorizontalAlignment="Center" />
+                        <Decorator Name="Content1" />
+                        <Decorator Name="Content2" />
                     </Panel>
                 </DockPanel>
             </Border>

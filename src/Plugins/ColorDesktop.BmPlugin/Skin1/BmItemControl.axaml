@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="ColorDesktop.BmPlugin.BmItemControl"
+    x:Class="ColorDesktop.BmPlugin.Skin1.BmItemControl"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
