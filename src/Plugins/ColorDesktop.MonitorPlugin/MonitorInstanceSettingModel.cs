@@ -105,7 +105,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         foreach (var item in _config.Items)
         {
             Items.Add(new()
-            { 
+            {
                 Name = item.Name
             });
         }

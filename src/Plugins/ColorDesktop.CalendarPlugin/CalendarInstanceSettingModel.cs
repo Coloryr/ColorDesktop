@@ -6,13 +6,13 @@ namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarInstanceSettingModel : ObservableObject
 {
-    public string[] WeekName { get; init; } = 
+    public string[] WeekName { get; init; } =
     [
-        LangApi.GetLang("CalendarSKin2.Text1"), 
-        LangApi.GetLang("CalendarSKin2.Text7"), 
+        LangApi.GetLang("CalendarSKin2.Text1"),
+        LangApi.GetLang("CalendarSKin2.Text7"),
         LangApi.GetLang("CalendarSKin2.Text2")
     ];
-    public string[] SkinName { get; init; } = 
+    public string[] SkinName { get; init; } =
     [
         LangApi.GetLang("CalendarInstanceSetting.Text6"),
         LangApi.GetLang("CalendarInstanceSetting.Text7"),

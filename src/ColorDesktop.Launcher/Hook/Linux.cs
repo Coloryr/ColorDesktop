@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ColorDesktop.Launcher.Hook;
@@ -48,13 +45,13 @@ public class Linux
                         item.CopyTo(file);
                     }
 
-                    Run("pkexec","cp " + Program.RunDir + "colordesktop.desktop" + " /etc/xdg/autostart/colordesktop.desktop");
+                    Run("pkexec", "cp " + Program.RunDir + "colordesktop.desktop" + " /etc/xdg/autostart/colordesktop.desktop");
                 }
                 else
                 {
                     if (File.Exists("/etc/xdg/autostart/colordesktop.desktop"))
                     {
-                        Run("pkexec","rm /etc/xdg/autostart/colordesktop.desktop");
+                        Run("pkexec", "rm /etc/xdg/autostart/colordesktop.desktop");
                     }
                 }
             }

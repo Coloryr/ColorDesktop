@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.Api;
+﻿using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.BmPlugin;
 
 public partial class BmInstanceSettingModel : ObservableObject
 {
-    public string[] SkinName { get; init; } = 
+    public string[] SkinName { get; init; } =
     [
-        LangApi.GetLang("BmInstanceSettingControl.Text2"), 
+        LangApi.GetLang("BmInstanceSettingControl.Text2"),
         LangApi.GetLang("BmInstanceSettingControl.Text3")
     ];
 

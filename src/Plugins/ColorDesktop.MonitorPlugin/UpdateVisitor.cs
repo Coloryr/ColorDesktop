@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibreHardwareMonitor.Hardware;
+﻿using LibreHardwareMonitor.Hardware;
 
 namespace ColorDesktop.MonitorPlugin;
 
@@ -16,7 +11,7 @@ public class UpdateVisitor : IVisitor
     public void VisitHardware(IHardware hardware)
     {
         hardware.Update();
-        foreach (IHardware subHardware in hardware.SubHardware) 
+        foreach (IHardware subHardware in hardware.SubHardware)
             subHardware.Accept(this);
     }
     public void VisitSensor(ISensor sensor) { }

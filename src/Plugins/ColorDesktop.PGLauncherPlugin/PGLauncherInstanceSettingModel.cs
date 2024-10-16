@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -21,18 +20,18 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     [ObservableProperty]
     public PGItemModel _model;
 
-    public string[] PanelTypeName { get; init; } = 
+    public string[] PanelTypeName { get; init; } =
     [
-        LangApi.GetLang("PGPanelType.Type1"), 
-        LangApi.GetLang("PGPanelType.Type2"), 
+        LangApi.GetLang("PGPanelType.Type1"),
+        LangApi.GetLang("PGPanelType.Type2"),
         LangApi.GetLang("PGPanelType.Type3")
     ];
-    public string[] DisplayTypeName { get; init; } = 
+    public string[] DisplayTypeName { get; init; } =
     [
-        LangApi.GetLang("PGDisplayType.Type1"), 
-        LangApi.GetLang("PGDisplayType.Type2"), 
-        LangApi.GetLang("PGDisplayType.Type3"), 
-        LangApi.GetLang("PGDisplayType.Type4"), 
+        LangApi.GetLang("PGDisplayType.Type1"),
+        LangApi.GetLang("PGDisplayType.Type2"),
+        LangApi.GetLang("PGDisplayType.Type3"),
+        LangApi.GetLang("PGDisplayType.Type4"),
         LangApi.GetLang("PGDisplayType.Type5")
     ];
 
@@ -107,7 +106,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
         foreach (var item in _config.Items)
         {
             Items.Add(new()
-            { 
+            {
                 Name = item.Name
             });
         }
@@ -370,7 +369,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     {
         var item = PGLauncherPlugin.MakeNewItem();
         Items.Add(new()
-        { 
+        {
             Name = item.Name
         });
         _config.Items.Add(item);
@@ -399,7 +398,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     public async Task SelectFile(Control? control)
     {
         var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
-            LangApi.GetLang("PGInstanceSetting.Info1"), SystemInfo.Os == OsType.Windows 
+            LangApi.GetLang("PGInstanceSetting.Info1"), SystemInfo.Os == OsType.Windows
             ? ["*.exe"] : [], LangApi.GetLang("PGInstanceSetting.Info2"));
         if (file == null || file.Count == 0)
         {
@@ -419,7 +418,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     public async Task SelectIcon(Control? control)
     {
         var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
-            LangApi.GetLang("PGInstanceSetting.Info3"), ["*.png", "*.jpg", "*.bmp"], 
+            LangApi.GetLang("PGInstanceSetting.Info3"), ["*.png", "*.jpg", "*.bmp"],
             LangApi.GetLang("PGInstanceSetting.Info4"));
         if (file == null || file.Count == 0)
         {
@@ -438,7 +437,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     private void ModelLoad(PGItemObj item)
     {
         Model = new(item)
-        { 
+        {
             Demo = true
         };
     }

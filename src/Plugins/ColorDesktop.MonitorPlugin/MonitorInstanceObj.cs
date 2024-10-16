@@ -3,7 +3,7 @@
 namespace ColorDesktop.MonitorPlugin;
 
 public enum MonitorDisplayType
-{ 
+{
     Text, Number
 }
 
@@ -13,7 +13,7 @@ public enum PanelType
 }
 
 public enum ValueType
-{ 
+{
     Now, Max, Min
 }
 

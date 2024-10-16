@@ -8,7 +8,7 @@ public enum WeekStart
 }
 
 public enum SkinType
-{ 
+{
     Skin1, Skin2, Skin3
 }
 

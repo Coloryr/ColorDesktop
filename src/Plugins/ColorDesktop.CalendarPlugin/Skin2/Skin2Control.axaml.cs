@@ -2,7 +2,6 @@ using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
-using Avalonia.Markup.Xaml;
 
 namespace ColorDesktop.CalendarPlugin.Skin2;
 

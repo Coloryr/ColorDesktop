@@ -1,8 +1,5 @@
-
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.MonitorPlugin;

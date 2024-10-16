@@ -1,7 +1,5 @@
 using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 using ColorDesktop.MonitorPlugin.Controls;
 
@@ -84,12 +82,12 @@ public partial class MonitorControl : UserControl, IInstance
 
     public void Start(IInstanceWindow window)
     {
-        
+
     }
 
     public void Stop(IInstanceWindow window)
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)

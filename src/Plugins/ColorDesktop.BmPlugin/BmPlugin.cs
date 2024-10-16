@@ -58,7 +58,7 @@ public class BmPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        
+
     }
 
     public void LoadLang(LanguageType type)

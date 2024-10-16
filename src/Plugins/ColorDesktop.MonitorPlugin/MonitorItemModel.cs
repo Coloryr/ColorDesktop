@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
+﻿using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using LibreHardwareMonitor.Hardware;
 
@@ -55,7 +50,7 @@ public partial class MonitorItemModel : ObservableObject
     public MonitorItemModel(MonitorItemObj item)
     {
         var sensors = MonitorPlugin.GetSensors();
-        sensor = sensors.FirstOrDefault(item1=>item1.Identifier.ToString() == item.Sensor)!;
+        sensor = sensors.FirstOrDefault(item1 => item1.Identifier.ToString() == item.Sensor)!;
         HaveSensor = sensor != null;
         Name = item.Name;
         Min = item.Min;

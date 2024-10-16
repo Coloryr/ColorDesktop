@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Avalonia.Media;
 using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 

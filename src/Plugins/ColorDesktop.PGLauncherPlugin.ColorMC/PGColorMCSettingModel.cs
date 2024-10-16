@@ -29,7 +29,7 @@ public partial class PGColorMCSettingModel : ObservableObject
     public async Task SelectFile(Control? control)
     {
         var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
-                LangApi.GetLang("PGColorMCSetting.Info1"), 
+                LangApi.GetLang("PGColorMCSetting.Info1"),
                 SystemInfo.Os == OsType.Windows ? ["*.exe"] : [], "ColorMC");
         if (file == null || file.Count == 0)
         {

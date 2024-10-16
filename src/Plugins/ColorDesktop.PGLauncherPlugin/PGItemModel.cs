@@ -15,7 +15,7 @@ public partial class PGItemModel : ObservableObject
     [ObservableProperty]
     private int _textSize;
 
-    public Thickness Thickness => Demo ? new(0) : new (_obj.Margin.Left, _obj.Margin.Top, _obj.Margin.Right, _obj.Margin.Bottom);
+    public Thickness Thickness => Demo ? new(0) : new(_obj.Margin.Left, _obj.Margin.Top, _obj.Margin.Right, _obj.Margin.Bottom);
     [ObservableProperty]
     private Thickness _border;
 

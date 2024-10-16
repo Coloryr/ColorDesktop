@@ -9,7 +9,7 @@ public partial class PGColorMCInstanceSettingModel : ObservableObject
 {
     public ObservableCollection<string> Groups { get; init; } = [];
 
-    public string[] DisplayNames { get; init; } = 
+    public string[] DisplayNames { get; init; } =
     [
         LangApi.GetLang("PGColorMCInstanceSetting.Text7"),
         LangApi.GetLang("PGColorMCInstanceSetting.Text8"),

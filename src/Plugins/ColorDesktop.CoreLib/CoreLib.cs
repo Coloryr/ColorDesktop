@@ -45,7 +45,7 @@ public class CoreLib : IPlugin
 
     public void LoadLang(LanguageType type)
     {
-        
+
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

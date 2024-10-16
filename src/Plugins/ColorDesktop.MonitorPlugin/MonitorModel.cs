@@ -17,8 +17,8 @@ public partial class MonitorModel : ObservableObject
     public ObservableCollection<MonitorItemModel> Items { get; init; } = [];
 
     public void Tick()
-    { 
-        
+    {
+
     }
 
     public void Update(MonitorInstanceObj obj)

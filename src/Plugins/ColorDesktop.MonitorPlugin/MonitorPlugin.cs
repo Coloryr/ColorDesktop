@@ -64,7 +64,7 @@ public class MonitorPlugin : IPlugin
             Display = MonitorDisplayType.Text,
             Margin = new MarginObj(5),
             Width = 200,
-            Height= 30
+            Height = 30
         };
     }
 
@@ -177,14 +177,14 @@ public class MonitorPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
-        
+
     public Stream? GetIcon()
     {
         return null;
@@ -241,6 +241,6 @@ public class MonitorPlugin : IPlugin
 
     public void LoadLang(LanguageType type)
     {
-        
+
     }
 }

@@ -79,12 +79,12 @@ public partial class CalendarModel : ObservableObject
 
         LDate = lunar.MonthInChinese + LangApi.GetLang("CalendarPluginControl.Text9") + lunar.DayInChinese;
         Week = solar.WeekInChinese;
-        Tian = lunar.YearInGanZhi + lunar.YearShengXiao 
-            + LangApi.GetLang("CalendarPluginControl.Text8") 
-            + " " + lunar.MonthInGanZhi + LangApi.GetLang("CalendarPluginControl.Text9") 
+        Tian = lunar.YearInGanZhi + lunar.YearShengXiao
+            + LangApi.GetLang("CalendarPluginControl.Text8")
+            + " " + lunar.MonthInGanZhi + LangApi.GetLang("CalendarPluginControl.Text9")
             + " " + lunar.DayInGanZhi + LangApi.GetLang("CalendarPluginControl.Text14");
         Wuhang = lunar.DayNaYin;
-        Chongsha = LangApi.GetLang("CalendarPluginControl.Text15") + lunar.DayChongDesc 
+        Chongsha = LangApi.GetLang("CalendarPluginControl.Text15") + lunar.DayChongDesc
             + " " + LangApi.GetLang("CalendarPluginControl.Text16") + lunar.DaySha;
         Pengzu = lunar.PengZuGan + Environment.NewLine + lunar.PengZuZhi;
 

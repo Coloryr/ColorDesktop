@@ -64,7 +64,7 @@ public class AnalogClockPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        
+
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

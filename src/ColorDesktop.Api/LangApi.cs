@@ -67,8 +67,8 @@ public static class LangApi
     }
 
     public static void ClearLangs()
-    { 
-        
+    {
+
     }
 
     public static string GetLang(string key)
