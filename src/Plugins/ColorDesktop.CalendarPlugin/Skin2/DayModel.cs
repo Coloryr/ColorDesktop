@@ -12,6 +12,7 @@ public partial class DayModel : ObservableObject
 
     public int Day { get; init; }
     public string Lunar { get; init; }
+    public string Tip { get; init; }
     public IBrush Color { get; init; }
     public IBrush ColorNum { get; init; }
     public IBrush Back { get; init; }
@@ -23,9 +24,16 @@ public partial class DayModel : ObservableObject
         Day = day;
         _solar = new(year, month, day);
 
+        var tip = $"{year}/{month}/{day}";
+
         var temp = _solar.Lunar;
+        tip += temp.MonthInChinese + LangApi.GetLang("CalendarPluginControl.Text9")
+            + temp.DayInChinese;
+
         if (!string.IsNullOrWhiteSpace(temp.JieQi))
         {
+            tip += " " + temp.JieQi;
+
             Lunar = temp.JieQi;
 
             Color = Brushes.Red;
@@ -53,6 +61,8 @@ public partial class DayModel : ObservableObject
         {
             ColorNum = Brushes.Black;
         }
+
+        Tip = tip;
     }
 
     public DayModel()

@@ -9,7 +9,12 @@ public partial class PGColorMCInstanceSettingModel : ObservableObject
 {
     public ObservableCollection<string> Groups { get; init; } = [];
 
-    public string[] DisplayNames { get; init; } = ["实例名字", "实例图标", "名字图标"];
+    public string[] DisplayNames { get; init; } = 
+    [
+        LangApi.GetLang("PGColorMCInstanceSetting.Text7"),
+        LangApi.GetLang("PGColorMCInstanceSetting.Text8"),
+        LangApi.GetLang("PGColorMCInstanceSetting.Text9"),
+    ];
 
     public bool HaveColorMC { get; set; }
 
@@ -72,10 +77,11 @@ public partial class PGColorMCInstanceSettingModel : ObservableObject
         Groups.Add("");
         foreach (var item in list)
         {
-            if (item.Key != null)
+            if (string.IsNullOrWhiteSpace(item.Key))
             {
-                Groups.Add(item.Key);
+                continue;
             }
+            Groups.Add(item.Key);
         }
 
         _group = _config.GroupName ?? "";

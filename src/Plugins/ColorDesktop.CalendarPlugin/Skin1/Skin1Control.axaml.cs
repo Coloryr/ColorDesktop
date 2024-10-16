@@ -35,7 +35,7 @@ public partial class Skin1Control : UserControl
         base.OnDetachedFromLogicalTree(e);
 
         _model.PropertyChanged -= Model_PropertyChanged;
-        _model = null;
+        _model = null!;
     }
 
     private void Skin1Control_DataContextChanged(object? sender, EventArgs e)

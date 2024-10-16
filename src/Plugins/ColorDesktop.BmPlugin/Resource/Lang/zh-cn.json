@@ -7,5 +7,8 @@
     "BmPluginControl.Text5": "五",
     "BmPluginControl.Text6": "六",
     "BmPluginControl.Text7": "日",
-    "BmPluginControl.Text8": "没有数据"
+    "BmPluginControl.Text8": "没有数据",
+    "BmInstanceSettingControl.Text1": "样式",
+    "BmInstanceSettingControl.Text2": "皮肤1",
+    "BmInstanceSettingControl.Text3": "皮肤2"
 }

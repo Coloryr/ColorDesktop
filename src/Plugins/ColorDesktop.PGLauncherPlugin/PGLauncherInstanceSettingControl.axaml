@@ -15,12 +15,12 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGInstanceSettingControl.Text1}" />
+                    Text="{lang:Localize PGInstanceSetting.Text1}" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="{lang:Localize PGInstanceSettingControl.Text2}" />
+                        Text="{lang:Localize PGInstanceSetting.Text2}" />
                     <NumericUpDown
                         Width="120"
                         Height="35"
@@ -33,7 +33,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="{lang:Localize PGInstanceSettingControl.Text3}" />
+                        Text="{lang:Localize PGInstanceSetting.Text3}" />
                     <NumericUpDown
                         Width="120"
                         Height="35"
@@ -43,13 +43,13 @@
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding Height}" />
-                    <CheckBox Content="{lang:Localize PGInstanceSettingControl.Text29}" IsChecked="{Binding AutoSize}" />
+                    <CheckBox Content="{lang:Localize PGInstanceSetting.Text29}" IsChecked="{Binding AutoSize}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="{lang:Localize PGInstanceSettingControl.Text4}" />
+                        Text="{lang:Localize PGInstanceSetting.Text4}" />
                     <ComboBox
                         Width="180"
                         ItemsSource="{Binding PanelTypeName}"
@@ -59,7 +59,7 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGInstanceSettingControl.Text5}" />
+                    Text="{lang:Localize PGInstanceSetting.Text5}" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <ComboBox
                         Width="180"
@@ -73,13 +73,13 @@
                         Margin="0,0,5,0"
                         Classes="top"
                         Command="{Binding NewItem}"
-                        Content="{lang:Localize PGInstanceSettingControl.Text6}" />
+                        Content="{lang:Localize PGInstanceSetting.Text6}" />
                     <Button
                         Width="100"
                         Height="35"
                         Classes="top"
                         Command="{Binding DeleteItem}"
-                        Content="{lang:Localize PGInstanceSettingControl.Text7}"
+                        Content="{lang:Localize PGInstanceSetting.Text7}"
                         IsEnabled="{Binding EnableItem}" />
                 </StackPanel>
                 <StackPanel IsEnabled="{Binding EnableItem}">
@@ -87,63 +87,63 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text8}" />
+                            Text="{lang:Localize PGInstanceSetting.Text8}" />
                         <TextBox
                             Width="200"
                             Height="35"
                             Text="{Binding Name}"
-                            Watermark="{lang:Localize PGInstanceSettingControl.Text9}" />
+                            Watermark="{lang:Localize PGInstanceSetting.Text9}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text10}" />
+                            Text="{lang:Localize PGInstanceSetting.Text10}" />
                         <TextBox
                             Width="200"
                             Height="35"
                             Margin="0,0,5,0"
                             Text="{Binding Local}"
-                            Watermark="{lang:Localize PGInstanceSettingControl.Text11}" />
+                            Watermark="{lang:Localize PGInstanceSetting.Text11}" />
                         <Button
                             Width="100"
                             Height="35"
                             Classes="top"
                             Command="{Binding SelectFile}"
                             CommandParameter="{Binding $self}"
-                            Content="{lang:Localize PGInstanceSettingControl.Text12}" />
+                            Content="{lang:Localize PGInstanceSetting.Text12}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text13}" />
+                            Text="{lang:Localize PGInstanceSetting.Text13}" />
                         <TextBox
                             Width="200"
                             Height="80"
                             AcceptsReturn="True"
                             Text="{Binding Arg}"
-                            Watermark="{lang:Localize PGInstanceSettingControl.Text14}" />
+                            Watermark="{lang:Localize PGInstanceSetting.Text14}" />
                     </StackPanel>
-                    <CheckBox Content="{lang:Localize PGInstanceSettingControl.Text15}" IsChecked="{Binding Admin}" />
+                    <CheckBox Content="{lang:Localize PGInstanceSetting.Text15}" IsChecked="{Binding Admin}" />
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text16}" />
+                            Text="{lang:Localize PGInstanceSetting.Text16}" />
                         <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
                             IsVisible="{Binding EnableFontSize}"
-                            Text="{lang:Localize PGInstanceSettingControl.Text17}" />
+                            Text="{lang:Localize PGInstanceSetting.Text17}" />
                         <ColorPicker IsVisible="{Binding EnableFontSize}" Color="{Binding TextColor}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text18}" />
+                            Text="{lang:Localize PGInstanceSetting.Text18}" />
                         <ComboBox
                             Width="180"
                             ItemsSource="{Binding DisplayTypeName}"
@@ -153,7 +153,7 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text19}" />
+                            Text="{lang:Localize PGInstanceSetting.Text19}" />
                         <NumericUpDown
                             Width="120"
                             Height="35"
@@ -165,7 +165,7 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text20}" />
+                            Text="{lang:Localize PGInstanceSetting.Text20}" />
                         <NumericUpDown
                             Width="120"
                             Height="35"
@@ -182,7 +182,7 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text21}" />
+                            Text="{lang:Localize PGInstanceSetting.Text21}" />
                         <NumericUpDown
                             Width="120"
                             Height="35"
@@ -200,28 +200,28 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text22}" />
+                            Text="{lang:Localize PGInstanceSetting.Text22}" />
                         <TextBox
                             Width="200"
                             Margin="0,0,5,0"
                             Text="{Binding Img}"
-                            Watermark="{lang:Localize PGInstanceSettingControl.Text23}" />
+                            Watermark="{lang:Localize PGInstanceSetting.Text23}" />
                         <Button
                             Width="100"
                             Height="35"
                             Classes="top"
                             Command="{Binding SelectIcon}"
                             CommandParameter="{Binding $self}"
-                            Content="{lang:Localize PGInstanceSettingControl.Text12}" />
+                            Content="{lang:Localize PGInstanceSetting.Text12}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="{lang:Localize PGInstanceSettingControl.Text24}" />
+                            Text="{lang:Localize PGInstanceSetting.Text24}" />
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSettingControl.Text25}" />
+                                <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSetting.Text25}" />
                                 <NumericUpDown
                                     Width="120"
                                     Margin="5,0,0,0"
@@ -231,7 +231,7 @@
                                 <TextBlock
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Center"
-                                    Text="{lang:Localize PGInstanceSettingControl.Text26}" />
+                                    Text="{lang:Localize PGInstanceSetting.Text26}" />
                                 <NumericUpDown
                                     Width="120"
                                     Margin="5,0,0,0"
@@ -240,7 +240,7 @@
                                     Value="{Binding Top}" />
                             </StackPanel>
                             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSettingControl.Text27}" />
+                                <TextBlock VerticalAlignment="Center" Text="{lang:Localize PGInstanceSetting.Text27}" />
                                 <NumericUpDown
                                     Width="120"
                                     Margin="5,0,0,0"
@@ -250,7 +250,7 @@
                                 <TextBlock
                                     Margin="10,0,0,0"
                                     VerticalAlignment="Center"
-                                    Text="{lang:Localize PGInstanceSettingControl.Text28}" />
+                                    Text="{lang:Localize PGInstanceSetting.Text28}" />
                                 <NumericUpDown
                                     Width="120"
                                     Margin="5,0,0,0"

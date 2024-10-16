@@ -11,8 +11,6 @@ public partial class WeatherControl : UserControl, IInstance
         InitializeComponent();
 
         DataContext = new WeatherModel();
-
-
     }
 
     private void WeatherControl_PointerExited(object? sender, PointerEventArgs e)

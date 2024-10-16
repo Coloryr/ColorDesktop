@@ -64,13 +64,13 @@
                     Margin="0,0,5,0"
                     Classes="top"
                     Command="{Binding NewItem}"
-                    Content="{lang:Localize PGInstanceSettingControl.Text6}" />
+                    Content="{lang:Localize PGInstanceSetting.Text6}" />
                 <Button
                     Width="100"
                     Height="35"
                     Classes="top"
                     Command="{Binding DeleteItem}"
-                    Content="{lang:Localize PGInstanceSettingControl.Text7}"
+                    Content="{lang:Localize PGInstanceSetting.Text7}"
                     IsEnabled="{Binding EnableItem}" />
             </StackPanel>
             <StackPanel IsEnabled="{Binding EnableItem}">

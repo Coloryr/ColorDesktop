@@ -1,7 +1,8 @@
 ﻿{
     "OneWordPlugin.Name": "每日一言",
-    "OneWordInstanceSettingControl.Text1": "宽度",
-    "OneWordInstanceSettingControl.Text2": "字体大小",
-    "OneWordInstanceSettingControl.Text3": "字体颜色",
-    "OneWordInstanceSettingControl.Text4": "背景颜色"
+    "OneWordInstanceSetting.Text1": "宽度",
+    "OneWordInstanceSetting.Text2": "字体大小",
+    "OneWordInstanceSetting.Text3": "字体颜色",
+    "OneWordInstanceSetting.Text4": "背景颜色",
+    "OneWordControl.Error1": "获取失败"
 }

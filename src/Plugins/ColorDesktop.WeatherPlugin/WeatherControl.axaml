@@ -30,7 +30,7 @@
                             HorizontalAlignment="Center"
                             FontSize="30"
                             Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                            Text="{Binding State, FallbackValue=晴}" />
+                            Text="{Binding State}" />
                     </StackPanel>
                     <StackPanel Margin="20,0,0,0">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -38,11 +38,11 @@
                                 Margin="0,0,10,0"
                                 FontSize="20"
                                 Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                                Text="{Binding Province, FallbackValue=北京}" />
+                                Text="{Binding Province}" />
                             <TextBlock
                                 FontSize="20"
                                 Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                                Text="{Binding City, FallbackValue=北京}" />
+                                Text="{Binding City}" />
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock

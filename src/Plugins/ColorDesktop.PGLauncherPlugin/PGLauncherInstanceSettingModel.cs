@@ -399,7 +399,8 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     public async Task SelectFile(Control? control)
     {
         var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
-            "选择程序文件", SystemInfo.Os == OsType.Windows ? ["*.exe"] : [], "程序");
+            LangApi.GetLang("PGInstanceSetting.Info1"), SystemInfo.Os == OsType.Windows 
+            ? ["*.exe"] : [], LangApi.GetLang("PGInstanceSetting.Info2"));
         if (file == null || file.Count == 0)
         {
             return;
@@ -418,7 +419,8 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     public async Task SelectIcon(Control? control)
     {
         var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
-            "选择图片文件", ["*.png", "*.jpg", "*.bmp"], "图片");
+            LangApi.GetLang("PGInstanceSetting.Info3"), ["*.png", "*.jpg", "*.bmp"], 
+            LangApi.GetLang("PGInstanceSetting.Info4"));
         if (file == null || file.Count == 0)
         {
             return;

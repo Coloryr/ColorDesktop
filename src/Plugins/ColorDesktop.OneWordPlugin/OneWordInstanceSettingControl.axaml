@@ -13,7 +13,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize OneWordInstanceSettingControl.Text1}" />
+                Text="{lang:Localize OneWordInstanceSetting.Text1}" />
             <NumericUpDown
                 Width="130"
                 Height="35"
@@ -25,7 +25,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize OneWordInstanceSettingControl.Text2}" />
+                Text="{lang:Localize OneWordInstanceSetting.Text2}" />
             <NumericUpDown
                 Width="130"
                 Height="35"
@@ -38,12 +38,12 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize OneWordInstanceSettingControl.Text3}" />
+                Text="{lang:Localize OneWordInstanceSetting.Text3}" />
             <ColorPicker Margin="0,0,10,0" Color="{Binding Text}" />
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize OneWordInstanceSettingControl.Text4}" />
+                Text="{lang:Localize OneWordInstanceSetting.Text4}" />
             <ColorPicker Color="{Binding Back}" />
         </StackPanel>
     </StackPanel>

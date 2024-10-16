@@ -12,18 +12,18 @@
         <TextBlock Margin="0,0,0,10" Text="{lang:Localize WeatherInstanceSettingControl.Text1}" />
         <TextBlock Margin="0,0,0,10" Text="{lang:Localize WeatherInstanceSettingControl.Text2}" />
         <ComboBox
-            Width="200"
+            Width="250"
             Margin="0,0,0,10"
             ItemsSource="{Binding City}"
             SelectedIndex="{Binding CityIndex1}" />
         <ComboBox
-            Width="200"
+            Width="250"
             Margin="0,0,0,10"
             IsVisible="{Binding CityDisplay1}"
             ItemsSource="{Binding City1}"
             SelectedIndex="{Binding CityIndex2}" />
         <ComboBox
-            Width="200"
+            Width="250"
             Margin="0,0,0,10"
             IsVisible="{Binding CityDisplay2}"
             ItemsSource="{Binding City2}"

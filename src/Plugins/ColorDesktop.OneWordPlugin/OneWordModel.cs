@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -41,7 +42,7 @@ public partial class OneWordModel : ObservableObject
         }
         catch
         {
-            Text = "获取失败";
+            Text = LangApi.GetLang("OneWordControl.Error1");
         }
     }
 

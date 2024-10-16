@@ -14,7 +14,7 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text1}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text1}" />
                 <ComboBox
                     Width="200"
                     ItemsSource="{Binding Groups}"
@@ -24,7 +24,7 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text2}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text2}" />
                 <ComboBox
                     Width="200"
                     ItemsSource="{Binding DisplayNames}"
@@ -34,7 +34,7 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text3}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text3}" />
                 <NumericUpDown
                     Width="130"
                     Height="35"
@@ -46,7 +46,7 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text4}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text4}" />
                 <NumericUpDown
                     Width="130"
                     Height="35"
@@ -60,12 +60,12 @@
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text5}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text5}" />
                 <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"
-                    Text="{lang:Localize PGColorMCInstanceSettingModel.Text6}" />
+                    Text="{lang:Localize PGColorMCInstanceSetting.Text6}" />
                 <ColorPicker Margin="0,0,10,0" Color="{Binding TextColor}" />
             </StackPanel>
         </StackPanel>

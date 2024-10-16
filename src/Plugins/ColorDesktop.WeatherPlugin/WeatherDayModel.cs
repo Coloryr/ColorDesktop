@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using ColorDesktop.Api;
 using ColorDesktop.WeatherPlugin.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -8,13 +9,13 @@ public partial class WeatherDayModel : ObservableObject
 {
     private static readonly Dictionary<string, string> WeekTran = new()
     {
-        { "1", "一" },
-        { "2", "二" },
-        { "3", "三" },
-        { "4", "四" },
-        { "5", "五" },
-        { "6", "六" },
-        { "7", "日" },
+        { "1", LangApi.GetLang("WeatherControl.Text12") },
+        { "2", LangApi.GetLang("WeatherControl.Text13") },
+        { "3", LangApi.GetLang("WeatherControl.Text14") },
+        { "4", LangApi.GetLang("WeatherControl.Text15") },
+        { "5", LangApi.GetLang("WeatherControl.Text16") },
+        { "6", LangApi.GetLang("WeatherControl.Text17") },
+        { "7", LangApi.GetLang("WeatherControl.Text18") },
     };
 
     public string Date => _obj.Date;

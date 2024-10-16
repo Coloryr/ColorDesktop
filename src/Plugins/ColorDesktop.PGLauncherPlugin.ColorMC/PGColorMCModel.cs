@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
+using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.PGLauncherPlugin.ColorMC;
@@ -44,7 +45,7 @@ public partial class PGColorMCModel : ObservableObject
         var group = obj.GroupName;
         if (string.IsNullOrWhiteSpace(group))
         {
-            Group = "默认分组";
+            Group = LangApi.GetLang("PGColorMCControl.Text3");
 
             foreach (var item in games.Where(item => item.GroupName == "" || item.GroupName == null))
             {

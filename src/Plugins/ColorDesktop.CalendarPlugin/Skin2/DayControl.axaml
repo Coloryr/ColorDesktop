@@ -8,6 +8,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="local:DayModel"
+    ToolTip.Tip="{Binding Tip}"
     mc:Ignorable="d">
     <Border Background="{Binding Back}" CornerRadius="50">
         <StackPanel>

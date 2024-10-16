@@ -6,8 +6,18 @@ namespace ColorDesktop.CalendarPlugin;
 
 public partial class CalendarInstanceSettingModel : ObservableObject
 {
-    public string[] WeekName { get; init; } = ["星期日", "星期六", "星期一"];
-    public string[] SkinName { get; init; } = ["初始皮肤", "皮肤1", "皮肤2"];
+    public string[] WeekName { get; init; } = 
+    [
+        LangApi.GetLang("CalendarSKin2.Text1"), 
+        LangApi.GetLang("CalendarSKin2.Text7"), 
+        LangApi.GetLang("CalendarSKin2.Text2")
+    ];
+    public string[] SkinName { get; init; } = 
+    [
+        LangApi.GetLang("CalendarInstanceSetting.Text6"),
+        LangApi.GetLang("CalendarInstanceSetting.Text7"),
+        LangApi.GetLang("CalendarInstanceSetting.Text8"),
+    ];
 
     [ObservableProperty]
     private Color _backColor;

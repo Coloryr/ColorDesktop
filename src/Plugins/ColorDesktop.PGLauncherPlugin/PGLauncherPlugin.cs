@@ -43,7 +43,7 @@ public class PGLauncherPlugin : IPlugin
     {
         return new()
         {
-            Name = "新建项目",
+            Name = LangApi.GetLang("PGLauncherPlugin.Name1"),
             Display = DisplayType.Text,
             Margin = new MarginObj(5),
             Size = 30,

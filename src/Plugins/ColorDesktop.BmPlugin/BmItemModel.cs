@@ -11,25 +11,24 @@ public partial class BmItemModel(BmObj.ItemObj item) : ObservableObject
 
     public string Rating => $"{item.Rating?.Score ?? 0:0.0}";
 
-    public IBrush RatingColor => GetIntermediateColor(Colors.Red, Color.Parse("#00FF00"), item.Rating?.Score / 10);
+    public IBrush RatingColor => GetIntermediateColor(item.Rating?.Score / 10);
 
     public void OpenUrl()
     {
         CoreHelper.OpUrl(item.Url);
     }
 
-    private static IBrush GetIntermediateColor(Color colorA, Color colorB, float? percentage)
+    private static IBrush GetIntermediateColor(float? percentage)
     {
         if (percentage == null)
         {
             return Brushes.Black;
         }
-        // 确保 percentage 在 0 到 1 之间
         if (percentage < 0 || percentage > 1)
-            throw new ArgumentOutOfRangeException(nameof(percentage), "Percentage must be between 0 and 1.");
+            return Brushes.White;
 
         var hsv = new HsvColor(1, 120d * percentage.Value, 1, 1);
 
-        return new ImmutableSolidColorBrush(hsv.ToRgb());
+        return new SolidColorBrush(hsv.ToRgb());
     }
 }

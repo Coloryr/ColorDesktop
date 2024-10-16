@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using ColorDesktop.Api;
 using ColorDesktop.ClockPlugin;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -76,11 +77,15 @@ public partial class CalendarModel : ObservableObject
 
         var lunar = solar.Lunar;
 
-        LDate = lunar.MonthInChinese + "月" + lunar.DayInChinese;
+        LDate = lunar.MonthInChinese + LangApi.GetLang("CalendarPluginControl.Text9") + lunar.DayInChinese;
         Week = solar.WeekInChinese;
-        Tian = lunar.YearInGanZhi + lunar.YearShengXiao + "年 " + lunar.MonthInGanZhi + "月 " + lunar.DayInGanZhi + "日";
+        Tian = lunar.YearInGanZhi + lunar.YearShengXiao 
+            + LangApi.GetLang("CalendarPluginControl.Text8") 
+            + " " + lunar.MonthInGanZhi + LangApi.GetLang("CalendarPluginControl.Text9") 
+            + " " + lunar.DayInGanZhi + LangApi.GetLang("CalendarPluginControl.Text14");
         Wuhang = lunar.DayNaYin;
-        Chongsha = "冲" + lunar.DayChongDesc + " 煞" + lunar.DaySha;
+        Chongsha = LangApi.GetLang("CalendarPluginControl.Text15") + lunar.DayChongDesc 
+            + " " + LangApi.GetLang("CalendarPluginControl.Text16") + lunar.DaySha;
         Pengzu = lunar.PengZuGan + Environment.NewLine + lunar.PengZuZhi;
 
         if (NowYear == 0)
@@ -181,7 +186,7 @@ public partial class CalendarModel : ObservableObject
             }
             catch
             {
-                History = "获取失败";
+                History = LangApi.GetLang("CalendarPluginControl.Error1");
             }
         }
     }

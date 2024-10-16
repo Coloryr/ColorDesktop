@@ -10,7 +10,11 @@ namespace ColorDesktop.BmPlugin;
 
 public partial class BmInstanceSettingModel : ObservableObject
 {
-    public string[] SkinName { get; init; } = ["皮肤1", "皮肤2"];
+    public string[] SkinName { get; init; } = 
+    [
+        LangApi.GetLang("BmInstanceSettingControl.Text2"), 
+        LangApi.GetLang("BmInstanceSettingControl.Text3")
+    ];
 
     [ObservableProperty]
     private SkinType _skin;

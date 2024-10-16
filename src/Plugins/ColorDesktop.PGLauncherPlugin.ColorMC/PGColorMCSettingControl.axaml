@@ -12,7 +12,7 @@
         <TextBlock
             Margin="0,0,5,0"
             VerticalAlignment="Center"
-            Text="{lang:Localize PGColorMCSettingModel.Text1}" />
+            Text="{lang:Localize PGColorMCSetting.Text1}" />
         <TextBox
             Width="300"
             Margin="0,0,10,0"
@@ -23,6 +23,6 @@
             Classes="top"
             Command="{Binding SelectFile}"
             CommandParameter="{Binding $self}"
-            Content="{lang:Localize PGColorMCSettingModel.Text2}" />
+            Content="{lang:Localize PGColorMCSetting.Text2}" />
     </StackPanel>
 </UserControl>

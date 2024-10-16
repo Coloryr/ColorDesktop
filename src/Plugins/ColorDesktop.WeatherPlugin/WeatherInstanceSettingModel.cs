@@ -8,6 +8,8 @@ namespace ColorDesktop.WeatherPlugin;
 
 public partial class WeatherInstanceSettingModel : ObservableObject
 {
+    private static readonly Color s_color1 = Color.Parse("#0294FF");
+
     [ObservableProperty]
     private Color _backColor;
     [ObservableProperty]
@@ -41,11 +43,11 @@ public partial class WeatherInstanceSettingModel : ObservableObject
 
         if (!Color.TryParse(_config.BackColor, out _backColor))
         {
-            _backColor = Color.Parse("#0294FF");
+            _backColor = s_color1;
         }
         if (!Color.TryParse(_config.TextColor, out _textColor))
         {
-            _textColor = Color.Parse("#FFFFFF");
+            _textColor = Colors.White;
         }
 
         var indexs = AmapApi.GetCityIndexAdcode(int.Parse(_config.City));

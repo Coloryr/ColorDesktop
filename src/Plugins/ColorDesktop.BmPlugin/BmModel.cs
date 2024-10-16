@@ -46,7 +46,12 @@ public partial class BmModel : ObservableObject
 
     public void Tick()
     {
-
+        var now = DateTime.Now;
+        if (now.DayOfWeek != Week)
+        {
+            Week = now.DayOfWeek;
+            _ = Load();
+        }
     }
 
     [RelayCommand]

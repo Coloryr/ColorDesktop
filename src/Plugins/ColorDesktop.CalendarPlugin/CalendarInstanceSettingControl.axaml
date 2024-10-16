@@ -9,12 +9,12 @@
     x:DataType="local:CalendarInstanceSettingModel"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBlock Margin="0,0,0,10" Text="{lang:Localize CalendarInstanceSettingControl.Text1}" />
+        <TextBlock Margin="0,0,0,10" Text="{lang:Localize CalendarInstanceSetting.Text1}" />
         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="日历样式" />
+                Text="{lang:Localize CalendarInstanceSetting.Text5}" />
             <ComboBox
                 Width="150"
                 ItemsSource="{Binding SkinName}"
@@ -24,7 +24,7 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize CalendarInstanceSettingControl.Text4}" />
+                Text="{lang:Localize CalendarInstanceSetting.Text4}" />
             <ComboBox
                 Width="150"
                 ItemsSource="{Binding WeekName}"
@@ -34,12 +34,12 @@
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize CalendarInstanceSettingControl.Text2}" />
+                Text="{lang:Localize CalendarInstanceSetting.Text2}" />
             <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
             <TextBlock
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
-                Text="{lang:Localize CalendarInstanceSettingControl.Text3}" />
+                Text="{lang:Localize CalendarInstanceSetting.Text3}" />
             <ColorPicker Color="{Binding TextColor}" />
         </StackPanel>
     </StackPanel>

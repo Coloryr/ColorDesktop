@@ -94,12 +94,12 @@ public static class NtpClient
         for (int i = 4; i <= 7; i++)
             fractpart = 256 * fractpart + ntpData[offsetTransmitTime + i];
 
-        ulong milliseconds = (intpart * 1000 + (fractpart * 1000) / 0x100000000L);
+        ulong milliseconds = intpart * 1000 + (fractpart * 1000) / 0x100000000L;
         s.Close();
 
-        TimeSpan timeSpan = TimeSpan.FromTicks((long)milliseconds * TimeSpan.TicksPerMillisecond);
+        var timeSpan = TimeSpan.FromTicks((long)milliseconds * TimeSpan.TicksPerMillisecond);
 
-        DateTime dateTime = new DateTime(1900, 1, 1);
+        var dateTime = new DateTime(1900, 1, 1);
         dateTime += timeSpan;
 
         return dateTime;
