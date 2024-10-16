@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Security.Principal;
 using Avalonia.Controls;
 using ColorDesktop.Api;
@@ -60,11 +61,17 @@ public class MonitorPlugin : IPlugin
     {
         return new()
         {
-            Name = "新建项目",
+            Name =  LangApi.GetLang("MonitorPlugin.Name1"),
             Display = MonitorDisplayType.Text,
             Margin = new MarginObj(5),
-            Width = 200,
-            Height = 30
+            Width = 0,
+            Height = 0,
+            Color1 = "#000000",
+            Color2 = "#FFFFFF",
+            FontSize = 30,
+            Format = "{0}",
+            Min = 0,
+            Max = 100
         };
     }
 
@@ -168,7 +175,7 @@ public class MonitorPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = "硬件监控",
+            Nick = LangApi.GetLang("MonitorPlugin.Name"),
             Plugin = "coloryr.monitor",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -241,6 +248,18 @@ public class MonitorPlugin : IPlugin
 
     public void LoadLang(LanguageType type)
     {
-
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "ColorDesktop.MonitorPlugin.Resource.Lang.en-us.json",
+            _ => "ColorDesktop.MonitorPlugin.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 }

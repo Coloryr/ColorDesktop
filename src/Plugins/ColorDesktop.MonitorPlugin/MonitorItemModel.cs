@@ -27,9 +27,9 @@ public partial class MonitorItemModel : ObservableObject
     [ObservableProperty]
     private bool _haveMax;
 
-    public string Name { get; init; }
-    public float Min { get; init; }
-    public float Max { get; init; }
+    public string Name => Obj.Name;
+    public float Min => Obj.Min;
+    public float Max => Obj.Max;
 
     [ObservableProperty]
     private string _format;
@@ -44,17 +44,17 @@ public partial class MonitorItemModel : ObservableObject
 
     public bool HaveSensor { get; init; }
 
+    public MonitorItemObj Obj;
+
     private readonly ISensor sensor;
     private readonly string _fmt;
 
     public MonitorItemModel(MonitorItemObj item)
     {
+        Obj = item;
         var sensors = MonitorPlugin.GetSensors();
         sensor = sensors.FirstOrDefault(item1 => item1.Identifier.ToString() == item.Sensor)!;
         HaveSensor = sensor != null;
-        Name = item.Name;
-        Min = item.Min;
-        Max = item.Max;
         Margin = new Thickness(item.Margin.Left, item.Margin.Top, item.Margin.Right, item.Margin.Bottom);
         MonitorDisplay = item.Display;
         ValueType = item.ValueType;
@@ -64,7 +64,7 @@ public partial class MonitorItemModel : ObservableObject
         Update();
     }
 
-    public virtual void Update()
+    public void Update()
     {
         if (!HaveSensor)
         {
@@ -89,5 +89,7 @@ public partial class MonitorItemModel : ObservableObject
             PercentMax = (value2 - Min) / Max * 100;
             FormatMax = string.Format(_fmt, value2);
         }
+
+        OnPropertyChanged(nameof(Update));
     }
 }

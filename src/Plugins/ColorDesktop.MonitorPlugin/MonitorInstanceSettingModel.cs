@@ -43,6 +43,9 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     public ObservableCollection<SensorDataModel> Sensors { get; init; } = [];
 
     [ObservableProperty]
+    private MonitorItemModel _model;
+
+    [ObservableProperty]
     private int _width;
     [ObservableProperty]
     private int _height;
@@ -77,6 +80,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     private SensorDataModel? _selectItem;
     [ObservableProperty]
     private int _fontSize;
+    [ObservableProperty]
+    private string _format;
 
     [ObservableProperty]
     private bool _enableItem;
@@ -193,11 +198,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
 
     partial void OnDisplayTypeChanged(MonitorDisplayType value)
     {
-        switch (value)
-        {
-            case MonitorDisplayType.Text:
-                break;
-        }
+        DisplaySetting(value);
         if (_load)
         {
             return;
@@ -240,6 +241,17 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
+    partial void OnFormatChanged(string value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.Format = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
     partial void OnIndexChanged(int value)
     {
         if (value == -1)
@@ -259,10 +271,15 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         ValueType = item.ValueType;
         ValueWidth = item.Width;
         ValueHeight = item.Height;
+        Format = item.Format;
         SelectItem = Sensors.FirstOrDefault(item1 => item1.Sensor.Identifier.ToString() == item.Sensor);
+
+        DisplaySetting(DisplayType);
 
         _load = false;
         EnableItem = true;
+
+        Model = new(item);
     }
 
     [RelayCommand]
@@ -305,6 +322,17 @@ public partial class MonitorInstanceSettingModel : ObservableObject
             {
                 Sensor = sensor
             });
+        }
+    }
+
+    private void DisplaySetting(MonitorDisplayType value)
+    {
+        switch (value)
+        {
+            case MonitorDisplayType.Text:
+                DisplaySize = true;
+                DisplayFontSize = true;
+                break;
         }
     }
 

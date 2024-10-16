@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using ColorDesktop.Api;
-using ColorDesktop.MonitorPlugin.Controls;
 
 namespace ColorDesktop.MonitorPlugin;
 
@@ -53,15 +52,10 @@ public partial class MonitorControl : UserControl, IInstance
             {
                 foreach (var item in model.Items)
                 {
-                    switch (item.MonitorDisplay)
+                    panel1.Children.Add(new MonitorItemControl()
                     {
-                        case MonitorDisplayType.Text:
-                            panel1.Children.Add(new TextViewControl()
-                            {
-                                DataContext = item
-                            });
-                            break;
-                    }
+                        DataContext = item
+                    });
                 }
             }
         }

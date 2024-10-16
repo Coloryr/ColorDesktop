@@ -9,7 +9,14 @@
     d:DesignWidth="800"
     x:DataType="vm:TextViewModel"
     mc:Ignorable="d">
-    <Border Background="{Binding BackColor}" CornerRadius="5">
-        <TextBlock Foreground="{Binding TextColor}" Text="{Binding Text}" />
+    <Border
+        Width="{Binding Width}"
+        Height="{Binding Height}"
+        Background="{Binding BackColor}"
+        CornerRadius="5">
+        <TextBlock
+            FontSize="{Binding FontSize}"
+            Foreground="{Binding TextColor}"
+            Text="{Binding Text}" />
     </Border>
 </UserControl>
