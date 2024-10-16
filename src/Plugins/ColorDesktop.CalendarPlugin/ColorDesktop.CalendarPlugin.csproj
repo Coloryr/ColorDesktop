@@ -51,5 +51,25 @@
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <AvaloniaXaml Update="Skin3\DayControl.axaml">
+	    <SubType>Designer</SubType>
+	  </AvaloniaXaml>
+	  <AvaloniaXaml Update="Skin3\MonthControl.axaml">
+	    <SubType>Designer</SubType>
+	  </AvaloniaXaml>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Compile Update="Skin3\DayControl.axaml.cs">
+	    <SubType>Code</SubType>
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Skin3\MonthControl.axaml.cs">
+	    <SubType>Code</SubType>
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 
 </Project>

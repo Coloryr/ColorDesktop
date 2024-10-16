@@ -1,0 +1,73 @@
+<UserControl
+    x:Class="ColorDesktop.CalendarPlugin.Skin3.MonthControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin.Skin3"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="local:MonthModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <UniformGrid
+            Columns="7"
+            DockPanel.Dock="Top"
+            Rows="1">
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week1}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week2}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week3}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week4}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week5}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week6}"
+                TextAlignment="Center" />
+            <TextBlock
+                Width="30"
+                FontSize="20"
+                Foreground="#000000"
+                Text="{Binding Week7}"
+                TextAlignment="Center" />
+        </UniformGrid>
+        <ItemsControl ItemsSource="{Binding Days}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="7" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:DayControl DataContext="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DockPanel>
+</UserControl>

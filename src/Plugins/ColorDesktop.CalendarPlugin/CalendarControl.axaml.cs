@@ -4,6 +4,7 @@ using Avalonia.Input;
 using ColorDesktop.Api;
 using ColorDesktop.CalendarPlugin.Skin1;
 using ColorDesktop.CalendarPlugin.Skin2;
+using ColorDesktop.CalendarPlugin.Skin3;
 
 namespace ColorDesktop.CalendarPlugin;
 
@@ -80,6 +81,11 @@ public partial class CalendarControl : UserControl, IInstance
             && View.Child is not Skin2Control)
         {
             View.Child = new Skin2Control();
+        }
+        else if (config.Skin == SkinType.Skin3
+            && View.Child is not Skin3Control)
+        {
+            View.Child = new Skin3Control();
         }
     }
 }

@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="ColorDesktop.CalendarPlugin.Skin2.Skin2Control"
+    x:Class="ColorDesktop.CalendarPlugin.Skin3.Skin3Control"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,80 +7,105 @@
     xmlns:local="clr-namespace:ColorDesktop.CalendarPlugin;assembly=ColorDesktop.CalendarPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:DataType="local:CalendarModel"
     mc:Ignorable="d">
-    <DockPanel>
-        <Border Name="Border1" CornerRadius="20">
-            <Border.Background>
-                <RadialGradientBrush GradientOrigin="0.5, 0">
-                    <RadialGradientBrush.GradientStops>
-                        <GradientStop Offset="0" Color="#50aef6" />
-                        <GradientStop Offset="1" Color="#3f8ff2" />
-                    </RadialGradientBrush.GradientStops>
-                </RadialGradientBrush>
-            </Border.Background>
-            <StackPanel
-                Width="230"
-                Margin="20"
-                VerticalAlignment="Center">
+    <StackPanel>
+        <Panel Width="280" DockPanel.Dock="Top">
+            <Border
+                Height="80"
+                Margin="0,20,0,0"
+                Background="#e74c3c"
+                CornerRadius="20,20,0,0" />
+            <Ellipse
+                Width="40"
+                Height="40"
+                Margin="30,10,0,0"
+                HorizontalAlignment="Left"
+                Fill="#c0392b" />
+            <Border
+                Width="30"
+                Height="65"
+                Margin="35,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#bdc3c7"
+                CornerRadius="20" />
+            <Ellipse
+                Width="40"
+                Height="40"
+                Margin="0,10,30,0"
+                HorizontalAlignment="Right"
+                Fill="#c0392b" />
+            <Border
+                Width="30"
+                Height="65"
+                Margin="0,0,35,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#bdc3c7"
+                CornerRadius="20" />
+        </Panel>
+        <Border
+            Width="280"
+            Background="#fdfdfd"
+            CornerRadius="0,0,20,20">
+            <StackPanel Margin="20" VerticalAlignment="Center">
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontSize="30"
-                    Foreground="{Binding TextColor}"
+                    Foreground="#000000"
                     Text="{Binding Date}" />
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <TextBlock
                         FontSize="15"
-                        Foreground="{Binding TextColor}"
+                        Foreground="#000000"
                         Text="{lang:Localize CalendarPluginControl.Text1}" />
                     <TextBlock
                         Margin="0,0,10,0"
                         FontSize="15"
-                        Foreground="{Binding TextColor}"
+                        Foreground="#000000"
                         Text="{Binding Week}" />
                     <TextBlock
                         FontSize="15"
-                        Foreground="{Binding TextColor}"
+                        Foreground="#000000"
                         Text="{lang:Localize CalendarPluginControl.Text2}" />
                     <TextBlock
                         FontSize="15"
-                        Foreground="{Binding TextColor}"
+                        Foreground="#000000"
                         Text="{Binding LDate}" />
                     <TextBlock
                         Margin="10,0,0,0"
                         FontSize="15"
-                        Foreground="{Binding TextColor}"
+                        Foreground="#000000"
                         IsVisible="{Binding HaveJieqi}"
                         Text="{Binding Jieqi}" />
                 </StackPanel>
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontSize="15"
-                    Foreground="{Binding TextColor}"
+                    Foreground="#000000"
                     Text="{Binding Tian}" />
                 <StackPanel IsVisible="{Binding IsOpenInfo}">
                     <StackPanel Margin="10,10,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,20,0"
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{lang:Localize CalendarPluginControl.Text3}" />
                         <TextBlock
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{Binding Wuhang}" />
                     </StackPanel>
                     <StackPanel Margin="10,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,20,0"
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{lang:Localize CalendarPluginControl.Text4}" />
                         <TextBlock
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{Binding Chongsha}" />
                     </StackPanel>
                     <StackPanel Margin="10,0,0,10" Orientation="Horizontal">
@@ -88,11 +113,11 @@
                             Margin="0,0,20,0"
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{lang:Localize CalendarPluginControl.Text5}" />
                         <TextBlock
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{Binding Pengzu}" />
                     </StackPanel>
                     <DockPanel Margin="10,0,0,10">
@@ -108,13 +133,13 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Foreground="{Binding TextColor}"
+                                Foreground="#000000"
                                 Text="{lang:Localize CalendarPluginControl.Text6}" />
                         </Border>
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{Binding Yi}"
                             TextWrapping="Wrap" />
                     </DockPanel>
@@ -131,118 +156,161 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="15"
-                                Foreground="{Binding TextColor}"
+                                Foreground="#000000"
                                 Text="{lang:Localize CalendarPluginControl.Text7}" />
                         </Border>
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="15"
-                            Foreground="{Binding TextColor}"
+                            Foreground="#000000"
                             Text="{Binding Ji}"
                             TextWrapping="Wrap" />
                     </DockPanel>
                 </StackPanel>
-                <Panel Margin="0,10,0,0">
+                <Panel Margin="0,10,0,0" IsVisible="{Binding ShowButton}">
                     <Button
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Classes="over"
                         Command="{Binding OpenInfo}"
                         Content="{lang:Localize CalendarPluginControl.Text11}"
-                        Foreground="#FFFFFF" />
+                        Foreground="#000000" />
                     <Button
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Classes="over"
                         Command="{Binding OpenHistory}"
                         Content="{lang:Localize CalendarPluginControl.Text12}"
-                        Foreground="#FFFFFF" />
+                        Foreground="#000000" />
                     <Button
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
                         Classes="over"
                         Command="{Binding OpenDate}"
                         Content="{lang:Localize CalendarPluginControl.Text13}"
-                        Foreground="#FFFFFF" />
+                        Foreground="#000000" />
                 </Panel>
             </StackPanel>
         </Border>
-        <Panel>
+        <Panel
+            Width="280"
+            Margin="0,-15,0,0"
+            IsVisible="{Binding IsOpenDate}">
             <Border
-                Background="#FFFFFF"
-                CornerRadius="0,20,20,0"
-                IsVisible="{Binding IsOpenDate}">
-                <DockPanel Margin="10,20,20,20">
-                    <DockPanel Margin="10,0,0,0" DockPanel.Dock="Top">
-                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                            <Button
-                                Width="30"
-                                Height="30"
-                                HorizontalAlignment="Left"
-                                Background="#53a3ef"
-                                Classes="over"
-                                Command="{Binding LastMonth}"
-                                CornerRadius="30">
-                                <svg:SvgControl Fill="#FFFFFF" Path="/Resource/left.svg" />
-                            </Button>
-                            <Button
-                                Width="30"
-                                Height="30"
-                                Margin="10,0,0,0"
-                                HorizontalAlignment="Right"
-                                Background="#53a3ef"
-                                Classes="over"
-                                Command="{Binding NextMonth}"
-                                CornerRadius="30">
-                                <svg:SvgControl Fill="#FFFFFF" Path="/Resource/right.svg" />
-                            </Button>
-                        </StackPanel>
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            FontSize="30"
-                            Foreground="#000000"
-                            Text="{Binding NowYear}" />
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            FontSize="30"
-                            Foreground="#000000"
-                            Text="{lang:Localize CalendarPluginControl.Text8}" />
-                        <TextBlock
-                            FontSize="30"
-                            Foreground="#000000"
-                            Text="{Binding NowMouth}" />
-                        <TextBlock
-                            Margin="0,0,10,0"
-                            FontSize="30"
-                            Foreground="#000000"
-                            Text="{lang:Localize CalendarPluginControl.Text9}" />
-                    </DockPanel>
-                    <Panel ClipToBounds="True">
+                Margin="0,25,0,0"
+                Background="#fdfdfd"
+                CornerRadius="20">
+                <DockPanel Margin="20">
+                    <Panel DockPanel.Dock="Top">
+                        <Button
+                            HorizontalAlignment="Left"
+                            Classes="over"
+                            Command="{Binding LastMonth}">
+                            <svg:SvgControl
+                                Width="20"
+                                Height="20"
+                                Fill="#000000"
+                                Path="/Resource/left.svg" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Right"
+                            Classes="over"
+                            Command="{Binding NextMonth}">
+                            <svg:SvgControl
+                                Width="20"
+                                Height="20"
+                                Fill="#000000"
+                                Path="/Resource/right.svg" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Classes="over"
+                            Command="{Binding BackNow}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    FontSize="15"
+                                    Foreground="#000000"
+                                    Text="{Binding NowYear}" />
+                                <TextBlock
+                                    FontSize="15"
+                                    Foreground="#000000"
+                                    Text="{lang:Localize CalendarPluginControl.Text8}" />
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    FontSize="15"
+                                    Foreground="#000000"
+                                    Text="{Binding NowMouth}" />
+                                <TextBlock
+                                    FontSize="15"
+                                    Foreground="#000000"
+                                    Text="{lang:Localize CalendarPluginControl.Text9}" />
+                            </StackPanel>
+                        </Button>
+                    </Panel>
+                    <Panel>
                         <Decorator Name="Content1" HorizontalAlignment="Center" />
                         <Decorator Name="Content2" HorizontalAlignment="Center" />
                     </Panel>
                 </DockPanel>
             </Border>
+            <Panel>
+                <Border
+                    Width="30"
+                    Height="40"
+                    Margin="0,0,35,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#bdc3c7"
+                    CornerRadius="20" />
+                <Border
+                    Width="30"
+                    Height="40"
+                    Margin="35,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="#bdc3c7"
+                    CornerRadius="20" />
+            </Panel>
+        </Panel>
+        <Panel
+            Width="280"
+            Margin="0,-15,0,0"
+            IsVisible="{Binding IsOpenHistory}">
             <Border
-                Background="#FFFFFF"
-                CornerRadius="0,20,20,0"
-                IsVisible="{Binding IsOpenHistory}">
+                Margin="0,25,0,0"
+                Background="#fdfdfd"
+                CornerRadius="20">
                 <StackPanel Margin="20">
                     <TextBlock
-                        Margin="0,5,0,5"
                         HorizontalAlignment="Center"
-                        FontSize="20"
+                        FontSize="15"
                         Foreground="#000000"
                         Text="{lang:Localize CalendarPluginControl.Text10}" />
-                    <ScrollViewer MaxWidth="400" MaxHeight="300">
-                        <TextBlock
-                            Foreground="#000000"
-                            Text="{Binding History}"
-                            TextWrapping="Wrap" />
-                    </ScrollViewer>
+                    <TextBlock
+                        Foreground="#000000"
+                        Text="{Binding History}"
+                        TextWrapping="Wrap" />
                 </StackPanel>
             </Border>
+            <Panel>
+                <Border
+                    Width="30"
+                    Height="40"
+                    Margin="0,0,35,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#bdc3c7"
+                    CornerRadius="20" />
+                <Border
+                    Width="30"
+                    Height="40"
+                    Margin="35,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="#bdc3c7"
+                    CornerRadius="20" />
+            </Panel>
         </Panel>
-    </DockPanel>
-
+    </StackPanel>
 </UserControl>

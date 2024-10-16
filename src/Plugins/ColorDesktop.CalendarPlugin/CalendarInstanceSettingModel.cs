@@ -7,7 +7,7 @@ namespace ColorDesktop.CalendarPlugin;
 public partial class CalendarInstanceSettingModel : ObservableObject
 {
     public string[] WeekName { get; init; } = ["星期日", "星期六", "星期一"];
-    public string[] SkinName { get; init; } = ["初始皮肤", "皮肤1"];
+    public string[] SkinName { get; init; } = ["初始皮肤", "皮肤1", "皮肤2"];
 
     [ObservableProperty]
     private Color _backColor;
