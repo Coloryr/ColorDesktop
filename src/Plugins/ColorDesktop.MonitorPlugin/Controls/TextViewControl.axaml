@@ -15,6 +15,7 @@
         Background="{Binding BackColor}"
         CornerRadius="5">
         <TextBlock
+            Margin="{Binding BorderSize}"
             FontSize="{Binding FontSize}"
             Foreground="{Binding TextColor}"
             Text="{Binding Text}" />

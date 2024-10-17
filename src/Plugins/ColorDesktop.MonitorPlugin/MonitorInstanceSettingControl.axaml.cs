@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.MonitorPlugin;
@@ -18,9 +19,9 @@ public partial class MonitorInstanceSettingControl : UserControl
         DataContext = new MonitorInstanceSettingModel(obj);
     }
 
-    protected override void OnUnloaded(RoutedEventArgs e)
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
-        base.OnUnloaded(e);
+        base.OnDetachedFromLogicalTree(e);
 
         if (DataContext is MonitorInstanceSettingModel model)
         {

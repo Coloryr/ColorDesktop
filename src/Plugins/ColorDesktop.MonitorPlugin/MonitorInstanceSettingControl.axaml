@@ -32,7 +32,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="高" />
+                        Text="{lang:Localize MonitorInstanceSetting.Text3}" />
                     <NumericUpDown
                         Width="120"
                         Height="35"
@@ -42,13 +42,13 @@
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding Height}" />
-                    <CheckBox Content="自动大小" IsChecked="{Binding AutoSize}" />
+                    <CheckBox Content="{lang:Localize MonitorInstanceSetting.Text4}" IsChecked="{Binding AutoSize}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="面板类型" />
+                        Text="{lang:Localize MonitorInstanceSetting.Text5}" />
                     <ComboBox
                         Width="200"
                         ItemsSource="{Binding PanelTypeName}"
@@ -57,7 +57,7 @@
                 <TextBlock
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
-                    Text="监视项目设置" />
+                    Text="{lang:Localize MonitorInstanceSetting.Text6}" />
                 <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                     <ComboBox
                         Width="200"
@@ -85,20 +85,20 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="名字" />
+                            Text="{lang:Localize MonitorInstanceSetting.Text7}" />
                         <TextBox Width="200" Text="{Binding Name}" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="边距" />
+                            Text="{lang:Localize MonitorInstanceSetting.Text8}" />
                         <StackPanel>
                             <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
-                                    Text="左" />
+                                    Text="{lang:Localize MonitorInstanceSetting.Text9}" />
                                 <NumericUpDown
                                     Width="110"
                                     Height="35"
@@ -110,7 +110,7 @@
                                 <TextBlock
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
-                                    Text="上" />
+                                    Text="{lang:Localize MonitorInstanceSetting.Text10}" />
                                 <NumericUpDown
                                     Width="110"
                                     Height="35"
@@ -124,7 +124,7 @@
                                 <TextBlock
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
-                                    Text="右" />
+                                    Text="{lang:Localize MonitorInstanceSetting.Text11}" />
                                 <NumericUpDown
                                     Width="110"
                                     Height="35"
@@ -136,7 +136,7 @@
                                 <TextBlock
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
-                                    Text="下" />
+                                    Text="{lang:Localize MonitorInstanceSetting.Text12}" />
                                 <NumericUpDown
                                     Width="110"
                                     Height="35"
@@ -152,7 +152,7 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="显示类型" />
+                            Text="{lang:Localize MonitorInstanceSetting.Text13}" />
                         <ComboBox
                             Width="200"
                             ItemsSource="{Binding DisplayTypeName}"
@@ -162,61 +162,67 @@
                         <TextBlock
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
-                            Text="显示数据" />
+                            Text="{lang:Localize MonitorInstanceSetting.Text14}" />
                         <ComboBox
                             Width="200"
                             ItemsSource="{Binding ValueTypeName}"
                             SelectedIndex="{Binding ValueType}" />
                     </StackPanel>
-                    <TextBlock
-                        Margin="0,0,0,10"
-                        HorizontalAlignment="Center"
-                        Text="传感器数据选择" />
-                    <StackPanel Orientation="">
+                    <Panel Margin="0,0,0,5">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="{lang:Localize MonitorInstanceSetting.Text15}" />
                         <Button
                             Width="100"
                             Height="35"
+                            HorizontalAlignment="Right"
                             Classes="top"
                             Command="{Binding Refrsh}"
-                            Content="刷新" />
-                    </StackPanel>
+                            Content="{lang:Localize MonitorInstanceSetting.Text16}" />
+                    </Panel>
                     <DataGrid
+                        Width="400"
                         Height="300"
-                        MinWidth="500"
                         ItemsSource="{Binding Sensors}"
                         SelectedItem="{Binding SelectItem}">
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Binding="{Binding Name}"
-                                Header="名字"
+                                Header="{lang:Localize MonitorInstanceSetting.Text7}"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Binding="{Binding Type}"
-                                Header="类型"
+                                Header="{lang:Localize MonitorInstanceSetting.Text17}"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Binding="{Binding Value}"
-                                Header="当前值"
+                                Header="{lang:Localize MonitorInstanceSetting.Text18}"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Binding="{Binding MaxValue}"
-                                Header="最大值"
+                                Header="{lang:Localize MonitorInstanceSetting.Text19}"
                                 IsReadOnly="True" />
                             <DataGridTextColumn
                                 Binding="{Binding MinValue}"
-                                Header="最小值"
+                                Header="{lang:Localize MonitorInstanceSetting.Text20}"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Binding="{Binding SensorId}"
+                                Header="{lang:Localize MonitorInstanceSetting.Text21}"
                                 IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <DockPanel>
-            <StackPanel>
-                <TextBlock
-                    Margin="0,0,0,10"
-                    HorizontalAlignment="Center"
-                    Text="数据显示设置" />
+        <DockPanel Margin="10,0,0,0">
+            <TextBlock
+                Margin="0,0,0,10"
+                HorizontalAlignment="Center"
+                DockPanel.Dock="Top"
+                Text="{lang:Localize MonitorInstanceSetting.Text22}" />
+            <WrapPanel Width="300" DockPanel.Dock="Top">
                 <StackPanel
                     Margin="0,0,0,10"
                     IsVisible="{Binding DisplaySize}"
@@ -224,7 +230,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="长" />
+                        Text="{lang:Localize MonitorInstanceSetting.Text2}" />
                     <NumericUpDown
                         Width="110"
                         Height="35"
@@ -236,7 +242,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        Text="高" />
+                        Text="{lang:Localize MonitorInstanceSetting.Text3}" />
                     <NumericUpDown
                         Width="110"
                         Height="35"
@@ -253,8 +259,7 @@
                     <TextBlock
                         Margin="0,0,5,0"
                         VerticalAlignment="Center"
-                        IsVisible="{Binding FontSize}"
-                        Text="字体大小" />
+                        Text="{lang:Localize MonitorInstanceSetting.Text23}" />
                     <NumericUpDown
                         Width="110"
                         Height="35"
@@ -264,11 +269,53 @@
                         Minimum="1"
                         Value="{Binding FontSize}" />
                 </StackPanel>
-                <StackPanel IsVisible="{Binding DisplayFontSize}" Orientation="Horizontal">
-                    <TextBlock Margin="0,0,5,0" Text="显示格式" />
-                    <TextBox Width="200" Text="{Binding Format}" />
+                <StackPanel
+                    Margin="0,0,0,10"
+                    IsVisible="{Binding DisplayBorder}"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text27}" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        FormatString="N0"
+                        Maximum="999"
+                        Minimum="1"
+                        Value="{Binding BorderSize}" />
                 </StackPanel>
-            </StackPanel>
+                <StackPanel Margin="0,0,0,10" IsVisible="{Binding DisplayFontSize}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="{lang:Localize MonitorInstanceSetting.Text24}" />
+                        <TextBox Width="200" Text="{Binding Format}" />
+                    </StackPanel>
+                    <TextBlock
+                        Margin="0,10,0,0"
+                        Foreground="Red"
+                        IsVisible="{Binding FmtError}"
+                        Text="{lang:Localize MonitorInstanceSetting.Text28}" />
+                </StackPanel>
+                <StackPanel
+                    Margin="0,0,0,10"
+                    IsVisible="{Binding DisplayColor}"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text25}" />
+                    <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text26}" />
+                    <ColorPicker Color="{Binding FontColor}" />
+                </StackPanel>
+            </WrapPanel>
             <local:MonitorItemControl
                 Margin="20"
                 HorizontalAlignment="Center"

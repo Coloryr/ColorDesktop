@@ -39,7 +39,6 @@ public partial class BmControl : UserControl, IInstance
         if (DataContext is BmModel model)
         {
             model.Init();
-            _ = model.Load();
         }
     }
 

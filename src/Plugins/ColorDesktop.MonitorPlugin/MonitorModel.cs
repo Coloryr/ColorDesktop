@@ -14,15 +14,25 @@ public partial class MonitorModel : ObservableObject
     [ObservableProperty]
     public double _height;
 
+    [ObservableProperty]
+    private bool _init = true;
+
     public ObservableCollection<MonitorItemModel> Items { get; init; } = [];
 
     public void Tick()
     {
-
+        foreach (var item in Items)
+        {
+            item.Update();
+        }
     }
 
-    public void Update(MonitorInstanceObj obj)
+    public async void Update(MonitorInstanceObj obj)
     {
+        await MonitorPlugin.WaitInit();
+
+        Init = false;
+
         PanelType = obj.PanelType;
 
         Items.Clear();

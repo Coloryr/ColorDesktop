@@ -1,4 +1,5 @@
 ﻿using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -27,7 +28,6 @@ public partial class BmItemModel(BmObj.ItemObj item) : ObservableObject
             return Brushes.White;
 
         var hsv = new HsvColor(1, 120d * percentage.Value, 1, 1);
-
-        return new SolidColorBrush(hsv.ToRgb());
+        return new ImmutableSolidColorBrush(hsv.ToRgb());
     }
 }

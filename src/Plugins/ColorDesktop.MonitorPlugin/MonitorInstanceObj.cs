@@ -4,7 +4,7 @@ namespace ColorDesktop.MonitorPlugin;
 
 public enum MonitorDisplayType
 {
-    Text, Number
+    Text, ProgressBar1, ProgressBar2
 }
 
 public enum PanelType
@@ -34,6 +34,10 @@ public record MonitorItemObj
     /// 字体大小
     /// </summary>
     public int FontSize { get; set; }
+    /// <summary>
+    /// 边距
+    /// </summary>
+    public int BorderSize { get; set; }
     /// <summary>
     /// 格式化样式
     /// </summary>

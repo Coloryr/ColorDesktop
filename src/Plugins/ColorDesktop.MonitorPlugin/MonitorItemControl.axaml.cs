@@ -20,18 +20,23 @@ public partial class MonitorItemControl : UserControl
     {
         if (DataContext is MonitorItemModel model)
         {
-            model.PropertyChanging += Model_PropertyChanging;
-
+            model.PropertyChanged += Model_PropertyChanged;
             InitView();
+            model.Update();
         }
     }
 
-    private void Model_PropertyChanging(object? sender, PropertyChangingEventArgs e)
+    private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MonitorItemModel.Update))
         {
             var model = (DataContext as MonitorItemModel)!;
             (View1.Child?.DataContext as IUpdate)?.Update(model);
+        }
+        else if (e.PropertyName == nameof(MonitorItemModel.Reload))
+        {
+            var model = (DataContext as MonitorItemModel)!;
+            (View1.Child?.DataContext as IUpdate)?.Reload(model);
         }
     }
 

@@ -1,27 +1,30 @@
-﻿using Avalonia.Media;
+﻿using Avalonia;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.MonitorPlugin.Models;
 
 public partial class TextViewModel : ObservableObject, IUpdate
 {
-    public IBrush BackColor { get; init; }
-    public IBrush TextColor { get; init; }
-    public int FontSize { get; init; }
-    public double Width { get; init; }
-    public double Height { get; init; }
+    [ObservableProperty]
+    private IBrush _backColor;
+    [ObservableProperty]
+    private IBrush _textColor;
+    [ObservableProperty]
+    private int _fontSize;
+    [ObservableProperty]
+    private double _width;
+    [ObservableProperty]
+    private double _height;
+    [ObservableProperty]
+    private Thickness _borderSize;
 
     [ObservableProperty]
     private string _text;
 
     public TextViewModel(MonitorItemModel model)
     {
-        var item = model.Obj;
-        FontSize = item.FontSize;
-        BackColor = Brush.Parse(item.Color1);
-        TextColor = Brush.Parse(item.Color2);
-        Width = item.Width <= 0 ? double.NaN : item.Width;
-        Height = item.Height <= 0 ? double.NaN : item.Height;
+        Reload(model);
     }
 
     public void Update(MonitorItemModel model)
@@ -38,5 +41,16 @@ public partial class TextViewModel : ObservableObject, IUpdate
                 Text = model.FormatMin;
                 break;
         }
+    }
+
+    public void Reload(MonitorItemModel model)
+    {
+        var item = model.Obj;
+        FontSize = item.FontSize;
+        BackColor = Brush.Parse(item.Color1);
+        TextColor = Brush.Parse(item.Color2);
+        Width = item.Width <= 0 ? double.NaN : item.Width;
+        Height = item.Height <= 0 ? double.NaN : item.Height;
+        BorderSize = new(item.BorderSize);
     }
 }

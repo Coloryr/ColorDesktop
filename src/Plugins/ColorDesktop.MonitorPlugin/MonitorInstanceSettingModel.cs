@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Avalonia.Media;
 using Avalonia.Threading;
 using ColorDesktop.Api;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,6 +20,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     {
         public ISensor Sensor;
 
+        public string SensorId => Sensor.Identifier.ToString();
         public string Name => Sensor.Name;
         public string Type => Sensor.SensorType.ToString();
         public string Value => Sensor.Value?.ToString("0.00") ?? "N/A";
@@ -33,11 +35,26 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
     }
 
-    public string[] PanelTypeName { get; init; } = [LangApi.GetLang("MonitorPanelType.Type1"), LangApi.GetLang("MonitorPanelType.Type2"), LangApi.GetLang("MonitorPanelType.Type3")];
+    public string[] PanelTypeName { get; init; } = 
+    [
+        LangApi.GetLang("MonitorInstanceSetting.Text29"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text30"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text31")
+    ];
 
-    public string[] DisplayTypeName { get; init; } = [LangApi.GetLang("MonitorPanelType.Type1"), LangApi.GetLang("MonitorPanelType.Type2"), LangApi.GetLang("MonitorPanelType.Type3")];
+    public string[] DisplayTypeName { get; init; } = 
+    [
+        LangApi.GetLang("MonitorInstanceSetting.Text32"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text33"),
+        LangApi.GetLang("MonitorInstanceSetting.Text34")
+    ];
 
-    public string[] ValueTypeName { get; init; } = [LangApi.GetLang("MonitorPanelType.Type1"), LangApi.GetLang("MonitorPanelType.Type2"), LangApi.GetLang("MonitorPanelType.Type3")];
+    public string[] ValueTypeName { get; init; } = 
+    [
+        LangApi.GetLang("MonitorInstanceSetting.Text35"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text36"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text37")
+    ];
 
     public ObservableCollection<ItemNameModel> Items { get; init; } = [];
     public ObservableCollection<SensorDataModel> Sensors { get; init; } = [];
@@ -82,6 +99,12 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     private int _fontSize;
     [ObservableProperty]
     private string _format;
+    [ObservableProperty]
+    private Color _backColor;
+    [ObservableProperty]
+    private Color _fontColor;
+    [ObservableProperty]
+    private int _borderSize;
 
     [ObservableProperty]
     private bool _enableItem;
@@ -90,6 +113,12 @@ public partial class MonitorInstanceSettingModel : ObservableObject
     private bool _displaySize;
     [ObservableProperty]
     private bool _displayFontSize;
+    [ObservableProperty]
+    private bool _displayColor;
+    [ObservableProperty]
+    private bool _displayBorder;
+    [ObservableProperty]
+    private bool _fmtError;
 
     private bool _load;
     private bool _run = true;
@@ -129,6 +158,30 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }, TimeSpan.FromSeconds(1));
     }
 
+    partial void OnAutoSizeChanged(bool value)
+    {
+        _config.AutoSize = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnWidthChanged(int value)
+    {
+        _config.Width = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnHeightChanged(int value)
+    {
+        _config.Height = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnPanelChanged(PanelType value)
+    {
+        _config.PanelType = value;
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
     partial void OnValueTypeChanged(ValueType value)
     {
         if (_load)
@@ -137,6 +190,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.ValueType = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -193,6 +247,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         var item = _config.Items[Index];
         item.Name = value;
         Items[Index].Name = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -205,6 +260,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Display = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -216,6 +272,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Width = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -227,6 +284,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Height = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -238,6 +296,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
         var item = _config.Items[Index];
         item.Sensor = value.Sensor.Identifier.ToString();
+        Model?.SensorReset();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -247,8 +306,67 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         {
             return;
         }
+        try
+        {
+            var temp = string.Format(value, 0.0f);
+            FmtError = false;
+        }
+        catch
+        {
+            FmtError = true;
+            return;
+        }
         var item = _config.Items[Index];
         item.Format = value;
+        Model?.FormatReset();
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnBackColorChanged(Color value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.Color1 = value.ToString();
+        Model?.Reload();
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnFontColorChanged(Color value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.Color2 = value.ToString();
+        Model?.Reload();
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnFontSizeChanged(int value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.FontSize = value;
+        Model?.Reload();
+        MonitorPlugin.SaveConfig(_obj, _config);
+    }
+
+    partial void OnBorderSizeChanged(int value)
+    {
+        if (_load)
+        {
+            return;
+        }
+        var item = _config.Items[Index];
+        item.BorderSize = value;
+        Model?.Reload();
         MonitorPlugin.SaveConfig(_obj, _config);
     }
 
@@ -271,7 +389,27 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         ValueType = item.ValueType;
         ValueWidth = item.Width;
         ValueHeight = item.Height;
+        BorderSize = item.BorderSize;
+        FontSize = item.FontSize;
         Format = item.Format;
+
+        if (Color.TryParse(item.Color1, out var color))
+        {
+            BackColor = color;
+        }
+        else 
+        {
+            BackColor = Colors.Black;
+        }
+        if (Color.TryParse(item.Color2, out color))
+        {
+            FontColor = color;
+        }
+        else
+        {
+            FontColor = Colors.White;
+        }
+
         SelectItem = Sensors.FirstOrDefault(item1 => item1.Sensor.Identifier.ToString() == item.Sensor);
 
         DisplaySetting(DisplayType);
@@ -279,7 +417,10 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         _load = false;
         EnableItem = true;
 
-        Model = new(item);
+        Model = new(item)
+        { 
+            Demo = true
+        };
     }
 
     [RelayCommand]
@@ -332,6 +473,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
             case MonitorDisplayType.Text:
                 DisplaySize = true;
                 DisplayFontSize = true;
+                DisplayColor = true;
+                DisplayBorder = true;
                 break;
         }
     }
@@ -342,6 +485,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         {
             item.Update();
         }
+
+        Model?.Update();
     }
 
     public void Stop()

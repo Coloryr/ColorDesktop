@@ -20,6 +20,8 @@ public partial class BmModel : ObservableObject
 
     private List<BmObj> _bm;
 
+    private int day;
+
     partial void OnWeekChanged(DayOfWeek value)
     {
         if (_bm == null || _bm.Count == 0)
@@ -47,9 +49,9 @@ public partial class BmModel : ObservableObject
     public void Tick()
     {
         var now = DateTime.Now;
-        if (now.DayOfWeek != Week)
+        if (now.DayOfYear != day)
         {
-            Week = now.DayOfWeek;
+            day = now.DayOfYear;
             _ = Load();
         }
     }

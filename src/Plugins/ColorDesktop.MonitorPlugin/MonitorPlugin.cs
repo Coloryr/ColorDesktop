@@ -142,6 +142,17 @@ public class MonitorPlugin : IPlugin
         return list;
     }
 
+    public static Task WaitInit()
+    {
+        return Task.Run(() =>
+        {
+            while (!_run)
+            {
+                Thread.Sleep(200);
+            }
+        });
+    }
+
     public static List<ISensor> GetSensors()
     {
         var list = new List<ISensor>();

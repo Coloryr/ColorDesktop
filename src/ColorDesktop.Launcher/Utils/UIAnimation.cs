@@ -17,7 +17,7 @@ public static class UIAnimation
                 Cue = new Cue(0),
                 Setters =
                 {
-                    new Setter(Visual.OpacityProperty, 0)
+                    new Setter(Visual.OpacityProperty, 0.0d)
                 }
             },
             new KeyFrame
@@ -25,7 +25,7 @@ public static class UIAnimation
                 Cue = new Cue(1),
                 Setters =
                 {
-                    new Setter(Visual.OpacityProperty, 1)
+                    new Setter(Visual.OpacityProperty, 1.0d)
                 }
             }
         }
@@ -41,7 +41,7 @@ public static class UIAnimation
                 Cue = new Cue(0),
                 Setters =
                 {
-                    new Setter(Visual.OpacityProperty, 1)
+                    new Setter(Visual.OpacityProperty, 1.0d)
                 }
             },
             new KeyFrame
@@ -49,7 +49,7 @@ public static class UIAnimation
                 Cue = new Cue(1),
                 Setters =
                 {
-                    new Setter(Visual.OpacityProperty, 0)
+                    new Setter(Visual.OpacityProperty, 0.0d)
                 }
             }
         }
