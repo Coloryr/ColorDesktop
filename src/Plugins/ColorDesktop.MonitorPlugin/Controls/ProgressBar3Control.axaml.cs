@@ -53,14 +53,22 @@ public class CircularProgressBar : Control
 
     public override void Render(DrawingContext context)
     {
+        double dx = 0;
+        double dy = 0;
         var size = Math.Min(Bounds.Width, Bounds.Height);
+        if (Bounds.Width > Bounds.Height)
+        {
+            dx = (Bounds.Width - Bounds.Height) / 2;
+        }
+        else if (Bounds.Height > Bounds.Width)
+        {
+            dy = (Bounds.Height - Bounds.Width) / 2;
+        }
         var radius = size / 2;
-        var center = new Point(size / 2, size / 2);
+        var center = new Point(dx + size / 2, dy + size / 2);
 
-        // Draw background circle
-        context.FillRectangle(BackgroundColor, new Rect(0, 0, size, size), (float)size);
+        context.FillRectangle(BackgroundColor, new Rect(dx, dy, size, size), (float)size);
 
-        // Draw foreground arc
         var angle = 360 * (Value / 100);
         var startAngle = -90;
         var endAngle = startAngle + angle;
@@ -83,5 +91,5 @@ public class CircularProgressBar : Control
         context.DrawGeometry(ForegroundColor, new Pen(), pathGeometry);
     }
 
-    private double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
+    private static double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
 }

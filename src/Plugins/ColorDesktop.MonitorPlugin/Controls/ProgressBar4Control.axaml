@@ -17,7 +17,8 @@
                 HorizontalAlignment="Center"
                 FontSize="{Binding FontSize}"
                 Foreground="{Binding TextColor}"
-                Text="{Binding Name}" />
+                Text="{Binding Name}"
+                TextAlignment="Center" />
             <Panel>
                 <local:Circular1ProgressBar
                     Width="{Binding Width}"
@@ -30,7 +31,8 @@
                     VerticalAlignment="Center"
                     FontSize="{Binding FontSize}"
                     Foreground="{Binding TextColor}"
-                    Text="{Binding Text}" />
+                    Text="{Binding Text}"
+                    TextAlignment="Center" />
             </Panel>
         </StackPanel>
     </Border>

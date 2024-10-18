@@ -54,26 +54,33 @@ public class Circular1ProgressBar : Control
 
     public override void Render(DrawingContext context)
     {
-        base.Render(context);
+        double dx = 0;
+        double dy = 0;
+        if (Bounds.Width > Bounds.Height)
+        {
+            dx = (Bounds.Width - Bounds.Height) / 2;
+        }
+        else if (Bounds.Height > Bounds.Width)
+        {
+            dy = (Bounds.Height - Bounds.Width) / 2;
+        }
 
         // 定义圆环的参数
-        double centerX = Bounds.Width / 2;
-        double centerY = Bounds.Height / 2;
-        double radius = Math.Min(Bounds.Width, Bounds.Height) / 2 - 5;
+        double centerX = dx + Bounds.Width / 2;
+        double centerY = dy + Bounds.Height / 2;
+        double size = Math.Min(Bounds.Width, Bounds.Height);
+        double radius = size / 2 - size / 10;
 
         var pen = new Pen(ForegroundColor, 5);
         var pen1 = new Pen(BackgroundColor, 10);
 
         context.DrawGeometry(null, pen1, Convert(centerX, centerY, 100, radius));
-
         context.DrawGeometry(null, pen, Convert(centerX, centerY, Value, radius));
     }
 
-    private double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
-
-    public Geometry Convert(double centerX, double centerY, double value, double radius)
+    public static Geometry Convert(double centerX, double centerY, double value, double radius)
     {
-        double PIch2 = 2 * Math.PI;
+        double PIch2 = Math.Tau;
 
         double angle = (double)value / 100 * PIch2;
 
