@@ -10,5 +10,11 @@
     "BmPluginControl.Text8": "没有数据",
     "BmInstanceSettingControl.Text1": "样式",
     "BmInstanceSettingControl.Text2": "皮肤1",
-    "BmInstanceSettingControl.Text3": "皮肤2"
+    "BmInstanceSettingControl.Text3": "皮肤2",
+    "BmInstanceSettingControl.Text4": "宽度",
+    "BmInstanceSettingControl.Text5": "高度",
+    "BmInstanceSettingControl.Text6": "背景色",
+    "BmInstanceSettingControl.Text7": "前景色",
+    "BmInstanceSettingControl.Text8": "皮肤3",
+    "BmInstanceSettingControl.Text9": "总体宽度"
 }

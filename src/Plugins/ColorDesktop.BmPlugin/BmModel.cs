@@ -34,26 +34,14 @@ public partial class BmModel : ObservableObject
         var data = _bm[((int)value + 6) % 7].Items;
         foreach (var item in data)
         {
-            BmItems.Add(new(item));
+            BmItems.Add(CreateModel(item));
         }
         IsEmpty = false;
     }
 
-    public void Init()
+    protected virtual BmItemModel CreateModel(BmObj.ItemObj item)
     {
-        var date = DateTime.Now;
-
-        Week = date.DayOfWeek;
-    }
-
-    public void Tick()
-    {
-        var now = DateTime.Now;
-        if (now.DayOfYear != day)
-        {
-            day = now.DayOfYear;
-            _ = Load();
-        }
+        return new(item);
     }
 
     [RelayCommand]
@@ -78,5 +66,27 @@ public partial class BmModel : ObservableObject
 
         }
         IsUpdate = false;
+    }
+
+    public void Init()
+    {
+        var date = DateTime.Now;
+
+        Week = date.DayOfWeek;
+    }
+
+    public void Tick()
+    {
+        var now = DateTime.Now;
+        if (now.DayOfYear != day)
+        {
+            day = now.DayOfYear;
+            _ = Load();
+        }
+    }
+
+    public virtual void Update(BmInstanceObj config)
+    { 
+        
     }
 }

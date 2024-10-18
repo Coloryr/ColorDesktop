@@ -13,7 +13,9 @@ public class BmPlugin : IPlugin
     {
         return InstanceUtils.GetConfig(obj, new BmInstanceObj()
         {
-            Skin = SkinType.Skin1
+            Skin = SkinType.Skin1,
+            Width = 280,
+            Height = 0
         }, ConfigName);
     }
 

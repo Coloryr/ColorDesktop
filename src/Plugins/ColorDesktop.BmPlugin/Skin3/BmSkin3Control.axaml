@@ -1,16 +1,16 @@
 <UserControl
-    x:Class="ColorDesktop.BmPlugin.Skin2.BmSkin2Control"
+    x:Class="ColorDesktop.BmPlugin.Skin3.BmSkin3Control"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cov="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
-    xmlns:local="clr-namespace:ColorDesktop.BmPlugin.Skin2"
+    xmlns:local="clr-namespace:ColorDesktop.BmPlugin.Skin3"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
     xmlns:sys="using:System"
-    xmlns:vm="clr-namespace:ColorDesktop.BmPlugin.Skin2"
-    x:DataType="vm:Bm2Model"
+    xmlns:vm="clr-namespace:ColorDesktop.BmPlugin.Skin3"
+    x:DataType="vm:Bm3Model"
     mc:Ignorable="d">
     <UserControl.Resources>
         <cov:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
@@ -18,7 +18,7 @@
     <StackPanel>
         <Border
             Margin="0,0,0,5"
-            Background="#408af3"
+            Background="#ff6cab"
             CornerRadius="20">
             <Border.Styles>
                 <Style Selector="TextBlock">
@@ -133,11 +133,16 @@
                 </Button>
             </UniformGrid>
         </Border>
-        <ScrollViewer Width="{Binding Width}" Height="{Binding Height}">
+        <ScrollViewer Width="{Binding Width1}" Height="{Binding Height}">
             <ItemsControl IsVisible="{Binding !IsEmpty}" ItemsSource="{Binding BmItems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:BmItemControl Margin="0,0,0,2" DataContext="{Binding}" />
+                        <local:BmItemControl Margin="2" DataContext="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

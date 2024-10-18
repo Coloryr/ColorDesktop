@@ -1,0 +1,44 @@
+<UserControl
+    x:Class="ColorDesktop.BmPlugin.Skin3.BmItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ColorDesktop.BmPlugin.Skin3;assembly=ColorDesktop.BmPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:Bm3ItemModel"
+    ToolTip.Tip="{Binding Text}"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="ToolTip">
+            <Setter Property="Foreground" Value="#000000" />
+        </Style>
+    </UserControl.Styles>
+    <DockPanel>
+        <Border
+            Name="Border1"
+            Background="{Binding BackColor}"
+            Classes="over"
+            CornerRadius="5">
+            <StackPanel Margin="5">
+                <Image
+                    Width="{Binding Width}"
+                    Source="{Binding Image^}"
+                    Stretch="UniformToFill" />
+                <DockPanel Width="{Binding Width}">
+                    <TextBlock
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Foreground="{Binding RatingColor}"
+                        Text="{Binding Rating}"
+                        TextAlignment="Center" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="{Binding TextColor}"
+                        Text="{Binding Text}"
+                        TextTrimming="CharacterEllipsis" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </DockPanel>
+</UserControl>

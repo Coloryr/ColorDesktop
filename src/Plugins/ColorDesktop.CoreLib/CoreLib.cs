@@ -41,6 +41,8 @@ public class CoreLib : IPlugin
     {
         Local = local;
         InstanceLocal = local1;
+
+        TempManager.Init(local);
     }
 
     public void LoadLang(LanguageType type)

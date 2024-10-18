@@ -20,3 +20,4 @@ build ColorDesktop.PGLauncherPlugin PGLauncherPlugin
 build ColorDesktop.PGLauncherPlugin.ColorMC PGColorMCPlugin
 build ColorDesktop.OneWordPlugin OneWordPlugin
 build ColorDesktop.BmPlugin BmPlugin
+build ColorDesktop.MonitorPlugin MonitorPlugin

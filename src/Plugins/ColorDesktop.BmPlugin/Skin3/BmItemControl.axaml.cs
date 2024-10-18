@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 
-namespace ColorDesktop.BmPlugin.Skin2;
+namespace ColorDesktop.BmPlugin.Skin3;
 
 public partial class BmItemControl : UserControl
 {
@@ -17,7 +17,7 @@ public partial class BmItemControl : UserControl
 
     private void Border1_PointerExited(object? sender, PointerEventArgs e)
     {
-        if (DataContext is Bm2ItemModel model)
+        if (DataContext is Bm3ItemModel model)
         {
             model.SetOver(false);
         }
@@ -25,7 +25,7 @@ public partial class BmItemControl : UserControl
 
     private void Border1_PointerEntered(object? sender, PointerEventArgs e)
     {
-        if (DataContext is Bm2ItemModel model)
+        if (DataContext is Bm3ItemModel model)
         {
             model.SetOver(true);
         }

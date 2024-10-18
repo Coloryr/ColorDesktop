@@ -8,14 +8,74 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:BmInstanceSettingModel"
     mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
-        <TextBlock
-            Margin="0,0,5,0"
-            VerticalAlignment="Center"
-            Text="{lang:Localize BmInstanceSettingControl.Text1}" />
-        <ComboBox
-            Width="200"
-            ItemsSource="{Binding SkinName}"
-            SelectedIndex="{Binding Skin}" />
+    <StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text1}" />
+            <ComboBox
+                Width="200"
+                ItemsSource="{Binding SkinName}"
+                SelectedIndex="{Binding Skin}" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsVisible="{Binding DisplaySkin2}"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text4}" />
+            <NumericUpDown
+                Width="120"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="0"
+                Value="{Binding Width}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text5}" />
+            <NumericUpDown
+                Width="120"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="0"
+                Value="{Binding Height}" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsVisible="{Binding DisplaySkin3}"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text9}" />
+            <NumericUpDown
+                Width="120"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Width1}" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsVisible="{Binding DisplaySkin2}"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text6}" />
+            <ColorPicker Margin="0,0,10,0" Color="{Binding Color1}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize BmInstanceSettingControl.Text7}" />
+            <ColorPicker Margin="0,0,10,0" Color="{Binding Color2}" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

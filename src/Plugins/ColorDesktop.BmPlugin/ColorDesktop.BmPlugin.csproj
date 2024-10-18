@@ -38,6 +38,9 @@
 	  <Compile Update="Skin2\BmItemControl.axaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Skin3\BmItemControl.axaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
