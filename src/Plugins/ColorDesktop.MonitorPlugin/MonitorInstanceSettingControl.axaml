@@ -216,13 +216,13 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <DockPanel Margin="10,0,0,0">
+        <DockPanel MaxWidth="400" Margin="10,0,0,0">
             <TextBlock
                 Margin="0,0,0,10"
                 HorizontalAlignment="Center"
                 DockPanel.Dock="Top"
                 Text="{lang:Localize MonitorInstanceSetting.Text22}" />
-            <WrapPanel Width="300" DockPanel.Dock="Top">
+            <WrapPanel DockPanel.Dock="Top">
                 <StackPanel
                     Margin="0,0,0,10"
                     IsVisible="{Binding DisplaySize}"
@@ -251,6 +251,29 @@
                         Maximum="999"
                         Minimum="1"
                         Value="{Binding ValueHeight}" />
+                </StackPanel>
+                <StackPanel
+                    Margin="0,0,0,10"
+                    IsVisible="{Binding DisplayMaxMin}"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text41}" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        Value="{Binding Max}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text42}" />
+                    <NumericUpDown
+                        Width="110"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        Value="{Binding Min}" />
                 </StackPanel>
                 <StackPanel
                     Margin="0,0,0,10"
@@ -286,7 +309,7 @@
                         Minimum="1"
                         Value="{Binding BorderSize}" />
                 </StackPanel>
-                <StackPanel Margin="0,0,0,10" IsVisible="{Binding DisplayFontSize}">
+                <StackPanel Margin="0,0,0,10" IsVisible="{Binding DisplayFmt}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock
                             Margin="0,0,5,0"
@@ -315,12 +338,28 @@
                         Text="{lang:Localize MonitorInstanceSetting.Text26}" />
                     <ColorPicker Color="{Binding FontColor}" />
                 </StackPanel>
+                <StackPanel
+                    Margin="0,0,0,10"
+                    IsVisible="{Binding DisplayBarColor}"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text38}" />
+                    <ColorPicker Margin="0,0,10,0" Color="{Binding BarColor}" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="{lang:Localize MonitorInstanceSetting.Text39}" />
+                    <ColorPicker Color="{Binding BarBackColor}" />
+                </StackPanel>
             </WrapPanel>
-            <local:MonitorItemControl
-                Margin="20"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                DataContext="{Binding Model}" />
+            <ScrollViewer Margin="5">
+                <local:MonitorItemControl
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    DataContext="{Binding Model}" />
+            </ScrollViewer>
         </DockPanel>
     </StackPanel>
 </UserControl>

@@ -4,7 +4,7 @@ namespace ColorDesktop.MonitorPlugin;
 
 public enum MonitorDisplayType
 {
-    Text, ProgressBar1, ProgressBar2
+    Text, ProgressBar1, ProgressBar2, ProgressBar3, ProgressBar4
 }
 
 public enum PanelType
@@ -58,6 +58,14 @@ public record MonitorItemObj
     /// 字体颜色
     /// </summary>
     public string Color2 { get; set; }
+    /// <summary>
+    /// 进度条颜色
+    /// </summary>
+    public string Color3 { get; set; }
+    /// <summary>
+    /// 进度条背景色
+    /// </summary>
+    public string Color4 { get; set; }
 }
 
 public record MonitorInstanceObj

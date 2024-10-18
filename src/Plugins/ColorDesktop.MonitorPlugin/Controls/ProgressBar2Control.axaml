@@ -1,9 +1,8 @@
 <UserControl
-    x:Class="ColorDesktop.MonitorPlugin.Controls.ProgressBar1Control"
+    x:Class="ColorDesktop.MonitorPlugin.Controls.ProgressBar2Control"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:ColorDesktop.MonitorPlugin.Models"
     d:DesignHeight="450"
@@ -12,20 +11,28 @@
     mc:Ignorable="d">
     <Border Background="{Binding BackColor}" CornerRadius="5">
         <StackPanel Margin="{Binding BorderSize}">
+            <Panel Margin="0,0,0,5">
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    FontSize="{Binding FontSize}"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding Name}" />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    FontSize="{Binding FontSize}"
+                    Foreground="{Binding TextColor}"
+                    Text="{Binding Value, StringFormat={}{0:0.00} %}" />
+            </Panel>
             <ProgressBar
                 Height="{Binding Height}"
                 MinWidth="{Binding Width}"
                 MaxWidth="{Binding Width}"
                 Background="{Binding BackColor1}"
+                CornerRadius="20"
                 Foreground="{Binding BarColor}"
                 Maximum="{Binding Max}"
                 Minimum="{Binding Min}"
                 Value="{Binding Value}" />
-            <TextBlock
-                HorizontalAlignment="Center"
-                FontSize="{Binding FontSize}"
-                Foreground="{Binding TextColor}"
-                Text="{Binding Name}" />
         </StackPanel>
     </Border>
 </UserControl>

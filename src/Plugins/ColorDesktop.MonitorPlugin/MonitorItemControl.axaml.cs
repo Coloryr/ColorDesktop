@@ -9,6 +9,8 @@ namespace ColorDesktop.MonitorPlugin;
 
 public partial class MonitorItemControl : UserControl
 {
+    private MonitorItemModel _model;
+
     public MonitorItemControl()
     {
         InitializeComponent();
@@ -20,9 +22,18 @@ public partial class MonitorItemControl : UserControl
     {
         if (DataContext is MonitorItemModel model)
         {
+            _model = model;
             model.PropertyChanged += Model_PropertyChanged;
             InitView();
             model.Update();
+        }
+        else
+        {
+            if (_model != null)
+            {
+                _model.PropertyChanged -= Model_PropertyChanged;
+                _model = null;
+            }
         }
     }
 
@@ -49,6 +60,38 @@ public partial class MonitorItemControl : UserControl
             View1.Child = new TextViewControl()
             {
                 DataContext = new TextViewModel(model)
+            };
+        }
+        else if (model.MonitorDisplay == MonitorDisplayType.ProgressBar1
+            && View1.Child is not ProgressBar1Control)
+        {
+            View1.Child = new ProgressBar1Control()
+            {
+                DataContext = new ProgressBarModel(model)
+            };
+        }
+        else if (model.MonitorDisplay == MonitorDisplayType.ProgressBar2
+            && View1.Child is not ProgressBar2Control)
+        {
+            View1.Child = new ProgressBar2Control()
+            {
+                DataContext = new ProgressBarModel(model)
+            };
+        }
+        else if (model.MonitorDisplay == MonitorDisplayType.ProgressBar3
+            && View1.Child is not ProgressBar3Control)
+        {
+            View1.Child = new ProgressBar3Control()
+            {
+                DataContext = new ProgressBar3Model(model)
+            };
+        }
+        else if (model.MonitorDisplay == MonitorDisplayType.ProgressBar4
+            && View1.Child is not ProgressBar4Control)
+        {
+            View1.Child = new ProgressBar4Control()
+            {
+                DataContext = new ProgressBar3Model(model)
             };
         }
     }

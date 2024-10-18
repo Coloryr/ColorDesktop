@@ -68,6 +68,7 @@ public class MonitorPlugin : IPlugin
             Height = 0,
             Color1 = "#000000",
             Color2 = "#FFFFFF",
+            Color3 = "#FFFFFF",
             FontSize = 30,
             Format = "{0}",
             Min = 0,

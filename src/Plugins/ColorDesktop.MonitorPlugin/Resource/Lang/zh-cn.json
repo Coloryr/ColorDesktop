@@ -30,8 +30,8 @@
     "MonitorInstanceSetting.Text22": "数据显示设置",
     "MonitorInstanceSetting.Text23": "字体大小",
     "MonitorInstanceSetting.Text24": "显示格式",
-    "MonitorInstanceSetting.Text25": "背景色",
-    "MonitorInstanceSetting.Text26": "前景色",
+    "MonitorInstanceSetting.Text25": "背景色1",
+    "MonitorInstanceSetting.Text26": "前景色1",
     "MonitorInstanceSetting.Text27": "边距",
     "MonitorInstanceSetting.Text28": "格式化错误，请检查格式",
     "MonitorInstanceSetting.Text29": "堆叠面板",
@@ -42,5 +42,11 @@
     "MonitorInstanceSetting.Text34": "进度条2",
     "MonitorInstanceSetting.Text35": "当前值",
     "MonitorInstanceSetting.Text36": "最大值",
-    "MonitorInstanceSetting.Text37": "最小值"
+    "MonitorInstanceSetting.Text37": "最小值",
+    "MonitorInstanceSetting.Text38": "前景色2",
+    "MonitorInstanceSetting.Text39": "背景色2",
+    "MonitorInstanceSetting.Text40": "圆形表盘1",
+    "MonitorInstanceSetting.Text41": "最大值",
+    "MonitorInstanceSetting.Text42": "最小值",
+    "MonitorInstanceSetting.Text43": "圆形表盘2",
 }

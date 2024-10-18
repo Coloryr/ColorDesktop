@@ -14,27 +14,6 @@ public partial class MonitorItemModel : ObservableObject
     private float _maxValue = float.NaN;
 
     [ObservableProperty]
-    private float _percent = float.NaN;
-    [ObservableProperty]
-    private float _percentMin = float.NaN;
-    [ObservableProperty]
-    private float _percentMax = float.NaN;
-
-    [ObservableProperty]
-    private bool _haveValue;
-    [ObservableProperty]
-    private bool _haveMin;
-    [ObservableProperty]
-    private bool _haveMax;
-
-    [ObservableProperty]
-    private string _name;
-    [ObservableProperty]
-    private float _min;
-    [ObservableProperty]
-    private float _max;
-
-    [ObservableProperty]
     private string _format;
     [ObservableProperty]
     private string _formatMin;
@@ -74,9 +53,6 @@ public partial class MonitorItemModel : ObservableObject
         }
         MonitorDisplay = item.Display;
         ValueType = item.ValueType;
-        Name = Obj.Name;
-        Min = Obj.Min;
-        Max = Obj.Max;
 
         _fmt = item.Format;
 
@@ -103,7 +79,6 @@ public partial class MonitorItemModel : ObservableObject
             if (Value != temp)
             {
                 Value = temp;
-                Percent = (temp - Min) / Max * 100;
                 Format = string.Format(_fmt, temp);
             }
 
@@ -118,7 +93,6 @@ public partial class MonitorItemModel : ObservableObject
             if (MinValue != temp)
             {
                 MinValue = temp;
-                PercentMin = (temp - Min) / Max * 100;
                 FormatMin = string.Format(_fmt, temp);
             }
 
@@ -133,7 +107,6 @@ public partial class MonitorItemModel : ObservableObject
             if (MaxValue != temp)
             {
                 MaxValue = temp;
-                PercentMax = (temp - Min) / Max * 100;
                 FormatMax = string.Format(_fmt, temp);
             }
         }
@@ -148,9 +121,6 @@ public partial class MonitorItemModel : ObservableObject
     {
         MonitorDisplay = Obj.Display;
         ValueType = Obj.ValueType;
-        Name = Obj.Name;
-        Min = Obj.Min;
-        Max = Obj.Max;
 
         OnPropertyChanged(nameof(Reload));
     }
