@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 
@@ -8,6 +9,9 @@ namespace ColorDesktop.BmPlugin;
 public class BmPlugin : IPlugin
 {
     public const string ConfigName = "bm.json";
+
+    public static Bitmap Icon { get; private set; }
+    public static Bitmap Icon1 { get; private set; }
 
     public static BmInstanceObj GetConfig(InstanceDataObj obj)
     {
@@ -60,7 +64,15 @@ public class BmPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-
+        var assm = Assembly.GetExecutingAssembly();
+        {
+            using var item = assm.GetManifestResourceStream("ColorDesktop.BmPlugin.Resource.image1.png")!;
+            Icon = new Bitmap(item);
+        }
+        {
+            using var item = assm.GetManifestResourceStream("ColorDesktop.BmPlugin.Resource.image2.png")!;
+            Icon1 = new Bitmap(item);
+        }
     }
 
     public void LoadLang(LanguageType type)

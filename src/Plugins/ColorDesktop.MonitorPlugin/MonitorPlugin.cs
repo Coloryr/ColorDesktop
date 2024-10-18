@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Security.Principal;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 using LibreHardwareMonitor.Hardware;
@@ -206,7 +207,9 @@ public class MonitorPlugin : IPlugin
 
     public Stream? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.MonitorPlugin.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1)

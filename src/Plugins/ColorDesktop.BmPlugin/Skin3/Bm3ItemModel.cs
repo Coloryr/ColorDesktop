@@ -34,27 +34,35 @@ public partial class Bm3ItemModel : BmItemModel
     {
         Update(backcolor, textcolor, width, height);
 
-        if (width < 78)
+        if (item.Images != null)
         {
-            _url = item.Images.Small ?? item.Images.Grid;
-        }
-        else if (width < 100)
-        {
-            _url = item.Images.Medium ?? item.Images.Grid;
-        }
-        else if (width < 150)
-        {
-            _url = item.Images.Common ?? item.Images.Grid;
-        }
-        else
-        {
-            _url = item.Images.Large ?? item.Images.Grid;
+            if (width < 78)
+            {
+                _url = item.Images.Small ?? item.Images.Grid;
+            }
+            else if (width < 100)
+            {
+                _url = item.Images.Medium ?? item.Images.Grid;
+            }
+            else if (width < 150)
+            {
+                _url = item.Images.Common ?? item.Images.Grid;
+            }
+            else
+            {
+                _url = item.Images.Large ?? item.Images.Grid;
+            }
         }
     }
 
     private async Task<Bitmap?> GetImage()
     {
-        return await TempManager.LoadImage(_url);
+        if (_url == null)
+        {
+            return BmPlugin.Icon;
+        }
+        var image = await TempManager.LoadImage(_url);
+        return image ?? BmPlugin.Icon1;
     }
 
     public void Update(IBrush backcolor, IBrush textcolor, double width, double height)

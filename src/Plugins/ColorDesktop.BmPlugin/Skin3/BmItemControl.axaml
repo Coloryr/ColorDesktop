@@ -26,17 +26,20 @@
                     Stretch="UniformToFill" />
                 <DockPanel Width="{Binding Width}">
                     <TextBlock
-                        Width="30"
                         VerticalAlignment="Center"
+                        DockPanel.Dock="Top"
                         Foreground="{Binding RatingColor}"
                         Text="{Binding Rating}"
                         TextAlignment="Center" />
                     <TextBlock
-                        Margin="5,0,0,0"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Foreground="{Binding TextColor}"
+                        MaxLines="2"
                         Text="{Binding Text}"
-                        TextTrimming="CharacterEllipsis" />
+                        TextAlignment="Center"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
                 </DockPanel>
             </StackPanel>
         </Border>

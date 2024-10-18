@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="icon.png" />
 	  <None Remove="Resource\Lang\en-us.json" />
 	  <None Remove="Resource\Lang\zh-cn.json" />
 	  <None Remove="Resource\svg1.svg" />
@@ -21,6 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="icon.png" />
 	  <EmbeddedResource Include="Resource\Lang\en-us.json" />
 	  <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
 	</ItemGroup>
