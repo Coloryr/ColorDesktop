@@ -30,15 +30,14 @@ public partial class ProgressBar3Model : ObservableObject, IUpdate
     [ObservableProperty]
     private Thickness _borderSize;
 
-    [ObservableProperty]
     private double _min;
-    [ObservableProperty]
     private double _max;
-    [ObservableProperty]
-    private double _value;
 
     [ObservableProperty]
     private string _name;
+
+    [ObservableProperty]
+    private string _text;
 
     [ObservableProperty]
     private double _progress;
@@ -60,8 +59,8 @@ public partial class ProgressBar3Model : ObservableObject, IUpdate
         Height = item.Height <= 0 ? double.NaN : item.Height;
         BorderSize = new(item.BorderSize);
 
-        Min = item.Min;
-        Max = item.Max;
+        _min = item.Min;
+        _max = item.Max;
         Name = item.Name;
     }
 
@@ -70,16 +69,16 @@ public partial class ProgressBar3Model : ObservableObject, IUpdate
         switch (model.ValueType)
         {
             case ValueType.Now:
-                Value = model.Value;
-                Progress = (model.Value - Min) / (Max - Min) * 100;
+                Progress = (model.Value - _min) / (_max - _min) * 100;
+                Text = model.Format;
                 break;
             case ValueType.Max:
-                Value = model.MaxValue;
-                Progress = (model.MaxValue - Min) / (Max - Min) * 100;
+                Progress = (model.MaxValue - _min) / (_max - _min) * 100;
+                Text = model.FormatMax;
                 break;
             case ValueType.Min:
-                Value = model.MinValue;
-                Progress = (model.MinValue - Min) / (Max - Min) * 100;
+                Progress = (model.MinValue - _min) / (_max - _min) * 100;
+                Text = model.FormatMin;
                 break;
         }
     }

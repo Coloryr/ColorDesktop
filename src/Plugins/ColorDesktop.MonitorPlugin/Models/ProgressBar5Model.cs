@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.MonitorPlugin.Models;
 
-public partial class ProgressBarModel : ObservableObject, IUpdate
+public partial class ProgressBar5Model : ObservableObject, IUpdate
 {
     [ObservableProperty]
     private IBrush _backColor;
@@ -28,12 +30,8 @@ public partial class ProgressBarModel : ObservableObject, IUpdate
     [ObservableProperty]
     private Thickness _borderSize;
 
-    [ObservableProperty]
     private double _min;
-    [ObservableProperty]
     private double _max;
-    [ObservableProperty]
-    private double _value;
 
     [ObservableProperty]
     private string _name;
@@ -41,7 +39,10 @@ public partial class ProgressBarModel : ObservableObject, IUpdate
     [ObservableProperty]
     private string _text;
 
-    public ProgressBarModel(MonitorItemModel model)
+    [ObservableProperty]
+    private RotateTransform _pointer1 = new();
+
+    public ProgressBar5Model(MonitorItemModel model)
     {
         Reload(model);
     }
@@ -58,8 +59,8 @@ public partial class ProgressBarModel : ObservableObject, IUpdate
         Height = item.Height <= 0 ? double.NaN : item.Height;
         BorderSize = new(item.BorderSize);
 
-        Min = item.Min;
-        Max = item.Max;
+        _min = item.Min;
+        _max = item.Max;
         Name = item.Name;
     }
 
@@ -68,15 +69,27 @@ public partial class ProgressBarModel : ObservableObject, IUpdate
         switch (model.ValueType)
         {
             case ValueType.Now:
-                Value = model.Value;
+                var angle = (model.Value - _min) / (_max - _min) * 270;
+                if (Pointer1.Angle != angle)
+                {
+                    Pointer1.Angle = angle;
+                }
                 Text = model.Format;
                 break;
             case ValueType.Max:
-                Value = model.MaxValue;
+                angle = (model.MaxValue - _min) / (_max - _min) * 270;
+                if (Pointer1.Angle != angle)
+                {
+                    Pointer1.Angle = angle;
+                }
                 Text = model.FormatMax;
                 break;
             case ValueType.Min:
-                Value = model.MinValue;
+                angle = (model.MinValue - _min) / (_max - _min) * 270;
+                if (Pointer1.Angle != angle)
+                {
+                    Pointer1.Angle = angle;
+                }
                 Text = model.FormatMin;
                 break;
         }

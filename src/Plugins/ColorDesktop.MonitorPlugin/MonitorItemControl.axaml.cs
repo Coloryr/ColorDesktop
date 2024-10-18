@@ -94,5 +94,13 @@ public partial class MonitorItemControl : UserControl
                 DataContext = new ProgressBar3Model(model)
             };
         }
+        else if (model.MonitorDisplay == MonitorDisplayType.ProgressBar5
+            && View1.Child is not ProgressBar5Control)
+        {
+            View1.Child = new ProgressBar5Control()
+            {
+                DataContext = new ProgressBar5Model(model)
+            };
+        }
     }
 }

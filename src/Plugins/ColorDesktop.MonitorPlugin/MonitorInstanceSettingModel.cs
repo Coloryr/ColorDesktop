@@ -48,7 +48,8 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         LangApi.GetLang("MonitorInstanceSetting.Text33"),
         LangApi.GetLang("MonitorInstanceSetting.Text34"),
         LangApi.GetLang("MonitorInstanceSetting.Text40"),
-        LangApi.GetLang("MonitorInstanceSetting.Text43")
+        LangApi.GetLang("MonitorInstanceSetting.Text43"),
+        LangApi.GetLang("MonitorInstanceSetting.Text44")
     ];
 
     public string[] ValueTypeName { get; init; } = 
@@ -566,9 +567,10 @@ public partial class MonitorInstanceSettingModel : ObservableObject
             case MonitorDisplayType.ProgressBar2:
             case MonitorDisplayType.ProgressBar3:
             case MonitorDisplayType.ProgressBar4:
+            case MonitorDisplayType.ProgressBar5:
                 DisplaySize = true;
                 DisplayFontSize = true;
-                DisplayFmt = false;
+                DisplayFmt = true;
                 DisplayColor = true;
                 DisplayBorder = true;
                 DisplayBarColor = true;

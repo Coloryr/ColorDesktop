@@ -21,7 +21,7 @@
                     HorizontalAlignment="Right"
                     FontSize="{Binding FontSize}"
                     Foreground="{Binding TextColor}"
-                    Text="{Binding Value, StringFormat={}{0:0.00} %}" />
+                    Text="{Binding Text}" />
             </Panel>
             <ProgressBar
                 Height="{Binding Height}"

@@ -6,19 +6,13 @@ namespace ColorDesktop.MonitorPlugin;
 
 public partial class MonitorItemModel : ObservableObject
 {
-    [ObservableProperty]
-    private float _value = float.NaN;
-    [ObservableProperty]
-    private float _minValue = float.NaN;
-    [ObservableProperty]
-    private float _maxValue = float.NaN;
+    public float Value = float.NaN;
+    public float MinValue = float.NaN;
+    public float MaxValue = float.NaN;
 
-    [ObservableProperty]
-    private string _format;
-    [ObservableProperty]
-    private string _formatMin;
-    [ObservableProperty]
-    private string _formatMax;
+    public string Format;
+    public string FormatMin;
+    public string FormatMax;
 
     [ObservableProperty]
     private Thickness _margin;

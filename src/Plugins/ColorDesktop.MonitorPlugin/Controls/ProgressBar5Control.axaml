@@ -1,37 +1,42 @@
 <UserControl
-    x:Class="ColorDesktop.MonitorPlugin.Controls.ProgressBar4Control"
+    x:Class="ColorDesktop.MonitorPlugin.Controls.ProgressBar5Control"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ColorDesktop.MonitorPlugin.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
     xmlns:vm="clr-namespace:ColorDesktop.MonitorPlugin.Models"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    x:DataType="vm:ProgressBar3Model"
+    x:DataType="vm:ProgressBar5Model"
     mc:Ignorable="d">
     <Border Background="{Binding BackColor}" CornerRadius="5">
         <StackPanel Margin="{Binding BorderSize}">
             <TextBlock
-                Margin="0,0,0,5"
                 HorizontalAlignment="Center"
                 FontSize="{Binding FontSize}"
                 Foreground="{Binding TextColor}"
                 Text="{Binding Name}" />
-            <Panel>
-                <local:Circular1ProgressBar
+            <Panel Margin="0,0,0,-10">
+                <svg:SvgControl
                     Width="{Binding Width}"
                     Height="{Binding Height}"
-                    BackgroundColor="{Binding BackColor1}"
-                    ForegroundColor="{Binding BarColor}"
-                    Value="{Binding Progress}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="{Binding FontSize}"
-                    Foreground="{Binding TextColor}"
-                    Text="{Binding Text}" />
+                    Path="/Resource/svg1.svg"
+                    Stroke="{Binding BackColor1}" />
+                <svg:SvgControl
+                    Width="{Binding Width}"
+                    Height="{Binding Height}"
+                    Fill="{Binding BarColor}"
+                    Path="/Resource/svg1_1.svg"
+                    RenderTransform="{Binding Pointer1}"
+                    Stroke="{Binding BarColor}" />
             </Panel>
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="{Binding FontSize}"
+                Foreground="{Binding TextColor}"
+                Text="{Binding Text}" />
         </StackPanel>
     </Border>
 </UserControl>

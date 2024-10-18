@@ -11,6 +11,13 @@
 	<ItemGroup>
 	  <None Remove="Resource\Lang\en-us.json" />
 	  <None Remove="Resource\Lang\zh-cn.json" />
+	  <None Remove="Resource\svg1.svg" />
+	  <None Remove="Resource\svg1_1.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="Resource\svg1.svg" />
+	  <AvaloniaResource Include="Resource\svg1_1.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -90,7 +97,7 @@
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<None Update="plugin.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -4,7 +4,7 @@ namespace ColorDesktop.MonitorPlugin;
 
 public enum MonitorDisplayType
 {
-    Text, ProgressBar1, ProgressBar2, ProgressBar3, ProgressBar4
+    Text, ProgressBar1, ProgressBar2, ProgressBar3, ProgressBar4, ProgressBar5
 }
 
 public enum PanelType

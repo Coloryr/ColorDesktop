@@ -3,11 +3,24 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.MonitorPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="local:MonitorItemModel"
     mc:Ignorable="d">
-    <Decorator Name="View1" Margin="{Binding Margin}" />
+    <Panel>
+        <Decorator
+            Name="View1"
+            Margin="{Binding Margin}"
+            IsVisible="{Binding HaveSensor}" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="Black"
+            Foreground="White"
+            IsVisible="{Binding !HaveSensor}"
+            Text="{lang:Localize MonitorInstanceSetting.Text45}" />
+    </Panel>
 </UserControl>
