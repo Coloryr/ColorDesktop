@@ -4,7 +4,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Logging;
 using Avalonia.Media;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;

@@ -86,7 +86,7 @@ public partial class BmModel : ObservableObject
     }
 
     public virtual void Update(BmInstanceObj config)
-    { 
-        
+    {
+
     }
 }

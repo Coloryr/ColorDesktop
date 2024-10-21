@@ -49,7 +49,7 @@ public partial class BmControl : UserControl, IInstance
              && View1.Child is not BmSkin1Control)
         {
             View1.Child = new BmSkin1Control()
-            { 
+            {
                 DataContext = new BmModel()
             };
         }

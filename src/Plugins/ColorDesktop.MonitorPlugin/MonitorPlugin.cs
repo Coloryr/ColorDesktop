@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Security.Principal;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 using LibreHardwareMonitor.Hardware;
@@ -62,7 +61,7 @@ public class MonitorPlugin : IPlugin
     {
         return new()
         {
-            Name =  LangApi.GetLang("MonitorPlugin.Name1"),
+            Name = LangApi.GetLang("MonitorPlugin.Name1"),
             Display = MonitorDisplayType.Text,
             Margin = new MarginObj(5),
             Width = 0,

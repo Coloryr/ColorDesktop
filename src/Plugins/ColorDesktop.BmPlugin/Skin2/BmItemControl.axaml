@@ -13,7 +13,13 @@
             <Setter Property="Foreground" Value="#000000" />
         </Style>
     </UserControl.Styles>
-    <DockPanel>
+    <Button
+        Padding="0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        Background="Transparent"
+        BorderThickness="0"
+        Command="{Binding OpenUrl}">
         <Border
             Name="Border1"
             Background="{Binding BackColor}"
@@ -34,5 +40,5 @@
                     TextTrimming="CharacterEllipsis" />
             </DockPanel>
         </Border>
-    </DockPanel>
+    </Button>
 </UserControl>

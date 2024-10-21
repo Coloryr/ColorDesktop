@@ -1,7 +1,4 @@
-using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 
 namespace ColorDesktop.MonitorPlugin.Controls;
 

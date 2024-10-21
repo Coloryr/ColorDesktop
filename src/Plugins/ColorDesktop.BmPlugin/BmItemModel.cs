@@ -2,6 +2,7 @@
 using Avalonia.Media.Immutable;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ColorDesktop.BmPlugin;
 
@@ -13,6 +14,7 @@ public partial class BmItemModel(BmObj.ItemObj item) : ObservableObject
 
     public IBrush RatingColor => GetIntermediateColor(item.Rating?.Score / 10);
 
+    [RelayCommand]
     public void OpenUrl()
     {
         CoreHelper.OpUrl(item.Url);

@@ -35,16 +35,16 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         }
     }
 
-    public string[] PanelTypeName { get; init; } = 
+    public string[] PanelTypeName { get; init; } =
     [
-        LangApi.GetLang("MonitorInstanceSetting.Text29"), 
-        LangApi.GetLang("MonitorInstanceSetting.Text30"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text29"),
+        LangApi.GetLang("MonitorInstanceSetting.Text30"),
         LangApi.GetLang("MonitorInstanceSetting.Text31")
     ];
 
-    public string[] DisplayTypeName { get; init; } = 
+    public string[] DisplayTypeName { get; init; } =
     [
-        LangApi.GetLang("MonitorInstanceSetting.Text32"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text32"),
         LangApi.GetLang("MonitorInstanceSetting.Text33"),
         LangApi.GetLang("MonitorInstanceSetting.Text34"),
         LangApi.GetLang("MonitorInstanceSetting.Text40"),
@@ -52,10 +52,10 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         LangApi.GetLang("MonitorInstanceSetting.Text44")
     ];
 
-    public string[] ValueTypeName { get; init; } = 
+    public string[] ValueTypeName { get; init; } =
     [
-        LangApi.GetLang("MonitorInstanceSetting.Text35"), 
-        LangApi.GetLang("MonitorInstanceSetting.Text36"), 
+        LangApi.GetLang("MonitorInstanceSetting.Text35"),
+        LangApi.GetLang("MonitorInstanceSetting.Text36"),
         LangApi.GetLang("MonitorInstanceSetting.Text37")
     ];
 
@@ -465,7 +465,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         {
             BackColor = color;
         }
-        else 
+        else
         {
             BackColor = Colors.Black;
         }
@@ -502,7 +502,7 @@ public partial class MonitorInstanceSettingModel : ObservableObject
         EnableItem = true;
 
         Model = new(item)
-        { 
+        {
             Demo = true
         };
     }
