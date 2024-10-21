@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ColorDesktop.CoreLib;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.MonitorPlugin;
 
@@ -16,7 +17,7 @@ public partial class MonitorSettingModel : ObservableObject
             _time = config.Time;
         }
 
-        IsAdmin = MonitorPlugin.IsRunAsAdmin();
+        IsAdmin = CoreHelper.IsRunAsAdmin();
     }
 
     partial void OnTimeChanged(int value)

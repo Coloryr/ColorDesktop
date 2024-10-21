@@ -77,11 +77,6 @@ public partial class App : Application
         Program.StartLock();
 
         Logs.Init();
-
-        AppDomain.CurrentDomain.UnhandledException += (a, e) =>
-        {
-            Logs.Error("Gui Error", e.ExceptionObject as Exception);
-        };
     }
 
     public override void Initialize()

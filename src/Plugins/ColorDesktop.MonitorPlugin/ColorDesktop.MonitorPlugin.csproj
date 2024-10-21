@@ -28,18 +28,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.4-pre350" />
+		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.4-pre351" />
 	</ItemGroup>
 
 	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)librehardwaremonitorlib\0.9.4-pre350\lib\net8.0\LibreHardwareMonitorLib.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
-	<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
+	<!--<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)hidsharp\2.1.0\lib\netstandard2.0\HidSharp.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
 	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)hidsharp\2.1.0\lib\netstandard2.0\HidSharp.pdb" DestinationFolder="$(OutputPath)" />
-	</Target>
+	</Target>-->
 	<Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)system.codedom\8.0.0\lib\net8.0\System.CodeDom.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
@@ -99,8 +99,20 @@
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="HidSharp">
+	    <HintPath>HidSharp.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 	
 	<ItemGroup>
+		<None Update="HidSharp.dll">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="HidSharp.pdb">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="plugin.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>

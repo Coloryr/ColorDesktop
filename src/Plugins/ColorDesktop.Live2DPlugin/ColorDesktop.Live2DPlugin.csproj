@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\Live2DPlugin</BaseOutputPath>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\Lang\en-us.json" />
+    <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Live2DCSharpSDK\Live2DCSharpSDK.OpenGL\Live2DCSharpSDK.OpenGL.csproj" />
+		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

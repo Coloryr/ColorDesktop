@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -28,7 +29,7 @@ public partial class PGColorMCSettingModel : ObservableObject
     [RelayCommand]
     public async Task SelectFile(Control? control)
     {
-        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
+        var file = await CoreHelper.SelectFile(TopLevel.GetTopLevel(control),
                 LangApi.GetLang("PGColorMCSetting.Info1"),
                 SystemInfo.Os == OsType.Windows ? ["*.exe"] : [], "ColorMC");
         if (file == null || file.Count == 0)

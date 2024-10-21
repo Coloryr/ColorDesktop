@@ -4,6 +4,7 @@ using System.Security.Principal;
 using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
+using HidSharp.Platform;
 using LibreHardwareMonitor.Hardware;
 
 namespace ColorDesktop.MonitorPlugin;
@@ -100,41 +101,6 @@ public class MonitorPlugin : IPlugin
         }
     }
 
-    public static bool IsRunAsAdmin()
-    {
-        if (SystemInfo.Os == OsType.Windows)
-        {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-        else
-        {
-            // 检查当前用户是否是 root
-            if (Environment.UserName.Equals("root", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            // 检查当前用户是否属于 sudo 组
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "groups",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                }
-            };
-
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            return output.Contains("sudo");
-        }
-    }
     public static IList<IHardware> GetHardwares()
     {
         _gethw = true;
@@ -257,6 +223,7 @@ public class MonitorPlugin : IPlugin
     public void Stop()
     {
         Computer.Close();
+        HidSelectorManager.Stop();
         _run = false;
     }
 

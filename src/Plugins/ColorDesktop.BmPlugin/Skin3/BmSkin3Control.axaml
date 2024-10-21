@@ -134,7 +134,10 @@
                 </Button>
             </UniformGrid>
         </Border>
-        <ScrollViewer Width="{Binding Width1}" Height="{Binding Height}">
+        <ScrollViewer
+            Name="View1"
+            Width="{Binding Width1}"
+            Height="{Binding Height}">
             <ItemsControl IsVisible="{Binding !IsEmpty}" ItemsSource="{Binding BmItems}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

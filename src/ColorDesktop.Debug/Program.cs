@@ -24,6 +24,7 @@ internal class Program
         new PGLauncherPlugin.PGLauncherPlugin().LoadLang(LanguageType.zh_cn);
         new PGColorMCPlugin().LoadLang(LanguageType.zh_cn);
         new WeatherPlugin.WeatherPlugin().LoadLang(LanguageType.zh_cn);
+        new Live2DPlugin.Live2DPlugin().LoadLang(LanguageType.zh_cn);
 
         return Launcher.Program.BuildAvaloniaApp();
     }

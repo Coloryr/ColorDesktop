@@ -21,7 +21,7 @@ public partial class Bm3ItemModel : BmItemModel
     private IBrush _color1;
     private IBrush _color2;
 
-    private string _url;
+    private readonly string _url;
 
     public Task<Bitmap?> Image => GetImage();
 

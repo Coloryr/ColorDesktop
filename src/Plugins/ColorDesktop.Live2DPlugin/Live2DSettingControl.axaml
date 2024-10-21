@@ -1,0 +1,34 @@
+<UserControl
+    x:Class="ColorDesktop.Live2DPlugin.Live2DSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.Live2DPlugin"
+    x:DataType="vm:Live2DSettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="{lang:Localize Live2DSettingControl.Text1}" />
+            <TextBlock
+                Margin="0,0,10,0"
+                VerticalAlignment="Center"
+                Text="{Binding Version}" />
+            <Button
+                Name="Button1"
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding Import}"
+                CommandParameter="{Binding #Button1}"
+                Content="{lang:Localize Live2DSettingControl.Text2}"
+                DockPanel.Dock="Right"
+                IsEnabled="{Binding !HaveCore}" />
+        </StackPanel>
+        <TextBlock
+            DockPanel.Dock="Bottom"
+            IsVisible="{Binding HaveInfo}"
+            Text="{Binding Info}" />
+    </StackPanel>
+</UserControl>

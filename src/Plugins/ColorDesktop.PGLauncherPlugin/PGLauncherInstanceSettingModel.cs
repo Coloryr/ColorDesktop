@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -397,7 +398,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     [RelayCommand]
     public async Task SelectFile(Control? control)
     {
-        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
+        var file = await CoreHelper.SelectFile(TopLevel.GetTopLevel(control),
             LangApi.GetLang("PGInstanceSetting.Info1"), SystemInfo.Os == OsType.Windows
             ? ["*.exe"] : [], LangApi.GetLang("PGInstanceSetting.Info2"));
         if (file == null || file.Count == 0)
@@ -417,7 +418,7 @@ public partial class PGLauncherInstanceSettingModel : ObservableObject
     [RelayCommand]
     public async Task SelectIcon(Control? control)
     {
-        var file = await SystemUtils.SelectFile(TopLevel.GetTopLevel(control),
+        var file = await CoreHelper.SelectFile(TopLevel.GetTopLevel(control),
             LangApi.GetLang("PGInstanceSetting.Info3"), ["*.png", "*.jpg", "*.bmp"],
             LangApi.GetLang("PGInstanceSetting.Info4"));
         if (file == null || file.Count == 0)

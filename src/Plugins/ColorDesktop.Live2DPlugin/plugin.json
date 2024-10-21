@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.live2d",
+  "Name": "Live2D模型",
+  "Describe": "用于显示Live2D模型",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.Live2DPlugin", "Live2DCSharpSDK.App", "Live2DCSharpSDK.Framework", "Live2DCSharpSDK.OpenGL" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "2"
+}

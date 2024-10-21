@@ -8,6 +8,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using ColorDesktop.PGLauncherPlugin.Icns;
 using IniParser;
 using IniParser.Model;
@@ -17,42 +18,6 @@ namespace ColorDesktop.PGLauncherPlugin;
 
 public static class SystemUtils
 {
-    public static bool IsRunAsAdmin()
-    {
-        if (SystemInfo.Os == OsType.Windows)
-        {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-        else
-        {
-            // 检查当前用户是否是 root
-            if (Environment.UserName.Equals("root", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            // 检查当前用户是否属于 sudo 组
-            var process = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "groups",
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                }
-            };
-
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
-
-            return output.Contains("sudo");
-        }
-    }
-
     public static Bitmap? GetIcon(string local)
     {
         switch (SystemInfo.Os)
@@ -136,53 +101,6 @@ public static class SystemUtils
         return null;
     }
 
-    /// <summary>
-    /// 打开文件
-    /// </summary>
-    /// <param name="top">窗口</param>
-    /// <param name="title">标题</param>
-    /// <param name="ext">后缀</param>
-    /// <param name="name">名字</param>
-    /// <param name="multiple">多选</param>
-    /// <param name="storage">首选路径</param>
-    /// <returns></returns>
-    public static async Task<IReadOnlyList<IStorageFile>?> SelectFile(TopLevel? top, string title,
-        string[]? ext, string name, bool multiple = false, DirectoryInfo? storage = null)
-    {
-        if (top == null)
-            return null;
-
-        var defaultFolder = storage == null ? null : await top.StorageProvider.TryGetFolderFromPathAsync(storage.FullName);
-
-        return await top.StorageProvider.OpenFilePickerAsync(new()
-        {
-            Title = title,
-            AllowMultiple = multiple,
-            SuggestedStartLocation = defaultFolder,
-            FileTypeFilter = ext == null ? null : new List<FilePickerFileType>()
-            {
-                new(name)
-                {
-                     Patterns = new List<string>(ext)
-                }
-            }
-        });
-    }
-
-    /// <summary>
-    /// 文件转字符串
-    /// </summary>
-    /// <param name="file">文件</param>
-    /// <returns>路径字符串</returns>
-    public static string? GetPath(this IStorageFile file)
-    {
-        if (SystemInfo.Os == OsType.Android)
-        {
-            return file.Path.AbsoluteUri;
-        }
-        return file.Path.LocalPath;
-    }
-
     public static bool IsExecutable(string file)
     {
         if (string.IsNullOrWhiteSpace(file))
@@ -227,7 +145,7 @@ public static class SystemUtils
                     Arguments = obj.Arg
                 });
             }
-            else if (IsRunAsAdmin())
+            else if (CoreHelper.IsRunAsAdmin())
             {
                 Process.Start(new ProcessStartInfo()
                 {
@@ -265,7 +183,7 @@ public static class SystemUtils
                         UseShellExecute = true
                     });
                 }
-                else if (IsRunAsAdmin())
+                else if (CoreHelper.IsRunAsAdmin())
                 {
                     Process.Start(new ProcessStartInfo()
                     {
@@ -325,7 +243,7 @@ public static class SystemUtils
                     Arguments = local + " " + obj.Arg
                 });
             }
-            else if (IsRunAsAdmin())
+            else if (CoreHelper.IsRunAsAdmin())
             {
                 Process.Start(new ProcessStartInfo()
                 {

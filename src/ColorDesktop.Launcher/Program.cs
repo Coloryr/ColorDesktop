@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
@@ -35,6 +36,11 @@ public class Program
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 |
             SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+        AppDomain.CurrentDomain.UnhandledException += (a, e) =>
+        {
+            Logs.Error("Gui Error", e.ExceptionObject as Exception);
+        };
 
         TaskScheduler.UnobservedTaskException += (object? sender, UnobservedTaskExceptionEventArgs e) =>
         {

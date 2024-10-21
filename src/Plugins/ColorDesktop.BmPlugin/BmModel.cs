@@ -6,6 +6,8 @@ namespace ColorDesktop.BmPlugin;
 
 public partial class BmModel : ObservableObject
 {
+    public const string BmMoveName = "BmMove";
+
     public ObservableCollection<BmItemModel> BmItems { get; init; } = [];
 
     [ObservableProperty]
@@ -37,6 +39,8 @@ public partial class BmModel : ObservableObject
             BmItems.Add(CreateModel(item));
         }
         IsEmpty = false;
+
+        OnPropertyChanged(BmMoveName);
     }
 
     protected virtual BmItemModel CreateModel(BmObj.ItemObj item)

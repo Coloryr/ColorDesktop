@@ -19,7 +19,6 @@ public class PluginAssembly : AssemblyLoadContext
     public bool Enable { get; set; }
 
     private readonly List<PluginAssembly> _deps = [];
-
     private readonly Dictionary<string, string> _natives = [];
 
     public PluginAssembly(string local, PluginDataObj obj) : base(obj.ID, true)
@@ -39,6 +38,10 @@ public class PluginAssembly : AssemblyLoadContext
                     if (item.DirectoryName!.Contains("native"))
                     {
                         _natives.Add(item.Name, item.FullName);
+                        if (item.Name.EndsWith(".dll"))
+                        {
+                            _natives.Add(item.Name.Replace(".dll", ""), item.FullName);
+                        }
                         continue;
                     }
                     list.Add(item);
@@ -126,6 +129,15 @@ public class PluginAssembly : AssemblyLoadContext
             }
         }
 
+        var ass1 = Assemblies
+                .Where(a => a.GetName().Name == name.Name)
+                .FirstOrDefault();
+
+        if (ass1 != null)
+        {
+            return ass1;
+        }
+
         return null;
     }
 
@@ -135,6 +147,7 @@ public class PluginAssembly : AssemblyLoadContext
         {
             return LoadUnmanagedDllFromPath(dir);
         }
+
         return base.LoadUnmanagedDll(unmanagedDllName);
     }
 

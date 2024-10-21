@@ -1,0 +1,10 @@
+﻿{
+    "Live2DPlugin.Name": "桌面时钟",
+    "Live2DSettingControl.Text1": "Cubism Core版本:",
+    "Live2DSettingControl.Text2": "导入",
+    "Live2DSettingControl.Info1": "Cubism Core压缩包",
+    "Live2DSettingControl.Info2": "导入",
+    "Live2DSettingControl.Info3": "导入成功，重载组件生效",
+    "Live2DSettingControl.Error1": "无法找到Core",
+    "Live2DSettingControl.Error2": "导入失败"
+}
