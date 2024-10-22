@@ -1,0 +1,131 @@
+<UserControl
+    x:Class="ColorDesktop.Live2DPlugin.Live2DInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.Live2DPlugin"
+    x:DataType="vm:Live2DInstanceSettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize Live2DInstanceSetting.Text1}" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize Live2DInstanceSetting.Text2}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Width}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize Live2DInstanceSetting.Text3}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Height}" />
+        </StackPanel>
+        <StackPanel>
+            <CheckBox Content="{lang:Localize Live2DInstanceSetting.Text4}" IsChecked="{Binding LowFps}" />
+        </StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize Live2DInstanceSetting.Text5}" />
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <ComboBox
+                Width="200"
+                Margin="0,0,5,0"
+                DisplayMemberBinding="{Binding Name}"
+                ItemsSource="{Binding Items}"
+                SelectedIndex="{Binding Index}" />
+            <Button
+                Width="100"
+                Height="35"
+                Margin="0,0,5,0"
+                Classes="top"
+                Command="{Binding NewItem}"
+                Content="{lang:Localize Live2DInstanceSetting.Text6}" />
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding DeleteItem}"
+                Content="{lang:Localize Live2DInstanceSetting.Text7}"
+                IsEnabled="{Binding EnableItem}" />
+        </StackPanel>
+        <StackPanel IsEnabled="{Binding EnableItem}">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize Live2DInstanceSetting.Text8}" />
+                <TextBox Width="200" Text="{Binding Name}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize Live2DInstanceSetting.Text9}" />
+                <TextBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    Text="{Binding Local}" />
+                <Button
+                    Name="Button1"
+                    Width="100"
+                    Height="35"
+                    HorizontalAlignment="Right"
+                    Classes="top"
+                    Command="{Binding SelectFile}"
+                    CommandParameter="{Binding #Button1}"
+                    Content="{lang:Localize Live2DInstanceSetting.Text13}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize Live2DInstanceSetting.Text10}" />
+                <NumericUpDown
+                    Width="120"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Value="{Binding X}" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize Live2DInstanceSetting.Text11}" />
+                <NumericUpDown
+                    Width="120"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Value="{Binding Y}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize Live2DInstanceSetting.Text12}" />
+                <NumericUpDown
+                    Width="120"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Value="{Binding Scale}" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+chmod a+x ./build/update.sh
+./build/update.sh
+
 version=""
 main_version=""
 

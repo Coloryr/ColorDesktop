@@ -2,6 +2,7 @@
 using System.Reflection;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using Live2DCSharpSDK.App;
 using Live2DCSharpSDK.Framework;
 
@@ -14,6 +15,32 @@ public class Live2DPlugin : IPlugin
     public static bool IsCoreLoad { get; set; }
 
     private static string s_local;
+
+    private static Dictionary<string, OpenGlPageControl> s_views = [];
+
+    public static Live2DInstanceObj GetConfig(InstanceDataObj obj)
+    {
+        return InstanceUtils.GetConfig(obj, new Live2DInstanceObj()
+        {
+            Width = 300,
+            Height = 300,
+            Models = []
+        }, ConfigName);
+    }
+
+    public static void SaveConfig(InstanceDataObj obj, Live2DInstanceObj config)
+    {
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
+    }
+
+    public static Live2DModelObj MakeNewItem()
+    {
+        return new()
+        {
+            Name = LangApi.GetLang("Live2DPlugin.Name2"),
+            Scale = 1.0f
+        };
+    }
 
     public static void InitCore()
     {
@@ -77,6 +104,22 @@ public class Live2DPlugin : IPlugin
         return false;
     }
 
+    public static void AddView(string uuid, OpenGlPageControl view)
+    {
+        if (!s_views.TryAdd(uuid, view))
+        {
+            s_views[uuid] = view;
+        }
+    }
+
+    public static void Update(string uuid)
+    {
+        if (s_views.TryGetValue(uuid, out var view))
+        {
+            view.Update();
+        }
+    }
+
     public bool IsCoreLib => false;
 
     public bool HavePluginSetting => true;
@@ -87,7 +130,7 @@ public class Live2DPlugin : IPlugin
     {
         return new InstanceDataObj()
         {
-            Nick = LangApi.GetLang("Live2DPlugin.Name"),
+            Nick = LangApi.GetLang("Live2DPlugin.Name1"),
             Plugin = "coloryr.live2d",
             Pos = PosEnum.TopRight,
             Margin = new(5)
@@ -135,12 +178,12 @@ public class Live2DPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        throw new NotImplementedException();
+        return new Live2DControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        throw new NotImplementedException();
+        return new Live2DInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()

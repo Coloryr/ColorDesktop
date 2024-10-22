@@ -26,7 +26,7 @@
                         Margin="0,0,10,0"
                         FormatString="N0"
                         IsEnabled="{Binding !AutoSize}"
-                        Maximum="999"
+                        Maximum="9999"
                         Minimum="1"
                         Value="{Binding Width}" />
                     <TextBlock
@@ -39,7 +39,7 @@
                         Margin="0,0,10,0"
                         FormatString="N0"
                         IsEnabled="{Binding !AutoSize}"
-                        Maximum="999"
+                        Maximum="9999"
                         Minimum="1"
                         Value="{Binding Height}" />
                     <CheckBox Content="{lang:Localize MonitorInstanceSetting.Text4}" IsChecked="{Binding AutoSize}" />
