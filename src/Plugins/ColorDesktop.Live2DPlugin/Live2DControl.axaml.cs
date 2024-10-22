@@ -15,6 +15,8 @@ namespace ColorDesktop.Live2DPlugin;
 public partial class Live2DControl : UserControl, IInstance
 {
     private bool _lowFps = false;
+    private bool _lastTick = false;
+    private DateTime _time;
 
     public Live2DControl()
     {
@@ -28,7 +30,33 @@ public partial class Live2DControl : UserControl, IInstance
 
     public void RenderTick()
     {
-        View1.RequestNextFrameRendering();
+        if (_time.Ticks == 0)
+        {
+            _time = DateTime.Now;
+        }
+        else
+        {
+            var time = DateTime.Now;
+            var less = time - _time;
+            if (less.TotalSeconds > 1)
+            {
+                _time = time;
+                Fps.Text = View1.Fps.ToString();
+                View1.Fps = 0;
+            }
+        }
+        if (_lowFps)
+        {
+            if (!_lastTick)
+            {
+                View1.RequestNextFrameRendering();
+            }
+            _lastTick = !_lastTick;
+        }
+        else
+        {
+            View1.RequestNextFrameRendering();
+        }
     }
 
     public void Start(IInstanceWindow window)
@@ -48,6 +76,7 @@ public partial class Live2DControl : UserControl, IInstance
         Width = config.Width;
         Height = config.Height;
         _lowFps = config.LowFps;
+        FpsView.IsVisible = config.DisplayFps;
 
         Live2DPlugin.AddView(obj.UUID, View1);
     }
@@ -108,6 +137,41 @@ public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
         return list;
     }
 
+    private static List<MenuItem> GenModelFlyout(LAppModel model)
+    {
+        var list1 = GenModelMotionFlyout(model);
+        var list2 = GenModelExpressionFlyout(model);
+
+        var list3 = new List<MenuItem>();
+        if (list1.Count > 0)
+        {
+            list3.Add(new MenuItem()
+            {
+                Header = LangApi.GetLang("Live2DControl.Text1"),
+                ItemsSource = list1
+            });
+        }
+        if (list2.Count > 0)
+        {
+            list3.Add(new MenuItem()
+            {
+                Header = LangApi.GetLang("Live2DControl.Text2"),
+                ItemsSource = list2
+            });
+        }
+
+        if (list3.Count == 0)
+        {
+            list3.Add(new MenuItem()
+            {
+                Header = LangApi.GetLang("Live2DControl.Text3"),
+                IsEnabled = false
+            });
+        }
+
+        return list3;
+    }
+
     private LAppDelegate _lapp;
 
     private DateTime time;
@@ -116,6 +180,8 @@ public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
 
     private bool _runUpdate;
     private Action _run;
+
+    public int Fps;
 
     public OpenGlPageControl()
     {
@@ -243,41 +309,6 @@ public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
         flyout.ShowAt(this, true);
     }
 
-    private List<MenuItem> GenModelFlyout(LAppModel model)
-    {
-        var list1 = GenModelMotionFlyout(model);
-        var list2 = GenModelExpressionFlyout(model);
-
-        var list3 = new List<MenuItem>();
-        if (list1.Count > 0)
-        {
-            list3.Add(new MenuItem()
-            {
-                Header = LangApi.GetLang("Live2DControl.Text1"),
-                ItemsSource = list1
-            });
-        }
-        if (list2.Count > 0)
-        {
-            list3.Add(new MenuItem()
-            {
-                Header = LangApi.GetLang("Live2DControl.Text2"),
-                ItemsSource = list2
-            });
-        }
-
-        if (list3.Count == 0)
-        {
-            list3.Add(new MenuItem()
-            {
-                Header = LangApi.GetLang("Live2DControl.Text3"),
-                IsEnabled = false
-            });
-        }
-
-        return list3;
-    }
-
     protected override unsafe void OnOpenGlInit(GlInterface gl)
     {
         CheckError(gl);
@@ -331,6 +362,7 @@ public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
             time = now;
         }
         _lapp.Run(span);
+        Fps++;
         CheckError(gl);
     }
 

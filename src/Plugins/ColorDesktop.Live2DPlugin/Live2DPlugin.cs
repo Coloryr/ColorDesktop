@@ -149,7 +149,9 @@ public class Live2DPlugin : IPlugin
 
     public Stream? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.Live2DPlugin.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1)

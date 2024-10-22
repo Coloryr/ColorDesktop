@@ -29,6 +29,8 @@ public partial class Live2DInstanceSettingModel : ObservableObject
 
     [ObservableProperty]
     private bool _lowFps;
+    [ObservableProperty]
+    private bool _displayFps;
 
     [ObservableProperty]
     private int _index = -1;
@@ -59,6 +61,8 @@ public partial class Live2DInstanceSettingModel : ObservableObject
 
         _width = _config.Width;
         _height = _config.Height;
+        _lowFps = _config.LowFps;
+        _displayFps = _config.DisplayFps;
 
         foreach (var item in _config.Models)
         {
@@ -72,6 +76,12 @@ public partial class Live2DInstanceSettingModel : ObservableObject
         {
             Index = 0;
         }
+    }
+
+    partial void OnDisplayFpsChanged(bool value)
+    {
+        _config.DisplayFps = value;
+        Live2DPlugin.SaveConfig(_obj, _config);
     }
 
     partial void OnLowFpsChanged(bool value)

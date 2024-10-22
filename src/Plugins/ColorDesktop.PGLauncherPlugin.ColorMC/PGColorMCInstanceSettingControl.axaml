@@ -20,7 +20,7 @@
                     ItemsSource="{Binding Groups}"
                     SelectedItem="{Binding Group}" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                 <TextBlock
                     Margin="0,0,5,0"
                     VerticalAlignment="Center"

@@ -24,6 +24,7 @@
     "Live2DInstanceSetting.Text11": "Y偏移",
     "Live2DInstanceSetting.Text12": "缩放",
     "Live2DInstanceSetting.Text13": "选择文件",
+    "Live2DInstanceSetting.Text14": "显示FPS",
     "Live2DInstanceSetting.Info1": "选择Live2D模型",
     "Live2DInstanceSetting.Info2": "Live2D模型"
 }

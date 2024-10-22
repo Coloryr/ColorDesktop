@@ -21,4 +21,5 @@ public record Live2DInstanceObj
     public int Width { get; set; }
     public int Height { get; set; }
     public bool LowFps { get; set; }
+    public bool DisplayFps { get; set; }
 }

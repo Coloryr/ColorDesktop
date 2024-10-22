@@ -142,7 +142,7 @@
                             TextWrapping="Wrap" />
                     </DockPanel>
                 </StackPanel>
-                <Panel Margin="0,10,0,0">
+                <Panel Margin="0,10,0,0" IsVisible="{Binding ShowButton}">
                     <Button
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"

@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="icon.png" />
     <EmbeddedResource Include="Resource\Lang\en-us.json" />
     <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
   </ItemGroup>
