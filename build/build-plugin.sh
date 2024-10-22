@@ -2,9 +2,6 @@
 
 mkdir ./build_out
 
-chmod a+x ./build/update.sh
-./build/update.sh
-
 build() 
 {
     echo "build colordesktop-plugin-$2"
