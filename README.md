@@ -67,16 +67,18 @@
 
 ## 依赖/引用的项目
 [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia) 跨平台UI框架  
-[DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia) 弹窗库
+[DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia) 弹窗库  
 [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) MVVM工具  
 [Svg.Skia](https://github.com/wieslawsoltes/Svg.Skia) Svg图像显示  
 [SkiaSharp](https://github.com/mono/SkiaSharp) Skia图像库  
-[DotNetty](https://github.com/Azure/DotNetty) 异步通信框架
-[Newtonsoft.Json](https://www.newtonsoft.com/json) JSON解析器  
+[DotNetty](https://github.com/Azure/DotNetty) 异步通信框架  
+[Newtonsoft.Json](https://www.newtonsoft.com/json) JSON解析器
 
 ## 组件依赖/引用的项目
 [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 传感器读取  
-[lunar-csharp](https://github.com/6tail/lunar-csharp) 农历节气天干地支等计算
+[lunar-csharp](https://github.com/6tail/lunar-csharp) 农历节气天干地支等计算  
+[Live2DCSharpSDK](https://github.com/Coloryr/Live2DCSharpSDK) Live2D显示  
+[MinecraftSkinRender](https://github.com/Coloryr/MinecraftSkinRender) Minecraft皮肤渲染器
 
 ## 开源协议
 Apache 2.0  
@@ -100,7 +102,7 @@ limitations under the License.
 附属的开源协议  
 MIT  
 BSD  
-MPL2.0(部分插件使用该协议)
+MPL2.0(插件使用该协议)
 
 ## 使用的IDE开发工具
 [Visual Studio 2022](https://visualstudio.microsoft.com/)  
