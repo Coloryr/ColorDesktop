@@ -1,0 +1,10 @@
+﻿{
+    "MinecraftMotdPlugin.Name": "Minecraft服务器Motd显示",
+    "MinecraftMotdControl.Text1": "延迟：",
+    "MinecraftMotdControl.Text2": "服务器消息获取失败",
+    "MinecraftMotdControl.Text3": "正在获取服务器Motd",
+    "MinecraftMotdControl.Text4": "在线人数：",
+    "MinecraftMotdControl.Text5": "版本：",
+    "MotdInstanceSettingControl.Text1": "服务器地址",
+    "MotdInstanceSettingControl.Text2": "端口"
+}

@@ -14,6 +14,7 @@
 	  <ProjectReference Include="..\Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.Live2DPlugin\ColorDesktop.Live2DPlugin.csproj" />
+	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftMotdPlugin\ColorDesktop.MinecraftMotdPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftSkinPlugin\ColorDesktop.MinecraftSkinPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.MonitorPlugin\ColorDesktop.MonitorPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />

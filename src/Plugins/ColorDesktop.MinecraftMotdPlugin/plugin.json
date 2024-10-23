@@ -1,0 +1,15 @@
+﻿{
+  "ID": "coloryr.minecraft.motd",
+  "Name": "Minecraft服务器Motd显示",
+  "Describe": "用于显示Minecraft服务器Motd",
+  "Auther": "Coloryr",
+  "Dlls": [ "ColorDesktop.MinecraftMotdPlugin", "Heijden.Dns.Portable" ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Version": "1.0.0",
+  "ApiVersion": "2"
+}

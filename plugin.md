@@ -14,6 +14,7 @@
 | coloryr.pglaunher  | [程序启动器](#程序启动器) | ![](./src/Plugins/ColorDesktop.PGLauncherPlugin/icon.png) | 用于启动进程 | coloryr.corelib |
 | coloryr.weather  | [天气](#天气) | ![](./src/Plugins/ColorDesktop.WeatherPlugin/icon.png) | 通过网络API查询并显示天气 | coloryr.corelib |
 | coloryr.minecraft.skin  | [Minecraft皮肤显示](#Minecraft皮肤显示) | ![](./src/Plugins/ColorDesktop.MinecraftSkinPlugin/icon.png) | 用于显示Minecraft皮肤 | coloryr.corelib |
+| coloryr.minecraft.motd  | [Minecraft服务器Motd显示](#Minecraft服务器Motd显示) | ![](./src/Plugins/ColorDesktop.MinecraftMotdPlugin/icon.png) | 用于显示Minecraft服务器Motd | coloryr.corelib |
 
 ## 模拟时钟
 
@@ -125,3 +126,9 @@
 
 ![](./pic/pic53.png)  
 ![](./pic/pic52.png)
+
+## Minecraft服务器Motd显示
+
+获取Minecraft服务器的Motd然后显示  
+![](./pic/pic55.png)  
+![](./pic/pic54.png)

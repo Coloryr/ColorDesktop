@@ -45,6 +45,8 @@ jobs:
           zip -r ../BmPlugin.zip BmPlugin
           zip -r ../MonitorPlugin.zip MonitorPlugin
           zip -r ../Live2DPlugin.zip Live2DPlugin
+          zip -r ../MinecraftSkinPlugin.zip MinecraftSkinPlugin
+          zip -r ../MinecraftMotdPlugin.zip MinecraftMotdPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
@@ -105,6 +107,24 @@ jobs:
       with:
         name: "colordesktop-plugin-MonitorPlugin"
         path: src/build_out/Debug/net8.0/MonitorPlugin.zip
+    
+    - name: 上传 colordesktop-plugin-Live2DPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-Live2DPlugin"
+        path: src/build_out/Debug/net8.0/Live2DPlugin.zip
+
+    - name: 上传 colordesktop-plugin-MinecraftSkinPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-MinecraftSkinPlugin"
+        path: src/build_out/Debug/net8.0/MinecraftSkinPlugin.zip
+
+    - name: 上传 colordesktop-plugin-MinecraftMotdPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-MinecraftMotdPlugin"
+        path: src/build_out/Debug/net8.0/MinecraftMotdPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4

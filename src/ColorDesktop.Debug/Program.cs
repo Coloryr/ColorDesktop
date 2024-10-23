@@ -26,6 +26,7 @@ internal class Program
         new WeatherPlugin.WeatherPlugin().LoadLang(LanguageType.zh_cn);
         new Live2DPlugin.Live2DPlugin().LoadLang(LanguageType.zh_cn);
         new MinecraftSkinPlugin.MinecraftSkinPlugin().LoadLang(LanguageType.zh_cn);
+        new MinecraftMotdPlugin.MinecraftMotdPlugin().LoadLang(LanguageType.zh_cn);
 
         return Launcher.Program.BuildAvaloniaApp();
     }

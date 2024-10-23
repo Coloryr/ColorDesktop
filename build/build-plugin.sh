@@ -22,3 +22,5 @@ build ColorDesktop.OneWordPlugin OneWordPlugin
 build ColorDesktop.BmPlugin BmPlugin
 build ColorDesktop.MonitorPlugin MonitorPlugin
 build ColorDesktop.Live2DPlugin Live2DPlugin
+build ColorDesktop.MinecraftSkinPlugin MinecraftSkinPlugin
+build ColorDesktop.MinecraftMotdPlugin MinecraftMotdPlugin
