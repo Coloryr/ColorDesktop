@@ -1,121 +1,121 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\MonitorPlugin</BaseOutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\MonitorPlugin</BaseOutputPath>
+    </PropertyGroup>
 
-	<ItemGroup>
-	  <None Remove="icon.png" />
-	  <None Remove="Resource\Lang\en-us.json" />
-	  <None Remove="Resource\Lang\zh-cn.json" />
-	  <None Remove="Resource\svg1.svg" />
-	  <None Remove="Resource\svg1_1.svg" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="icon.png" />
+        <None Remove="Resource\Lang\en-us.json" />
+        <None Remove="Resource\Lang\zh-cn.json" />
+        <None Remove="Resource\svg1.svg" />
+        <None Remove="Resource\svg1_1.svg" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <AvaloniaResource Include="Resource\svg1.svg" />
-	  <AvaloniaResource Include="Resource\svg1_1.svg" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Resource\svg1.svg" />
+        <AvaloniaResource Include="Resource\svg1_1.svg" />
+    </ItemGroup>
 
-	<ItemGroup>
-	  <EmbeddedResource Include="icon.png" />
-	  <EmbeddedResource Include="Resource\Lang\en-us.json" />
-	  <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="icon.png" />
+        <EmbeddedResource Include="Resource\Lang\en-us.json" />
+        <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.4-pre351" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.4-pre351" />
+    </ItemGroup>
 
-	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)librehardwaremonitorlib\0.9.4-pre350\lib\net8.0\LibreHardwareMonitorLib.dll" DestinationFolder="$(OutputPath)" />
-	</Target>
-	<!--<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
+    <Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)librehardwaremonitorlib\0.9.4-pre350\lib\net8.0\LibreHardwareMonitorLib.dll" DestinationFolder="$(OutputPath)" />
+    </Target>
+    <!--<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)hidsharp\2.1.0\lib\netstandard2.0\HidSharp.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
 	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)hidsharp\2.1.0\lib\netstandard2.0\HidSharp.pdb" DestinationFolder="$(OutputPath)" />
 	</Target>-->
-	<Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)system.codedom\8.0.0\lib\net8.0\System.CodeDom.dll" DestinationFolder="$(OutputPath)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_5" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_6" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\unix\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\unix\lib\net8.0\System.IO.Ports.dll" />
-		<Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\win\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.IO.Ports.dll" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_7" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)" />
-		<Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\runtimes\win\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.Management.dll" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_9" AfterTargets="Build">
-		<ItemGroup>
-			<PortFiles_1 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\linux-arm64\**\*.*" />
-			<PortFiles_2 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\linux-x64\**\*.*" />
-			<PortFiles_3 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\osx\**\*.*" />
-			<PortFiles_4 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\win-x64\**\*.*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)runtimes\linux-arm64\%(RecursiveDir)" />
-		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)runtimes\linux-x64\%(RecursiveDir)" />
-		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)runtimes\osx\%(RecursiveDir)" />
-		<Copy SourceFiles="@(PortFiles_4)" DestinationFolder="$(OutputPath)runtimes\win-x64\%(RecursiveDir)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_10" AfterTargets="Build">
-		<ItemGroup>
-			<PortFiles Include="$(NuGetPackageRoot)runtime.osx-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_11" AfterTargets="Build">
-		<ItemGroup>
-			<PortFiles Include="$(NuGetPackageRoot)runtime.osx-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_12" AfterTargets="Build">
-		<ItemGroup>
-			<PortFiles Include="$(NuGetPackageRoot)runtime.linux-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
-	</Target>
-	<Target Name="CopySpecificNuGetDll_13" AfterTargets="Build">
-		<ItemGroup>
-			<PortFiles Include="$(NuGetPackageRoot)runtime.linux-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
-	</Target>
+    <Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)system.codedom\8.0.0\lib\net8.0\System.CodeDom.dll" DestinationFolder="$(OutputPath)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_5" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_6" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\unix\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\unix\lib\net8.0\System.IO.Ports.dll" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\win\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.IO.Ports.dll" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_7" AfterTargets="Build">
+        <Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\runtimes\win\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.Management.dll" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_9" AfterTargets="Build">
+        <ItemGroup>
+            <PortFiles_1 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\linux-arm64\**\*.*" />
+            <PortFiles_2 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\linux-x64\**\*.*" />
+            <PortFiles_3 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\osx\**\*.*" />
+            <PortFiles_4 Include="$(NuGetPackageRoot)mono.posix.netstandard\1.0.0\runtimes\win-x64\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)runtimes\linux-arm64\%(RecursiveDir)" />
+        <Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)runtimes\linux-x64\%(RecursiveDir)" />
+        <Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)runtimes\osx\%(RecursiveDir)" />
+        <Copy SourceFiles="@(PortFiles_4)" DestinationFolder="$(OutputPath)runtimes\win-x64\%(RecursiveDir)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_10" AfterTargets="Build">
+        <ItemGroup>
+            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_11" AfterTargets="Build">
+        <ItemGroup>
+            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_12" AfterTargets="Build">
+        <ItemGroup>
+            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
+    </Target>
+    <Target Name="CopySpecificNuGetDll_13" AfterTargets="Build">
+        <ItemGroup>
+            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
+    </Target>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <Reference Include="HidSharp">
-	    <HintPath>HidSharp.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-	
-	<ItemGroup>
-		<None Update="HidSharp.dll">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="HidSharp.pdb">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="plugin.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+    <ItemGroup>
+        <Reference Include="HidSharp">
+            <HintPath>HidSharp.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="HidSharp.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="HidSharp.pdb">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>

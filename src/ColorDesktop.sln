@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.OpenGL"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.MinecraftMotdPlugin", "Plugins\ColorDesktop.MinecraftMotdPlugin\ColorDesktop.MinecraftMotdPlugin.csproj", "{C63BBBE9-50C5-4789-95DD-4F664DD6F8EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.ToDoPlugin", "Plugins\ColorDesktop.ToDoPlugin\ColorDesktop.ToDoPlugin.csproj", "{4A93FB97-A051-413B-A95B-D834D02D1AC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -156,6 +158,10 @@ Global
 		{C63BBBE9-50C5-4789-95DD-4F664DD6F8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C63BBBE9-50C5-4789-95DD-4F664DD6F8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C63BBBE9-50C5-4789-95DD-4F664DD6F8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A93FB97-A051-413B-A95B-D834D02D1AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A93FB97-A051-413B-A95B-D834D02D1AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A93FB97-A051-413B-A95B-D834D02D1AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A93FB97-A051-413B-A95B-D834D02D1AC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +186,7 @@ Global
 		{0AB68C76-01B0-40FC-9E8E-C434764D82F1} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
 		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
 		{C63BBBE9-50C5-4789-95DD-4F664DD6F8EF} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
+		{4A93FB97-A051-413B-A95B-D834D02D1AC9} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D90989C-AE86-4FC4-B699-6705CBC0D63E}

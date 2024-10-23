@@ -1,131 +1,124 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-	  <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\WeatherPlugin</BaseOutputPath>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\WeatherPlugin</BaseOutputPath>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="icon.png" />
-    <None Remove="Resource\City1.json" />
-    <None Remove="Resource\east.svg" />
-    <None Remove="Resource\icon.svg" />
-    <None Remove="Resource\icon1.svg" />
-    <None Remove="Resource\Lang\en-us.json" />
-    <None Remove="Resource\Lang\zh-cn.json" />
-    <None Remove="Resource\north.svg" />
-    <None Remove="Resource\north_east.svg" />
-    <None Remove="Resource\north_west.svg" />
-    <None Remove="Resource\south.svg" />
-    <None Remove="Resource\south_east.svg" />
-    <None Remove="Resource\south_west.svg" />
-    <None Remove="Resource\Weather\cloud.svg" />
-    <None Remove="Resource\Weather\cloud_lot.svg" />
-    <None Remove="Resource\Weather\cold.svg" />
-    <None Remove="Resource\Weather\dust.svg" />
-    <None Remove="Resource\Weather\dust_lot.svg" />
-    <None Remove="Resource\Weather\dust_lot_lot.svg" />
-    <None Remove="Resource\Weather\fog.svg" />
-    <None Remove="Resource\Weather\fog_log.svg" />
-    <None Remove="Resource\Weather\hot.svg" />
-    <None Remove="Resource\Weather\lightning_rain.svg" />
-    <None Remove="Resource\Weather\lightning_rain_fast.svg" />
-    <None Remove="Resource\Weather\lightning_rain_hail.svg" />
-    <None Remove="Resource\Weather\none.svg" />
-    <None Remove="Resource\Weather\rain.svg" />
-    <None Remove="Resource\Weather\rain_fast.svg" />
-    <None Remove="Resource\Weather\rain_lot.svg" />
-    <None Remove="Resource\Weather\rain_lot_lot.svg" />
-    <None Remove="Resource\Weather\rain_lot_lot_lot.svg" />
-    <None Remove="Resource\Weather\rain_low.svg" />
-    <None Remove="Resource\Weather\rain_snow.svg" />
-    <None Remove="Resource\Weather\rain_snow_cold.svg" />
-    <None Remove="Resource\Weather\snow.svg" />
-    <None Remove="Resource\Weather\snow_lot.svg" />
-    <None Remove="Resource\Weather\snow_lot_lot.svg" />
-    <None Remove="Resource\Weather\sun.svg" />
-    <None Remove="Resource\Weather\sun_cloud.svg" />
-    <None Remove="Resource\Weather\tornado.svg" />
-    <None Remove="Resource\Weather\wind.svg" />
-    <None Remove="Resource\Weather\wind_lot.svg" />
-    <None Remove="Resource\Weather\wind_lot_lot.svg" />
-    <None Remove="Resource\west.svg" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="icon.png" />
+        <None Remove="Resource\City1.json" />
+        <None Remove="Resource\east.svg" />
+        <None Remove="Resource\icon.svg" />
+        <None Remove="Resource\icon1.svg" />
+        <None Remove="Resource\Lang\en-us.json" />
+        <None Remove="Resource\Lang\zh-cn.json" />
+        <None Remove="Resource\north.svg" />
+        <None Remove="Resource\north_east.svg" />
+        <None Remove="Resource\north_west.svg" />
+        <None Remove="Resource\south.svg" />
+        <None Remove="Resource\south_east.svg" />
+        <None Remove="Resource\south_west.svg" />
+        <None Remove="Resource\Weather\cloud.svg" />
+        <None Remove="Resource\Weather\cloud_lot.svg" />
+        <None Remove="Resource\Weather\cold.svg" />
+        <None Remove="Resource\Weather\dust.svg" />
+        <None Remove="Resource\Weather\dust_lot.svg" />
+        <None Remove="Resource\Weather\dust_lot_lot.svg" />
+        <None Remove="Resource\Weather\fog.svg" />
+        <None Remove="Resource\Weather\fog_log.svg" />
+        <None Remove="Resource\Weather\hot.svg" />
+        <None Remove="Resource\Weather\lightning_rain.svg" />
+        <None Remove="Resource\Weather\lightning_rain_fast.svg" />
+        <None Remove="Resource\Weather\lightning_rain_hail.svg" />
+        <None Remove="Resource\Weather\none.svg" />
+        <None Remove="Resource\Weather\rain.svg" />
+        <None Remove="Resource\Weather\rain_fast.svg" />
+        <None Remove="Resource\Weather\rain_lot.svg" />
+        <None Remove="Resource\Weather\rain_lot_lot.svg" />
+        <None Remove="Resource\Weather\rain_lot_lot_lot.svg" />
+        <None Remove="Resource\Weather\rain_low.svg" />
+        <None Remove="Resource\Weather\rain_snow.svg" />
+        <None Remove="Resource\Weather\rain_snow_cold.svg" />
+        <None Remove="Resource\Weather\snow.svg" />
+        <None Remove="Resource\Weather\snow_lot.svg" />
+        <None Remove="Resource\Weather\snow_lot_lot.svg" />
+        <None Remove="Resource\Weather\sun.svg" />
+        <None Remove="Resource\Weather\sun_cloud.svg" />
+        <None Remove="Resource\Weather\tornado.svg" />
+        <None Remove="Resource\Weather\wind.svg" />
+        <None Remove="Resource\Weather\wind_lot.svg" />
+        <None Remove="Resource\Weather\wind_lot_lot.svg" />
+        <None Remove="Resource\west.svg" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <AvaloniaResource Include="Resource\Weather\cloud.svg" />
-    <AvaloniaResource Include="Resource\Weather\cloud_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\cold.svg" />
-    <AvaloniaResource Include="Resource\Weather\dust.svg" />
-    <AvaloniaResource Include="Resource\Weather\dust_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\dust_lot_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\fog.svg" />
-    <AvaloniaResource Include="Resource\Weather\fog_log.svg" />
-    <AvaloniaResource Include="Resource\Weather\hot.svg" />
-    <AvaloniaResource Include="Resource\Weather\lightning_rain.svg" />
-    <AvaloniaResource Include="Resource\Weather\lightning_rain_fast.svg" />
-    <AvaloniaResource Include="Resource\Weather\lightning_rain_hail.svg" />
-    <AvaloniaResource Include="Resource\Weather\none.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_fast.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_lot_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_lot_lot_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_low.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_snow.svg" />
-    <AvaloniaResource Include="Resource\Weather\rain_snow_cold.svg" />
-    <AvaloniaResource Include="Resource\Weather\snow.svg" />
-    <AvaloniaResource Include="Resource\Weather\snow_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\snow_lot_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\sun.svg" />
-    <AvaloniaResource Include="Resource\Weather\sun_cloud.svg" />
-    <AvaloniaResource Include="Resource\Weather\tornado.svg" />
-    <AvaloniaResource Include="Resource\Weather\wind.svg" />
-    <AvaloniaResource Include="Resource\Weather\wind_lot.svg" />
-    <AvaloniaResource Include="Resource\Weather\wind_lot_lot.svg" />
-    <AvaloniaResource Include="Resource\Wind\east.svg" />
-    <AvaloniaResource Include="Resource\icon.svg" />
-    <AvaloniaResource Include="Resource\icon1.svg" />
-    <AvaloniaResource Include="Resource\Wind\north.svg" />
-    <AvaloniaResource Include="Resource\Wind\north_east.svg" />
-    <AvaloniaResource Include="Resource\Wind\north_west.svg" />
-    <AvaloniaResource Include="Resource\Wind\south.svg" />
-    <AvaloniaResource Include="Resource\Wind\south_east.svg" />
-    <AvaloniaResource Include="Resource\Wind\south_west.svg" />
-    <AvaloniaResource Include="Resource\Wind\west.svg" />
-    <EmbeddedResource Include="Resource\City1.json" />
-  </ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Resource\Weather\cloud.svg" />
+        <AvaloniaResource Include="Resource\Weather\cloud_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\cold.svg" />
+        <AvaloniaResource Include="Resource\Weather\dust.svg" />
+        <AvaloniaResource Include="Resource\Weather\dust_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\dust_lot_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\fog.svg" />
+        <AvaloniaResource Include="Resource\Weather\fog_log.svg" />
+        <AvaloniaResource Include="Resource\Weather\hot.svg" />
+        <AvaloniaResource Include="Resource\Weather\lightning_rain.svg" />
+        <AvaloniaResource Include="Resource\Weather\lightning_rain_fast.svg" />
+        <AvaloniaResource Include="Resource\Weather\lightning_rain_hail.svg" />
+        <AvaloniaResource Include="Resource\Weather\none.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_fast.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_lot_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_lot_lot_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_low.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_snow.svg" />
+        <AvaloniaResource Include="Resource\Weather\rain_snow_cold.svg" />
+        <AvaloniaResource Include="Resource\Weather\snow.svg" />
+        <AvaloniaResource Include="Resource\Weather\snow_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\snow_lot_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\sun.svg" />
+        <AvaloniaResource Include="Resource\Weather\sun_cloud.svg" />
+        <AvaloniaResource Include="Resource\Weather\tornado.svg" />
+        <AvaloniaResource Include="Resource\Weather\wind.svg" />
+        <AvaloniaResource Include="Resource\Weather\wind_lot.svg" />
+        <AvaloniaResource Include="Resource\Weather\wind_lot_lot.svg" />
+        <AvaloniaResource Include="Resource\Wind\east.svg" />
+        <AvaloniaResource Include="Resource\icon.svg" />
+        <AvaloniaResource Include="Resource\icon1.svg" />
+        <AvaloniaResource Include="Resource\Wind\north.svg" />
+        <AvaloniaResource Include="Resource\Wind\north_east.svg" />
+        <AvaloniaResource Include="Resource\Wind\north_west.svg" />
+        <AvaloniaResource Include="Resource\Wind\south.svg" />
+        <AvaloniaResource Include="Resource\Wind\south_east.svg" />
+        <AvaloniaResource Include="Resource\Wind\south_west.svg" />
+        <AvaloniaResource Include="Resource\Wind\west.svg" />
+        <EmbeddedResource Include="Resource\City1.json" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="icon.png" />
-    <EmbeddedResource Include="Resource\Lang\en-us.json" />
-    <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
-  </ItemGroup>
-
-
-<ItemGroup>
-	<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
-		<Private>False</Private>
-	</ProjectReference>
-	<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
-		<Private>False</Private>
-	</ProjectReference>
-</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="icon.png" />
+        <EmbeddedResource Include="Resource\Lang\en-us.json" />
+        <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
 
-<ItemGroup>
-  <Compile Update="WeatherInstanceSettingControl.axaml.cs">
-    <DependentUpon>WeatherInstanceSettingControl.axaml</DependentUpon>
-  </Compile>
-</ItemGroup>
-	
-  <ItemGroup>
-    <None Update="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>

@@ -1,60 +1,60 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<None Remove="clock.svg" />
-		<None Remove="clock_top.svg" />
-		<None Remove="clock_top_1.svg" />
-		<None Remove="icon.png" />
-		<None Remove="pointer.svg" />
-		<None Remove="pointer_1.svg" />
-		<None Remove="pointer_2.svg" />
-		<None Remove="Resource\Lang\en-us.json" />
-		<None Remove="Resource\Lang\zh-cn.json" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="clock.svg" />
+        <None Remove="clock_top.svg" />
+        <None Remove="clock_top_1.svg" />
+        <None Remove="icon.png" />
+        <None Remove="pointer.svg" />
+        <None Remove="pointer_1.svg" />
+        <None Remove="pointer_2.svg" />
+        <None Remove="Resource\Lang\en-us.json" />
+        <None Remove="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<AvaloniaResource Include="Resource\clock.svg">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</AvaloniaResource>
-		<AvaloniaResource Include="Resource\clock_top.svg">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</AvaloniaResource>
-		<AvaloniaResource Include="Resource\clock_top_1.svg" />
-		<AvaloniaResource Include="Resource\pointer.svg" />
-		<AvaloniaResource Include="Resource\pointer_1.svg" />
-		<AvaloniaResource Include="Resource\pointer_2.svg" />
-	</ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Resource\clock.svg">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </AvaloniaResource>
+        <AvaloniaResource Include="Resource\clock_top.svg">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </AvaloniaResource>
+        <AvaloniaResource Include="Resource\clock_top_1.svg" />
+        <AvaloniaResource Include="Resource\pointer.svg" />
+        <AvaloniaResource Include="Resource\pointer_1.svg" />
+        <AvaloniaResource Include="Resource\pointer_2.svg" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Include="icon.png" />
-		<EmbeddedResource Include="Resource\Lang\en-us.json" />
-		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="icon.png" />
+        <EmbeddedResource Include="Resource\Lang\en-us.json" />
+        <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<None Update="plugin.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Update="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-	</ItemGroup>
-	
+    <ItemGroup>
+        <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
+
 </Project>

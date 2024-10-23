@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\PGColorMCPlugin</BaseOutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\PGColorMCPlugin</BaseOutputPath>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<None Remove="icon.png" />
-		<None Remove="Resource\game.png" />
-		<None Remove="Resource\Lang\en-us.json" />
-		<None Remove="Resource\Lang\zh-cn.json" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="icon.png" />
+        <None Remove="Resource\game.png" />
+        <None Remove="Resource\Lang\en-us.json" />
+        <None Remove="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Include="icon.png" />
-		<EmbeddedResource Include="Resource\game.png" />
-		<EmbeddedResource Include="Resource\Lang\en-us.json" />
-		<EmbeddedResource Include="Resource\Lang\zh-cn.json" />
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="icon.png" />
+        <EmbeddedResource Include="Resource\game.png" />
+        <EmbeddedResource Include="Resource\Lang\en-us.json" />
+        <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-		<ProjectReference Include="..\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj">
-			<Private>False</Private>
-		</ProjectReference>
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+        <ProjectReference Include="..\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj">
+            <Private>False</Private>
+        </ProjectReference>
+    </ItemGroup>
 
-	<ItemGroup>
-	<None Update="plugin.json">
-	<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Update="plugin.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>
