@@ -19,10 +19,19 @@
                 Name="Button1"
                 Width="100"
                 Height="35"
+                Margin="0,0,5,0"
                 Classes="top"
                 Command="{Binding Import}"
                 CommandParameter="{Binding #Button1}"
                 Content="{lang:Localize Live2DSettingControl.Text2}"
+                DockPanel.Dock="Right"
+                IsEnabled="{Binding !HaveCore}" />
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding OpenUrl}"
+                Content="{lang:Localize Live2DSettingControl.Text3}"
                 DockPanel.Dock="Right"
                 IsEnabled="{Binding !HaveCore}" />
         </StackPanel>

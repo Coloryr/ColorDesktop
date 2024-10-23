@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Avalonia.Media.Imaging;
+using SkiaSharp;
 
 namespace ColorDesktop.CoreLib;
 
@@ -29,6 +30,29 @@ public static class TempManager
             stream.CopyTo(temp);
             temp.Seek(0, SeekOrigin.Begin);
             return new Bitmap(temp);
+        }
+        catch
+        {
+
+        }
+        return null;
+    }
+
+    public static async Task<SKBitmap?> LoadSkImage(string url)
+    {
+        var file = s_run + "/" + GenSha1(url);
+
+        try
+        {
+            if (File.Exists(file))
+            {
+                return SKBitmap.Decode(file);
+            }
+            using var stream = await HttpUtils.Client.GetStreamAsync(url);
+            using var temp = File.Open(file, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            stream.CopyTo(temp);
+            temp.Seek(0, SeekOrigin.Begin);
+            return SKBitmap.Decode(temp);
         }
         catch
         {

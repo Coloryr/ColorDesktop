@@ -16,7 +16,7 @@ public class Live2DPlugin : IPlugin
 
     private static string s_local;
 
-    private static Dictionary<string, OpenGlPageControl> s_views = [];
+    private static readonly Dictionary<string, OpenGlPageControl> s_views = [];
 
     public static Live2DInstanceObj GetConfig(InstanceDataObj obj)
     {

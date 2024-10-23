@@ -48,6 +48,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2DCSharpSDK.Framework",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2DCSharpSDK.OpenGL", "..\Live2DCSharpSDK\Live2DCSharpSDK.OpenGL\Live2DCSharpSDK.OpenGL.csproj", "{E4359E82-C96B-4F3B-8826-A7D61EF5749C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.MinecraftSkinPlugin", "Plugins\ColorDesktop.MinecraftSkinPlugin\ColorDesktop.MinecraftSkinPlugin.csproj", "{24036A49-93E2-4B91-8367-6393B5001639}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender", "..\MinecraftSkinRender\MinecraftSkinRender\MinecraftSkinRender.csproj", "{E8652104-F6DA-4155-9B0F-191C5F20831C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.MojangApi", "..\MinecraftSkinRender\MinecraftSkinRender.MojangApi\MinecraftSkinRender.MojangApi.csproj", "{0AB68C76-01B0-40FC-9E8E-C434764D82F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftSkinRender.OpenGL", "..\MinecraftSkinRender\MinecraftSkinRender.OpenGL\MinecraftSkinRender.OpenGL.csproj", "{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +134,22 @@ Global
 		{E4359E82-C96B-4F3B-8826-A7D61EF5749C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4359E82-C96B-4F3B-8826-A7D61EF5749C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4359E82-C96B-4F3B-8826-A7D61EF5749C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24036A49-93E2-4B91-8367-6393B5001639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24036A49-93E2-4B91-8367-6393B5001639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24036A49-93E2-4B91-8367-6393B5001639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24036A49-93E2-4B91-8367-6393B5001639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8652104-F6DA-4155-9B0F-191C5F20831C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8652104-F6DA-4155-9B0F-191C5F20831C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8652104-F6DA-4155-9B0F-191C5F20831C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8652104-F6DA-4155-9B0F-191C5F20831C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB68C76-01B0-40FC-9E8E-C434764D82F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB68C76-01B0-40FC-9E8E-C434764D82F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB68C76-01B0-40FC-9E8E-C434764D82F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB68C76-01B0-40FC-9E8E-C434764D82F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +169,10 @@ Global
 		{F9B9AFE8-6449-4958-9D0E-3DB479C3E62D} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
 		{6A87B3E7-CEF0-4004-9F1B-58A510E93EA6} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
 		{E4359E82-C96B-4F3B-8826-A7D61EF5749C} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
+		{24036A49-93E2-4B91-8367-6393B5001639} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
+		{E8652104-F6DA-4155-9B0F-191C5F20831C} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
+		{0AB68C76-01B0-40FC-9E8E-C434764D82F1} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
+		{B2A226CC-3E0D-40A6-BF00-6B8B3E4D5ECB} = {FAA69C2A-AB53-493F-A60C-017F358E9623}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D90989C-AE86-4FC4-B699-6705CBC0D63E}

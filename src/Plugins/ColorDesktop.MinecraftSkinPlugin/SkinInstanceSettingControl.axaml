@@ -1,0 +1,165 @@
+<UserControl
+    x:Class="ColorDesktop.MinecraftSkinPlugin.SkinInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:local="clr-namespace:ColorDesktop.MinecraftSkinPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:SkinInstanceSettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize SkinInstanceSetting.Text1}" />
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize SkinInstanceSetting.Text2}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Width}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize SkinInstanceSetting.Text3}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Height}" />
+        </StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <CheckBox
+                Margin="0,0,5,0"
+                Content="{lang:Localize SkinInstanceSetting.Text4}"
+                IsChecked="{Binding LowFps}" />
+            <CheckBox
+                Margin="0,0,5,0"
+                Content="{lang:Localize SkinInstanceSetting.Text5}"
+                IsChecked="{Binding DisplayFps}" />
+            <CheckBox Content="{lang:Localize SkinInstanceSetting.Text18}" IsChecked="{Binding EnableMsaa}" />
+        </StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize SkinInstanceSetting.Text14}" />
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize SkinInstanceSetting.Text6}" />
+            <ComboBox
+                Width="200"
+                ItemsSource="{Binding FileTypeName}"
+                SelectedIndex="{Binding Type}" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsEnabled="{Binding IsName}"
+            IsVisible="{Binding IsName}"
+            Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize SkinInstanceSetting.Text9}" />
+            <TextBox
+                Width="200"
+                Margin="0,0,5,0"
+                Text="{Binding Data}" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsEnabled="{Binding IsUrl}"
+            IsVisible="{Binding IsUrl}">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize SkinInstanceSetting.Text7}" />
+                <TextBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    Text="{Binding Data}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize SkinInstanceSetting.Text22}" />
+                <TextBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    Text="{Binding Data1}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel
+            Margin="0,0,0,10"
+            IsEnabled="{Binding IsFile}"
+            IsVisible="{Binding IsFile}">
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize SkinInstanceSetting.Text23}" />
+                <TextBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    Text="{Binding Data}" />
+                <Button
+                    Name="Button1"
+                    Width="100"
+                    Height="35"
+                    Classes="top"
+                    Command="{Binding SelectFile}"
+                    CommandParameter="{Binding #Button1}"
+                    Content="{lang:Localize SkinInstanceSetting.Text8}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Text="{lang:Localize SkinInstanceSetting.Text24}" />
+                <TextBox
+                    Width="200"
+                    Margin="0,0,5,0"
+                    Text="{Binding Data1}" />
+                <Button
+                    Name="Button2"
+                    Width="100"
+                    Height="35"
+                    Classes="top"
+                    Command="{Binding SelectFile1}"
+                    CommandParameter="{Binding #Button2}"
+                    Content="{lang:Localize SkinInstanceSetting.Text8}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize SkinInstanceSetting.Text17}" />
+            <ComboBox
+                Width="200"
+                ItemsSource="{Binding SkinTypeName}"
+                SelectedIndex="{Binding Skin}" />
+        </StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize SkinInstanceSetting.Text12}" />
+        <StackPanel>
+            <CheckBox Content="{lang:Localize SkinInstanceSetting.Text13}" IsChecked="{Binding EnableAnimation}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

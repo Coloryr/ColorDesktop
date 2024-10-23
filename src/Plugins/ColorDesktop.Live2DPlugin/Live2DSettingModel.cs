@@ -31,6 +31,12 @@ public partial class Live2DSettingModel : ObservableObject
     }
 
     [RelayCommand]
+    public void OpenUrl()
+    {
+        CoreHelper.OpUrl("https://www.live2d.com/download/cubism-sdk/download-native/");
+    }
+
+    [RelayCommand]
     public async Task Import(Control? control)
     {
         var file = await CoreHelper.SelectFile(TopLevel.GetTopLevel(control),

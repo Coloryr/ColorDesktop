@@ -13,18 +13,19 @@
 | coloryr.pglaunher.colormc  | [ColorMC启动器](#ColorMC启动器) | ![](./src/Plugins/ColorDesktop.PGLauncherPlugin.ColorMC/icon.png) | 用于启动ColorMC游戏实例 | coloryr.corelib,coloryr.pglaunher |
 | coloryr.pglaunher  | [程序启动器](#程序启动器) | ![](./src/Plugins/ColorDesktop.PGLauncherPlugin/icon.png) | 用于启动进程 | coloryr.corelib |
 | coloryr.weather  | [天气](#天气) | ![](./src/Plugins/ColorDesktop.WeatherPlugin/icon.png) | 通过网络API查询并显示天气 | coloryr.corelib |
+| coloryr.minecraft.skin  | [Minecraft皮肤显示](#Minecraft皮肤显示) | ![](./src/Plugins/ColorDesktop.MinecraftSkinPlugin/icon.png) | 用于显示Minecraft皮肤 | coloryr.corelib |
 
 ## 模拟时钟
 
 时钟有三种样式
 
-- 样式1为指针时钟
+- 样式1为指针时钟  
 ![](./pic/pic11.png)
 ![](./pic/pic10.png)
-- 样式2为数码管时钟
+- 样式2为数码管时钟  
 ![](./pic/pic12.png)
 ![](./pic/pic13.png)
-- 样式3为翻页时钟
+- 样式3为翻页时钟  
 ![](./pic/pic14.png)
 ![](./pic/pic15.png)
 
@@ -47,15 +48,15 @@
 有三种样式
 - 样式1为背景字  
 ![](./pic/pic25.png)  
-![](./pic/pic26.png)
+![](./pic/pic26.png)  
 ![](./pic/pic27.png)
 - 样式2为日历皮肤  
 ![](./pic/pic28.png)  
-![](./pic/pic29.png)
+![](./pic/pic29.png)  
 ![](./pic/pic30.png)
 - 样式3为日历皮肤  
 ![](./pic/pic31.png)  
-![](./pic/pic32.png)
+![](./pic/pic32.png)  
 ![](./pic/pic33.png)
 
 ## 时钟
@@ -114,3 +115,13 @@
 ![](./pic/pic49.png)  
 ![](./pic/pic50.png)  
 ![](./pic/pic51.png)
+
+## Minecraft皮肤显示
+
+可以显示Minecraft皮肤，可以从三种方式获取皮肤  
+- 游戏ID
+- 网络地址
+- 本地文件
+
+![](./pic/pic53.png)  
+![](./pic/pic52.png)
