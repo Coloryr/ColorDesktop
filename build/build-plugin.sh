@@ -2,6 +2,8 @@
 
 mkdir ./build_out
 
+dotnet restore ./src/ColorDesktop.sln
+
 build() 
 {
     echo "build colordesktop-plugin-$2"
