@@ -1,4 +1,4 @@
-Package: ColorDesktop       
+Package: colordesktop       
 Version: %version%                
 Section: free             
 Prioritt: optional        
