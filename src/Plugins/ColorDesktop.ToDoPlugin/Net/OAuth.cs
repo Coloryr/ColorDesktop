@@ -17,7 +17,7 @@ public static class OAuth
     public static readonly Dictionary<string, string> Arg1 = new()
     {
         { "client_id", "d4b143ea-c5f9-47cb-ad92-fc759f341b92" },
-        { "scope", "openid offline_access Tasks.ReadWrite" }
+        { "scope", "offline_access Tasks.ReadWrite" }
     };
 
     public static readonly Dictionary<string, string> Arg2 = new()
@@ -93,10 +93,10 @@ public static class OAuth
                 Message = data
             };
         }
-        s_code = obj1.user_code;
-        s_url = obj1.verification_uri;
-        s_deviceCode = obj1.device_code;
-        s_expiresIn = obj1.expires_in;
+        s_code = obj1.UserCode;
+        s_url = obj1.VerificationUri;
+        s_deviceCode = obj1.DeviceCode;
+        s_expiresIn = obj1.ExpiresIn;
 
         return new OAuthGetCodeRes
         {
@@ -229,6 +229,9 @@ public static class OAuth
     /// </summary>
     public static void Cancel()
     {
-        s_cancel.Cancel();
+        if (s_cancel.IsCancellationRequested == false)
+        {
+            s_cancel.Cancel();
+        }
     }
 }

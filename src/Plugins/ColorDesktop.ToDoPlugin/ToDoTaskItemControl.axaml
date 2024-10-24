@@ -1,0 +1,60 @@
+<UserControl
+    x:Class="ColorDesktop.ToDoPlugin.ToDoTaskItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia_controls="using:Avalonia.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:local="clr-namespace:ColorDesktop.ToDoPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:ToDoTaskItemModel"
+    mc:Ignorable="d">
+    <Border Background="#FF8284" CornerRadius="5">
+        <StackPanel Margin="10">
+            <StackPanel.Styles>
+                <Style Selector="CheckBox">
+                    <Style Selector="^:unchecked /template/ Border#NormalRectangle">
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="CornerRadius" Value="20" />
+                    </Style>
+                    <Style Selector="^:checked /template/ Border#NormalRectangle">
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="Background" Value="#909aa2" />
+                        <Setter Property="CornerRadius" Value="20" />
+                    </Style>
+                    <Style Selector="^:checked AccessText">
+                        <Setter Property="TextDecorations" Value="Strikethrough" />
+                        <Setter Property="Foreground" Value="#EFEFEF" />
+                    </Style>
+                </Style>
+            </StackPanel.Styles>
+            <CheckBox
+                Content="{Binding Title}"
+                Foreground="#FFFFFF"
+                IsChecked="{Binding IsCheck}" />
+            <ItemsControl
+                Margin="10,0,0,-5"
+                IsVisible="{Binding HaveSubTask}"
+                ItemsSource="{Binding SubTasks}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox
+                            Margin="0,0,0,5"
+                            Content="{Binding Text}"
+                            Foreground="#FFFFFF"
+                            IsChecked="{Binding IsCheck}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Rectangle
+                Height="1"
+                Margin="0,2,0,2"
+                Fill="#EFEFEF"
+                IsVisible="{Binding HaveText}" />
+            <TextBlock
+                Foreground="#FFFFFF"
+                IsVisible="{Binding HaveText}"
+                Text="{Binding Text}" />
+        </StackPanel>
+    </Border>
+</UserControl>

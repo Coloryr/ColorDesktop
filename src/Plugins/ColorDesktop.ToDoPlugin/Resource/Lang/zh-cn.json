@@ -1,3 +1,26 @@
 ﻿{
-  "ToDoPlugin.Name": "ToDo列表"
+    "ToDoPlugin.Name": "ToDo列表",
+    "ToDoControl.Text1": "获取列表失败",
+    "ToDoControl.Text2": "登录失败，请到设置中重新登陆",
+    "ToDoControl.Text3": "正在加载数据",
+    "ToDoControl.Text4": "选择展示的列表",
+    "ToDoInstanceSetting.Text1": "未登录微软账户，无法获取信息",
+    "ToDoInstanceSetting.Text2": "登陆账户",
+    "ToDoInstanceSetting.Text3": "已登录",
+    "ToDoInstanceSetting.Text4": "刷新密钥",
+    "ToDoInstanceSetting.Text5": "取消登录",
+    "ToDoInstanceSetting.Text6": "密钥刷新完成",
+    "ToDoInstanceSetting.Text7": "ToDo显示设置",
+    "ToDoInstanceSetting.Text8": "宽度",
+    "ToDoInstanceSetting.Text9": "高度",
+    "ToDoInstanceSetting.Text10": "账户设置",
+    "ToDoInstanceSetting.Text11": "背景色",
+    "ToDoInstanceSetting.Text12": "前景色",
+    "ToDoInstanceSetting.Info1": "打开网页 {0} 并填入 {1} 继续登录",
+    "ToDoInstanceSetting.Info2": "登录成功",
+    "ToDoInstanceSetting.Error1": "登录初始化失败",
+    "ToDoInstanceSetting.Error2": "登录发生异常",
+    "ToDoInstanceSetting.Error3": "登录过程出现错误",
+    "ToDoInstanceSetting.Error4": "密钥刷新发生异常",
+    "ToDoInstanceSetting.Error5": "密钥刷新出现错误"
 }

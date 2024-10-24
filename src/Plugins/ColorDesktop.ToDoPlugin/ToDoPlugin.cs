@@ -13,7 +13,10 @@ public class ToDoPlugin : IPlugin
     {
         return InstanceUtils.GetConfig(obj, new ToDoInstanceObj()
         {
-            
+            Width = 300,
+            Height = 500,
+            BackColor = "#5d71bf",
+            TextColor = "#000000"
         }, ConfigName);
     }
 
@@ -78,17 +81,17 @@ public class ToDoPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        throw new NotImplementedException();
+        return new ToDoControl();
     }
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        throw new NotImplementedException();
+        return new ToDoInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()
     {
-        throw new NotImplementedException();
+        return new();
     }
 
     public void Stop()

@@ -1,15 +1,15 @@
 ﻿{
   "ID": "coloryr.todo",
-  "Name": "天气",
-  "Describe": "通过网络API查询并显示天气",
+  "Name": "ToDo列表",
+  "Describe": "登录微软账户获取ToDo列表并展示",
   "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.WeatherPlugin" ],
+  "Dlls": [ "ColorDesktop.ToDoPlugin" ],
   "Dependents": [
     {
       "Type": "Share",
       "ID": "coloryr.corelib"
     }
   ],
-  "Version": "1.0.1",
+  "Version": "1.0.0",
   "ApiVersion": "2"
 }

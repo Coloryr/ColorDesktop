@@ -1,0 +1,98 @@
+<UserControl
+    x:Class="ColorDesktop.ToDoPlugin.ToDoInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:local="clr-namespace:ColorDesktop.ToDoPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:ToDoInstanceSettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize ToDoInstanceSetting.Text7}" />
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize ToDoInstanceSetting.Text8}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Width}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize ToDoInstanceSetting.Text9}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Height}" />
+        </StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize ToDoInstanceSetting.Text11}" />
+            <ColorPicker Margin="0,0,10,0" Color="{Binding BackColor}" />
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize ToDoInstanceSetting.Text12}" />
+            <ColorPicker Margin="0,0,10,0" Color="{Binding TextColor}" />
+        </StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize ToDoInstanceSetting.Text10}" />
+        <StackPanel IsVisible="{Binding !IsLogin}" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="{lang:Localize ToDoInstanceSetting.Text1}" />
+            <Button
+                Name="Button1"
+                Width="100"
+                Height="35"
+                Margin="3,0,0,0"
+                Classes="top"
+                Command="{Binding Login}"
+                CommandParameter="{Binding #Button1}"
+                Content="{lang:Localize ToDoInstanceSetting.Text2}"
+                IsEnabled="{Binding !LoginNow}" />
+            <Button
+                Width="100"
+                Height="35"
+                Classes="top"
+                Command="{Binding Cancel}"
+                Content="{lang:Localize ToDoInstanceSetting.Text5}"
+                IsEnabled="{Binding LoginNow}"
+                IsVisible="{Binding LoginNow}" />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding IsLogin}" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="{lang:Localize ToDoInstanceSetting.Text3}" />
+            <Button
+                Width="100"
+                Height="35"
+                Margin="3,0,0,0"
+                Classes="top"
+                Command="{Binding Reload}"
+                Content="{lang:Localize ToDoInstanceSetting.Text4}"
+                IsEnabled="{Binding !LoginNow}" />
+        </StackPanel>
+        <TextBox
+            BorderBrush="Transparent"
+            BorderThickness="0"
+            IsReadOnly="True"
+            IsVisible="{Binding DisplayText}"
+            Text="{Binding Text}" />
+        <TextBlock IsVisible="{Binding DisplayInfo}" Text="{Binding Text}" />
+    </StackPanel>
+</UserControl>

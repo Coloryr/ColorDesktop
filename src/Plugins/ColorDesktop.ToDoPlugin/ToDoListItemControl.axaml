@@ -1,0 +1,115 @@
+<UserControl
+    x:Class="ColorDesktop.ToDoPlugin.ToDoListItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:local="clr-namespace:ColorDesktop.ToDoPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:ToDoItemModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,2,0,2" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Name="PART_ContentBorder"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <Panel>
+                            <Border
+                                Name="PART_ContentSelect"
+                                Width="5"
+                                Height="20"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Background="#005fb8"
+                                CornerRadius="5"
+                                IsVisible="False" />
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
+                                Margin="5,0,0,0"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+
+            <Style Selector="^:selected /template/ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="^:pointerover /template/ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="^:selected /template/Border#PART_ContentSelect">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^:selected /template/Border#PART_ContentBorder">
+                <Setter Property="Background" Value="#ececec" />
+            </Style>
+            <Style Selector="^:pointerover /template/Border#PART_ContentBorder">
+                <Setter Property="Background" Value="#ececec" />
+            </Style>
+            <Style Selector="^:disabled /template/Border#PART_ContentBorder">
+                <Setter Property="Background" Value="#EEAAAAAA" />
+            </Style>
+        </Style>
+    </UserControl.Styles>
+    <ListBoxItem
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        IsSelected="{Binding IsCheck}">
+        <ListBoxItem.Styles>
+            <Style Selector="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Padding" Value="10,8,15,8" />
+                <Setter Property="Margin" Value="0,1,0,1" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Panel>
+                            <Border Background="Blue" Opacity="0" />
+                            <ContentPresenter
+                                x:Name="PART_ContentPresenter"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                RecognizesAccessKey="True" />
+                        </Panel>
+                    </ControlTemplate>
+                </Setter>
+                <Style Selector="^:pressed">
+                    <Setter Property="RenderTransform" Value="scale(1)" />
+                </Style>
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </Style>
+        </ListBoxItem.Styles>
+        <Button
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent"
+            Command="{Binding Select}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" />
+            </StackPanel>
+        </Button>
+    </ListBoxItem>
+</UserControl>
