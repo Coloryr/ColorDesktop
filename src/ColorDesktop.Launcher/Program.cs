@@ -16,7 +16,7 @@ namespace ColorDesktop.Launcher;
 
 public class Program
 {
-    public const string Version = "A2.2024.10.18";
+    public const string Version = "A2.2024.10.24";
     public const string ApiVersion = "2";
 
     private static FileStream s_lock;
