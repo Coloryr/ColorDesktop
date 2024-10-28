@@ -33,6 +33,7 @@ public static class ThemeManager
 
     public static void Init()
     {
+        NowTheme = App.ThisApp.PlatformSettings!.GetColorValues().ThemeVariant;
         if (NowTheme == PlatformThemeVariant.Light)
         {
             s_theme = s_light;
@@ -79,49 +80,65 @@ public static class ThemeManager
 
     public static IBrush GetColor(string key)
     {
-        if (key == "WindowSideBG")
+        if (key == nameof(ThemeObj.WindowBG))
+        {
+            return s_theme.WindowBG;
+        }
+        else if(key == nameof(ThemeObj.WindowSideBG))
         {
             return s_theme.WindowSideBG;
         }
-        else if (key == "WindowSideFont")
+        else if (key == nameof(ThemeObj.WindowSideFont))
         {
             return s_theme.WindowSideFont;
         }
-        else if (key == "WindowSideBGTop")
+        else if (key == nameof(ThemeObj.WindowSideBGTop))
         {
             return s_theme.WindowSideBGTop;
         }
-        else if (key == "WindowSideBGSelect")
+        else if (key == nameof(ThemeObj.WindowSideBGSelect))
         {
             return s_theme.WindowSideBGSelect;
         }
-        else if (key == "ControlBorder")
+        else if (key == nameof(ThemeObj.ControlBorder))
         {
             return s_theme.ControlBorder;
         }
-        else if (key == "ControlTopBGColor")
+        else if (key == nameof(ThemeObj.ControlTopBGColor))
         {
             return s_theme.ControlTopBGColor;
         }
-        else if (key == "ButtonOver")
+        else if (key == nameof(ThemeObj.ButtonOver))
         {
             return s_theme.ButtonOver;
         }
-        else if (key == "ButtonBorder")
+        else if (key == nameof(ThemeObj.ButtonBorder))
         {
             return s_theme.ButtonBorder;
         }
-        else if (key == "ButtonBG")
+        else if (key == nameof(ThemeObj.ButtonBG))
         {
             return s_theme.ButtonBG;
         }
-        else if (key == "FontColor")
+        else if (key == nameof(ThemeObj.FontColor))
         {
             return s_theme.FontColor;
         }
-        else if (key == "MainColor")
+        else if (key == nameof(ThemeObj.MainColor))
         {
             return s_theme.MainColor;
+        }
+        else if (key == nameof(ThemeObj.ViewBG))
+        {
+            return s_theme.ViewBG;
+        }
+        else if (key == nameof(ThemeObj.ViewBorder))
+        {
+            return s_theme.ViewBorder;
+        }
+        else if (key == nameof(ThemeObj.ItemOverBG))
+        {
+            return s_theme.ItemOverBG;
         }
 
         return Brushes.Transparent;
@@ -214,6 +231,7 @@ public static class ThemeManager
     {
         s_light = new()
         {
+            WindowBG = Brush.Parse("#99FFFFFF"),
             WindowSideBG = Brush.Parse("#FF454545"),
             WindowSideFont = Brush.Parse("#FFFFFFFF"),
             WindowSideBGTop = Brush.Parse("#FF565656"),
@@ -224,10 +242,14 @@ public static class ThemeManager
             ButtonOver = Brush.Parse("#FFFEFEFE"),
             ButtonBorder = Brush.Parse("#FFD4D4D8"),
             FontColor = Brush.Parse("#FF000000"),
+            ViewBG = Brush.Parse("#DDFFFFFF"),
+            ViewBorder = Brush.Parse("#FFe5e5e5"),
+            ItemOverBG = Brush.Parse("#DDEFEFEF"),
         };
 
         s_dark = new()
         {
+            WindowBG = Brush.Parse("#99000000"),
             WindowSideBG = Brush.Parse("#FF454545"),
             WindowSideFont = Brush.Parse("#FFFFFFFF"),
             WindowSideBGTop = Brush.Parse("#FF565656"),
@@ -238,6 +260,9 @@ public static class ThemeManager
             ButtonOver = Brush.Parse("#FF141414"),
             ButtonBorder = Brush.Parse("#FFD4D4D8"),
             FontColor = Brush.Parse("#FFFFFFFF"),
+            ViewBG = Brush.Parse("#CF27272a"),
+            ViewBorder = Brush.Parse("#FF1d1d1d"),
+            ItemOverBG = Brush.Parse("#DD27272a"),
         };
     }
 }

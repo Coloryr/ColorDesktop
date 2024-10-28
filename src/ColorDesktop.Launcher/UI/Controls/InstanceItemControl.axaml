@@ -53,9 +53,12 @@
             </DockPanel>
         </Border>
         <Border Classes="t1" IsVisible="{Binding PluginDisable, FallbackValue=false}">
-            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock FontSize="16" Text="{lang:Localize MainWindow.Text29}" />
-            </Panel>
+            <Decorator HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="16"
+                    Foreground="{setting:Theme FontColor}"
+                    Text="{lang:Localize MainWindow.Text29}" />
+            </Decorator>
         </Border>
     </Panel>
 </UserControl>

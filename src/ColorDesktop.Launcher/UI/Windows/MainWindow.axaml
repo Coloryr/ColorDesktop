@@ -171,8 +171,8 @@
                     </ListBoxItem>
                 </ListBox>
             </DockPanel>
-            <Border Background="#99FFFFFF">
-                <Decorator Name="View1" />
+            <Border Background="{setting:Theme WindowBG}">
+                <Decorator Name="View1" RenderOptions.TextRenderingMode="Antialias" />
             </Border>
         </DockPanel>
     </dialog:DialogHost>

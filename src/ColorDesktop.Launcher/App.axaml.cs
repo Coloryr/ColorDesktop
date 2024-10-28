@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
@@ -21,7 +22,7 @@ public partial class App : Application
 {
     public static LanguageType Lang { get; set; } = LanguageType.zh_cn;
 
-    private static Application ThisApp;
+    public static Application ThisApp { get; private set; }
 
     public static MainWindow MainWindow { get; set; }
 
@@ -106,6 +107,14 @@ public partial class App : Application
         if (ApplicationLifetime is ClassicDesktopStyleApplicationLifetime life)
         {
             life.Exit += Life_Exit;
+        }
+
+        if (PlatformSettings is { } setting)
+        {
+            setting.ColorValuesChanged += (object? sender, PlatformColorValues e) =>
+            {
+                ThemeManager.Init();
+            };
         }
 
         ShowMainWindow();
