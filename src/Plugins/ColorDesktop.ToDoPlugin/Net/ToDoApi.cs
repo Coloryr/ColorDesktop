@@ -13,6 +13,12 @@ namespace ColorDesktop.ToDoPlugin.Net;
 
 public static class ToDoApi
 {
+    private static string BuildTime(DateTime time)
+    {
+        time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, time.Kind).ToUniversalTime();
+        return $"{time.Year}-{time.Month:00}-{time.Day:00}T{time.Hour:00}:00:00";
+    }
+
     public static async Task<(bool, ToDoListObj?)> GetLists(string bear)
     {
         var req = new HttpRequestMessage()
@@ -266,7 +272,7 @@ public static class ToDoApi
                 obj.Add("completedDateTime", new JObject()
                 {
                     { "timeZone", "UTC" },
-                    { "dateTime", DateTime.UtcNow.ToString("O") }
+                    { "dateTime", BuildTime(DateTime.UtcNow) }
                 });
             }
             else
@@ -279,7 +285,7 @@ public static class ToDoApi
             obj.Add("dueDateTime", new JObject()
             {
                 { "timeZone", "UTC" },
-                { "dateTime", time1.ToUniversalTime().ToString("O") }
+                { "dateTime", BuildTime(time1.ToUniversalTime()) }
             });
         }
         if (body != null)
