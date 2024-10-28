@@ -4,6 +4,18 @@
     "ToDoControl.Text2": "登录失败，请到设置中重新登陆",
     "ToDoControl.Text3": "正在加载数据",
     "ToDoControl.Text4": "选择展示的列表",
+    "ToDoControl.Text5": "+添加步骤",
+    "ToDoControl.Text6": "提醒我",
+    "ToDoControl.Text7": "已提醒",
+    "ToDoControl.Text8": "到期时间",
+    "ToDoControl.Text9": "设置时间",
+    "ToDoControl.Text10": "今天",
+    "ToDoControl.Text11": "明天",
+    "ToDoControl.Text12": "后天",
+    "ToDoControl.Text13": "逾期",
+    "ToDoControl.Text14": "+添加内容",
+    "ToDoControl.Info1": "是否要删除该选项",
+    "ToDoControl.Info2": "是否要删除该任务",
     "ToDoInstanceSetting.Text1": "未登录微软账户，无法获取信息",
     "ToDoInstanceSetting.Text2": "登陆账户",
     "ToDoInstanceSetting.Text3": "已登录",
@@ -22,5 +34,6 @@
     "ToDoInstanceSetting.Error2": "登录发生异常",
     "ToDoInstanceSetting.Error3": "登录过程出现错误",
     "ToDoInstanceSetting.Error4": "密钥刷新发生异常",
-    "ToDoInstanceSetting.Error5": "密钥刷新出现错误"
+    "ToDoInstanceSetting.Error5": "密钥刷新出现错误",
+    "ToDoControl.Dialog.Text1": "选择时间"
 }

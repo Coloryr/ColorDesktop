@@ -8,7 +8,6 @@ using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
-using ColorDesktop.Launcher.Utils;
 using DialogHostAvalonia;
 using Newtonsoft.Json;
 

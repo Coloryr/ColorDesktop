@@ -8,13 +8,13 @@ namespace ColorDesktop.ToDoPlugin;
 
 public partial class ToDoControl : UserControl, IInstance
 {
-    public ToDoControl()
+    public ToDoControl(string uuid)
     {
         InitializeComponent();
 
         Head.PointerPressed += Head_PointerPressed;
 
-        DataContext = new ToDoModel();
+        DataContext = new ToDoModel(uuid);
     }
 
     private void Head_PointerPressed(object? sender, PointerPressedEventArgs e)

@@ -76,7 +76,7 @@ public partial class App : Application
 
         Program.StartLock();
 
-        Logs.Init();
+        Logs.Init(Program.RunDir, Program.Version);
     }
 
     public override void Initialize()

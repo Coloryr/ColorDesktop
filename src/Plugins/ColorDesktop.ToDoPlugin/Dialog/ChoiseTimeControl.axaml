@@ -1,0 +1,35 @@
+<UserControl
+    x:Class="ColorDesktop.ToDoPlugin.Dialog.ChoiseTimeControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ColorDesktop.ToDoPlugin.Dialog"
+    x:DataType="vm:ChoiseTimeModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,20"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize ToDoControl.Dialog.Text1}"
+            TextWrapping="Wrap" />
+        <DatePicker SelectedDate="{Binding Time}" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="35"
+                Margin="0,0,0,0"
+                Classes="top"
+                Command="{Binding Confirm}"
+                Content="{lang:Localize Button.Confirm}" />
+            <Button
+                Width="100"
+                Height="35"
+                Margin="20,0,0,0"
+                Classes="top"
+                Command="{Binding Cancel}"
+                Content="{lang:Localize Button.Cancel}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

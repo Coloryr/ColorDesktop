@@ -81,7 +81,7 @@ public class ToDoPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        return new ToDoControl();
+        return new ToDoControl(obj.UUID);
     }
 
     public Control OpenSetting(InstanceDataObj instance)

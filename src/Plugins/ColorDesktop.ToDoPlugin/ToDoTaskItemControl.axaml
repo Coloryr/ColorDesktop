@@ -6,55 +6,233 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.ToDoPlugin"
+    xmlns:local1="clr-namespace:ColorDesktop.CoreLib.View.Cov;assembly=ColorDesktop.CoreLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
     x:DataType="local:ToDoTaskItemModel"
     mc:Ignorable="d">
-    <Border Background="#FF8284" CornerRadius="5">
-        <StackPanel Margin="10">
+    <UserControl.Resources>
+        <local1:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
+    </UserControl.Resources>
+    <Border
+        Background="#f9f9f9"
+        BorderBrush="#d9d9d9"
+        BorderThickness="1"
+        CornerRadius="5">
+        <StackPanel Margin="10" IsEnabled="{Binding !IsEdit}">
             <StackPanel.Styles>
                 <Style Selector="CheckBox">
                     <Style Selector="^:unchecked /template/ Border#NormalRectangle">
-                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="BorderBrush" Value="#6d747a" />
                         <Setter Property="CornerRadius" Value="20" />
                     </Style>
                     <Style Selector="^:checked /template/ Border#NormalRectangle">
-                        <Setter Property="BorderBrush" Value="White" />
-                        <Setter Property="Background" Value="#909aa2" />
+                        <Setter Property="BorderBrush" Value="#6d747a" />
+                        <Setter Property="Background" Value="#6d747a" />
                         <Setter Property="CornerRadius" Value="20" />
                     </Style>
                     <Style Selector="^:checked AccessText">
                         <Setter Property="TextDecorations" Value="Strikethrough" />
-                        <Setter Property="Foreground" Value="#EFEFEF" />
+                        <Setter Property="Foreground" Value="#bfbfbf" />
+                    </Style>
+                </Style>
+                <Style Selector="CheckBox.t1">
+                    <Style Selector="^:unchecked /template/ Border#NormalRectangle">
+                        <Setter Property="BorderBrush" Value="#6d747a" />
+                        <Setter Property="CornerRadius" Value="20" />
+                        <Setter Property="Width" Value="18" />
+                        <Setter Property="Height" Value="18" />
+                    </Style>
+                    <Style Selector="^:unchecked AccessText">
+                        <Setter Property="FontSize" Value="14" />
+                    </Style>
+                    <Style Selector="^:checked /template/ Border#NormalRectangle">
+                        <Setter Property="BorderBrush" Value="#6d747a" />
+                        <Setter Property="Background" Value="#6d747a" />
+                        <Setter Property="CornerRadius" Value="20" />
+                        <Setter Property="Width" Value="16" />
+                        <Setter Property="Height" Value="16" />
+                    </Style>
+                    <Style Selector="^:checked AccessText">
+                        <Setter Property="TextDecorations" Value="Strikethrough" />
+                        <Setter Property="Foreground" Value="#bfbfbf" />
+                        <Setter Property="FontSize" Value="14" />
                     </Style>
                 </Style>
             </StackPanel.Styles>
-            <CheckBox
-                Content="{Binding Title}"
-                Foreground="#FFFFFF"
-                IsChecked="{Binding IsCheck}" />
+            <TextBox
+                Name="TextBox2"
+                Margin="0,2,0,2"
+                IsVisible="{Binding EditTitle}"
+                Text="{Binding Title}" />
+            <DockPanel IsVisible="{Binding !EditTitle}">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button
+                        Margin="5,0,0,0"
+                        Classes="over"
+                        Command="{Binding EditTaskItem}"
+                        IsVisible="{Binding IsOver}">
+                        <svg:SvgControl
+                            Width="15"
+                            Path="/Resource/icon5.svg"
+                            Stroke="#000000" />
+                    </Button>
+                    <Button
+                        Margin="5,0,0,0"
+                        Classes="over"
+                        Command="{Binding DeleteTaskItem}"
+                        IsVisible="{Binding IsOver}">
+                        <svg:SvgControl
+                            Width="15"
+                            Fill="#000000"
+                            Path="/Resource/icon4.svg" />
+                    </Button>
+                </StackPanel>
+                <CheckBox
+                    FontSize="18"
+                    Foreground="#000000"
+                    IsChecked="{Binding IsCheck}">
+                    <AccessText
+                        MaxLines="2"
+                        Text="{Binding Title}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+                </CheckBox>
+            </DockPanel>
             <ItemsControl
-                Margin="10,0,0,-5"
+                Margin="0,0,0,-2"
                 IsVisible="{Binding HaveSubTask}"
                 ItemsSource="{Binding SubTasks}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox
-                            Margin="0,0,0,5"
-                            Content="{Binding Text}"
-                            Foreground="#FFFFFF"
-                            IsChecked="{Binding IsCheck}" />
+                        <local:ToDoCheckItemControl DataContext="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Rectangle
-                Height="1"
+            <TextBox
+                Name="TextBox1"
                 Margin="0,2,0,2"
-                Fill="#EFEFEF"
-                IsVisible="{Binding HaveText}" />
-            <TextBlock
-                Foreground="#FFFFFF"
-                IsVisible="{Binding HaveText}"
-                Text="{Binding Text}" />
+                IsVisible="{Binding NewStep}"
+                Text="{Binding Step}" />
+            <StackPanel IsVisible="{Binding HaveText}">
+                <Rectangle
+                    Height="1"
+                    Margin="0,2,0,2"
+                    Fill="#6d747a" />
+                <TextBox
+                    Name="TextBox3"
+                    Margin="0,2,0,2"
+                    IsVisible="{Binding EditBody}"
+                    Text="{Binding Text}" />
+                <DockPanel IsVisible="{Binding !EditBody}">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <Button
+                            Margin="5,0,0,0"
+                            Classes="over"
+                            Command="{Binding EditBodyText}"
+                            IsVisible="{Binding IsOver}">
+                            <svg:SvgControl
+                                Width="15"
+                                Path="/Resource/icon5.svg"
+                                Stroke="#000000" />
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Foreground="#000000" Text="{Binding Text}" />
+                </DockPanel>
+            </StackPanel>
+            <StackPanel
+                HorizontalAlignment="Left"
+                IsVisible="{Binding IsOver}"
+                Orientation="Horizontal">
+                <Button
+                    Classes="over"
+                    Command="{Binding Add}"
+                    Content="{lang:Localize ToDoControl.Text5}"
+                    Foreground="#0c77c3"
+                    IsVisible="{Binding !NewStep}" />
+                <Button
+                    Margin="5,0,0,0"
+                    Classes="over"
+                    Command="{Binding EditBodyText}"
+                    Content="{lang:Localize ToDoControl.Text14}"
+                    Foreground="#0c77c3"
+                    IsVisible="{Binding !HaveText}" />
+            </StackPanel>
+            <Border
+                Margin="0,5,0,0"
+                Background="#fdfdfd"
+                BorderBrush="#d9d9d9"
+                BorderThickness="1"
+                CornerRadius="5"
+                IsVisible="{Binding IsNotifyDisplay}">
+                <StackPanel Margin="10">
+                    <DockPanel>
+                        <ToggleSwitch
+                            Margin="0,-5,0,-5"
+                            DockPanel.Dock="Right"
+                            IsChecked="{Binding IsNotify}"
+                            IsEnabled="{Binding HaveDueTime}"
+                            IsVisible="{Binding HaveDueTime}"
+                            OffContent="{lang:Localize ToDoControl.Text6}"
+                            OnContent="{lang:Localize ToDoControl.Text7}" />
+                        <TextBlock Foreground="#bfbfbf" Text="{lang:Localize ToDoControl.Text8}" />
+                    </DockPanel>
+                    <DockPanel Margin="0,5,0,0">
+                        <Button
+                            Margin="0,-2,0,-2"
+                            Classes="over"
+                            Command="{Binding SelectTime}"
+                            Content="{lang:Localize ToDoControl.Text9}"
+                            DockPanel.Dock="Right"
+                            Foreground="#0c77c3" />
+                        <Border
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Background="#0070c0"
+                            CornerRadius="20"
+                            IsVisible="{Binding DayOff, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:DayOffTask.Today}}">
+                            <TextBlock
+                                Margin="5,1,5,1"
+                                Foreground="#FFFFFF"
+                                Text="{lang:Localize ToDoControl.Text10}" />
+                        </Border>
+                        <Border
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Background="#d9d9d9"
+                            CornerRadius="20"
+                            IsVisible="{Binding DayOff, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:DayOffTask.Day1}}">
+                            <TextBlock
+                                Margin="5,1,5,1"
+                                Foreground="#000000"
+                                Text="{lang:Localize ToDoControl.Text11}" />
+                        </Border>
+                        <Border
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Background="#d9d9d9"
+                            CornerRadius="20"
+                            IsVisible="{Binding DayOff, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:DayOffTask.Day2}}">
+                            <TextBlock
+                                Margin="5,1,5,1"
+                                Foreground="#000000"
+                                Text="{lang:Localize ToDoControl.Text12}" />
+                        </Border>
+                        <Border
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Background="#cc0000"
+                            CornerRadius="20"
+                            IsVisible="{Binding DayOff, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:DayOffTask.TimeOut}}">
+                            <TextBlock
+                                Margin="5,1,5,1"
+                                Foreground="#FFFFFF"
+                                Text="{lang:Localize ToDoControl.Text13}" />
+                        </Border>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding DueTime}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Border>
 </UserControl>

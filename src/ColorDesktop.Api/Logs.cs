@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.IO;
-using System.Threading;
-using ColorDesktop.Api;
+﻿using System.Collections.Concurrent;
 
-namespace ColorDesktop.Launcher.Utils;
+namespace ColorDesktop.Api;
 
 public static class Logs
 {
@@ -17,14 +13,21 @@ public static class Logs
         Name = "Log"
     };
     private static bool s_run = false;
+    private static string s_version;
 
     /// <summary>
     /// 初始化
     /// </summary>
     /// <param name="dir">运行的路径</param>
-    public static void Init()
+    public static void Init(string dir, string version)
     {
-        s_local = Program.RunDir;
+        if (s_run)
+        {
+            return;
+        }
+
+        s_version = version;
+        s_local = dir;
         try
         {
             var stream = File.Open(s_local + "logs.log", FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
@@ -140,7 +143,7 @@ public static class Logs
     public static string Crash(string data, Exception e)
     {
         var date = DateTime.Now;
-        string text = $"Version:{Program.Version}{Environment.NewLine}" +
+        string text = $"Version:{s_version}{Environment.NewLine}" +
             $"System:{SystemInfo.System}{Environment.NewLine}" +
             $"SystemName:{SystemInfo.SystemName}{Environment.NewLine}" +
             $"{data}{Environment.NewLine}" +
