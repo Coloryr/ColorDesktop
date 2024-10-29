@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ColorDesktop.ToDoPlugin.Objs;
+﻿using ColorDesktop.ToDoPlugin.Objs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

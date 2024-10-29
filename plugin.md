@@ -15,6 +15,7 @@
 | coloryr.weather  | [天气](#天气) | ![](./src/Plugins/ColorDesktop.WeatherPlugin/icon.png) | 通过网络API查询并显示天气 | coloryr.corelib |
 | coloryr.minecraft.skin  | [Minecraft皮肤显示](#Minecraft皮肤显示) | ![](./src/Plugins/ColorDesktop.MinecraftSkinPlugin/icon.png) | 用于显示Minecraft皮肤 | coloryr.corelib |
 | coloryr.minecraft.motd  | [Minecraft服务器Motd显示](#Minecraft服务器Motd显示) | ![](./src/Plugins/ColorDesktop.MinecraftMotdPlugin/icon.png) | 用于显示Minecraft服务器Motd | coloryr.corelib |
+| coloryr.todo  | [ToDo列表](#ToDo列表) | ![](./src/Plugins/ColorDesktop.ToDoPlugin/icon.png) | 登录微软账户获取ToDo列表并展示 | coloryr.corelib |
 
 ## 模拟时钟
 
@@ -132,3 +133,9 @@
 获取Minecraft服务器的Motd然后显示  
 ![](./pic/pic55.png)  
 ![](./pic/pic54.png)
+
+## ToDo列表
+
+登录微软账户获取ToDo列表并展示  
+![](./pic/pic56.png)  
+![](./pic/pic57.png)  

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.ToDoPlugin.Objs;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ColorDesktop.ToDoPlugin.Net;
@@ -67,7 +62,7 @@ public static class ToDoApi
 
             return (true, obj.ToObject<ToDoTaskListObj>());
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Logs.Error("todo error", e);
             return (false, null);
@@ -105,7 +100,7 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<bool> CreateTask(string bear, string id, 
+    public static async Task<bool> CreateTask(string bear, string id,
         string title, string? body = null, DateTime? dueTime = null)
     {
         var obj = new JObject
@@ -199,7 +194,7 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<bool> EditCheckItem(string bear, string listId, 
+    public static async Task<bool> EditCheckItem(string bear, string listId,
         string task, string id, bool? isCheck, string? text)
     {
         var obj = new JObject();
@@ -253,7 +248,7 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<bool> EditTaskItem(string bear, string listId, string task, 
+    public static async Task<bool> EditTaskItem(string bear, string listId, string task,
         string? text, bool? isCheck, DateTime? time, string? body,
         bool? removeTime, DateTime? isReminderTime, bool? isReminder)
     {

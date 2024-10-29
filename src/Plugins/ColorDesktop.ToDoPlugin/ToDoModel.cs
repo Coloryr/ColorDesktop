@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using Avalonia.Media;
 using ColorDesktop.Api;
 using ColorDesktop.ToDoPlugin.Dialog;
@@ -70,9 +69,45 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
     }
 
     [RelayCommand]
-    public void Add()
+    public async Task Add()
     {
+        var model = new NewTaskModel(UUID);
+        var res1 = await DialogHost.Show(model, UUID);
+        if (res1 is not true)
+        {
+            return;
+        }
 
+        if (SelectList == null || string.IsNullOrWhiteSpace(model.Title))
+        {
+            return;
+        }
+
+        var res = await ToDoApi.CreateTask(_config.Token, SelectList.Id, model.Title);
+        if (!res)
+        {
+            res = await Refresh();
+            if (!res)
+            {
+                SetLoginFail();
+                IsLoad = false;
+                return;
+            }
+
+            res = await ToDoApi.CreateTask(_config.Token, SelectList.Id, model.Title);
+            if (!res)
+            {
+                SetLoginFail();
+                IsLoad = false;
+                return;
+            }
+        }
+
+        IsLoad = true;
+
+        await LoadItem();
+
+        IsLoad = false;
     }
 
     [RelayCommand]
@@ -127,11 +162,6 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
 
         await LoadItem();
 
-        if (TodoList.Count > 0)
-        {
-            Select(TodoList[0]);
-        }
-
         IsLoad = false;
     }
 
@@ -148,6 +178,8 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
                 return;
             }
 
+            item.Value.Clear();
+
             foreach (var item1 in res.Item2.Value)
             {
                 item.Value.Add(item1.ID);
@@ -155,6 +187,11 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
                 item2.Update(item1);
                 _taskList.Add(item1.ID, item2);
             }
+        }
+
+        if (TodoList.Count > 0)
+        {
+            Select(TodoList[0]);
         }
     }
 
@@ -241,7 +278,7 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
     public async void DeleteCheckItem(string listId, string task, string id)
     {
         var res1 = await DialogHost.Show(new ChoiseModel(UUID)
-        { 
+        {
             Text = LangApi.GetLang("ToDoControl.Info1")
         }, UUID);
         if (res1 is not true)
@@ -328,10 +365,14 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
             }
         }
 
-        LoadTask(); 
+        IsLoad = true;
+
+        await LoadItem();
+
+        IsLoad = false;
     }
 
-    public async void EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null, bool? removeTime= null, DateTime? isReminderTime = null, bool? isReminder = null)
+    public async void EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null, bool? removeTime = null, DateTime? isReminderTime = null, bool? isReminder = null)
     {
         var res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body, removeTime, isReminderTime, isReminder);
         if (!res)

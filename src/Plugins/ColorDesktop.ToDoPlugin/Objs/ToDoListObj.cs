@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ColorDesktop.ToDoPlugin.Objs;
 
@@ -16,7 +11,7 @@ public record ToDoListObj
         [JsonProperty("displayName")]
         public string DisplayName { get; set; }
         [JsonProperty("isOwner")]
-        public bool IsOwner{ get; set; }
+        public bool IsOwner { get; set; }
         [JsonProperty("isShared")]
         public bool IsShared { get; set; }
         [JsonProperty("wellknownListName")]

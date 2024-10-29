@@ -19,6 +19,9 @@
             <DataTemplate DataType="dialogview:ChoiseTimeModel">
                 <dialogview:ChoiseTimeControl DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="dialogview:NewTaskModel">
+				<dialogview:NewTaskControl DataContext="{Binding}" />
+            </DataTemplate>
         </dialog:DialogHost.DataTemplates>
         <Panel>
             <DockPanel Name="Head" VerticalAlignment="Top">

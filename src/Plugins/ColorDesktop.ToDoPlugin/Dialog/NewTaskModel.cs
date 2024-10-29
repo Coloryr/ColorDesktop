@@ -1,13 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
 
 namespace ColorDesktop.ToDoPlugin.Dialog;
 
-public partial class ChoiseTimeModel(string name) : ObservableObject
+public partial class NewTaskModel(string name) : ObservableObject
 {
     [ObservableProperty]
-    private DateTimeOffset _time;
+    private string _title;
 
     [RelayCommand]
     public void Confirm()

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using ColorDesktop.Api;
 using ColorDesktop.ToDoPlugin.Dialog;
-using ColorDesktop.ToDoPlugin.Net;
 using ColorDesktop.ToDoPlugin.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -15,7 +9,7 @@ using DialogHostAvalonia;
 namespace ColorDesktop.ToDoPlugin;
 
 public enum DayOffTask
-{ 
+{
     None, Today, Day1, Day2, TimeOut
 }
 
@@ -172,7 +166,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         IsEdit = true;
         var time = model.Time.DateTime;
         top.EditTaskItem(_listId, _obj.ID, time:
-            new DateTime(time.Year, time.Month, time.Day, 
+            new DateTime(time.Year, time.Month, time.Day,
             time.Hour, 0, 0, DateTimeKind.Local).AddDays(1).ToUniversalTime());
         IsEdit = false;
     }
@@ -266,7 +260,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
             foreach (var item in obj.ChecklistItems)
             {
                 SubTasks.Add(new(this, item)
-                { 
+                {
                     IsOver = IsOver
                 });
             }

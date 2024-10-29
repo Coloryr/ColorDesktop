@@ -44,22 +44,24 @@ public class ToDoPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
     {
-        throw new NotImplementedException();
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.ToDoPlugin.icon.png")!;
+        return item;
     }
 
     public void Init(string local, string local1)
     {
-        
+
     }
 
     public void LoadLang(LanguageType type)
@@ -96,6 +98,6 @@ public class ToDoPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

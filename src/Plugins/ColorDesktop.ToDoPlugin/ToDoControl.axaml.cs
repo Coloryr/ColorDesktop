@@ -1,7 +1,5 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 
 namespace ColorDesktop.ToDoPlugin;
@@ -32,7 +30,7 @@ public partial class ToDoControl : UserControl, IInstance
 
     public void RenderTick()
     {
-        
+
     }
 
     public void Start(IInstanceWindow window)

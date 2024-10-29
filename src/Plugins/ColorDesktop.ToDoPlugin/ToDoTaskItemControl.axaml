@@ -114,16 +114,17 @@
                 Margin="0,2,0,2"
                 IsVisible="{Binding NewStep}"
                 Text="{Binding Step}" />
+            <Rectangle
+                Height="1"
+                Margin="0,2,0,2"
+                Fill="#6d747a"
+                IsVisible="{Binding HaveText}" />
+            <TextBox
+                Name="TextBox3"
+                Margin="0,2,0,2"
+                IsVisible="{Binding EditBody}"
+                Text="{Binding Text}" />
             <StackPanel IsVisible="{Binding HaveText}">
-                <Rectangle
-                    Height="1"
-                    Margin="0,2,0,2"
-                    Fill="#6d747a" />
-                <TextBox
-                    Name="TextBox3"
-                    Margin="0,2,0,2"
-                    IsVisible="{Binding EditBody}"
-                    Text="{Binding Text}" />
                 <DockPanel Margin="0,2,0,0" IsVisible="{Binding !EditBody}">
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                         <Button
