@@ -269,15 +269,17 @@ public static class ToDoApi
         {
             if (check)
             {
-                obj.Add("completedDateTime", new JObject()
-                {
-                    { "timeZone", "UTC" },
-                    { "dateTime", BuildTime(DateTime.UtcNow) }
-                });
+                //obj.Add("completedDateTime", new JObject()
+                //{
+                //    { "timeZone", "UTC" },
+                //    { "dateTime", BuildTime(DateTime.UtcNow) }
+                //});
+                obj.Add("status", "completed");
             }
             else
             {
-                obj.Add("completedDateTime", null);
+                //obj.Add("completedDateTime", null);
+                obj.Add("status", "notStarted");
             }
         }
         if (time is { } time1)
