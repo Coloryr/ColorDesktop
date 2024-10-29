@@ -23,6 +23,35 @@ public partial class ToDoTaskItemControl : UserControl
 
         TextBox2.LostFocus += TextBox2_LostFocus;
         TextBox2.KeyDown += TextBox2_KeyDown;
+
+        TextBox3.LostFocus += TextBox3_LostFocus;
+        TextBox3.KeyDown += TextBox3_KeyDown;
+    }
+
+    private void TextBox3_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            if (DataContext is ToDoTaskItemModel model)
+            {
+                model.BodyEnd();
+            }
+        }
+        else if (e.Key == Key.Escape)
+        {
+            if (DataContext is ToDoTaskItemModel model)
+            {
+                model.BodyCancel();
+            }
+        }
+    }
+
+    private void TextBox3_LostFocus(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is ToDoTaskItemModel model)
+        {
+            model.BodyEnd();
+        }
     }
 
     private void TextBox2_KeyDown(object? sender, KeyEventArgs e)

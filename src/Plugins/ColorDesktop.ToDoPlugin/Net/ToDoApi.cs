@@ -13,12 +13,6 @@ namespace ColorDesktop.ToDoPlugin.Net;
 
 public static class ToDoApi
 {
-    private static string BuildTime(DateTime time)
-    {
-        time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, time.Kind).ToUniversalTime();
-        return $"{time.Year}-{time.Month:00}-{time.Day:00}T{time.Hour:00}:00:00";
-    }
-
     public static async Task<(bool, ToDoListObj?)> GetLists(string bear)
     {
         var req = new HttpRequestMessage()
@@ -205,7 +199,8 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<bool> EditCheckItem(string bear, string listId, string task, string id, bool? isCheck, string? text)
+    public static async Task<bool> EditCheckItem(string bear, string listId, 
+        string task, string id, bool? isCheck, string? text)
     {
         var obj = new JObject();
         if (isCheck is { } check)
@@ -258,7 +253,9 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<bool> EditTaskItem(string bear, string listId, string task, string? text, bool? isCheck, DateTime? time, string? body)
+    public static async Task<bool> EditTaskItem(string bear, string listId, string task, 
+        string? text, bool? isCheck, DateTime? time, string? body,
+        bool? removeTime, DateTime? isReminderTime, bool? isReminder)
     {
         var obj = new JObject();
         if (text != null)
@@ -269,25 +266,40 @@ public static class ToDoApi
         {
             if (check)
             {
-                //obj.Add("completedDateTime", new JObject()
-                //{
-                //    { "timeZone", "UTC" },
-                //    { "dateTime", BuildTime(DateTime.UtcNow) }
-                //});
                 obj.Add("status", "completed");
             }
             else
             {
-                //obj.Add("completedDateTime", null);
                 obj.Add("status", "notStarted");
             }
         }
-        if (time is { } time1)
+        if (isReminder != null)
+        {
+            if (isReminder == true && isReminderTime is { } time1)
+            {
+                obj.Add("isReminderOn", true);
+                obj.Add("reminderDateTime", new JObject()
+                {
+                    { "timeZone", "UTC" },
+                    { "dateTime", $"{time1.Year}-{time1.Month:00}-{time1.Day:00}T{time1.Hour:00}:00:00" }
+                });
+            }
+            else
+            {
+                obj.Add("isReminderOn", false);
+                obj.Add("reminderDateTime", null);
+            }
+        }
+        if (removeTime == true)
+        {
+            obj.Add("dueDateTime", null);
+        }
+        else if (time is { } time1)
         {
             obj.Add("dueDateTime", new JObject()
             {
                 { "timeZone", "UTC" },
-                { "dateTime", BuildTime(time1.ToUniversalTime()) }
+                { "dateTime", $"{time1.Year}-{time1.Month:00}-{time1.Day:00}T{time1.Hour:00}:00:00" }
             });
         }
         if (body != null)
@@ -309,6 +321,11 @@ public static class ToDoApi
         try
         {
             var res = await OAuth.Client.SendAsync(req);
+
+            if (res.StatusCode != HttpStatusCode.OK)
+            {
+                var res1 = await res.Content.ReadAsStringAsync();
+            }
 
             return res.StatusCode == HttpStatusCode.OK;
         }

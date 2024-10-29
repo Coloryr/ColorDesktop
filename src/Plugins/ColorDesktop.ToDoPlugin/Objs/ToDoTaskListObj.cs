@@ -62,6 +62,8 @@ public record ToDoTaskListObj
         public BodyObj Body { get; set; }
         [JsonProperty("dueDateTime")]
         public TimeObj? DueDateTime { get; set; }
+        [JsonProperty("reminderDateTime")]
+        public TimeObj? ReminderDateTime { get; set; }
         [JsonProperty("completedDateTime")]
         public TimeObj? CompletedDateTime { get; set; }
         [JsonProperty("checklistItems@odata.context")]

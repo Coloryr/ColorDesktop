@@ -16,6 +16,7 @@
     "ToDoControl.Text14": "+添加内容",
     "ToDoControl.Info1": "是否要删除该选项",
     "ToDoControl.Info2": "是否要删除该任务",
+    "ToDoControl.Info3": "是否要删除到期时间",
     "ToDoInstanceSetting.Text1": "未登录微软账户，无法获取信息",
     "ToDoInstanceSetting.Text2": "登陆账户",
     "ToDoInstanceSetting.Text3": "已登录",

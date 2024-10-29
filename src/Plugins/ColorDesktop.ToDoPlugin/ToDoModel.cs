@@ -331,9 +331,9 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
         LoadTask(); 
     }
 
-    public async void EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null)
+    public async void EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null, bool? removeTime= null, DateTime? isReminderTime = null, bool? isReminder = null)
     {
-        var res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body);
+        var res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body, removeTime, isReminderTime, isReminder);
         if (!res)
         {
             res = await Refresh();
@@ -344,7 +344,7 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
                 return;
             }
 
-            res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body);
+            res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body, removeTime, isReminderTime, isReminder);
             if (!res)
             {
                 SetLoginFail();

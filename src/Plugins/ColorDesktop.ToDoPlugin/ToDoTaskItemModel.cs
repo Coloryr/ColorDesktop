@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ColorDesktop.Api;
 using ColorDesktop.ToDoPlugin.Dialog;
 using ColorDesktop.ToDoPlugin.Net;
 using ColorDesktop.ToDoPlugin.Objs;
@@ -110,6 +111,16 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
     partial void OnIsNotifyChanged(bool value)
     {
         IsNotifyDisplay = value || IsOver;
+
+        if (_isLoad)
+        {
+            return;
+        }
+
+        IsEdit = true;
+        top.EditTaskItem(_listId, _obj.ID, isReminder: value, isReminderTime: value ? new DateTime(Time.Year, Time.Month, Time.Day,
+            0, 0, 0, DateTimeKind.Local).ToUniversalTime() : null);
+        IsEdit = false;
     }
 
     [RelayCommand]
@@ -159,28 +170,46 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         }
 
         IsEdit = true;
-        top.EditTaskItem(_listId, _obj.ID, time: model.Time.DateTime);
+        var time = model.Time.DateTime;
+        top.EditTaskItem(_listId, _obj.ID, time:
+            new DateTime(time.Year, time.Month, time.Day, 
+            time.Hour, 0, 0, DateTimeKind.Local).AddDays(1).ToUniversalTime());
         IsEdit = false;
+    }
+
+    [RelayCommand]
+    public async Task DeleteTime()
+    {
+        var res = await DialogHost.Show(new ChoiseModel(uuid)
+        {
+            Text = LangApi.GetLang("ToDoControl.Info3")
+        }, uuid);
+        if (res is true)
+        {
+            IsEdit = true;
+            top.EditTaskItem(_listId, _obj.ID, removeTime: true);
+            IsEdit = false;
+        }
     }
 
     [RelayCommand]
     public void EditBodyText()
     {
-        if (EditTitle)
+        if (EditBody)
         {
             return;
         }
-        EditTitle = true;
+        EditBody = true;
         OnPropertyChanged(BodyName);
     }
 
     public void BodyEnd()
     {
-        if (!EditTitle)
+        if (!EditBody)
         {
             return;
         }
-        EditTitle = false;
+        EditBody = false;
 
         if (Text != _obj.Body.Content)
         {
@@ -192,7 +221,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
 
     public void BodyCancel()
     {
-        EditTitle = false;
+        EditBody = false;
         Text = _obj.Body.Content;
     }
 
@@ -251,6 +280,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         Title = obj.Title;
         HaveText = !string.IsNullOrWhiteSpace(Text);
         IsCheck = obj.CompletedDateTime != null;
+        IsNotify = obj.IsReminderOn;
 
         UpdateTime();
         _isLoad = false;
@@ -326,12 +356,15 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
                 }
             }
             HaveDueTime = true;
-            DueTime = _obj.DueDateTime.DateTime.ToString("D");
+            DueTime = tiem2.ToString("D");
+            Time = tiem2;
         }
         else
         {
+            DayOff = DayOffTask.None;
             HaveDueTime = false;
             DueTime = "未设置";
+            Time = DateTime.Now;
         }
     }
 }

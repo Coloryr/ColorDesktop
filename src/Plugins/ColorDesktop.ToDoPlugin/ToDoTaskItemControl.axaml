@@ -100,7 +100,7 @@
                 </CheckBox>
             </DockPanel>
             <ItemsControl
-                Margin="0,0,0,-2"
+                Margin="0,5,0,0"
                 IsVisible="{Binding HaveSubTask}"
                 ItemsSource="{Binding SubTasks}">
                 <ItemsControl.ItemTemplate>
@@ -124,7 +124,7 @@
                     Margin="0,2,0,2"
                     IsVisible="{Binding EditBody}"
                     Text="{Binding Text}" />
-                <DockPanel IsVisible="{Binding !EditBody}">
+                <DockPanel Margin="0,2,0,0" IsVisible="{Binding !EditBody}">
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
                         <Button
                             Margin="5,0,0,0"
@@ -184,7 +184,30 @@
                             Command="{Binding SelectTime}"
                             Content="{lang:Localize ToDoControl.Text9}"
                             DockPanel.Dock="Right"
-                            Foreground="#0c77c3" />
+                            Foreground="#0c77c3"
+                            IsVisible="{Binding !HaveDueTime}" />
+                        <Decorator DockPanel.Dock="Right" IsVisible="{Binding HaveDueTime}">
+                            <StackPanel IsVisible="{Binding IsOver}" Orientation="Horizontal">
+                                <Button
+                                    Margin="5,0,0,0"
+                                    Classes="over"
+                                    Command="{Binding SelectTime}">
+                                    <svg:SvgControl
+                                        Width="15"
+                                        Path="/Resource/icon5.svg"
+                                        Stroke="#000000" />
+                                </Button>
+                                <Button
+                                    Margin="5,0,0,0"
+                                    Classes="over"
+                                    Command="{Binding DeleteTime}">
+                                    <svg:SvgControl
+                                        Width="15"
+                                        Fill="#000000"
+                                        Path="/Resource/icon4.svg" />
+                                </Button>
+                            </StackPanel>
+                        </Decorator>
                         <Border
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"

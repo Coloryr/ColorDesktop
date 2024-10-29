@@ -16,6 +16,9 @@
             <DataTemplate DataType="dialogview:ChoiseModel">
                 <dialogview:ChoiseControl DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="dialogview:ChoiseTimeModel">
+                <dialogview:ChoiseTimeControl DataContext="{Binding}" />
+            </DataTemplate>
         </dialog:DialogHost.DataTemplates>
         <Panel>
             <DockPanel Name="Head" VerticalAlignment="Top">

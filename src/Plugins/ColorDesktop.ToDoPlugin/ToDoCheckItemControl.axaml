@@ -9,12 +9,14 @@
     x:DataType="local:ToDoCheckItemItemModel"
     mc:Ignorable="d">
     <DockPanel>
-        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+        <StackPanel
+            DockPanel.Dock="Right"
+            IsVisible="{Binding IsOver}"
+            Orientation="Horizontal">
             <Button
                 Margin="5,0,0,0"
                 Classes="over"
-                Command="{Binding EditCheckItem}"
-                IsVisible="{Binding IsOver}">
+                Command="{Binding EditCheckItem}">
                 <svg:SvgControl
                     Width="15"
                     Path="/Resource/icon5.svg"
@@ -23,8 +25,7 @@
             <Button
                 Margin="5,0,0,0"
                 Classes="over"
-                Command="{Binding DeleteCheckItem}"
-                IsVisible="{Binding IsOver}">
+                Command="{Binding DeleteCheckItem}">
                 <svg:SvgControl
                     Width="15"
                     Fill="#000000"
@@ -33,7 +34,8 @@
         </StackPanel>
         <Panel>
             <CheckBox
-                Margin="0,0,0,2"
+                Margin="0,-2,0,-2"
+                VerticalAlignment="Center"
                 Classes="t1"
                 Content="{Binding Text}"
                 Foreground="#acacac"
