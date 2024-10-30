@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using ColorDesktop.Api;
+using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Utils;
 
@@ -114,6 +115,15 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     private void InstanceWindow_Loaded(object? sender, RoutedEventArgs e)
     {
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            Win32.SetTabGone(this);
+        }
+        else
+        {
+            ShowInTaskbar = false;
+        }
+
         // 初始时边框透明
         HoverBorder.Opacity = 0;
 

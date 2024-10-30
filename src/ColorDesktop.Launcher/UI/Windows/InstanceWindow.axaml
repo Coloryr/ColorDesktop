@@ -8,7 +8,6 @@
     d:DesignHeight="200"
     d:DesignWidth="200"
     Background="Transparent"
-    ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     SystemDecorations="None"
     TransparencyBackgroundFallback="Transparent"
