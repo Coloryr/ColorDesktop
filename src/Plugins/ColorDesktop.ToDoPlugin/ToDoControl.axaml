@@ -20,7 +20,7 @@
                 <dialogview:ChoiseTimeControl DataContext="{Binding}" />
             </DataTemplate>
             <DataTemplate DataType="dialogview:NewTaskModel">
-				<dialogview:NewTaskControl DataContext="{Binding}" />
+                <dialogview:NewTaskControl DataContext="{Binding}" />
             </DataTemplate>
         </dialog:DialogHost.DataTemplates>
         <Panel>
@@ -91,12 +91,21 @@
                     <Button
                         Margin="5"
                         Classes="over"
-                        Command="{Binding CloseSide}"
-                        IsVisible="{Binding DisplayButton}">
+                        Command="{Binding CloseSide}">
                         <svg:SvgControl
                             Width="15"
                             Fill="#000000"
                             Path="/Resource/icon1.svg" />
+                    </Button>
+                    <Button
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Classes="over"
+                        Command="{Binding AddList}">
+                        <svg:SvgControl
+                            Width="15"
+                            Fill="#000000"
+                            Path="/Resource/icon3.svg" />
                     </Button>
                 </Panel>
                 <ScrollViewer Margin="5,0,0,0">

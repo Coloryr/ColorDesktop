@@ -9,7 +9,7 @@ using DialogHostAvalonia;
 
 namespace ColorDesktop.ToDoPlugin;
 
-public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItemModel>
+public partial class ToDoModel(string uuid) : ObservableObject
 {
     [ObservableProperty]
     private bool _loginFail;
@@ -66,6 +66,24 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
     public void CloseSide()
     {
         DisplaySide = false;
+    }
+
+    [RelayCommand]
+    public async Task AddList()
+    {
+        var model = new NewTaskModel(UUID);
+        var res1 = await DialogHost.Show(model, UUID);
+        if (res1 is not true)
+        {
+            return;
+        }
+
+        IsLoad = true;
+        var res = await ToDoApi.CreateTaskList(_config.Token, model.Title);
+        if (res)
+        {
+            await Reload();
+        }
     }
 
     [RelayCommand]
@@ -156,7 +174,7 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
         _todolist.Clear();
         foreach (var item in data.Item2.Value)
         {
-            TodoList.Add(new(this, item));
+            TodoList.Add(new(UUID, this, item));
             _todolist.Add(item.Id, []);
         }
 
@@ -250,7 +268,33 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
         CloseSide();
     }
 
-    public async void CreateCheckItem(string list, string task, string step)
+    public async void EditTaskList(string id, string title)
+    {
+        IsLoad = true;
+        var res = await ToDoApi.EditTaskList(_config.Token, id, title);
+        if (!res)
+        {
+            res = await Refresh();
+            if (!res)
+            {
+                SetLoginFail();
+                IsLoad = false;
+                return;
+            }
+
+            res = await ToDoApi.EditTaskList(_config.Token, id, title);
+            if (!res)
+            {
+                SetLoginFail();
+                IsLoad = false;
+                return;
+            }
+        }
+
+        await Reload();
+    }
+
+    public async Task CreateCheckItem(string list, string task, string step)
     {
         var res = await ToDoApi.CreateTaskCheckList(_config.Token, list, task, step);
         if (!res)
@@ -272,10 +316,10 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
             }
         }
 
-        ReloadTask(list, task);
+        await ReloadTask(list, task);
     }
 
-    public async void DeleteCheckItem(string listId, string task, string id)
+    public async Task DeleteCheckItem(string listId, string task, string id)
     {
         var res1 = await DialogHost.Show(new ChoiseModel(UUID)
         {
@@ -306,10 +350,10 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
             }
         }
 
-        ReloadTask(listId, task);
+        await ReloadTask(listId, task);
     }
 
-    public async void EditCheckItem(string listId, string task, string id, bool? isCheck, string? text)
+    public async Task EditCheckItem(string listId, string task, string id, bool? isCheck, string? text)
     {
         var res = await ToDoApi.EditCheckItem(_config.Token, listId, task, id, isCheck, text);
         if (!res)
@@ -331,10 +375,10 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
             }
         }
 
-        ReloadTask(listId, task);
+        await ReloadTask(listId, task);
     }
 
-    public async void DeleteTaskItem(string listId, string task)
+    public async Task DeleteTaskItem(string listId, string task)
     {
         var res1 = await DialogHost.Show(new ChoiseModel(UUID)
         {
@@ -372,7 +416,7 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
         IsLoad = false;
     }
 
-    public async void EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null, bool? removeTime = null, DateTime? isReminderTime = null, bool? isReminder = null)
+    public async Task EditTaskItem(string listId, string task, string? text = null, bool? isCheck = null, DateTime? time = null, string? body = null, bool? removeTime = null, DateTime? isReminderTime = null, bool? isReminder = null)
     {
         var res = await ToDoApi.EditTaskItem(_config.Token, listId, task, text, isCheck, time, body, removeTime, isReminderTime, isReminder);
         if (!res)
@@ -394,10 +438,10 @@ public partial class ToDoModel(string uuid) : ObservableObject, ISelect<ToDoItem
             }
         }
 
-        ReloadTask(listId, task);
+        await ReloadTask(listId, task);
     }
 
-    private async void ReloadTask(string list, string task)
+    private async Task ReloadTask(string list, string task)
     {
         var res1 = await ToDoApi.GetTask(_config.Token, list, task);
         if (!res1.Item1)

@@ -330,4 +330,58 @@ public static class ToDoApi
             return false;
         }
     }
+
+    public static async Task<bool> CreateTaskList(string bear, string name)
+    {
+        var obj = new JObject
+        {
+            { "displayName", name }
+        };
+        var content = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
+        var req = new HttpRequestMessage()
+        {
+            RequestUri = new Uri($"https://graph.microsoft.com/v1.0/me/todo/lists"),
+            Method = HttpMethod.Post,
+            Content = content
+        };
+        req.Headers.Add("Authorization", "Bearer " + bear);
+        try
+        {
+            var res = await OAuth.Client.SendAsync(req);
+
+            return res.StatusCode == HttpStatusCode.Created;
+        }
+        catch (Exception e)
+        {
+            Logs.Error("todo error", e);
+            return false;
+        }
+    }
+
+    public static async Task<bool> EditTaskList(string bear, string id, string title)
+    {
+        var obj = new JObject
+        {
+            { "displayName", title }
+        };
+        var content = new StringContent(obj.ToString(), Encoding.UTF8, "application/json");
+        var req = new HttpRequestMessage()
+        {
+            RequestUri = new Uri($"https://graph.microsoft.com/v1.0/me/todo/lists/{id}"),
+            Method = HttpMethod.Patch,
+            Content = content
+        };
+        req.Headers.Add("Authorization", "Bearer " + bear);
+        try
+        {
+            var res = await OAuth.Client.SendAsync(req);
+
+            return res.StatusCode == HttpStatusCode.OK;
+        }
+        catch (Exception e)
+        {
+            Logs.Error("todo error", e);
+            return false;
+        }
+    }
 }

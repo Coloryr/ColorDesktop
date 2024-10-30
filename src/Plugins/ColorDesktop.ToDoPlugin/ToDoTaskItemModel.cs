@@ -67,7 +67,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
     private bool _pointer;
     private bool _isLoad;
 
-    partial void OnIsCheckChanged(bool value)
+    async partial void OnIsCheckChanged(bool value)
     {
         if (value)
         {
@@ -88,7 +88,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         }
 
         IsEdit = true;
-        top.EditTaskItem(_listId, _obj.ID, isCheck: value);
+        await top.EditTaskItem(_listId, _obj.ID, isCheck: value);
         IsEdit = false;
     }
 
@@ -102,7 +102,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         }
     }
 
-    partial void OnIsNotifyChanged(bool value)
+    async partial void OnIsNotifyChanged(bool value)
     {
         IsNotifyDisplay = value || IsOver;
 
@@ -112,7 +112,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         }
 
         IsEdit = true;
-        top.EditTaskItem(_listId, _obj.ID, isReminder: value, isReminderTime: value ? new DateTime(Time.Year, Time.Month, Time.Day,
+        await top.EditTaskItem(_listId, _obj.ID, isReminder: value, isReminderTime: value ? new DateTime(Time.Year, Time.Month, Time.Day,
             0, 0, 0, DateTimeKind.Local).ToUniversalTime() : null);
         IsEdit = false;
     }
@@ -144,10 +144,10 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
     }
 
     [RelayCommand]
-    public void DeleteTaskItem()
+    public async Task DeleteTaskItem()
     {
         IsEdit = true;
-        top.DeleteTaskItem(_listId, _obj.ID);
+        await top.DeleteTaskItem(_listId, _obj.ID);
     }
 
     [RelayCommand]
@@ -165,7 +165,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
 
         IsEdit = true;
         var time = model.Time.DateTime;
-        top.EditTaskItem(_listId, _obj.ID, time:
+        await top.EditTaskItem(_listId, _obj.ID, time:
             new DateTime(time.Year, time.Month, time.Day,
             time.Hour, 0, 0, DateTimeKind.Local).AddDays(1).ToUniversalTime());
         IsEdit = false;
@@ -181,7 +181,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         if (res is true)
         {
             IsEdit = true;
-            top.EditTaskItem(_listId, _obj.ID, removeTime: true);
+            await top.EditTaskItem(_listId, _obj.ID, removeTime: true);
             IsEdit = false;
         }
     }
@@ -197,7 +197,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         OnPropertyChanged(BodyName);
     }
 
-    public void BodyEnd()
+    public async void BodyEnd()
     {
         if (!EditBody)
         {
@@ -208,7 +208,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         if (Text != _obj.Body.Content)
         {
             IsEdit = true;
-            top.EditTaskItem(_listId, _obj.ID, body: Text);
+            await top.EditTaskItem(_listId, _obj.ID, body: Text);
             IsEdit = false;
         }
     }
@@ -219,7 +219,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         Text = _obj.Body.Content;
     }
 
-    public void TitleEnd()
+    public async void TitleEnd()
     {
         if (!EditTitle)
         {
@@ -230,7 +230,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         if (Title != _obj.Title)
         {
             IsEdit = true;
-            top.EditTaskItem(_listId, _obj.ID, Title);
+            await top.EditTaskItem(_listId, _obj.ID, Title);
             IsEdit = false;
         }
     }
@@ -241,10 +241,10 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         Title = _obj.Title;
     }
 
-    public void DeleteCheckItem(string id)
+    public async void DeleteCheckItem(string id)
     {
         IsEdit = true;
-        top.DeleteCheckItem(_listId, _obj.ID, id);
+        await top.DeleteCheckItem(_listId, _obj.ID, id);
         IsEdit = false;
     }
 
@@ -286,7 +286,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         Step = "";
     }
 
-    public void NewStepEnd()
+    public async void NewStepEnd()
     {
         if (!NewStep)
         {
@@ -298,7 +298,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
             return;
         }
 
-        top.CreateCheckItem(_listId, _obj.ID, Step);
+        await top.CreateCheckItem(_listId, _obj.ID, Step);
     }
 
     public void PointerOver(bool enter)
@@ -313,9 +313,9 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         IsOver = enter;
     }
 
-    public void EditCheckItem(string id, bool? isCheck = null, string? text = null)
+    public async void EditCheckItem(string id, bool? isCheck = null, string? text = null)
     {
-        top.EditCheckItem(_listId, _obj.ID, id, isCheck, text);
+        await top.EditCheckItem(_listId, _obj.ID, id, isCheck, text);
     }
 
     private void UpdateTime()

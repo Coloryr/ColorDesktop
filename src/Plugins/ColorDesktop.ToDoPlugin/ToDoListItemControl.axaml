@@ -6,6 +6,7 @@
     xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.ToDoPlugin"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
     x:DataType="local:ToDoItemModel"
     mc:Ignorable="d">
     <UserControl.Styles>
@@ -105,11 +106,27 @@
         <Button
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
             Background="Transparent"
             Command="{Binding Select}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
+            <DockPanel>
+                <Button
+                    Margin="5,0,0,0"
+                    Padding="0"
+                    Classes="over"
+                    Command="{Binding Edit}"
+                    DockPanel.Dock="Right">
+                    <svg:SvgControl
+                        Width="15"
+                        Path="/Resource/icon5.svg"
+                        Stroke="#000000" />
+                </Button>
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Text="{Binding Name}" />
+            </DockPanel>
         </Button>
     </ListBoxItem>
 </UserControl>
