@@ -3,6 +3,10 @@
 public interface IInstanceWindow
 {
     /// <summary>
+    /// 在最前显示
+    /// </summary>
+    void Activate();
+    /// <summary>
     /// 显示
     /// </summary>
     void Show();

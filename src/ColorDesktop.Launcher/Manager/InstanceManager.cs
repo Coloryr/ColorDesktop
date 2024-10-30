@@ -102,6 +102,8 @@ public static class InstanceManager
                 remove.Add(item);
             }
         }
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -139,6 +141,8 @@ public static class InstanceManager
             CreateInstance(config);
             App.MainWindow?.LoadInstance();
             StartInstance(config);
+
+            App.ThisApp.UpdateMenu();
         }
     }
 
@@ -157,7 +161,7 @@ public static class InstanceManager
     /// 创建一个实例
     /// </summary>
     /// <param name="obj"></param>
-    public static void CreateInstance(InstanceDataObj obj)
+    private static void CreateInstance(InstanceDataObj obj)
     {
         obj.Save();
         Instances.Add(obj.UUID, obj);
@@ -170,7 +174,7 @@ public static class InstanceManager
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static string GetLocal(InstanceDataObj obj)
+    private static string GetLocal(InstanceDataObj obj)
     {
         return Path.GetFullPath(WorkDir + "/" + obj.UUID);
     }
@@ -180,7 +184,7 @@ public static class InstanceManager
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static string GetDataLocal(InstanceDataObj obj)
+    private static string GetDataLocal(InstanceDataObj obj)
     {
         return Path.GetFullPath(WorkDir + "/" + obj.UUID + "/" + FileName);
     }
@@ -200,7 +204,7 @@ public static class InstanceManager
     /// 停止该实例
     /// </summary>
     /// <param name="instance"></param>
-    public static void StopInstance(InstanceDataObj instance)
+    private static void StopInstance(InstanceDataObj instance)
     {
         StopInstance(instance.UUID);
     }
@@ -209,7 +213,7 @@ public static class InstanceManager
     /// 停止该实例
     /// </summary>
     /// <param name="uuid"></param>
-    public static void StopInstance(string uuid)
+    private static void StopInstance(string uuid)
     {
         if (RunInstances.TryGetValue(uuid, out var instance))
         {
@@ -223,7 +227,7 @@ public static class InstanceManager
     /// 停止改实例
     /// </summary>
     /// <param name="instance"></param>
-    public static void StopInstance(InstanceWindowObj instance)
+    private static void StopInstance(InstanceWindowObj instance)
     {
         try
         {
@@ -255,6 +259,8 @@ public static class InstanceManager
                 StartInstance(item);
             }
         }
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -269,6 +275,8 @@ public static class InstanceManager
         {
             StopInstance(item.Value);
         }
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -280,6 +288,8 @@ public static class InstanceManager
         ConfigHelper.EnableInstance(obj.UUID);
 
         StartInstance(obj);
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -293,6 +303,8 @@ public static class InstanceManager
 
             StopInstance(item.Value);
         }
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -304,6 +316,8 @@ public static class InstanceManager
         ConfigHelper.DisableInstance(obj.UUID);
 
         StopInstance(obj);
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>
@@ -445,7 +459,7 @@ public static class InstanceManager
     /// 删除实例配置
     /// </summary>
     /// <param name="obj"></param>
-    public static void Delete(InstanceDataObj obj)
+    private static void Delete(InstanceDataObj obj)
     {
         var dir = new DirectoryInfo(Path.GetFullPath(WorkDir + "/" + obj.UUID));
         if (dir.Exists)
@@ -477,6 +491,8 @@ public static class InstanceManager
         InstanceStates.Remove(uuid);
         Instances.Remove(uuid);
         KnowUUID.Remove(uuid);
+
+        App.ThisApp.UpdateMenu();
     }
 
     /// <summary>

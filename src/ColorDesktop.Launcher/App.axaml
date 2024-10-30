@@ -7,31 +7,16 @@
     xmlns:model="clr-namespace:ColorDesktop.Launcher.ViewModels"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
     x:Name="ColorDesktop"
-    x:DataType="model:AppModel">
-    <NativeMenu.Menu>
-        <NativeMenu>
-            <NativeMenuItem Command="{Binding ShowWindow}" Header="{lang:Localize ToolSetting.Text1}" />
-            <NativeMenuItem Command="{Binding MoveWindow}" Header="{lang:Localize ToolSetting.Text4}" />
-            <NativeMenuItemSeparator />
-            <NativeMenuItem Command="{Binding Exit}" Header="{lang:Localize ToolSetting.Text3}" />
-        </NativeMenu>
-    </NativeMenu.Menu>
+    x:DataType="model:AppModel"
+    NativeMenu.Menu="{Binding Menus}">
     <TrayIcon.Icons>
         <TrayIcons>
             <TrayIcon
                 Command="{Binding ShowWindow}"
                 Icon="/Resource/icon.ico"
                 MacOSProperties.IsTemplateIcon="true"
-                ToolTipText="{lang:Localize ToolTitle}">
-                <TrayIcon.Menu>
-                    <NativeMenu>
-                        <NativeMenuItem Command="{Binding ShowWindow}" Header="{lang:Localize ToolSetting.Text1}" />
-                        <NativeMenuItem Command="{Binding MoveWindow}" Header="{lang:Localize ToolSetting.Text4}" />
-                        <NativeMenuItemSeparator />
-                        <NativeMenuItem Command="{Binding Exit}" Header="{lang:Localize ToolSetting.Text3}" />
-                    </NativeMenu>
-                </TrayIcon.Menu>
-            </TrayIcon>
+                Menu="{Binding Menus}"
+                ToolTipText="{lang:Localize ToolTitle}" />
         </TrayIcons>
     </TrayIcon.Icons>
     <Application.Styles>

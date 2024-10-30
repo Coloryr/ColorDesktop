@@ -22,7 +22,7 @@ public partial class App : Application
 {
     public static LanguageType Lang { get; set; } = LanguageType.zh_cn;
 
-    public static Application ThisApp { get; private set; }
+    public static App ThisApp { get; private set; }
 
     public static MainWindow MainWindow { get; set; }
 
@@ -78,6 +78,14 @@ public partial class App : Application
         Program.StartLock();
 
         Logs.Init(Program.RunDir, Program.Version);
+    }
+
+    public void UpdateMenu()
+    {
+        if (DataContext is AppModel model)
+        {
+            model.Update();
+        }
     }
 
     public override void Initialize()
