@@ -28,6 +28,7 @@ internal class Program
         new MinecraftSkinPlugin.MinecraftSkinPlugin().LoadLang(LanguageType.zh_cn);
         new MinecraftMotdPlugin.MinecraftMotdPlugin().LoadLang(LanguageType.zh_cn);
         new ToDoPlugin.ToDoPlugin().LoadLang(LanguageType.zh_cn);
+        new MusicControlPlugin.MusicControlPlugin().LoadLang(LanguageType.zh_cn);
 
         return Launcher.Program.BuildAvaloniaApp();
     }

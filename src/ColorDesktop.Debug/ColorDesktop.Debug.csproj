@@ -17,6 +17,7 @@
 	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftMotdPlugin\ColorDesktop.MinecraftMotdPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftSkinPlugin\ColorDesktop.MinecraftSkinPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.MonitorPlugin\ColorDesktop.MonitorPlugin.csproj" />
+	  <ProjectReference Include="..\Plugins\ColorDesktop.MusicControlPlugin\ColorDesktop.MusicControlPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin.ColorMC\ColorDesktop.PGLauncherPlugin.ColorMC.csproj" />
 	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj" />

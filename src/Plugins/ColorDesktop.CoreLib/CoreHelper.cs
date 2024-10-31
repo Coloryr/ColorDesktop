@@ -92,9 +92,11 @@ public static class CoreHelper
     {
         if (SystemInfo.Os == OsType.Windows)
         {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
+#pragma warning disable CA1416 // 验证平台兼容性
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
+#pragma warning restore CA1416 // 验证平台兼容性
         }
         else
         {
