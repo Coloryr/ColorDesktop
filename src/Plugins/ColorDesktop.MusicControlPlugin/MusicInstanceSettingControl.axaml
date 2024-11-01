@@ -1,0 +1,41 @@
+<UserControl
+    x:Class="ColorDesktop.MusicControlPlugin.MusicInstanceSettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:local="clr-namespace:ColorDesktop.MusicControlPlugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:DataType="local:MusicInstanceSettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Text="{lang:Localize MusicInstanceSetting.Text1}" />
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize MusicInstanceSetting.Text2}" />
+            <NumericUpDown
+                Width="120"
+                Height="35"
+                Margin="0,0,10,0"
+                FormatString="N0"
+                Maximum="9999"
+                Minimum="1"
+                Value="{Binding Width}" />
+        </StackPanel>
+        <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+            <TextBlock
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Text="{lang:Localize MusicInstanceSetting.Text3}" />
+            <ComboBox
+                Width="200"
+                ItemsSource="{Binding SkinTypes}"
+                SelectedIndex="{Binding Skin}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

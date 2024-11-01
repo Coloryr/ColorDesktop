@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Media.Control;
+﻿using Windows.Media.Control;
 
 namespace ColorDesktop.MusicControlPlugin.Hook;
 
@@ -12,148 +7,134 @@ namespace ColorDesktop.MusicControlPlugin.Hook;
 public class Win32Hook : IHook
 {
     private readonly GlobalSystemMediaTransportControlsSessionManager _manager;
-    private GlobalSystemMediaTransportControlsSession? _session;
 
-    public event Action? SessionChange;
-    public event Action<MediaProperties>? MusicChange;
-    public event Action<PlaybackInfo>? StateChange;
-    public event Action<Timeline>? TimeLineChange;
+    public event Action<int>? SessionAdd;
+    public event Action<int>? SessionRemove;
+    public event Action<int, MediaProperties>? MusicChange;
+    public event Action<int, PlaybackInfo>? StateChange;
+    public event Action<int, Timeline>? TimeLineChange;
 
-    private readonly Timeline _timeline = new();
-    private readonly PlaybackInfo _playbackInfo = new()
-    { 
-        Controls = new()
-    };
-    private readonly MediaProperties _mediaProperties = new()
-    {
-        Genres = []
-    };
+    private readonly Dictionary<int, GlobalSystemMediaTransportControlsSession> _list = [];
 
     public Win32Hook(GlobalSystemMediaTransportControlsSessionManager manager)
     {
         _manager = manager;
-        _manager.CurrentSessionChanged += Res_CurrentSessionChanged;
 
-        SessionChanged();
-    }
-
-    private void Res_CurrentSessionChanged(GlobalSystemMediaTransportControlsSessionManager sender, CurrentSessionChangedEventArgs args)
-    {
-        SessionChanged();
-    }
-
-    private void SessionChanged()
-    {
-        var session = _manager.GetCurrentSession();
-        CloseSession();
-        if (session != null)
+        foreach (var item in _manager.GetSessions())
         {
-            _session = session;
-            OpenSession();
+            OpenSession(item);
+        }
+
+        _manager.SessionsChanged += Manager_SessionsChanged;
+    }
+
+    private void Manager_SessionsChanged(GlobalSystemMediaTransportControlsSessionManager sender, SessionsChangedEventArgs args)
+    {
+        var list = sender.GetSessions();
+
+        foreach (var item in _list.ToArray())
+        {
+            if (list.Contains(item.Value))
+            {
+                continue;
+            }
+
+            CloseSession(item.Value);
+            _list.Remove(item.Key);
+            SessionRemove?.Invoke(item.GetHashCode());
+        }
+
+        foreach (var item in list)
+        {
+            if (_list.ContainsValue(item))
+            {
+                continue;
+            }
+
+            OpenSession(item);
+            _list.Add(item.GetHashCode(), item);
+            SessionAdd?.Invoke(item.GetHashCode());
         }
     }
 
-    private void CloseSession()
+    private void CloseSession(GlobalSystemMediaTransportControlsSession session)
     {
-        if (_session == null)
-        {
-            return;
-        }
-
-        _session.MediaPropertiesChanged -= Session_MediaPropertiesChanged;
-        _session.PlaybackInfoChanged -= Session_PlaybackInfoChanged;
-        _session.TimelinePropertiesChanged -= Session_TimelinePropertiesChanged;
-
-        _session = null;
+        session.MediaPropertiesChanged -= Session_MediaPropertiesChanged;
+        session.PlaybackInfoChanged -= Session_PlaybackInfoChanged;
+        session.TimelinePropertiesChanged -= Session_TimelinePropertiesChanged;
     }
 
-    private void OpenSession()
+    private void OpenSession(GlobalSystemMediaTransportControlsSession session)
     {
-        if (_session == null)
-        {
-            return;
-        }
-
-        _session.MediaPropertiesChanged += Session_MediaPropertiesChanged;
-        _session.PlaybackInfoChanged += Session_PlaybackInfoChanged;
-        _session.TimelinePropertiesChanged += Session_TimelinePropertiesChanged;
+        session.MediaPropertiesChanged += Session_MediaPropertiesChanged;
+        session.PlaybackInfoChanged += Session_PlaybackInfoChanged;
+        session.TimelinePropertiesChanged += Session_TimelinePropertiesChanged;
     }
 
     private void Session_TimelinePropertiesChanged(GlobalSystemMediaTransportControlsSession sender,
         TimelinePropertiesChangedEventArgs args)
     {
-        var timeline = sender.GetTimelineProperties();
-        _timeline.StartTime = timeline.StartTime;
-        _timeline.Position = timeline.Position;
-        _timeline.EndTime = timeline.EndTime;
-        _timeline.LastUpdatedTime = timeline.LastUpdatedTime;
-        _timeline.MaxSeekTime = timeline.MaxSeekTime;
-        _timeline.MinSeekTime = timeline.MinSeekTime;
-        TimeLineChange?.Invoke(_timeline);
+        var info = sender.GetTimelineProperties();
+        TimeLineChange?.Invoke(sender.GetHashCode(), info.Build());
     }
 
     private void Session_PlaybackInfoChanged(GlobalSystemMediaTransportControlsSession sender,
         PlaybackInfoChangedEventArgs args)
     {
         var info = sender.GetPlaybackInfo();
-
-        _playbackInfo.AutoRepeatMode = (AutoRepeatMode?)info.AutoRepeatMode;
-        _playbackInfo.Controls.IsPauseEnabled = info.Controls.IsPauseEnabled;
-        _playbackInfo.Controls.IsRewindEnabled = info.Controls.IsRewindEnabled;
-        _playbackInfo.Controls.IsRepeatEnabled = info.Controls.IsRepeatEnabled;
-        _playbackInfo.Controls.IsRecordEnabled = info.Controls.IsRecordEnabled;
-        _playbackInfo.Controls.IsPreviousEnabled = info.Controls.IsPreviousEnabled;
-        _playbackInfo.Controls.IsPlaybackRateEnabled = info.Controls.IsPlaybackRateEnabled;
-        _playbackInfo.Controls.IsPlaybackPositionEnabled = info.Controls.IsPlaybackPositionEnabled;
-        _playbackInfo.Controls.IsPlayPauseToggleEnabled = info.Controls.IsPlayPauseToggleEnabled;
-        _playbackInfo.Controls.IsPlayEnabled = info.Controls.IsPlayEnabled;
-        _playbackInfo.Controls.IsShuffleEnabled = info.Controls.IsShuffleEnabled;
-        _playbackInfo.Controls.IsStopEnabled = info.Controls.IsStopEnabled;
-        _playbackInfo.Controls.IsFastForwardEnabled = info.Controls.IsFastForwardEnabled;
-        _playbackInfo.Controls.IsChannelUpEnabled = info.Controls.IsChannelUpEnabled;
-        _playbackInfo.Controls.IsChannelDownEnabled = info.Controls.IsChannelDownEnabled;
-        _playbackInfo.Controls.IsNextEnabled = info.Controls.IsNextEnabled;
-        _playbackInfo.IsShuffleActive = info.IsShuffleActive;
-        _playbackInfo.PlaybackRate = info.PlaybackRate;
-        _playbackInfo.PlaybackStatus = (PlaybackStatus)info.PlaybackStatus;
-        _playbackInfo.PlaybackType = (PlaybackType?)info.PlaybackType;
-
-        StateChange?.Invoke(_playbackInfo);
+        StateChange?.Invoke(sender.GetHashCode(), info.Build());
     }
 
     private async void Session_MediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender,
         MediaPropertiesChangedEventArgs args)
     {
         var info = await sender.TryGetMediaPropertiesAsync();
-
-        _mediaProperties.AlbumArtist = info.AlbumArtist;
-        _mediaProperties.AlbumTitle = info.AlbumTitle;
-        _mediaProperties.AlbumTrackCount = info.AlbumTrackCount;
-        _mediaProperties.Artist = info.Artist;
-        _mediaProperties.Genres = new(info.Genres);
-        _mediaProperties.PlaybackType = (PlaybackType?)info.PlaybackType;
-        _mediaProperties.Subtitle = info.Subtitle;
-        if (info.Thumbnail != null)
+        if (info == null)
         {
-            using var mem = new MemoryStream();
-            var data = await info.Thumbnail.OpenReadAsync();
-            data.AsStreamForRead().CopyTo(mem);
-            _mediaProperties.Thumbnail = mem.ToArray();
+            return;
         }
-        else
-        {
-            _mediaProperties.Thumbnail = null;
-        }
-        _mediaProperties.Title = info.Title;
-        _mediaProperties.TrackNumber = info.TrackNumber;
-
-        MusicChange?.Invoke(_mediaProperties);
+        MusicChange?.Invoke(sender.GetHashCode(), await info.Build());
     }
 
     public void Stop()
     {
-        _manager.CurrentSessionChanged -= Res_CurrentSessionChanged;
-        CloseSession();
+        _manager.SessionsChanged -= Manager_SessionsChanged;
+        foreach (var item in _list)
+        {
+            CloseSession(item.Value);
+        }
+        _list.Clear();
+    }
+
+    public async Task<MediaProperties?> GetProperties(int item)
+    {
+        if (_list.TryGetValue(item, out var session))
+        {
+            var info = await session.TryGetMediaPropertiesAsync();
+            if (info != null)
+            {
+                return await info.Build();
+            }
+        }
+        return null;
+    }
+
+    public PlaybackInfo? GetPlaybackInfo(int item)
+    {
+        if (_list.TryGetValue(item, out var session))
+        {
+            return session.GetPlaybackInfo().Build();
+        }
+        return null;
+    }
+
+    public Timeline? GetTimeline(int item)
+    {
+        if (_list.TryGetValue(item, out var session))
+        {
+            return session.GetTimelineProperties().Build();
+        }
+        return null;
     }
 }
 
@@ -168,6 +149,74 @@ public static class Win32
         }
 
         return null;
+    }
+
+    public static PlaybackInfo Build(this GlobalSystemMediaTransportControlsSessionPlaybackInfo info)
+    {
+        return new()
+        {
+            AutoRepeatMode = (AutoRepeatMode?)info.AutoRepeatMode,
+            Controls = new()
+            {
+                IsPauseEnabled = info.Controls.IsPauseEnabled,
+                IsRewindEnabled = info.Controls.IsRewindEnabled,
+                IsRepeatEnabled = info.Controls.IsRepeatEnabled,
+                IsRecordEnabled = info.Controls.IsRecordEnabled,
+                IsPreviousEnabled = info.Controls.IsPreviousEnabled,
+                IsPlaybackRateEnabled = info.Controls.IsPlaybackRateEnabled,
+                IsPlaybackPositionEnabled = info.Controls.IsPlaybackPositionEnabled,
+                IsPlayPauseToggleEnabled = info.Controls.IsPlayPauseToggleEnabled,
+                IsPlayEnabled = info.Controls.IsPlayEnabled,
+                IsShuffleEnabled = info.Controls.IsShuffleEnabled,
+                IsStopEnabled = info.Controls.IsStopEnabled,
+                IsFastForwardEnabled = info.Controls.IsFastForwardEnabled,
+                IsChannelUpEnabled = info.Controls.IsChannelUpEnabled,
+                IsChannelDownEnabled = info.Controls.IsChannelDownEnabled,
+                IsNextEnabled = info.Controls.IsNextEnabled
+            },
+            IsShuffleActive = info.IsShuffleActive,
+            PlaybackRate = info.PlaybackRate,
+            PlaybackStatus = (PlaybackStatus)info.PlaybackStatus,
+            PlaybackType = (PlaybackType?)info.PlaybackType
+        };
+    }
+
+    public static async Task<MediaProperties> Build(this GlobalSystemMediaTransportControlsSessionMediaProperties info)
+    {
+        var mediaProperties = new MediaProperties
+        {
+            AlbumArtist = info.AlbumArtist,
+            AlbumTitle = info.AlbumTitle,
+            AlbumTrackCount = info.AlbumTrackCount,
+            Artist = info.Artist,
+            Genres = new(info.Genres),
+            PlaybackType = (PlaybackType?)info.PlaybackType,
+            Subtitle = info.Subtitle,
+            Title = info.Title,
+            TrackNumber = info.TrackNumber
+        };
+        if (info.Thumbnail != null)
+        {
+            using var mem = new MemoryStream();
+            var data = await info.Thumbnail.OpenReadAsync();
+            data.AsStreamForRead().CopyTo(mem);
+            mediaProperties.Thumbnail = mem.ToArray();
+        }
+
+        return mediaProperties;
+    }
+
+    public static Timeline Build(this GlobalSystemMediaTransportControlsSessionTimelineProperties info)
+    {
+        return new Timeline
+        {
+            StartTime = info.StartTime,
+            Position = info.Position,
+            EndTime = info.EndTime,
+            LastUpdatedTime = info.LastUpdatedTime,
+            MaxSeekTime = info.MaxSeekTime,
+            MinSeekTime = info.MinSeekTime
+        };
     }
 }
 

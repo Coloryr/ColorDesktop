@@ -1,3 +1,7 @@
 ﻿{
-    "MusicControlPlugin.Name": "音乐控制组件"
+    "MusicControlPlugin.Name": "音乐控制组件",
+    "MusicInstanceSetting.Text1": "控制组件设置",
+    "MusicInstanceSetting.Text2": "宽度",
+    "MusicInstanceSetting.Text3": "皮肤",
+    "MusicInstanceSetting.Text4": "皮肤1"
 }

@@ -1,13 +1,29 @@
 ﻿using System.Reflection;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using ColorDesktop.MusicControlPlugin.Hook;
 
 namespace ColorDesktop.MusicControlPlugin;
 
 public class MusicControlPlugin : IPlugin
 {
+    public const string ConfigName = "musiccontrol.json";
+
     public static IHook? MusicHook;
+
+    public static MusicInstanceObj GetConfig(InstanceDataObj obj)
+    {
+        return InstanceUtils.GetConfig(obj, new MusicInstanceObj()
+        {
+            Width = 300
+        }, ConfigName);
+    }
+
+    public static void SaveConfig(InstanceDataObj obj, MusicInstanceObj config)
+    {
+        InstanceUtils.SaveConfig(obj, config, ConfigName);
+    }
 
     public bool IsCoreLib => false;
 

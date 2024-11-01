@@ -8,10 +8,15 @@ namespace ColorDesktop.MusicControlPlugin.Hook;
 
 public interface IHook
 {
-    event Action? SessionChange;
-    event Action<MediaProperties>? MusicChange;
-    event Action<PlaybackInfo>? StateChange;
-    event Action<Timeline>? TimeLineChange;
+    event Action<int>? SessionAdd;
+    event Action<int>? SessionRemove;
+    event Action<int, MediaProperties>? MusicChange;
+    event Action<int, PlaybackInfo>? StateChange;
+    event Action<int, Timeline>? TimeLineChange;
+
+    Task<MediaProperties?> GetProperties(int item);
+    PlaybackInfo? GetPlaybackInfo(int item);
+    Timeline? GetTimeline(int item);
 
     void Stop();
 }
