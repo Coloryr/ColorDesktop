@@ -3,11 +3,31 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:local="clr-namespace:ColorDesktop.MusicControlPlugin"
+    xmlns:local1="clr-namespace:ColorDesktop.MusicControlPlugin.Skin1"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:DataType="local:MusicModel"
     mc:Ignorable="d">
-	<ItemsControl >
-		
-	</ItemsControl>
+    <Panel>
+        <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:MusicItemModel">
+                    <local1:Skin1ItemControl />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border
+            Background="#FFFFFF"
+            BorderBrush="#DCDCDC"
+            BorderThickness="1"
+            CornerRadius="5"
+            IsVisible="{Binding IsEmpty}">
+            <TextBlock
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="{lang:Localize MusicControl.Skin1.Text1}" />
+        </Border>
+    </Panel>
 </UserControl>

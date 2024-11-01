@@ -3,5 +3,6 @@
     "MusicInstanceSetting.Text1": "控制组件设置",
     "MusicInstanceSetting.Text2": "宽度",
     "MusicInstanceSetting.Text3": "皮肤",
-    "MusicInstanceSetting.Text4": "皮肤1"
+    "MusicInstanceSetting.Text4": "皮肤1",
+    "MusicControl.Skin1.Text1": "没有正在运行的播放器"
 }

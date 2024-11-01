@@ -9,6 +9,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resource\icon1.svg" />
+      <None Remove="Resource\icon2.svg" />
+      <None Remove="Resource\icon3.svg" />
+      <None Remove="Resource\icon4.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Include="Resource\icon1.svg" />
+      <AvaloniaResource Include="Resource\icon2.svg" />
+      <AvaloniaResource Include="Resource\icon3.svg" />
+      <AvaloniaResource Include="Resource\icon4.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Include="Resource\Lang\en-us.json" />
         <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
     </ItemGroup>

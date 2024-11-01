@@ -91,7 +91,7 @@ public class MusicControlPlugin : IPlugin
 
     public Control OpenSetting(InstanceDataObj instance)
     {
-        return new();
+        return new MusicInstanceSettingControl(instance);
     }
 
     public Control OpenSetting()

@@ -14,9 +14,16 @@ public interface IHook
     event Action<int, PlaybackInfo>? StateChange;
     event Action<int, Timeline>? TimeLineChange;
 
+    string? GetName(int item);
     Task<MediaProperties?> GetProperties(int item);
     PlaybackInfo? GetPlaybackInfo(int item);
     Timeline? GetTimeline(int item);
 
+    void Pause(int id);
+    void Play(int id);
+    void Next(int id);
+    void Last(int id);
+
     void Stop();
+    IEnumerable<int> GetList();
 }

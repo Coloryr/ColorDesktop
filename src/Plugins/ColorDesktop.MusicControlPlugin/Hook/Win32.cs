@@ -40,8 +40,7 @@ public class Win32Hook : IHook
             }
 
             CloseSession(item.Value);
-            _list.Remove(item.Key);
-            SessionRemove?.Invoke(item.GetHashCode());
+            SessionRemove?.Invoke(item.Key);
         }
 
         foreach (var item in list)
@@ -52,7 +51,6 @@ public class Win32Hook : IHook
             }
 
             OpenSession(item);
-            _list.Add(item.GetHashCode(), item);
             SessionAdd?.Invoke(item.GetHashCode());
         }
     }
@@ -62,6 +60,7 @@ public class Win32Hook : IHook
         session.MediaPropertiesChanged -= Session_MediaPropertiesChanged;
         session.PlaybackInfoChanged -= Session_PlaybackInfoChanged;
         session.TimelinePropertiesChanged -= Session_TimelinePropertiesChanged;
+        _list.Remove(session.GetHashCode());
     }
 
     private void OpenSession(GlobalSystemMediaTransportControlsSession session)
@@ -69,6 +68,8 @@ public class Win32Hook : IHook
         session.MediaPropertiesChanged += Session_MediaPropertiesChanged;
         session.PlaybackInfoChanged += Session_PlaybackInfoChanged;
         session.TimelinePropertiesChanged += Session_TimelinePropertiesChanged;
+
+        _list.Add(session.GetHashCode(), session);
     }
 
     private void Session_TimelinePropertiesChanged(GlobalSystemMediaTransportControlsSession sender,
@@ -110,10 +111,17 @@ public class Win32Hook : IHook
     {
         if (_list.TryGetValue(item, out var session))
         {
-            var info = await session.TryGetMediaPropertiesAsync();
-            if (info != null)
+            try
             {
-                return await info.Build();
+                var info = await session.TryGetMediaPropertiesAsync();
+                if (info != null)
+                {
+                    return await info.Build();
+                }
+            }
+            catch(Exception e)
+            { 
+
             }
         }
         return null;
@@ -133,6 +141,56 @@ public class Win32Hook : IHook
         if (_list.TryGetValue(item, out var session))
         {
             return session.GetTimelineProperties().Build();
+        }
+        return null;
+    }
+
+    public async void Pause(int id)
+    {
+        if (_list.TryGetValue(id, out var session)
+            && session.GetPlaybackInfo().Controls.IsPauseEnabled)
+        {
+            await session.TryPauseAsync();
+        }
+    }
+
+    public async void Play(int id)
+    {
+        if (_list.TryGetValue(id, out var session)
+            && session.GetPlaybackInfo().Controls.IsPlayEnabled)
+        {
+            await session.TryPlayAsync();
+        }
+    }
+
+    public async void Next(int id)
+    {
+        if (_list.TryGetValue(id, out var session)
+            && session.GetPlaybackInfo().Controls.IsNextEnabled)
+        {
+            await session.TrySkipNextAsync();
+        }
+    }
+
+    public async void Last(int id)
+    {
+        if (_list.TryGetValue(id, out var session)
+            && session.GetPlaybackInfo().Controls.IsPreviousEnabled)
+        {
+            await session.TrySkipPreviousAsync();
+        }
+    }
+
+    public IEnumerable<int> GetList()
+    {
+        return _list.Keys;
+    }
+
+    public string? GetName(int item)
+    {
+        if (_list.TryGetValue(item, out var session))
+        {
+            return session.SourceAppUserModelId;
         }
         return null;
     }
