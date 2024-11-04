@@ -16,8 +16,8 @@ public interface IHook
 
     string? GetName(int item);
     Task<MediaProperties?> GetProperties(int item);
-    PlaybackInfo? GetPlaybackInfo(int item);
-    Timeline? GetTimeline(int item);
+    Task<PlaybackInfo?> GetPlaybackInfo(int item);
+    Task<Timeline?> GetTimeline(int item);
 
     void Pause(int id);
     void Play(int id);

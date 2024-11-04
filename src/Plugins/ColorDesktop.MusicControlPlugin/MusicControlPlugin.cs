@@ -64,6 +64,9 @@ public class MusicControlPlugin : IPlugin
             case OsType.Windows:
                 MusicHook = await Win32.Init();
                 break;
+            case OsType.Linux:
+                MusicHook = await Linux.Init();
+                break;
         }
     }
 
