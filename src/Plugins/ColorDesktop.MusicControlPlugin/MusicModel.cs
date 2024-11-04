@@ -74,10 +74,10 @@ public partial class MusicModel : ObservableObject
             }
         }
 
-        var data1 = MusicControlPlugin.MusicHook.GetPlaybackInfo(obj);
+        var data1 = await MusicControlPlugin.MusicHook.GetPlaybackInfo(obj);
         if (data1 != null)
         {
-            item.IsPlay = data1.Controls.IsPauseEnabled;
+            item.IsPlay = data1.PlaybackStatus == PlaybackStatus.Playing;
         }
 
         IsEmpty = Items.Count == 0;

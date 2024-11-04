@@ -127,22 +127,28 @@ public class Win32Hook : IHook
         return null;
     }
 
-    public PlaybackInfo? GetPlaybackInfo(int item)
+    public Task<PlaybackInfo?> GetPlaybackInfo(int item)
     {
-        if (_list.TryGetValue(item, out var session))
+        return Task.Run(() =>
         {
-            return session.GetPlaybackInfo().Build();
-        }
-        return null;
+            if (_list.TryGetValue(item, out var session))
+            {
+                return session.GetPlaybackInfo().Build();
+            }
+            return null;
+        });
     }
 
-    public Timeline? GetTimeline(int item)
+    public Task<Timeline?> GetTimeline(int item)
     {
-        if (_list.TryGetValue(item, out var session))
+        return Task.Run(() =>
         {
-            return session.GetTimelineProperties().Build();
-        }
-        return null;
+            if (_list.TryGetValue(item, out var session))
+            {
+                return session.GetTimelineProperties().Build();
+            }
+            return null;
+        });
     }
 
     public async void Pause(int id)
