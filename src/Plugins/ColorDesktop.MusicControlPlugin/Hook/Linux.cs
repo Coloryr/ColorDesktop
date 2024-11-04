@@ -39,12 +39,21 @@ public class PlayerItem
 
         try
         {
-            if (changes.HasChanged(nameof(PlayerProperties.Metadata)))
+            if (changes.IsInvalidated(nameof(PlayerProperties.Metadata))
+            || changes.HasChanged(nameof(PlayerProperties.Metadata)))
             {
                 _top.MetadataChange(_id, await GetProperties());
                 _top.TimelineChange(_id, await GetTimeline());
             }
-            else if (changes.HasChanged(nameof(PlayerProperties.PlaybackStatus))
+            else if (changes.IsInvalidated(nameof(PlayerProperties.PlaybackStatus))
+                || changes.IsInvalidated(nameof(PlayerProperties.LoopStatus))
+                || changes.IsInvalidated(nameof(PlayerProperties.Shuffle))
+                || changes.IsInvalidated(nameof(PlayerProperties.Rate))
+                || changes.IsInvalidated(nameof(PlayerProperties.CanGoNext))
+                || changes.IsInvalidated(nameof(PlayerProperties.CanGoPrevious))
+                || changes.IsInvalidated(nameof(PlayerProperties.CanPlay))
+                || changes.IsInvalidated(nameof(PlayerProperties.CanPause))
+                || changes.HasChanged(nameof(PlayerProperties.PlaybackStatus))
                 || changes.HasChanged(nameof(PlayerProperties.LoopStatus))
                 || changes.HasChanged(nameof(PlayerProperties.Shuffle))
                 || changes.HasChanged(nameof(PlayerProperties.Rate))
@@ -55,7 +64,8 @@ public class PlayerItem
             {
                 _top.PlaybackInfoChange(_id, await GetPlaybackInfo());
             }
-            else if (changes.HasChanged(nameof(PlayerProperties.Position)))
+            else if (changes.IsInvalidated(nameof(PlayerProperties.Position))
+                || changes.HasChanged(nameof(PlayerProperties.Position)))
             {
                 _top.TimelineChange(_id, await GetTimeline());
             }
@@ -74,7 +84,7 @@ public class PlayerItem
 
     public string? GetName()
     {
-        return _player.Path;
+        return _service.Destination;
     }
 
     public async Task<PlaybackInfo> GetPlaybackInfo()
@@ -129,7 +139,7 @@ public class PlayerItem
         {
             info.Title = value.GetString();
         }
-        if (metadata.TryGetValue("xesam:artlist", out value))
+        if (metadata.TryGetValue("xesam:artist", out value))
         {
             var list = value.GetArray<string>();
             var data = Build(list);
@@ -150,7 +160,7 @@ public class PlayerItem
         {
             info.TrackNumber = value.GetInt32();
         }
-        if (metadata.TryGetValue("xesam:artUrl", out value))
+        if (metadata.TryGetValue("mpris:artUrl", out value))
         {
             var file = value.GetString();
             var uri = new Uri(file);
@@ -163,7 +173,7 @@ public class PlayerItem
                 }
                 catch
                 {
-                   
+
                 }
             }
         }
@@ -208,7 +218,7 @@ public class PlayerItem
 
 public class LinuxHook : IHook
 {
-   public  const string MediaPlayerService = "org.mpris.MediaPlayer2.";
+    public const string MediaPlayerService = "org.mpris.MediaPlayer2.";
 
     public event Action<int>? SessionAdd;
     public event Action<int>? SessionRemove;
@@ -227,32 +237,33 @@ public class LinuxHook : IHook
     {
         _connection = connection;
 
-        ScanPlayer();
-
-        _isRun = true;
-        new Thread(() =>
+        ScanPlayer().ContinueWith((a) =>
         {
-            while (_isRun)
+            _isRun = true;
+            new Thread(() =>
             {
-                Thread.Sleep(500);
-                try
+                while (_isRun)
                 {
-                    ScanPlayer();
+                    Thread.Sleep(500);
+                    try
+                    {
+                        ScanPlayer().Wait();
+                    }
+                    catch
+                    {
+
+                    }
                 }
-                catch
-                { 
-                    
-                }
-            }
-        }).Start();
+            }).Start();
+        });
     }
 
-    private async void ScanPlayer()
+    private async Task ScanPlayer()
     {
         var services = await _connection.ListServicesAsync();
 
         var items = services.Where(service => service.StartsWith(MediaPlayerService, StringComparison.Ordinal));
-        
+
         foreach (var item in items)
         {
             if (_players.ContainsKey(item))
@@ -268,18 +279,19 @@ public class LinuxHook : IHook
                 SessionAdd?.Invoke(item.GetHashCode());
             }
             catch
-            { 
-                
+            {
+
             }
         }
 
         foreach (var item in _players.ToArray())
         {
-            if (!items.Contains(item.Key))
+            if (items.Contains(item.Key))
             {
-                item.Value.Close();
+                continue;
             }
 
+            item.Value.Close();
             _players.Remove(item.Key);
             _playerHash.Remove(item.Key.GetHashCode());
             SessionRemove?.Invoke(item.Key.GetHashCode());
@@ -409,8 +421,8 @@ public static class Linux
             return new LinuxHook(connection);
         }
         catch (Exception e)
-        { 
-            
+        {
+
         }
         return null;
     }

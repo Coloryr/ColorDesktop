@@ -109,7 +109,7 @@ public partial class MusicModel : ObservableObject
     {
         if (_items.TryGetValue(arg1, out var item))
         {
-            item.IsPlay = arg2.Controls.IsPauseEnabled;
+            item.IsPlay = arg2.PlaybackStatus == PlaybackStatus.Playing;
         }
     }
 
