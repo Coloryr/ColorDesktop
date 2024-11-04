@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="icon.png" />
       <None Remove="Resource\icon1.svg" />
       <None Remove="Resource\icon2.svg" />
       <None Remove="Resource\icon3.svg" />
@@ -23,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="icon.png" />
         <EmbeddedResource Include="Resource\Lang\en-us.json" />
         <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
     </ItemGroup>
@@ -33,7 +35,14 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup>
+	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)tmds.dbus.protocol\0.20.0\lib\net8.0\Tmds.DBus.Protocol.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+	<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)system.io.pipelines\8.0.0\lib\net8.0\System.IO.Pipelines.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+
+	<ItemGroup>
         <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
             <Private>False</Private>
         </ProjectReference>

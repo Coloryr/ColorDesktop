@@ -30,24 +30,6 @@ jobs:
       run: |
         chmod a+x ./build/build-plugin.sh
         ./build/build-plugin.sh
-    
-    - name: 打包
-      working-directory: ./src/build_out/Debug/net8.0/plugins/
-      run: |
-          zip -r ../AnalogClockPlugin.zip AnalogClockPlugin
-          zip -r ../CalendarPlugin.zip CalendarPlugin
-          zip -r ../WeatherPlugin.zip WeatherPlugin
-          zip -r ../ClockPlugin.zip ClockPlugin
-          zip -r ../CoreLib.zip CoreLib
-          zip -r ../PGLauncherPlugin.zip PGLauncherPlugin
-          zip -r ../PGColorMCPlugin.zip PGColorMCPlugin
-          zip -r ../OneWordPlugin.zip OneWordPlugin
-          zip -r ../BmPlugin.zip BmPlugin
-          zip -r ../MonitorPlugin.zip MonitorPlugin
-          zip -r ../Live2DPlugin.zip Live2DPlugin
-          zip -r ../MinecraftSkinPlugin.zip MinecraftSkinPlugin
-          zip -r ../MinecraftMotdPlugin.zip MinecraftMotdPlugin
-          zip -r ../ToDoPlugin.zip ToDoPlugin
 
     - name: 上传 colordesktop-plugin-AnalogClockPlugin
       uses: actions/upload-artifact@v4
@@ -132,6 +114,12 @@ jobs:
       with:
         name: "colordesktop-plugin-ToDoPlugin"
         path: src/build_out/Debug/net8.0/ToDoPlugin.zip
+
+    - name: 上传 colordesktop-plugin-MusicControlPlugin
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-plugin-MusicControlPlugin"
+        path: src/build_out/Debug/net8.0/MusicControlPlugin.zip
 
     - name: 上传 colordesktop-plugin
       uses: actions/upload-artifact@v4

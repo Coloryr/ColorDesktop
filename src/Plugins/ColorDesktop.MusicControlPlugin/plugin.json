@@ -3,7 +3,7 @@
   "Name": "音乐控制",
   "Describe": "获取电脑音乐播放器信息并控制",
   "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.MusicControlPlugin", "Microsoft.Windows.SDK.NET", "WinRT.Runtime" ],
+  "Dlls": [ "ColorDesktop.MusicControlPlugin", "Microsoft.Windows.SDK.NET", "WinRT.Runtime", "Tmds.DBus.Protocol", "System.IO.Pipelines" ],
   "Dependents": [
     {
       "Type": "Share",

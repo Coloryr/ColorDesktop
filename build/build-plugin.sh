@@ -27,3 +27,22 @@ build ColorDesktop.Live2DPlugin Live2DPlugin
 build ColorDesktop.MinecraftSkinPlugin MinecraftSkinPlugin
 build ColorDesktop.MinecraftMotdPlugin MinecraftMotdPlugin
 build ColorDesktop.ToDoPlugin ToDoPlugin
+build ColorDesktop.MusicControlPlugin MusicControlPlugin
+
+cd ./src/build_out/Debug/net8.0/plugins/
+
+zip -r ../AnalogClockPlugin.zip AnalogClockPlugin
+zip -r ../CalendarPlugin.zip CalendarPlugin
+zip -r ../WeatherPlugin.zip WeatherPlugin
+zip -r ../ClockPlugin.zip ClockPlugin
+zip -r ../CoreLib.zip CoreLib
+zip -r ../PGLauncherPlugin.zip PGLauncherPlugin
+zip -r ../PGColorMCPlugin.zip PGColorMCPlugin
+zip -r ../OneWordPlugin.zip OneWordPlugin
+zip -r ../BmPlugin.zip BmPlugin
+zip -r ../MonitorPlugin.zip MonitorPlugin
+zip -r ../Live2DPlugin.zip Live2DPlugin
+zip -r ../MinecraftSkinPlugin.zip MinecraftSkinPlugin
+zip -r ../MinecraftMotdPlugin.zip MinecraftMotdPlugin
+zip -r ../ToDoPlugin.zip ToDoPlugin
+zip -r ../MusicControlPlugin.zip MusicControlPlugin

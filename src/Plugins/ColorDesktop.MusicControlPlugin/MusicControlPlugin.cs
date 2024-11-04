@@ -54,7 +54,9 @@ public class MusicControlPlugin : IPlugin
 
     public Stream? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.MusicControlPlugin.icon.png")!;
+        return item;
     }
 
     public async void Init(string local, string local1)
