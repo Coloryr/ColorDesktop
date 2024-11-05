@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MinecraftSkinRender;
+﻿using MinecraftSkinRender;
 
 namespace ColorDesktop.MinecraftSkinPlugin;
 
 public enum FileType
-{ 
+{
     Name, Url, LocalFile
 }
 

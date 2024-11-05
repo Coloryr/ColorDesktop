@@ -139,12 +139,12 @@ public class Live2DPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -195,6 +195,6 @@ public class Live2DPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

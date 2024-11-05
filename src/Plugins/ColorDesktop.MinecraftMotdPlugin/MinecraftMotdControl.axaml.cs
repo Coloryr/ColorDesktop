@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
@@ -50,17 +48,17 @@ public partial class MinecraftMotdControl : UserControl, IInstance
 
     public void RenderTick()
     {
-        
+
     }
 
     public void Start(IInstanceWindow window)
     {
-        
+
     }
 
     public void Stop(IInstanceWindow window)
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)

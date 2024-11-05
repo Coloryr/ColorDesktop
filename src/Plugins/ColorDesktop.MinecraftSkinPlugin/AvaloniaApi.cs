@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 using Avalonia.OpenGL;
-using Avalonia.OpenGL.Controls;
 using MinecraftSkinRender.OpenGL;
 
 namespace ColorDesktop.MinecraftSkinPlugin;

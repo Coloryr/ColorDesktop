@@ -4,7 +4,6 @@ using Avalonia.Input;
 using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
 using Avalonia.Rendering;
-using Avalonia.Threading;
 using ColorDesktop.Api;
 using Live2DCSharpSDK.App;
 using Live2DCSharpSDK.Framework.Motion;
@@ -61,12 +60,12 @@ public partial class Live2DControl : UserControl, IInstance
 
     public void Start(IInstanceWindow window)
     {
-        
+
     }
 
     public void Stop(IInstanceWindow window)
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)

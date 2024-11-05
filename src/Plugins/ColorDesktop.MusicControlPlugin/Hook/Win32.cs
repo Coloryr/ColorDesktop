@@ -119,8 +119,8 @@ public class Win32Hook : IHook
                     return await info.Build();
                 }
             }
-            catch(Exception e)
-            { 
+            catch (Exception e)
+            {
 
             }
         }

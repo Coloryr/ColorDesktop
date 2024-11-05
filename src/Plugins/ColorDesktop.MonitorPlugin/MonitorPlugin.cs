@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using System.Security.Principal;
+﻿using System.Reflection;
 using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;

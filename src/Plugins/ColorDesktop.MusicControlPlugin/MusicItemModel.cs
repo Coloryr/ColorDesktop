@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Media.Imaging;
-using ColorDesktop.MusicControlPlugin.Hook;
+﻿using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -12,7 +6,7 @@ namespace ColorDesktop.MusicControlPlugin;
 
 public partial class MusicItemModel(int id) : ObservableObject
 {
-    private static readonly string[] PlayIcons = 
+    private static readonly string[] PlayIcons =
     [
         "/Resource/icon1.svg",
         "/Resource/icon2.svg"

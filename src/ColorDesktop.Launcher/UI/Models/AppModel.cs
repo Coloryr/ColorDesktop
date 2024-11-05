@@ -67,7 +67,7 @@ public partial class AppModel : ObservableObject
 
         menu.Items.Add(BuildWindowMenu());
         menu.Items.Add(new NativeMenuItem()
-        { 
+        {
             Header = LangApi.GetLang("ToolSetting.Text1"),
             Command = ShowWindowCommand
         });

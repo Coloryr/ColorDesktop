@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 using ColorDesktop.MusicControlPlugin.Skin1;
 
@@ -22,7 +20,7 @@ public partial class MusicControl : UserControl, IInstance
 
     public void RenderTick()
     {
-        
+
     }
 
     public void Start(IInstanceWindow window)
@@ -46,7 +44,7 @@ public partial class MusicControl : UserControl, IInstance
         var config = MusicControlPlugin.GetConfig(obj);
         Width = config.Width;
 
-        if (config.Skin == SkinType.Skin1 
+        if (config.Skin == SkinType.Skin1
             && Content is not Skin1Control)
         {
             Content = new Skin1Control();

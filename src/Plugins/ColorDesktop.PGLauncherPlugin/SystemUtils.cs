@@ -1,12 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Xml;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Platform.Storage;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 using ColorDesktop.PGLauncherPlugin.Icns;

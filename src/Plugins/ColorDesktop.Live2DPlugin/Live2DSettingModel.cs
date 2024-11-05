@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -53,7 +47,7 @@ public partial class Live2DSettingModel : ObservableObject
             return;
         }
 
-        bool res= await Task.Run(() =>
+        bool res = await Task.Run(() =>
         {
             return Live2DPlugin.SetLive2DCore(item);
         });

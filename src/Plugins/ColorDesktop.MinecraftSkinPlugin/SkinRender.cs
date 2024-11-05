@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls;
@@ -86,7 +85,7 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
 
     public void Update(SkinInstanceObj config)
     {
-        _run = () => 
+        _run = () =>
         {
             return UpdateTask(config);
         };
@@ -139,8 +138,8 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                     }
                 }
                 catch
-                { 
-                    
+                {
+
                 }
                 break;
             case FileType.Url:
@@ -156,7 +155,7 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                 }
                 break;
             case FileType.LocalFile:
-                if (!string.IsNullOrWhiteSpace(config.File) && config.File.EndsWith(".png") 
+                if (!string.IsNullOrWhiteSpace(config.File) && config.File.EndsWith(".png")
                     && File.Exists(config.File))
                 {
                     try
@@ -165,8 +164,8 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                         skin.SetSkin(img);
                     }
                     catch
-                    { 
-                        
+                    {
+
                     }
                 }
                 if (!string.IsNullOrWhiteSpace(config.File1) && config.File1.EndsWith(".png")
@@ -178,8 +177,8 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                         skin.SetCape(img);
                     }
                     catch
-                    { 
-                        
+                    {
+
                     }
                 }
                 break;

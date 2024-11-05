@@ -9,7 +9,7 @@ namespace ColorDesktop.MinecraftSkinPlugin;
 
 public partial class SkinInstanceSettingModel : ObservableObject
 {
-    public string[] FileTypeName { get; init; } = 
+    public string[] FileTypeName { get; init; } =
     [
         LangApi.GetLang("SkinInstanceSetting.Text9"),
         LangApi.GetLang("SkinInstanceSetting.Text10"),

@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MinecraftSkinRender;
 
 namespace ColorDesktop.MinecraftSkinPlugin;
 

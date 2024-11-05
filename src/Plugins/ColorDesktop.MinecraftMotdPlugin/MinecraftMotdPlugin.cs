@@ -41,12 +41,12 @@ public class MinecraftMotdPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -58,7 +58,7 @@ public class MinecraftMotdPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        
+
     }
 
     public void LoadLang(LanguageType type)
@@ -95,6 +95,6 @@ public class MinecraftMotdPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

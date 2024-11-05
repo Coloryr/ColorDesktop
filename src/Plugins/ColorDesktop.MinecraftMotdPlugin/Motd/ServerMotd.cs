@@ -1,6 +1,5 @@
 using System.Net.Sockets;
 using System.Text;
-using ColorDesktop.MinecraftMotdPlugin.Motd;
 using Heijden.Dns.Portable;
 using Heijden.DNS;
 using Newtonsoft.Json;

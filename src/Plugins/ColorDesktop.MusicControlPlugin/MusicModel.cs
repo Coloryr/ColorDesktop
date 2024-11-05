@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Avalonia.Media.Imaging;
-using Avalonia.Threading;
 using ColorDesktop.MusicControlPlugin.Hook;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -26,8 +20,8 @@ public partial class MusicModel : ObservableObject
         {
             MusicControlPlugin.MusicHook.SessionAdd += MusicHook_SessionAdd;
             MusicControlPlugin.MusicHook.SessionRemove += MusicHook_SessionRemove;
-            MusicControlPlugin.MusicHook!.StateChange += MusicHook_StateChange;
-            MusicControlPlugin.MusicHook!.MusicChange += MusicItemModel_MusicChange;
+            MusicControlPlugin.MusicHook.StateChange += MusicHook_StateChange;
+            MusicControlPlugin.MusicHook.MusicChange += MusicItemModel_MusicChange;
 
             foreach (var item in MusicControlPlugin.MusicHook.GetList())
             {
@@ -57,7 +51,7 @@ public partial class MusicModel : ObservableObject
         item.Player = MusicControlPlugin.MusicHook!.GetName(obj) ?? "";
 
         var data = await MusicControlPlugin.MusicHook!.GetProperties(obj);
-        if (data != null )
+        if (data != null)
         {
             item.Title = data.Title;
             item.SubTitle = data.Artist;
@@ -119,8 +113,8 @@ public partial class MusicModel : ObservableObject
         {
             MusicControlPlugin.MusicHook.SessionAdd -= MusicHook_SessionAdd;
             MusicControlPlugin.MusicHook.SessionRemove -= MusicHook_SessionRemove;
-            MusicControlPlugin.MusicHook!.StateChange -= MusicHook_StateChange;
-            MusicControlPlugin.MusicHook!.MusicChange -= MusicItemModel_MusicChange;
+            MusicControlPlugin.MusicHook.StateChange -= MusicHook_StateChange;
+            MusicControlPlugin.MusicHook.MusicChange -= MusicItemModel_MusicChange;
         }
     }
 }

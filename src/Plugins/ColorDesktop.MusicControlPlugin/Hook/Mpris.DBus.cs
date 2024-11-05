@@ -1,9 +1,9 @@
 namespace ColorDesktop.MusicControlPlugin.Hook;
 
 using System;
-using Tmds.DBus.Protocol;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
 
 public record PlayerProperties
 {

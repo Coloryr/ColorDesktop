@@ -27,7 +27,7 @@ public partial class ToDoItemModel(string name, ToDoModel top, ToDoListObj.Value
     public async Task Edit()
     {
         var model = new NewTaskModel(name)
-        { 
+        {
             Title = Name
         };
         var res1 = await DialogHost.Show(model, name);

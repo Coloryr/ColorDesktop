@@ -84,7 +84,7 @@ public static class ThemeManager
         {
             return s_theme.WindowBG;
         }
-        else if(key == nameof(ThemeObj.WindowSideBG))
+        else if (key == nameof(ThemeObj.WindowSideBG))
         {
             return s_theme.WindowSideBG;
         }

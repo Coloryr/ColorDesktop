@@ -49,12 +49,12 @@ public class MinecraftSkinPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -66,7 +66,7 @@ public class MinecraftSkinPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        
+
     }
 
     public void LoadLang(LanguageType type)
@@ -103,6 +103,6 @@ public class MinecraftSkinPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }
