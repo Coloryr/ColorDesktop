@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-VER=1
+VER=2
 REL=1
-URL='https://github.com/Coloryr/ColorDesktop/releases/download/a1.2024.10.11-1/colordesktop-linux-a1-1-x86_64.pkg.tar.zst'
-TARGET='colordesktop-linux-a1-1-x86_64.pkg.tar.zst'
+URL='https://github.com/Coloryr/ColorDesktop/releases/download/a2.2024.11.4/colordesktop-linux-a2-1-x86_64.pkg.tar.zst'
+TARGET='colordesktop-linux-a2-1-x86_64.pkg.tar.zst'
 POSTURL=$(echo $URL | sed 's/\//\\\//g')
 wget $URL -O $TARGET
 SUM=$(sha256sum $TARGET | cut -f1 -d' ')
