@@ -1,10 +1,12 @@
-﻿{
-  "ID": "coloryr.corelib",
-  "Name": "核心库",
-  "Describe": "用于给其他插件提供API",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.CoreLib" ],
-  "Dependents": [],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.corelib",
+    "Name": "核心库",
+    "Describe": "用于给其他插件提供API",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.CoreLib"
+    ],
+    "Dependents": [],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

@@ -1,19 +1,21 @@
-﻿{
-  "ID": "coloryr.pglaunher.colormc",
-  "Name": "ColorMC启动器",
-  "Describe": "用于启动ColorMC游戏实例",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.PGLauncherPlugin.ColorMC" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    },
-    {
-      "Type": "Share",
-      "ID": "coloryr.pglaunher"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.pglaunher.colormc",
+    "Name": "ColorMC启动器",
+    "Describe": "用于启动ColorMC游戏实例",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.PGLauncherPlugin.ColorMC"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        },
+        {
+            "Type": "Share",
+            "ID": "coloryr.pglaunher"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

@@ -1,19 +1,22 @@
-﻿{
-  "ID": "coloryr.calendar",
-  "Name": "日历",
-  "Describe": "使用显示系统年月日",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.CalendarPlugin", "lunar" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.clock"
-    },
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.calendar",
+    "Name": "日历",
+    "Describe": "使用显示系统年月日",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.CalendarPlugin",
+        "lunar"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.clock"
+        },
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

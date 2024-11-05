@@ -1,15 +1,24 @@
-﻿{
-  "ID": "coloryr.monitor",
-  "Name": "硬件监控",
-  "Describe": "获取电脑传感器信息",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.MonitorPlugin", "LibreHardwareMonitorLib", "HidSharp", "System.CodeDom", "System.IO.Ports", "Mono.Posix.NETStandard", "System.Management" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.0",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.monitor",
+    "Name": "硬件监控",
+    "Describe": "获取电脑传感器信息",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.MonitorPlugin",
+        "LibreHardwareMonitorLib",
+        "HidSharp",
+        "System.CodeDom",
+        "System.IO.Ports",
+        "Mono.Posix",
+        "Mono.Unix",
+        "System.Management"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

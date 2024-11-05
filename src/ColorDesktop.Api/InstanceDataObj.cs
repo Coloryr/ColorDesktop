@@ -34,7 +34,7 @@ public sealed record InstanceDataObj
     /// </summary>
     public string UUID { get; set; }
     /// <summary>
-    /// 默认实例的名字，只能设置一次
+    /// 默认实例的名字
     /// </summary>
     public string Nick { get; set; }
     /// <summary>

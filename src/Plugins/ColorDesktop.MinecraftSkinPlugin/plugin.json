@@ -1,15 +1,20 @@
-﻿{
-  "ID": "coloryr.minecraft.skin",
-  "Name": "Minecraft皮肤显示",
-  "Describe": "用于显示Minecraft皮肤",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.MinecraftSkinPlugin", "MinecraftSkinRender", "MinecraftSkinRender.MojangApi", "MinecraftSkinRender.OpenGL" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.0",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.minecraft.skin",
+    "Name": "Minecraft皮肤显示",
+    "Describe": "用于显示Minecraft皮肤",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.MinecraftSkinPlugin",
+        "MinecraftSkinRender",
+        "MinecraftSkinRender.MojangApi",
+        "MinecraftSkinRender.OpenGL"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

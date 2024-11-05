@@ -13,6 +13,34 @@ using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.Manager;
 
+public class InstanceHook : IInstanceManager
+{
+    public IReadOnlyList<string> GetInstances()
+    {
+        return [.. InstanceManager.Instances.Keys];
+    }
+
+    public InstanceDataObj? GetInstanceData(string key)
+    {
+        if (InstanceManager.Instances.TryGetValue(key, out var value))
+        {
+            return value.Copy();
+        }
+
+        return null;
+    }
+
+    public InstanceState? GetState(string key)
+    {
+        if (InstanceManager.InstanceStates.TryGetValue(key, out var value))
+        {
+            return value;
+        }
+
+        return null;
+    }
+}
+
 public static class InstanceManager
 {
     public static readonly Dictionary<string, InstanceWindowObj> RunInstances = [];
@@ -521,5 +549,21 @@ public static class InstanceManager
                 window.Move();
             }
         }
+    }
+
+    public static InstanceDataObj Copy(this InstanceDataObj obj)
+    {
+        return new()
+        {
+            Plugin = obj.Plugin,
+            UUID = obj.UUID,
+            Nick = obj.Nick,
+            Pos = obj.Pos,
+            Margin = obj.Margin,
+            Tran = obj.Tran,
+            Display = obj.Display,
+            IsWindow = obj.IsWindow,
+            TopModel = obj.TopModel
+        };
     }
 }

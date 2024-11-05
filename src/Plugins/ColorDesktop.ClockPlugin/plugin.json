@@ -1,15 +1,17 @@
-﻿{
-  "ID": "coloryr.clock",
-  "Name": "时钟",
-  "Describe": "用于展示当前系统时间",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.ClockPlugin" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.clock",
+    "Name": "时钟",
+    "Describe": "用于展示当前系统时间",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.ClockPlugin"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

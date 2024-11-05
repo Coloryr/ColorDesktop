@@ -1,15 +1,17 @@
-﻿{
-  "ID": "coloryr.bm",
-  "Name": "每日番剧",
-  "Describe": "用于查询每日番剧",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.BmPlugin" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.bm",
+    "Name": "每日番剧",
+    "Describe": "用于查询每日番剧",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.BmPlugin"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

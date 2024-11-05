@@ -1,15 +1,17 @@
-﻿{
-  "ID": "coloryr.oneword",
-  "Name": "每日一言",
-  "Describe": "获取并显示每日一言",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.OneWordPlugin" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.oneword",
+    "Name": "每日一言",
+    "Describe": "获取并显示每日一言",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.OneWordPlugin"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

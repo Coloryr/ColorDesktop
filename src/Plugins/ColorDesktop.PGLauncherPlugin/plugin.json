@@ -1,15 +1,18 @@
-﻿{
-  "ID": "coloryr.pglaunher",
-  "Name": "程序启动器",
-  "Describe": "用于启动进程",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.PGLauncherPlugin", "INIFileParser" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.1",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.pglaunher",
+    "Name": "程序启动器",
+    "Describe": "用于启动进程",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.PGLauncherPlugin",
+        "INIFileParser"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }

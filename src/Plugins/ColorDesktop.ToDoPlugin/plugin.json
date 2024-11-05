@@ -1,15 +1,17 @@
-﻿{
-  "ID": "coloryr.todo",
-  "Name": "ToDo列表",
-  "Describe": "登录微软账户获取ToDo列表并展示",
-  "Auther": "Coloryr",
-  "Dlls": [ "ColorDesktop.ToDoPlugin" ],
-  "Dependents": [
-    {
-      "Type": "Share",
-      "ID": "coloryr.corelib"
-    }
-  ],
-  "Version": "1.0.0",
-  "ApiVersion": "2"
+{
+    "ID": "coloryr.todo",
+    "Name": "ToDo列表",
+    "Describe": "登录微软账户获取ToDo列表并展示",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.ToDoPlugin"
+    ],
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ],
+    "Version": "1.2.0",
+    "ApiVersion": "3"
 }
