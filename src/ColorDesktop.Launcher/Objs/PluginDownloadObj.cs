@@ -19,6 +19,7 @@ public record PluginDownloadObj
         public string Icon { get; set; }
         public string Version { get; set; }
         public List<string> Deps { get; set; }
+        public List<string> Os { get; set; }
         public List<FileObj> Files { get; set; }
     }
     public string Source { get; set; }

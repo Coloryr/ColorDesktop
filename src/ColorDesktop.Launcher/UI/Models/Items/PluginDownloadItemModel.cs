@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Manager;
@@ -18,6 +20,8 @@ public partial class PluginDownloadItemModel : ObservableObject
     private bool _have;
     [ObservableProperty]
     private bool _update;
+    [ObservableProperty]
+    private bool _os;
 
     public string Source => _source;
     public string ID => _obj.ID;
@@ -25,6 +29,18 @@ public partial class PluginDownloadItemModel : ObservableObject
     public string Describe => _obj.Describe;
     public string Auther => _obj.Auther;
     public string Version => _obj.Version;
+    public string Dep => GetDep();
+
+    private string GetDep()
+    {
+        var str = new StringBuilder();
+        foreach (var item in _obj.Deps)
+        {
+            str.Append(item).Append(' ');
+        }
+        return str.ToString();
+    }
+
     public Task<Bitmap?> Image => GetImage();
 
     private readonly MainViewModel _model;
@@ -36,10 +52,16 @@ public partial class PluginDownloadItemModel : ObservableObject
     {
         _model = model;
         _obj = obj;
+        _os = PluginManager.CheckOs(obj.Os);
         _have = PluginManager.HavePlugin(obj.ID);
         _update = HaveUpdate();
         _source = source;
         _baseurl = baseurl;
+        if (!_os)
+        {
+            Have = false;
+            Update = false;
+        }
     }
 
     [RelayCommand]

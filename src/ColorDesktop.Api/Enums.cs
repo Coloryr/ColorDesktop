@@ -37,6 +37,10 @@ public enum InstanceState
 public enum PluginState
 {
     /// <summary>
+    /// 系统不支持
+    /// </summary>
+    OsError,
+    /// <summary>
     /// 加载错误
     /// </summary>
     LoadError,

@@ -68,6 +68,13 @@ public static class PluginManager
                     SetPluginState(item, PluginState.LoadError);
                     continue;
                 }
+                if (!CheckOs(obj.Os))
+                {
+                    Logs.Error(string.Format("组件 {0} 的系统支持列表不支持该系统", item));
+                    list.Add(item);
+                    SetPluginState(item, PluginState.LoadError);
+                    continue;
+                }
 
                 PluginAssemblys.Add(obj.ID, new PluginAssembly(config.DirectoryName!, obj));
             }
@@ -141,6 +148,39 @@ public static class PluginManager
 
             ConfigHelper.Config.EnablePlugin.Remove(item);
         }
+    }
+
+    public static bool CheckOs(List<string> config)
+    {
+        if (config == null)
+        {
+            return true;
+        }
+
+        string system;
+        if (SystemInfo.Os == OsType.Linux)
+        {
+            system = "linux_";
+        }
+        else if (SystemInfo.Os == OsType.MacOS)
+        {
+            system = "macos_";
+        }
+        else
+        {
+            system = "windows_";
+        }
+
+        if (SystemInfo.IsArm)
+        {
+            system += "arm64";
+        }
+        else
+        {
+            system += "x86_64";
+        }
+
+        return config.Contains(system);
     }
 
     /// <summary>

@@ -43,7 +43,7 @@ dotnet build
 ```  
 
 每个组件程序空间隔离，但可以设置组件见`共享`或`加载`的依赖关系  
-![](./pic//pic7.png)  
+![](./pic/pic7.png)  
 可以看到，组件A B C都由ColorDeskop加载，并且可以进行操作  
 组件B可以共享使用组件A的程序集，但组件A不能共享使用组件B的程序集，这是共享依赖  
 组件C可以独立加载组件A的程序集，但组件A不加载组件C的程序集，这是加载依赖  
@@ -73,29 +73,40 @@ dotnet build
 创建一个组件信息`plugin.json`
 ```json
 {
-  //冲突ID，不能和其他组件冲突
-  "ID": "coloryr.analogclock",
-  //组件名字
-  "Name": "模拟时钟",
-  //组件描述
-  "Describe": "使用表盘方式显示系统时间，依赖与组件coloryr.clock",
-  //组件作者
-  "Auther": "Coloryr",
-  //组件程序集，就是dll的名字，在这里可以添加你的依赖库等
-  "Dlls": [ "ColorDesktop.AnalogClockPlugin" ],\
-  //依赖的插件
-  "Dependents": [
-    {
-      //依赖方式 Share共享 Load加载
-      "Type": "Share",
-      //依赖插件的ID
-      "ID": "coloryr.clock"
-    }
-  ],
-  //组件版本号
-  "Version": "1.0.0",
-  //API版本号
-  "ApiVersion": "1"
+    //冲突ID，不能和其他组件冲突
+    "ID": "coloryr.analogclock",
+    //组件名字
+    "Name": "模拟时钟",
+    //组件描述
+    "Describe": "使用表盘方式显示系统时间，依赖与组件coloryr.clock",
+    //组件作者
+    "Auther": "Coloryr",
+    //组件程序集，就是dll的名字，在这里可以添加你的依赖库等
+    "Dlls": [
+        "ColorDesktop.AnalogClockPlugin" 
+    ],
+    //依赖的插件
+    "Dependents": [
+        {
+            //依赖方式 Share共享 Load加载
+            "Type": "Share",
+            //依赖插件的ID
+            "ID": "coloryr.clock"
+        }
+    ],
+    //支持的操作系统
+    "Os": [
+        "windows_x86_64",
+        "windows_arm64",
+        "linux_x86_64",
+        "linux_arm64",
+        "macos_x86_64",
+        "macos_arm64"
+    ],
+    //组件版本号
+    "Version": "1.0.0",
+    //API版本号
+    "ApiVersion": "3"
 }
 ```
 然后设置编译后复制

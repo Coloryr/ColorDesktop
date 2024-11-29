@@ -35,6 +35,10 @@ public record PluginDataObj
     /// </summary>
     public List<PluginDependentObj> Dependents { get; set; }
     /// <summary>
+    /// 支持的操作系统
+    /// </summary>
+    public List<string> Os { get; set; }
+    /// <summary>
     /// 版本
     /// </summary>
     public string Version { get; set; }

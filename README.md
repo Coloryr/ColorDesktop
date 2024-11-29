@@ -65,6 +65,12 @@
 
 前往组件[开发指南](./dev.md)
 
+## 项目说明
+- ColorDesktop.Api 插件接口
+- ColorDesktop.Debug 调试用
+- ColorDesktop.Launcher 程序本体
+- ColorDesktop.PluginList 插件源生成器
+
 ## 依赖/引用的项目
 [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia) 跨平台UI框架  
 [DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia) 弹窗库  

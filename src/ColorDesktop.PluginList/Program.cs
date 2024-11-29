@@ -97,6 +97,7 @@ public class Program
                     Describe = obj.Describe,
                     Deps = [],
                     Files = [],
+                    Os = obj.Os,
                     Url = "/" + obj.ID
                 };
 
