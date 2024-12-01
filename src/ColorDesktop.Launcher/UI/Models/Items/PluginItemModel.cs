@@ -26,6 +26,8 @@ public partial class PluginItemModel : ObservableObject
     private bool _notDep;
     [ObservableProperty]
     private bool _isUnload;
+    [ObservableProperty]
+    private bool _os;
 
     public bool Core { get; init; }
     public string ID => _obj.ID;
@@ -48,6 +50,7 @@ public partial class PluginItemModel : ObservableObject
     {
         _obj = obj;
         _model = model;
+        _os = PluginManager.GetPluginState(obj.ID) == PluginState.OsError;
 
         HaveSetting = PluginManager.HavePluginSetting(obj.ID);
         Core = PluginManager.IsCoreLib(obj.ID);

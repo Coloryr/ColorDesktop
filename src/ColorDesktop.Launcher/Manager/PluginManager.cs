@@ -54,7 +54,7 @@ public static class PluginManager
 
                 if (Plugins.ContainsKey(obj.ID))
                 {
-                    Logs.Error(string.Format("组件 {0} 存在重复的ID", item));
+                    Logs.Error(string.Format("组件 {0} 存在重复的ID", obj.ID));
                     continue;
                 }
 
@@ -63,16 +63,16 @@ public static class PluginManager
 
                 if (obj.ApiVersion != Program.ApiVersion)
                 {
-                    Logs.Error(string.Format("组件 {0} 的API版本不一致", item));
-                    list.Add(item);
-                    SetPluginState(item, PluginState.LoadError);
+                    Logs.Error(string.Format("组件 {0} 的API版本不一致", obj.ID));
+                    list.Add(obj.ID);
+                    SetPluginState(obj.ID, PluginState.LoadError);
                     continue;
                 }
                 if (!CheckOs(obj.Os))
                 {
-                    Logs.Error(string.Format("组件 {0} 的系统支持列表不支持该系统", item));
-                    list.Add(item);
-                    SetPluginState(item, PluginState.LoadError);
+                    Logs.Error(string.Format("组件 {0} 的系统支持列表不支持该系统", obj.ID));
+                    list.Add(obj.ID);
+                    SetPluginState(obj.ID, PluginState.OsError);
                     continue;
                 }
 
@@ -80,8 +80,6 @@ public static class PluginManager
             }
             catch (Exception e)
             {
-                list.Add(item);
-                SetPluginState(item, PluginState.LoadError);
                 Logs.Error(string.Format("组件 {0} 加载失败", item), e);
             }
         }

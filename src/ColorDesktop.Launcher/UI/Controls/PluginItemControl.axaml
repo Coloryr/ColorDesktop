@@ -79,5 +79,13 @@
                     Text="{lang:Localize MainWindow.Text50}" />
             </Panel>
         </Border>
+        <Border Classes="t1" IsVisible="{Binding Os, FallbackValue=false}">
+            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Red"
+                    Text="{lang:Localize MainWindow.Text52}" />
+            </Panel>
+        </Border>
     </Panel>
 </UserControl>
