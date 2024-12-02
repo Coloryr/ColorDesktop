@@ -98,7 +98,8 @@ public class Program
                     Deps = [],
                     Files = [],
                     Os = obj.Os,
-                    Url = "/" + obj.ID
+                    Url = "/" + obj.ID,
+                    ApiVersion = obj.ApiVersion
                 };
 
                 foreach (var item1 in obj.Dependents)

@@ -48,6 +48,13 @@ public interface IPlugin
     /// 打开组件设置
     /// </summary>
     Control OpenSetting();
+    /// <summary>
+    /// 请求控制权限
+    /// </summary>
+    /// <param name="key">请求的插件</param>
+    /// <param name="permission">权限</param>
+    /// <returns>true 允许其他插件控制</returns>
+    bool Permissions(string key, string permission);
 
     /// <summary>
     /// 组件初始化，可以设置组件全体配置

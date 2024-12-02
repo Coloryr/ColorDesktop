@@ -76,7 +76,7 @@ public partial class App : Application
         ThisApp = this;
 
         Program.StartLock();
-        LauncherHook.Init(new InstanceHook());
+        LauncherApi.Init(new LauncherHook());
 
         Logs.Init(Program.RunDir, Program.Version);
     }

@@ -22,6 +22,10 @@ public partial class PluginDownloadItemModel : ObservableObject
     private bool _update;
     [ObservableProperty]
     private bool _os;
+    [ObservableProperty]
+    private bool _api;
+    [ObservableProperty]
+    private bool _canDo = true;
 
     public string Source => _source;
     public string ID => _obj.ID;
@@ -53,14 +57,14 @@ public partial class PluginDownloadItemModel : ObservableObject
         _model = model;
         _obj = obj;
         _os = PluginManager.CheckOs(obj.Os);
+        _api = obj.ApiVersion == Program.ApiVersion;
         _have = PluginManager.HavePlugin(obj.ID);
         _update = HaveUpdate();
         _source = source;
         _baseurl = baseurl;
-        if (!_os)
+        if (!_os || !_api)
         {
-            Have = false;
-            Update = false;
+            _canDo = false;
         }
     }
 

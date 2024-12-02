@@ -6,6 +6,12 @@ namespace ColorDesktop.ToDoPlugin;
 
 public partial class ToDoControl : UserControl, IInstance
 {
+#if DEBUG
+    public ToDoControl()
+    {
+        InitializeComponent();
+    }
+#endif
     public ToDoControl(string uuid)
     {
         InitializeComponent();

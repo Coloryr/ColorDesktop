@@ -7,6 +7,14 @@ public record MarginObj
 
     }
 
+    public MarginObj(MarginObj margin)
+    {
+        Left = margin.Left;
+        Right = margin.Right;
+        Top = margin.Top;
+        Bottom = margin.Bottom;
+    }
+
     public MarginObj(int left, int right, int top, int bottom)
     {
         Left = left;

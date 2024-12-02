@@ -15,8 +15,8 @@ namespace ColorDesktop.Launcher;
 
 public class Program
 {
-    public const string Version = "A2.20241104";
-    public const string ApiVersion = LauncherHook.ApiVersion;
+    public const string Version = "A3.20241202";
+    public const string ApiVersion = LauncherApi.ApiVersion;
 
     private static FileStream s_lock;
 

@@ -197,4 +197,9 @@ public class Live2DPlugin : IPlugin
     {
 
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

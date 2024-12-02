@@ -164,6 +164,17 @@ public class PluginAssembly : AssemblyLoadContext
         }
     }
 
+    public void AddLoad(PluginAssembly ass, List<string> dlls)
+    {
+        foreach (var item in ass.Obj.Dlls)
+        {
+            if (dlls.Contains(item))
+            {
+                LoadDll(ass.Local, item);
+            }
+        }
+    }
+
     private void LoadDll(string local, string item)
     {
         if (item.EndsWith(".dll"))

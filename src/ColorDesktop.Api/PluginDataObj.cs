@@ -39,6 +39,10 @@ public record PluginDataObj
     /// </summary>
     public List<string> Os { get; set; }
     /// <summary>
+    /// 是否需要权限才能被其他插件控制
+    /// </summary>
+    public bool Permission { get; set; }
+    /// <summary>
     /// 版本
     /// </summary>
     public string Version { get; set; }

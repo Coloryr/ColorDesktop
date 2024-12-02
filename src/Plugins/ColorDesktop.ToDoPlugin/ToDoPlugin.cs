@@ -100,4 +100,9 @@ public class ToDoPlugin : IPlugin
     {
 
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

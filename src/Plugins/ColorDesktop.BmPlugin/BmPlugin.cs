@@ -107,6 +107,11 @@ public class BmPlugin : IPlugin
         return new();
     }
 
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
+
     public void Stop()
     {
 

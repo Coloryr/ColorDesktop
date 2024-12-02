@@ -15,6 +15,7 @@
         "macos_x86_64",
         "macos_arm64"
     ],
+    "Permission": true,
     "Version": "1.2.0",
     "ApiVersion": "3"
 }

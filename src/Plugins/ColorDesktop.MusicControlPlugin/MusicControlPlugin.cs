@@ -108,4 +108,9 @@ public class MusicControlPlugin : IPlugin
     {
         MusicHook?.Stop();
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

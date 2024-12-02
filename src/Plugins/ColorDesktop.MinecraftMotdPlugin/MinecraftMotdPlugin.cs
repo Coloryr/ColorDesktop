@@ -97,4 +97,9 @@ public class MinecraftMotdPlugin : IPlugin
     {
 
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

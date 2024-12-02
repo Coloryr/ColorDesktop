@@ -103,4 +103,9 @@ public class AnalogClockPlugin : IPlugin
         using var reader = new StreamReader(item);
         LangApi.AddLangs(reader.ReadToEnd());
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

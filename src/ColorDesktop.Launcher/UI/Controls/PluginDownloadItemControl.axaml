@@ -12,7 +12,10 @@
     <Border Classes="t2">
         <Panel Margin="10">
             <DockPanel>
-                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding CanDo}">
                     <Button
                         Width="100"
                         Height="35"
@@ -39,11 +42,11 @@
                     </StackPanel>
                     <TextBlock Text="{Binding ID}" />
                     <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{lang:Localize MainWindow.Text53}" />
                         <TextBlock Text="{Binding Auther}" />
                     </StackPanel>
-                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{lang:Localize MainWindow.Text4}" />
                         <TextBlock Text="{Binding Version}" />
@@ -54,6 +57,9 @@
                     </StackPanel>
                     <StackPanel IsVisible="{Binding !Os}">
                         <TextBlock Foreground="Red" Text="{lang:Localize MainWindow.Text52}" />
+                    </StackPanel>
+                    <StackPanel IsVisible="{Binding !Api}">
+                        <TextBlock Foreground="Red" Text="{lang:Localize MainWindow.Text54}" />
                     </StackPanel>
                 </StackPanel>
             </DockPanel>

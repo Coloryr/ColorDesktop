@@ -105,4 +105,9 @@ public class MinecraftSkinPlugin : IPlugin
     {
 
     }
+
+    public bool Permissions(string key, string permission)
+    {
+        return false;
+    }
 }

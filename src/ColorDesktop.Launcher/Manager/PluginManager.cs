@@ -19,6 +19,7 @@ public static class PluginManager
     public static readonly Dictionary<string, PluginAssembly> PluginAssemblys = [];
     public static readonly Dictionary<string, PluginState> PluginStates = [];
     public static readonly Dictionary<string, string> PluginDir = [];
+    public static readonly Dictionary<string, Dictionary<string, bool>> Controls = [];
 
     public const string Dir1 = "plugins";
     public const string ConfigName = "plugin.json";
@@ -282,6 +283,15 @@ public static class PluginManager
                 item.Enable = false;
                 SetPluginState(id, PluginState.EnableError);
                 Logs.Error(string.Format("组件 {0} 启用失败", item), e);
+                return;
+            }
+            try
+            {
+                LauncherHook.Instance?.PluginEnable(id);
+            }
+            catch
+            { 
+                
             }
         }
     }
@@ -328,6 +338,15 @@ public static class PluginManager
         Init();
         StartPlugin();
         InstanceManager.StartInstance();
+
+        try
+        {
+            LauncherHook.Instance?.PluginReload();
+        }
+        catch
+        {
+
+        }
     }
 
     /// <summary>
@@ -343,6 +362,14 @@ public static class PluginManager
 
             DisablePlugin(id, item.Plugin);
             item.Enable = false;
+            try
+            {
+                LauncherHook.Instance?.PluginDisable(id);
+            }
+            catch
+            {
+
+            }
         }
     }
 
@@ -440,6 +467,65 @@ public static class PluginManager
         }
 
         return true;
+    }
+
+    public static void AddControl(string id, string key, bool value)
+    {
+        if (!Controls.TryGetValue(id, out var temp))
+        {
+            temp = [];
+        }
+        if (!temp.TryAdd(key, value))
+        {
+            temp[key] = value;
+        }
+        Controls.TryAdd(id, temp);
+    }
+
+    public static void AddLib(string id, string key, bool share, List<string>? dlls)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var plugin1)
+            && PluginAssemblys.TryGetValue(key, out var plugin2))
+        {
+            if (share)
+            {
+                plugin1.AddShare(plugin2);
+            }
+            else if (dlls != null)
+            {
+                plugin1.AddLoad(plugin2, dlls);
+            }
+            else
+            {
+                plugin1.AddLoad(plugin2);
+            }
+        }
+    }
+
+    public static PluginDataObj Copy(this PluginDataObj obj)
+    {
+        var list = new List<PluginDependentObj>();
+        foreach (var item in obj.Dependents)
+        {
+            list.Add(new()
+            {
+                Type = item.Type,
+                ID = item.ID
+            });
+        }
+        return new()
+        {
+            ID = obj.ID,
+            Name = obj.Name,
+            Auther = obj.Auther,
+            Describe = obj.Describe,
+            Dlls = [.. obj.Dlls],
+            Dependents = list,
+            Os = [.. obj.Os],
+            Permission = obj.Permission,
+            Version = obj.Version,
+            ApiVersion = obj.ApiVersion
+        };
     }
 
     private static void DisablePlugin(string id, IPlugin plugin)
