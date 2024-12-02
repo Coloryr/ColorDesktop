@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.Api;
+﻿namespace ColorDesktop.Api;
 
 public interface IInstanceManager
 {
     IReadOnlyList<string> GetInstances();
-    InstanceDataObj? GetInstanceData(string key);
-    InstanceState? GetState(string key);
+    InstanceDataObj? GetInstanceData(string uuid);
+    InstanceState? GetState(string uuid);
+    public ManagerState Enable(string uuid);
+    public ManagerState Disable(string uuid);
+    public ManagerState Delete(string uuid);
+    public ManagerState Create(InstanceDataObj data);
+    public ManagerState SetInstanceData(InstanceDataObj data);
+    public IInstanceHandel? GetHandel(string uuid);
 }

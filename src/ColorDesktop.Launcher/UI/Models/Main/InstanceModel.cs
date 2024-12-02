@@ -5,7 +5,6 @@ using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
-using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Items;
 using ColorDesktop.Launcher.UI.Windows;

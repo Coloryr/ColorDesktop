@@ -23,14 +23,14 @@ public enum InstanceState
     /// <summary>
     /// 加载错误
     /// </summary>
-    LoadError, 
+    LoadError,
     /// <summary>
     /// 加载失败
     /// </summary>
-    LoadFail, 
-    PluginDisable, 
-    PluginNotFound, 
-    Disable, 
+    LoadFail,
+    PluginDisable,
+    PluginNotFound,
+    Disable,
     Enable
 }
 

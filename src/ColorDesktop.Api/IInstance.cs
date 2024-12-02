@@ -29,4 +29,9 @@ public interface IInstance
     /// </summary>
     /// <param name="obj"></param>
     void Update(InstanceDataObj obj);
+    /// <summary>
+    /// 获取窗口控制
+    /// </summary>
+    /// <returns></returns>
+    IInstanceHandel? GetHandel();
 }

@@ -290,8 +290,8 @@ public static class PluginManager
                 LauncherHook.Instance?.PluginEnable(id);
             }
             catch
-            { 
-                
+            {
+
             }
         }
     }

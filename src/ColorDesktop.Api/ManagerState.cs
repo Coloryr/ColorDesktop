@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.Api;
+﻿namespace ColorDesktop.Api;
 
 public enum ManagerState
-{ 
+{
     /// <summary>
     /// 组件未找到
     /// </summary>
     PluginNotFound,
+    /// <summary>
+    /// 实例未找到
+    /// </summary>
+    InstanceNotFound,
     /// <summary>
     /// 没有请求过权限
     /// </summary>
@@ -19,17 +17,29 @@ public enum ManagerState
     /// <summary>
     /// 没有权限
     /// </summary>
-    NoPermission, 
+    NoPermission,
     /// <summary>
-    /// 已经启用了
+    /// 组件已经启用了
     /// </summary>
-    IsEnabled,
+    PluginIsEnabled,
     /// <summary>
-    /// 已经禁用了
+    /// 实例已经启用了
     /// </summary>
-    IsDisabled,
+    InstanceIsEnabled,
+    /// <summary>
+    /// 组件已经禁用了
+    /// </summary>
+    PluginIsDisabled,
+    /// <summary>
+    /// 实例已经禁用了
+    /// </summary>
+    InstanceIsDisabled,
     /// <summary>
     /// 操作成功
     /// </summary>
-    Success
+    Success,
+    /// <summary>
+    /// 操作失败
+    /// </summary>
+    Fail
 }
