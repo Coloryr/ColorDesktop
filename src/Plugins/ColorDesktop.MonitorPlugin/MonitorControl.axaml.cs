@@ -92,4 +92,9 @@ public partial class MonitorControl : UserControl, IInstance
             model.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

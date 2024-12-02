@@ -87,4 +87,9 @@ public partial class CalendarControl : UserControl, IInstance
             View.Child = new Skin3Control();
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

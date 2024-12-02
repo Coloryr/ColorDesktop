@@ -73,4 +73,9 @@ public partial class OneWordControl : UserControl, IInstance
             model.ShowButton = true;
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

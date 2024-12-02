@@ -41,4 +41,9 @@ public partial class PGColorMCControl : UserControl, IInstance
             model.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

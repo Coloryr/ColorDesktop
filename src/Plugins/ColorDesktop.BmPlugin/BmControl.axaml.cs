@@ -88,4 +88,9 @@ public partial class BmControl : UserControl, IInstance
             model.IsOver = true;
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

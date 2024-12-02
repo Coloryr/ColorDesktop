@@ -79,6 +79,11 @@ public partial class Live2DControl : UserControl, IInstance
 
         Live2DPlugin.AddView(obj.UUID, View1);
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }
 
 public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
@@ -175,7 +180,7 @@ public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest
 
     private DateTime time;
 
-    private Dictionary<(string, string), LAppModel> _models = [];
+    private readonly Dictionary<(string, string), LAppModel> _models = [];
 
     private bool _runUpdate;
     private Action _run;

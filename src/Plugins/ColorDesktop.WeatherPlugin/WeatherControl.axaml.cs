@@ -68,4 +68,9 @@ public partial class WeatherControl : UserControl, IInstance
             model.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

@@ -50,4 +50,9 @@ public partial class MusicControl : UserControl, IInstance
             Content = new Skin1Control();
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

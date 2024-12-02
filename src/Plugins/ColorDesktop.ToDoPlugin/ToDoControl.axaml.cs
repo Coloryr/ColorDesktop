@@ -83,4 +83,9 @@ public partial class ToDoControl : UserControl, IInstance
             model.DisplayButton = true;
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

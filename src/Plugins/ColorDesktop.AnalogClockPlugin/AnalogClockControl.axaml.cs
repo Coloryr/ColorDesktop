@@ -54,4 +54,9 @@ public partial class AnalogClockControl : UserControl, IInstance
             control.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

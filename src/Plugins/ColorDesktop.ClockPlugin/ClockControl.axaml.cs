@@ -43,4 +43,9 @@ public partial class ClockControl : UserControl, IInstance
             model.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

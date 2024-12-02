@@ -200,4 +200,9 @@ public partial class MinecraftMotdControl : UserControl, IInstance
             StackPanel2.Inlines?.Add(text);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

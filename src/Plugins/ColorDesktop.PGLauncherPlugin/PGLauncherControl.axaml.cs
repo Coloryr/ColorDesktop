@@ -89,4 +89,9 @@ public partial class PGLauncherControl : UserControl, IInstance
             model.Update(config);
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }

@@ -96,4 +96,9 @@ public partial class MinecraftSkinControl : UserControl, IInstance
             model.DisplayButton = true;
         }
     }
+
+    public IInstanceHandel? GetHandel()
+    {
+        return null;
+    }
 }
