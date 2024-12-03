@@ -296,7 +296,7 @@ public static class PluginManager
             SetPluginState(plugin.Obj.ID, PluginState.Enable);
             
             InstanceManager.EnablePlugin(plugin.Obj.ID);
-            LauncherHook.Instance.PluginEnable(plugin.Obj.ID);
+            LauncherHook.PluginEnable(plugin.Obj.ID);
         }
         catch (Exception e)
         {
@@ -324,7 +324,7 @@ public static class PluginManager
     /// </summary>
     public static void Reload()
     {
-        LauncherHook.Instance.PluginReload();
+        LauncherHook.PluginReload();
 
         StopPlugin(true);
 
@@ -518,7 +518,7 @@ public static class PluginManager
         try
         {
             InstanceManager.DisablePlugin(plugin.Obj.ID);
-            LauncherHook.Instance.PluginDisable(plugin.Obj.ID);
+            LauncherHook.PluginDisable(plugin.Obj.ID);
             if (plugin.Enable)
             {
                 plugin.Enable = false;
@@ -534,6 +534,7 @@ public static class PluginManager
 
     private static void StopPlugin(PluginAssembly plugin)
     {
+        LauncherApi.RemoveListener(plugin.Obj.ID);
         try
         {
             plugin.Plugin.Stop();

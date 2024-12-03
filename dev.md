@@ -103,6 +103,10 @@ dotnet build
         "macos_x86_64",
         "macos_arm64"
     ],
+    //是否不需要请求权限就能让其他组件控制
+    "Permission": true,
+    //是否支持重载
+    "Reload": true,
     //组件版本号
     "Version": "1.0.0",
     //API版本号
@@ -161,3 +165,61 @@ return new InstanceDataObj()
 
 如果你使用了VS2022，并安装了Avalonia插件，但是无法预览页面  
 此时你需要将[ColorDesktop.Debug](./src/ColorDesktop.Debug/ColorDesktop.Debug.csproj)引入到你的解决方案中，添加你的组件为依赖项目，然后编译，选择启动项为`ColorDesktop.Debug`即可
+
+## 组件公共API
+
+在类`ColorDesktop.Api.LauncherApi`里面可以获取一些用于操作的API
+
+```C#
+///
+/// <summary>
+/// 公共数据获取，只能存基础类型
+/// </summary>
+/// <param name="key">键</param>
+/// <param name="obj">值</param>
+/// <returns>是否有数据</returns>
+public static bool GetData(string key, out object? obj);
+/// <summary>
+/// 公共数据设置，只能存基础类型
+/// </summary>
+/// <param name="key">键</param>
+/// <param name="obj">值</param>
+public static void SetData(string key, object? obj);
+/// <summary>
+/// 公共数据删除
+/// </summary>
+/// <param name="key">键</param>
+/// <returns>是否成功删除</returns>
+public static bool RemoveData(string key);
+/// <summary>
+/// 监听事件
+/// </summary>
+public static void AddListener(IPlugin plugin, Action<BaseEvent> action);
+/// <summary>
+/// 取消所有监听
+/// </summary>
+/// <param name="id"></param>
+public static void RemoveListener(string id);
+/// <summary>
+/// 触发组件事件
+/// </summary>
+/// <param name="pluginEvent"></param>
+public static void CallEvent(BaseEvent pluginEvent);
+```
+
+## CoreLib
+这个是`ColorDesktop.CoreLib`组件  
+主要是用于将重复代码抽出来弄成一个组件方便其他组件调用
+
+使用前需要将其以共享的方式作为依赖
+```json
+{
+    "Dependents": [
+        {
+            "Type": "Share",
+            "ID": "coloryr.corelib"
+        }
+    ]
+}
+```
+

@@ -13,7 +13,7 @@ public record PluginDataObj
     /// <summary>
     /// 唯一ID
     /// </summary>
-    public required string ID { get; set; }
+    public string ID { get; set; }
     /// <summary>
     /// 名字
     /// </summary>

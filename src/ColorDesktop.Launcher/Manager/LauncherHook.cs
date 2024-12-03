@@ -1,225 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Events;
 
 namespace ColorDesktop.Launcher.Manager;
 
 internal class LauncherHook : ILauncherHook
 {
-    public static LauncherHook Instance;
-
-    private readonly List<Action<InstanceEvent>> _instanceEnableList = [];
-    private readonly List<Action<InstanceEvent>> _instanceDisableList = [];
-    private readonly List<Action<InstanceEvent>> _instanceCreateList = [];
-    private readonly List<Action<InstanceEvent>> _instanceUpdateList = [];
-    private readonly List<Action> _pluginReloadList = [];
-    private readonly List<Action<PluginEvent>> _pluginEnableList = [];
-    private readonly List<Action<PluginEvent>> _pluginDisableList = [];
-
-    public event Action OnPluginReload
+    public static void InstanceEnable(string plugin, string uuid)
     {
-        add
-        {
-            _pluginReloadList.Add(value);
-        }
-        remove
-        {
-            _pluginReloadList.Remove(value);
-        }
-    }
-    public event Action<PluginEvent> OnPluginEnable
-    {
-        add
-        {
-            _pluginEnableList.Add(value);
-        }
-        remove
-        {
-            _pluginEnableList.Remove(value);
-        }
-    }
-    public event Action<PluginEvent> OnPluginDisable
-    {
-        add
-        {
-            _pluginDisableList.Add(value);
-        }
-        remove
-        {
-            _pluginDisableList.Remove(value);
-        }
-    }
-    public event Action<InstanceEvent> OnInstanceEnable 
-    { 
-        add
-        {
-            _instanceEnableList.Add(value);
-        }
-        remove
-        {
-            _instanceEnableList.Remove(value);
-        }
-    }
-    public event Action<InstanceEvent> OnInstanceDisable
-    {
-        add
-        {
-            _instanceDisableList.Add(value);
-        }
-        remove
-        {
-            _instanceDisableList.Remove(value);
-        }
-    }
-    public event Action<InstanceEvent> OnInstanceCreate
-    {
-        add
-        {
-            _instanceCreateList.Add(value);
-        }
-        remove
-        {
-            _instanceCreateList.Remove(value);
-        }
-    }
-    public event Action<InstanceEvent> OnInstanceUpdate
-    {
-        add
-        {
-            _instanceUpdateList.Add(value);
-        }
-        remove
-        {
-            _instanceUpdateList.Remove(value);
-        }
+        LauncherApi.CallEvent(new InstanceEnableEvent(plugin, uuid));
     }
 
-    public LauncherHook()
+    public static void InstanceDisable(string plugin, string uuid)
     {
-        Instance = this;
+        LauncherApi.CallEvent(new InstanceDisableEvent(plugin, uuid));
     }
 
-    public void InstanceEnable(string plugin, string uuid)
+    public static void InstanceCreate(string plugin, string uuid)
     {
-        foreach (var item in _instanceEnableList)
+        LauncherApi.CallEvent(new InstanceCreateEvent(plugin, uuid));
+    }
+
+    public static void InstanceUpdate(string plugin, string uuid)
+    {
+        LauncherApi.CallEvent(new InstanceUpdateEvent(plugin, uuid));
+    }
+
+    public static void PluginReload()
+    {
+        LauncherApi.CallEvent(new PluginReloadEvent());
+    }
+
+    public static void PluginEnable(string plugin)
+    {
+        LauncherApi.CallEvent(new PluginEnableEvent(plugin));
+    }
+
+    public static void PluginDisable(string plugin)
+    {
+        LauncherApi.CallEvent(new PluginDisableEvent(plugin));
+    }
+
+    public IInstanceManager? GetInstanceManager(IPlugin obj, IInstance obj1)
+    {
+        foreach (var item in PluginManager.PluginAssemblys.Values)
         {
-            try
+            if (item.Plugin == obj)
             {
-                item.Invoke(new(plugin, uuid));
-            }
-            catch(Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
+                return new InstanceHook(item.Obj.ID);
             }
         }
+        return null;
     }
 
-    public void InstanceDisable(string plugin, string uuid)
+    public IPluginManager? GetPluginManager(IPlugin obj)
     {
-        foreach (var item in _instanceDisableList)
+        foreach (var item in PluginManager.PluginAssemblys.Values)
         {
-            try
+            if (item.Plugin == obj)
             {
-                item.Invoke(new(plugin, uuid));
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
+                return new PluginHook(item.Obj.ID);
             }
         }
+        return null;
     }
 
-    public void InstanceCreate(string plugin, string uuid)
+    public string? GetPluginId(IPlugin obj)
     {
-        foreach (var item in _instanceCreateList)
+        foreach (var item in PluginManager.PluginAssemblys.Values)
         {
-            try
+            if (item.Plugin == obj)
             {
-                item.Invoke(new(plugin, uuid));
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
+                return item.Obj.ID;
             }
         }
-    }
-
-    public void InstanceUpdate(string plugin, string uuid)
-    {
-        foreach (var item in _instanceUpdateList)
-        {
-            try
-            {
-                item.Invoke(new(plugin, uuid));
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
-            }
-        }
-    }
-
-    public void PluginReload()
-    {
-        foreach (var item in _pluginReloadList)
-        {
-            try
-            {
-                item.Invoke();
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
-            }
-        }
-    }
-
-    public void PluginEnable(string plugin)
-    {
-        foreach (var item in _pluginEnableList)
-        {
-            try
-            {
-                item.Invoke(new(plugin));
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
-            }
-        }
-    }
-
-    public void PluginDisable(string plugin)
-    {
-        foreach (var item in _pluginDisableList)
-        {
-            try
-            {
-                item.Invoke(new(plugin));
-            }
-            catch (Exception e)
-            {
-                Logs.Error("Instance enable event crash", e);
-            }
-        }
-    }
-
-    public IInstanceManager GetInstanceManager(PluginDataObj obj, InstanceDataObj obj1)
-    {
-        return new InstanceHook(obj);
-    }
-
-    public IPluginManager GetPluginManager(PluginDataObj obj)
-    {
-        return new PluginHook(obj);
+        return null;
     }
 }
 
-public class PluginHook(PluginDataObj obj) : IPluginManager
+public class PluginHook(string id) : IPluginManager
 {
     public ManagerState Disable(string key)
     {
-        if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+        if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(key, out var res))
         {
             return ManagerState.NoTestPermission;
@@ -241,7 +105,7 @@ public class PluginHook(PluginDataObj obj) : IPluginManager
 
     public ManagerState Enable(string key)
     {
-        if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+        if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(key, out var res))
         {
             return ManagerState.NoTestPermission;
@@ -271,13 +135,13 @@ public class PluginHook(PluginDataObj obj) : IPluginManager
 
         if (data.Permission == true)
         {
-            var res = plugin.Plugin.Permissions(obj.ID, permission);
-            PluginManager.AddControl(obj.ID, key, res);
+            var res = plugin.Plugin.Permissions(id, permission);
+            PluginManager.AddControl(id, key, res);
             return res;
         }
         else
         {
-            PluginManager.AddControl(obj.ID, key, true);
+            PluginManager.AddControl(id, key, true);
             return true;
         }
     }
@@ -319,7 +183,7 @@ public class PluginHook(PluginDataObj obj) : IPluginManager
 
     public ManagerState InstallCLR(string key, bool share, List<string>? dlls = null)
     {
-        if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+        if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(key, out var res))
         {
             return ManagerState.NoTestPermission;
@@ -330,13 +194,13 @@ public class PluginHook(PluginDataObj obj) : IPluginManager
             return ManagerState.NoPermission;
         }
 
-        PluginManager.AddLib(obj.ID, key, share, dlls);
+        PluginManager.AddLib(id, key, share, dlls);
 
         return ManagerState.Success;
     }
 }
 
-public class InstanceHook(PluginDataObj obj) : IInstanceManager
+public class InstanceHook(string id) : IInstanceManager
 {
     public IReadOnlyList<string> GetInstances()
     {
@@ -369,9 +233,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return ManagerState.InstanceNotFound;
         }
-        if (obj.ID != data.Plugin)
+        if (id != data.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
                 || !controls.TryGetValue(data.Plugin, out var res))
             {
                 return ManagerState.NoTestPermission;
@@ -398,9 +262,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return ManagerState.InstanceNotFound;
         }
-        if (obj.ID != data.Plugin)
+        if (id != data.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(data.Plugin, out var res))
             {
                 return ManagerState.NoTestPermission;
@@ -427,9 +291,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return ManagerState.InstanceNotFound;
         }
-        if (obj.ID != data.Plugin)
+        if (id != data.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(data.Plugin, out var res))
             {
                 return ManagerState.NoTestPermission;
@@ -460,9 +324,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return ManagerState.PluginIsDisabled;
         }
-        if (obj.ID != data.Plugin)
+        if (id != data.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(data.Plugin, out var res))
             {
                 return ManagerState.NoTestPermission;
@@ -496,9 +360,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return ManagerState.PluginIsDisabled;
         }
-        if (obj.ID != data.Plugin)
+        if (id != data.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(data.Plugin, out var res))
             {
                 return ManagerState.NoTestPermission;
@@ -521,9 +385,9 @@ public class InstanceHook(PluginDataObj obj) : IInstanceManager
         {
             return null;
         }
-        if (obj.ID != run.InstanceData.Plugin)
+        if (id != run.InstanceData.Plugin)
         {
-            if (!PluginManager.Controls.TryGetValue(obj.ID, out var controls)
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
             || !controls.TryGetValue(run.InstanceData.Plugin, out var res))
             {
                 return null;
