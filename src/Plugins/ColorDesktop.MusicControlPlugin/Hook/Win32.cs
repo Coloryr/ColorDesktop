@@ -1,4 +1,7 @@
-﻿using Windows.Media.Control;
+﻿using System.Reflection;
+using System.Runtime.InteropServices;
+using ColorDesktop.Api;
+using Windows.Media.Control;
 
 namespace ColorDesktop.MusicControlPlugin.Hook;
 
@@ -105,6 +108,7 @@ public class Win32Hook : IHook
             CloseSession(item.Value);
         }
         _list.Clear();
+        Marshal.ReleaseComObject(_manager);
     }
 
     public async Task<MediaProperties?> GetProperties(int item)
@@ -209,6 +213,7 @@ public static class Win32
         var res = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
         if (res != null)
         {
+            LauncherApi.SetData("Music_Manager", res);
             return new Win32Hook(res);
         }
 

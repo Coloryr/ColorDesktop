@@ -143,6 +143,8 @@ public static class InstanceManager
             StartInstance(config);
 
             App.ThisApp.UpdateMenu();
+
+            LauncherHook.Instance.InstanceCreate(config.Plugin, config.UUID);
         }
     }
 
@@ -231,6 +233,8 @@ public static class InstanceManager
     {
         try
         {
+            LauncherHook.Instance.InstanceDisable(instance.InstanceData.Plugin, instance.InstanceData.UUID);
+
             instance.Instance.Stop(instance.Window);
             instance.Window.Close();
 
@@ -348,6 +352,8 @@ public static class InstanceManager
 
             run.Window.Update(obj);
             obj.Save();
+
+            LauncherHook.Instance.InstanceUpdate(obj.Plugin, obj.UUID);
         }
     }
 
@@ -442,6 +448,8 @@ public static class InstanceManager
                 window.Show();
 
                 SetInstanceState(obj.UUID, InstanceState.Enable);
+
+                LauncherHook.Instance.InstanceEnable(obj.Plugin, obj.UUID);
             }
             else
             {

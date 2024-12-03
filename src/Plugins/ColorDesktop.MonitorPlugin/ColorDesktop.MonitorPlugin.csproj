@@ -29,8 +29,8 @@
 
     <ItemGroup>
 		<PackageReference Include="Mono.Posix" Version="7.1.0-final.1.21458.1" />
-		<PackageReference Include="System.IO.Ports" Version="8.0.0" />
-		<PackageReference Include="System.Management" Version="8.0.0" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.0" />
+		<PackageReference Include="System.Management" Version="9.0.0" />
     </ItemGroup>
 
     <!--<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
@@ -43,18 +43,18 @@
 		<Copy SourceFiles="$(NuGetPackageRoot)hidsharp\2.1.0\lib\netstandard2.0\HidSharp.pdb" DestinationFolder="$(OutputPath)" />
 	</Target>-->
     <Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)system.codedom\8.0.0\lib\net8.0\System.CodeDom.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.codedom\9.0.0\lib\net8.0\System.CodeDom.dll" DestinationFolder="$(OutputPath)" />
     </Target>
     <Target Name="CopySpecificNuGetDll_5" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\9.0.0\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)" />
     </Target>
     <Target Name="CopySpecificNuGetDll_6" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\unix\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\unix\lib\net8.0\System.IO.Ports.dll" />
-        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\8.0.0\runtimes\win\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.IO.Ports.dll" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\9.0.0\runtimes\unix\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\unix\lib\net8.0\System.IO.Ports.dll" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.io.ports\9.0.0\runtimes\win\lib\net8.0\System.IO.Ports.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.IO.Ports.dll" />
     </Target>
     <Target Name="CopySpecificNuGetDll_7" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)" />
-        <Copy SourceFiles="$(NuGetPackageRoot)system.management\8.0.0\runtimes\win\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.Management.dll" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.management\9.0.0\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)system.management\9.0.0\runtimes\win\lib\net8.0\System.Management.dll" DestinationFolder="$(OutputPath)runtimes\win\lib\net8.0\System.Management.dll" />
     </Target>
 	<Target Name="CopySpecificNuGetDll_8" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)mono.unix\7.1.0-final.1.21458.1\lib\net6.0\Mono.Unix.dll" DestinationFolder="$(OutputPath)" />
@@ -76,25 +76,25 @@
     </Target>
     <Target Name="CopySpecificNuGetDll_10" AfterTargets="Build">
         <ItemGroup>
-            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-arm64.runtime.native.system.io.ports\9.0.0\runtimes\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
     </Target>
     <Target Name="CopySpecificNuGetDll_11" AfterTargets="Build">
         <ItemGroup>
-            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+            <PortFiles Include="$(NuGetPackageRoot)runtime.osx-x64.runtime.native.system.io.ports\9.0.0\runtimes\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
     </Target>
     <Target Name="CopySpecificNuGetDll_12" AfterTargets="Build">
         <ItemGroup>
-            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-arm64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-arm64.runtime.native.system.io.ports\9.0.0\runtimes\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
     </Target>
     <Target Name="CopySpecificNuGetDll_13" AfterTargets="Build">
         <ItemGroup>
-            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-x64.runtime.native.system.io.ports\8.0.0\runtimes\**\*.*" />
+            <PortFiles Include="$(NuGetPackageRoot)runtime.linux-x64.runtime.native.system.io.ports\9.0.0\runtimes\**\*.*" />
         </ItemGroup>
         <Copy SourceFiles="@(PortFiles)" DestinationFolder="$(OutputPath)runtimes\%(RecursiveDir)" />
     </Target>

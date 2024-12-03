@@ -77,6 +77,7 @@
   "MainWindow.Info17": "正在更新中",
   "MainWindow.Info18": "更新时发生了错误",
   "MainWindow.Info19": "更新完成，重载后生效",
+  "MainWindow.Info20": "有 {0} 个组件不支持重载，是否继续",
   "CreateControl.Text1": "新建控件显示实例",
   "CreateControl.Text2": "实例名字",
   "CreateControl.Text3": "对齐方式",

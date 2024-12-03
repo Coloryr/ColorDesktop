@@ -65,9 +65,12 @@ public partial class MainViewModel
     [RelayCommand]
     public async Task ReloadPlugin()
     {
+        var count = PluginManager.GetReloadCount();
         var res = await DialogHost.Show(new ChoiseModel()
         {
-            Text = LangApi.GetLang("MainWindow.Info6")
+            Text = count > 0
+                ? string.Format(LangApi.GetLang("MainWindow.Info20"), count) 
+                : LangApi.GetLang("MainWindow.Info6")
         }, MainWindow.DialogHostName);
         if (res is true)
         {

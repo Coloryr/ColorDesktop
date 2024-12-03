@@ -5,15 +5,32 @@ public interface ILauncherHook
     /// <summary>
     /// 组件重载
     /// </summary>
-    event Action? OnPluginReload;
+    event Action OnPluginReload;
     /// <summary>
     /// 组件启用
     /// </summary>
-    event Action<string>? OnPluginEnable;
+    event Action<PluginEvent> OnPluginEnable;
     /// <summary>
     /// 组件禁用
     /// </summary>
-    event Action<string>? OnPluginDisable;
+    event Action<PluginEvent> OnPluginDisable;
+
+    /// <summary>
+    /// 实例启用
+    /// </summary>
+    event Action<InstanceEvent> OnInstanceEnable;
+    /// <summary>
+    /// 实例禁用
+    /// </summary>
+    event Action<InstanceEvent> OnInstanceDisable;
+    /// <summary>
+    /// 实例创建
+    /// </summary>
+    event Action<InstanceEvent> OnInstanceCreate;
+    /// <summary>
+    /// 实例更新配置
+    /// </summary>
+    event Action<InstanceEvent> OnInstanceUpdate;
 
     /// <summary>
     /// 获取实例控制器

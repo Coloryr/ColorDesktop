@@ -24,6 +24,7 @@
         "macos_arm64"
     ],
     "Permission": true,
+    "Reload": true,
     "Version": "1.2.0",
     "ApiVersion": "3"
 }

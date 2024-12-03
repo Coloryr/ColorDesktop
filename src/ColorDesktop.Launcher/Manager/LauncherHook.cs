@@ -8,28 +8,200 @@ internal class LauncherHook : ILauncherHook
 {
     public static LauncherHook Instance;
 
-    public event Action? OnPluginReload;
-    public event Action<string>? OnPluginEnable;
-    public event Action<string>? OnPluginDisable;
+    private readonly List<Action<InstanceEvent>> _instanceEnableList = [];
+    private readonly List<Action<InstanceEvent>> _instanceDisableList = [];
+    private readonly List<Action<InstanceEvent>> _instanceCreateList = [];
+    private readonly List<Action<InstanceEvent>> _instanceUpdateList = [];
+    private readonly List<Action> _pluginReloadList = [];
+    private readonly List<Action<PluginEvent>> _pluginEnableList = [];
+    private readonly List<Action<PluginEvent>> _pluginDisableList = [];
+
+    public event Action OnPluginReload
+    {
+        add
+        {
+            _pluginReloadList.Add(value);
+        }
+        remove
+        {
+            _pluginReloadList.Remove(value);
+        }
+    }
+    public event Action<PluginEvent> OnPluginEnable
+    {
+        add
+        {
+            _pluginEnableList.Add(value);
+        }
+        remove
+        {
+            _pluginEnableList.Remove(value);
+        }
+    }
+    public event Action<PluginEvent> OnPluginDisable
+    {
+        add
+        {
+            _pluginDisableList.Add(value);
+        }
+        remove
+        {
+            _pluginDisableList.Remove(value);
+        }
+    }
+    public event Action<InstanceEvent> OnInstanceEnable 
+    { 
+        add
+        {
+            _instanceEnableList.Add(value);
+        }
+        remove
+        {
+            _instanceEnableList.Remove(value);
+        }
+    }
+    public event Action<InstanceEvent> OnInstanceDisable
+    {
+        add
+        {
+            _instanceDisableList.Add(value);
+        }
+        remove
+        {
+            _instanceDisableList.Remove(value);
+        }
+    }
+    public event Action<InstanceEvent> OnInstanceCreate
+    {
+        add
+        {
+            _instanceCreateList.Add(value);
+        }
+        remove
+        {
+            _instanceCreateList.Remove(value);
+        }
+    }
+    public event Action<InstanceEvent> OnInstanceUpdate
+    {
+        add
+        {
+            _instanceUpdateList.Add(value);
+        }
+        remove
+        {
+            _instanceUpdateList.Remove(value);
+        }
+    }
 
     public LauncherHook()
     {
         Instance = this;
     }
 
+    public void InstanceEnable(string plugin, string uuid)
+    {
+        foreach (var item in _instanceEnableList)
+        {
+            try
+            {
+                item.Invoke(new(plugin, uuid));
+            }
+            catch(Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
+    }
+
+    public void InstanceDisable(string plugin, string uuid)
+    {
+        foreach (var item in _instanceDisableList)
+        {
+            try
+            {
+                item.Invoke(new(plugin, uuid));
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
+    }
+
+    public void InstanceCreate(string plugin, string uuid)
+    {
+        foreach (var item in _instanceCreateList)
+        {
+            try
+            {
+                item.Invoke(new(plugin, uuid));
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
+    }
+
+    public void InstanceUpdate(string plugin, string uuid)
+    {
+        foreach (var item in _instanceUpdateList)
+        {
+            try
+            {
+                item.Invoke(new(plugin, uuid));
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
+    }
+
     public void PluginReload()
     {
-        OnPluginReload?.Invoke();
+        foreach (var item in _pluginReloadList)
+        {
+            try
+            {
+                item.Invoke();
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
     }
 
-    public void PluginEnable(string key)
+    public void PluginEnable(string plugin)
     {
-        OnPluginEnable?.Invoke(key);
+        foreach (var item in _pluginEnableList)
+        {
+            try
+            {
+                item.Invoke(new(plugin));
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
     }
 
-    public void PluginDisable(string key)
+    public void PluginDisable(string plugin)
     {
-        OnPluginDisable?.Invoke(key);
+        foreach (var item in _pluginDisableList)
+        {
+            try
+            {
+                item.Invoke(new(plugin));
+            }
+            catch (Exception e)
+            {
+                Logs.Error("Instance enable event crash", e);
+            }
+        }
     }
 
     public IInstanceManager GetInstanceManager(PluginDataObj obj, InstanceDataObj obj1)

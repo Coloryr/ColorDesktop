@@ -43,6 +43,10 @@ public record PluginDataObj
     /// </summary>
     public bool Permission { get; set; }
     /// <summary>
+    /// 是否支持重载
+    /// </summary>
+    public bool Reload { get; set; }
+    /// <summary>
     /// 版本
     /// </summary>
     public string Version { get; set; }

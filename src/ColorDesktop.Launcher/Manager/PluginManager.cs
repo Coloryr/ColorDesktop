@@ -29,7 +29,7 @@ public static class PluginManager
     /// <summary>
     /// 初始化
     /// </summary>
-    public static void Init()
+    public static void Init(bool reload = false)
     {
         RunDir = Path.GetFullPath(Program.RunDir + Dir1);
         Directory.CreateDirectory(RunDir);
@@ -55,6 +55,10 @@ public static class PluginManager
 
                 if (Plugins.ContainsKey(obj.ID))
                 {
+                    if (reload)
+                    {
+                        continue;
+                    }
                     Logs.Error(string.Format("组件 {0} 存在重复的ID", obj.ID));
                     continue;
                 }
@@ -149,6 +153,11 @@ public static class PluginManager
         }
     }
 
+    public static int GetReloadCount()
+    {
+        return Plugins.Count(item => item.Value.Reload == false);
+    }
+
     public static bool CheckOs(List<string> config)
     {
         if (config == null)
@@ -185,10 +194,14 @@ public static class PluginManager
     /// <summary>
     /// 启用所有组件
     /// </summary>
-    public static void StartPlugin()
+    public static void StartPlugin(bool reload = false)
     {
         foreach (var item in PluginAssemblys)
         {
+            if (reload && item.Value.Obj.Reload == false)
+            {
+                continue;
+            }
             try
             {
                 item.Value.Plugin.Init(item.Value.Local, InstanceManager.WorkDir);
@@ -209,17 +222,11 @@ public static class PluginManager
         {
             if (PluginAssemblys.TryGetValue(item, out var plugin))
             {
-                try
+                if (reload && plugin.Obj.Reload == false)
                 {
-                    plugin.Plugin.Enable();
-                    plugin.Enable = true;
+                    continue;
                 }
-                catch (Exception e)
-                {
-                    plugin.Enable = false;
-                    SetPluginState(item, PluginState.EnableError);
-                    Logs.Error(string.Format("组件 {0} 启用失败", item), e);
-                }
+                EnablePlugin(plugin);
             }
             else
             {
@@ -236,11 +243,17 @@ public static class PluginManager
     /// <summary>
     /// 停止所有组件
     /// </summary>
-    public static void StopPlugin()
+    public static void StopPlugin(bool reload = false)
     {
         foreach (var item in PluginAssemblys)
         {
-            StopPlugin(item.Key, item.Value.Plugin);
+            if (reload && item.Value.Obj.Reload == false)
+            {
+                continue;
+            }
+            DisablePlugin(item.Value);
+            StopPlugin(item.Value);
+            item.Value.Unload();
         }
     }
 
@@ -269,30 +282,28 @@ public static class PluginManager
     {
         if (PluginAssemblys.TryGetValue(id, out var item))
         {
-            try
-            {
-                item.Plugin.Enable();
-                SetPluginState(id, PluginState.Enable);
-                item.Enable = true;
+            ConfigHelper.EnablePlugin(id);
+            EnablePlugin(item);
+        }
+    }
 
-                ConfigHelper.EnablePlugin(id);
-                InstanceManager.EnablePlugin(id);
-            }
-            catch (Exception e)
-            {
-                item.Enable = false;
-                SetPluginState(id, PluginState.EnableError);
-                Logs.Error(string.Format("组件 {0} 启用失败", item), e);
-                return;
-            }
-            try
-            {
-                LauncherHook.Instance?.PluginEnable(id);
-            }
-            catch
-            {
-
-            }
+    private static void EnablePlugin(PluginAssembly plugin)
+    {
+        try
+        {
+            plugin.Plugin.Enable();
+            plugin.Enable = true;
+            SetPluginState(plugin.Obj.ID, PluginState.Enable);
+            
+            InstanceManager.EnablePlugin(plugin.Obj.ID);
+            LauncherHook.Instance.PluginEnable(plugin.Obj.ID);
+        }
+        catch (Exception e)
+        {
+            plugin.Enable = false;
+            SetPluginState(plugin.Obj.ID, PluginState.EnableError);
+            Logs.Error(string.Format("组件 {0} 启用失败", plugin.Obj.ID), e);
+            return;
         }
     }
 
@@ -304,13 +315,7 @@ public static class PluginManager
         foreach (var item in PluginAssemblys)
         {
             ConfigHelper.DisablePlugin(item.Key);
-            InstanceManager.DisablePlugin(item.Key);
-
-            if (item.Value.Enable)
-            {
-                DisablePlugin(item.Key, item.Value.Plugin);
-                item.Value.Enable = false;
-            }
+            DisablePlugin(item.Value);
         }
     }
 
@@ -319,34 +324,25 @@ public static class PluginManager
     /// </summary>
     public static void Reload()
     {
-        foreach (var item in PluginAssemblys)
+        LauncherHook.Instance.PluginReload();
+
+        StopPlugin(true);
+
+        foreach (var item in Plugins.ToArray())
         {
-            InstanceManager.DisablePlugin(item.Key);
-            if (item.Value.Enable)
+            if (item.Value.Reload == false)
             {
-                DisablePlugin(item.Key, item.Value.Plugin);
-                item.Value.Enable = false;
+                continue;
             }
-            StopPlugin(item.Key, item.Value.Plugin);
-            item.Value.Unload();
+            PluginDir.Remove(item.Key);
+            Plugins.Remove(item.Key);
+            PluginAssemblys.Remove(item.Key);
+            PluginStates.Remove(item.Key);
         }
-        PluginDir.Clear();
-        Plugins.Clear();
-        PluginAssemblys.Clear();
-        PluginStates.Clear();
 
-        Init();
-        StartPlugin();
+        Init(true);
+        StartPlugin(true);
         InstanceManager.StartInstance();
-
-        try
-        {
-            LauncherHook.Instance?.PluginReload();
-        }
-        catch
-        {
-
-        }
     }
 
     /// <summary>
@@ -358,18 +354,7 @@ public static class PluginManager
         if (PluginAssemblys.TryGetValue(id, out var item))
         {
             ConfigHelper.DisablePlugin(id);
-            InstanceManager.DisablePlugin(id);
-
-            DisablePlugin(id, item.Plugin);
-            item.Enable = false;
-            try
-            {
-                LauncherHook.Instance?.PluginDisable(id);
-            }
-            catch
-            {
-
-            }
+            DisablePlugin(item);
         }
     }
 
@@ -528,29 +513,35 @@ public static class PluginManager
         };
     }
 
-    private static void DisablePlugin(string id, IPlugin plugin)
+    private static void DisablePlugin(PluginAssembly plugin)
     {
         try
         {
-            plugin.Disable();
+            InstanceManager.DisablePlugin(plugin.Obj.ID);
+            LauncherHook.Instance.PluginDisable(plugin.Obj.ID);
+            if (plugin.Enable)
+            {
+                plugin.Enable = false;
+                plugin.Plugin.Disable();
+            }
         }
         catch (Exception e)
         {
-            SetPluginState(id, PluginState.EnableError);
-            Logs.Error(string.Format("组件 {0} 禁用失败", id), e);
+            SetPluginState(plugin.Obj.ID, PluginState.EnableError);
+            Logs.Error(string.Format("组件 {0} 禁用失败", plugin.Obj.ID), e);
         }
     }
 
-    private static void StopPlugin(string id, IPlugin plugin)
+    private static void StopPlugin(PluginAssembly plugin)
     {
         try
         {
-            plugin.Stop();
+            plugin.Plugin.Stop();
         }
         catch (Exception e)
         {
-            SetPluginState(id, PluginState.EnableError);
-            Logs.Error(string.Format("组件 {0} 停止失败", id), e);
+            SetPluginState(plugin.Obj.ID, PluginState.EnableError);
+            Logs.Error(string.Format("组件 {0} 停止失败", plugin.Obj.ID), e);
         }
     }
 
