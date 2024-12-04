@@ -1,4 +1,5 @@
 ﻿using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.CoreLib;
 

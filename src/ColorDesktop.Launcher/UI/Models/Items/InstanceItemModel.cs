@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Models.Main;

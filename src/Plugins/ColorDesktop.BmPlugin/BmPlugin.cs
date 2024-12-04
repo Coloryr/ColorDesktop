@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
 
 namespace ColorDesktop.BmPlugin;

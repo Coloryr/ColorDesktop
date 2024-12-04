@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.BmPlugin.Skin1;
 using ColorDesktop.BmPlugin.Skin2;
 using ColorDesktop.BmPlugin.Skin3;

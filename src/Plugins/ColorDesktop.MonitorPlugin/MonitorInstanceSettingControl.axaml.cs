@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
-using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.MonitorPlugin;
 

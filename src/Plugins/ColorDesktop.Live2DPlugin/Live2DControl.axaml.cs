@@ -5,6 +5,7 @@ using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
 using Avalonia.Rendering;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using Live2DCSharpSDK.App;
 using Live2DCSharpSDK.Framework.Motion;
 using Live2DCSharpSDK.OpenGL;

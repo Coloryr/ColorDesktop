@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
-using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib.View.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 

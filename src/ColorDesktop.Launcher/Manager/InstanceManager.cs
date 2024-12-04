@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -90,16 +91,15 @@ public static class InstanceManager
     /// </summary>
     public static void StartInstance()
     {
-        var remove = new List<string>();
         foreach (var item in ConfigHelper.Config.EnableInstance)
         {
             if (Instances.TryGetValue(item, out var obj))
             {
+                if (RunInstances.ContainsKey(item))
+                {
+                    continue;
+                }
                 StartInstance(obj);
-            }
-            else
-            {
-                remove.Add(item);
             }
         }
 
@@ -182,16 +182,6 @@ public static class InstanceManager
     }
 
     /// <summary>
-    /// 获取实例配置
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    private static string GetDataLocal(InstanceDataObj obj)
-    {
-        return Path.GetFullPath(WorkDir + "/" + obj.UUID + "/" + FileName);
-    }
-
-    /// <summary>
     /// 停止所有实例
     /// </summary>
     public static void StopInstance()
@@ -200,15 +190,6 @@ public static class InstanceManager
         {
             StopInstance(item);
         }
-    }
-
-    /// <summary>
-    /// 停止该实例
-    /// </summary>
-    /// <param name="instance"></param>
-    private static void StopInstance(InstanceDataObj instance)
-    {
-        StopInstance(instance.UUID);
     }
 
     /// <summary>
@@ -319,7 +300,7 @@ public static class InstanceManager
     {
         ConfigHelper.DisableInstance(obj.UUID);
 
-        StopInstance(obj);
+        StopInstance(obj.UUID);
 
         App.ThisApp.UpdateMenu();
     }

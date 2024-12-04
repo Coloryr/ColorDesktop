@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.WeatherPlugin;
 

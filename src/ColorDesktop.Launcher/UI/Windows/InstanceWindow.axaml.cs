@@ -6,6 +6,7 @@ using Avalonia.Interactivity;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Utils;

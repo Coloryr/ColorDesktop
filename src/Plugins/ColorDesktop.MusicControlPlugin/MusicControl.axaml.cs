@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.MusicControlPlugin.Skin1;
 
 namespace ColorDesktop.MusicControlPlugin;

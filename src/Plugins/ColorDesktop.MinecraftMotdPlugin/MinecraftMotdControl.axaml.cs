@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.MinecraftMotdPlugin.Motd;
 
 namespace ColorDesktop.MinecraftMotdPlugin;

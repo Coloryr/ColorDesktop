@@ -16,7 +16,7 @@ public static class LauncherApi
     public static ILauncherHook Hook { get; private set; }
 
     private static readonly ConcurrentDictionary<string, object?> s_shareData = [];
-    private static readonly ConcurrentDictionary<string, List<Action<BaseEvent>>> s_pluginEvent;
+    private static readonly ConcurrentDictionary<string, List<Action<BaseEvent>>> s_pluginEvent = [];
 
     /// <summary>
     /// 公共数据获取，只能存基础类型

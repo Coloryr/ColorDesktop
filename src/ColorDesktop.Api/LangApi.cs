@@ -94,6 +94,7 @@ public class Language
         {
             foreach (var item1 in json)
             {
+                _languageList.Remove(item1.Key);
                 _languageList.TryAdd(item1.Key, item1.Value!.ToString());
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
 using AvaloniaEdit.Utils;
-using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.WeatherPlugin;

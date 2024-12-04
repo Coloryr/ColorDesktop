@@ -1,4 +1,6 @@
-﻿namespace ColorDesktop.Api;
+﻿using ColorDesktop.Api.Objs;
+
+namespace ColorDesktop.Api;
 
 public interface IInstanceWindow
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Events;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.Launcher.Manager;
 

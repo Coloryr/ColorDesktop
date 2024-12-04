@@ -1,4 +1,4 @@
-﻿namespace ColorDesktop.Api;
+﻿namespace ColorDesktop.Api.Objs;
 
 public record MarginObj
 {

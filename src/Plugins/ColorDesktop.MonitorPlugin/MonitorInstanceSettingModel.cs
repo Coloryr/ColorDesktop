@@ -2,6 +2,7 @@
 using Avalonia.Media;
 using Avalonia.Threading;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LibreHardwareMonitor.Hardware;

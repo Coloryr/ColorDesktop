@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Avalonia.Media;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.PGLauncherPlugin.ColorMC;

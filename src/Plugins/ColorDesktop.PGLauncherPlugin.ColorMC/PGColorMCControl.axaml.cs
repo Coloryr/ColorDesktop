@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.PGLauncherPlugin.ColorMC;
 

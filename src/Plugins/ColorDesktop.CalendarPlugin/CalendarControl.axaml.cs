@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CalendarPlugin.Skin1;
 using ColorDesktop.CalendarPlugin.Skin2;
 using ColorDesktop.CalendarPlugin.Skin3;

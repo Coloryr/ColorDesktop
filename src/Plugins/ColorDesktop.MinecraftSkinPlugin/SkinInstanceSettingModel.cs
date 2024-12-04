@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

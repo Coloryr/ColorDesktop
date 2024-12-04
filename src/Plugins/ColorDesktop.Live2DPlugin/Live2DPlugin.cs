@@ -2,6 +2,7 @@
 using System.Reflection;
 using Avalonia.Controls;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
 using Live2DCSharpSDK.App;
 using Live2DCSharpSDK.Framework;
