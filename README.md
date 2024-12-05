@@ -3,7 +3,8 @@
 一个桌面小组件软件
 
 只支持Windows、Linux和macos  
-[组件列表](./plugin.md)
+[组件列表](./plugin.md)  
+[更新日志](./log.md)
 
 ![](/pic/pic1.png)
 

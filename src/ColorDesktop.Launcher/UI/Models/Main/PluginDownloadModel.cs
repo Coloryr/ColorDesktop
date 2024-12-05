@@ -57,7 +57,7 @@ public partial class MainViewModel
             }
             try
             {
-                var data = await HttpUtils.Client.GetStringAsync(item.Url);
+                var data = await LauncherUtils.Client.GetStringAsync(item.Url);
                 var obj = JsonConvert.DeserializeObject<PluginDownloadObj>(data);
                 if (obj == null || obj.Plugins == null)
                 {

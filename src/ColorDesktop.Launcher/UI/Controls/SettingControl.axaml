@@ -21,6 +21,45 @@
                 Command="{Binding Exit}"
                 Content="{lang:Localize MainWindow.Text33}"
                 DockPanel.Dock="Bottom" />
+            <Border
+                Margin="0,0,0,10"
+                Classes="t2"
+                DockPanel.Dock="Top">
+                <StackPanel Margin="10">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        HorizontalAlignment="Center"
+                        FontSize="20"
+                        Text="{lang:Localize MainWindow.Text55}" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,0,5"
+                            FontSize="16"
+                            Text="{lang:Localize MainWindow.Text56}" />
+                        <TextBlock FontSize="16" Text="{Binding Version}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding OpenGithub}"
+                            Content="{lang:Localize MainWindow.Text57}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding OpenLog}"
+                            Content="{lang:Localize MainWindow.Text58}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding OpenDownload}"
+                            Content="{lang:Localize MainWindow.Text59}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
             <TextBlock
                 DockPanel.Dock="Top"
                 FontSize="20"
@@ -45,7 +84,7 @@
                     <TextBlock
                         Margin="0,0,10,0"
                         VerticalAlignment="Center"
-                        Text="窗口设置" />
+                        Text="{lang:Localize MainWindow.Text60}" />
                     <ComboBox
                         Width="150"
                         ItemsSource="{Binding TranTypes}"

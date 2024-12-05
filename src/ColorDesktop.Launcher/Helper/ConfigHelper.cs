@@ -21,7 +21,7 @@ public static class ConfigHelper
             [
                 new()
                 {
-                    Url = HttpUtils.Url,
+                    Url = LauncherUtils.Url,
                     Enable = true
                 }
             ]
@@ -33,7 +33,7 @@ public static class ConfigHelper
         [
             new()
             {
-                Url = HttpUtils.Url,
+                Url = LauncherUtils.Url,
                 Enable = true
             }
         ];

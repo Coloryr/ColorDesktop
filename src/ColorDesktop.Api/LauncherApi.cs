@@ -76,7 +76,7 @@ public static class LauncherApi
     }
 
     /// <summary>
-    /// 触发组件事件
+    /// 触发事件
     /// </summary>
     /// <param name="pluginEvent"></param>
     public static void CallEvent(BaseEvent pluginEvent)

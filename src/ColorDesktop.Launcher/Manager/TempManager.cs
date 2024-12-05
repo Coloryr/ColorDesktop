@@ -28,7 +28,7 @@ public static class TempManager
             {
                 return new Bitmap(file);
             }
-            using var stream = await HttpUtils.Client.GetStreamAsync(url);
+            using var stream = await LauncherUtils.Client.GetStreamAsync(url);
             using var temp = File.Open(file, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
             stream.CopyTo(temp);
             temp.Seek(0, SeekOrigin.Begin);
@@ -47,7 +47,7 @@ public static class TempManager
         {
             var info = new FileInfo(local);
             info.Directory?.Create();
-            using var stream = await HttpUtils.Client.GetStreamAsync(url);
+            using var stream = await LauncherUtils.Client.GetStreamAsync(url);
             using var temp = File.Open(local, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
             stream.CopyTo(temp);
             temp.Seek(0, SeekOrigin.Begin);

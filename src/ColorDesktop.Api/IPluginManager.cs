@@ -39,8 +39,6 @@ public interface IPluginManager
     /// 禁用组件
     /// </summary>
     /// <param name="key">组件ID</param>
-    /// <exception cref="NoPermissionException">没有权限禁用</exception>
-    /// <exception cref="NoTestPermissionException">没有请求测试权限</exception>
     ManagerState Disable(string key);
     /// <summary>
     /// 启用组件

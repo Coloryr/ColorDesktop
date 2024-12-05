@@ -110,16 +110,6 @@
                     DockPanel.Dock="Top"
                     Foreground="{setting:Theme WindowSideFont}"
                     Text="ColorDesktop" />
-                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                    <TextBlock
-                        Margin="10,0,0,10"
-                        Foreground="{setting:Theme WindowSideFont}"
-                        Text="{lang:Localize MainWindow.Text4}" />
-                    <TextBlock
-                        Margin="0,0,10,10"
-                        Foreground="{setting:Theme WindowSideFont}"
-                        Text="{Binding Version}" />
-                </StackPanel>
                 <ListBox Margin="0,0,10,0" SelectedIndex="{Binding NowView}">
                     <ListBoxItem IsSelected="True">
                         <StackPanel Orientation="Horizontal">

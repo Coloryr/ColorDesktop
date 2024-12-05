@@ -71,7 +71,7 @@ public partial class PluginSourceItemModel : ObservableObject
         IsWork = LangApi.GetLang("PluginSourceControl.Info1");
         try
         {
-            var data = await HttpUtils.Client.GetStringAsync(Url);
+            var data = await LauncherUtils.Client.GetStringAsync(Url);
             var obj = JsonConvert.DeserializeObject<PluginDownloadObj>(data);
             if (obj != null && obj.Plugins?.Count > 0)
             {
