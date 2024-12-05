@@ -13,17 +13,22 @@ jobs:
   build-plugins:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+        token: ${{ secrets.KEY1 }}
+
     - name: 设置.NET Core
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.403
 
-    - name: 更新源码
-      working-directory: ./
-      run: |
-        chmod a+x ./build/update.sh
-        ./build/update.sh
+    # - name: 更新源码
+    #   working-directory: ./
+    #   run: |
+    #     chmod a+x ./build/update.sh
+    #     ./build/update.sh
 
     - name: 构建 源码
       working-directory: ./
