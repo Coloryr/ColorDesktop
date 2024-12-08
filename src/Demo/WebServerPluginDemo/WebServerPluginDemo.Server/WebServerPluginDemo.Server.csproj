@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\webserverplugindemo.client\webserverplugindemo.client.esproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Core\ColorDesktop.Web\ColorDesktop.Web.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+	
+</Project>

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using ColorDesktop.Api;
-using ColorDesktop.Launcher.Helper;
 
 namespace ColorDesktop.Launcher.Manager;
 

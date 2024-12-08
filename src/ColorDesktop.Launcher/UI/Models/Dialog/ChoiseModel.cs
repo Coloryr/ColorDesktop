@@ -8,7 +8,7 @@ namespace ColorDesktop.Launcher.UI.Models.Dialog;
 public partial class ChoiseModel : ObservableObject
 {
     [ObservableProperty]
-    public string _text;
+    private string _text;
     [ObservableProperty]
     private bool _haveCancel = true;
 

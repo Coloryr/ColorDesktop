@@ -1,8 +1,18 @@
 ﻿namespace ColorDesktop.Api;
 
+/// <summary>
+/// 语言类型
+/// </summary>
 public enum LanguageType
 {
-    zh_cn, en_us
+    /// <summary>
+    /// 简体中文
+    /// </summary>
+    zh_cn, 
+    /// <summary>
+    /// 英语
+    /// </summary>
+    en_us
 }
 
 public enum PosEnum

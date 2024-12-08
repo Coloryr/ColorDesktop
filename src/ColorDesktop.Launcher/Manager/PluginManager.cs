@@ -21,7 +21,11 @@ public static class PluginManager
     public static readonly Dictionary<string, string> PluginDir = [];
     public static readonly Dictionary<string, Dictionary<string, bool>> Controls = [];
 
+    public static PluginAssembly WebPlugin;
+    public static bool HaveWeb = false;
+
     public const string Dir1 = "plugins";
+    public const string Dir2 = "WebPlugin";
     public const string ConfigName = "plugin.json";
 
     public static string RunDir { get; private set; }
@@ -151,6 +155,40 @@ public static class PluginManager
 
             ConfigHelper.Config.EnablePlugin.Remove(item);
         }
+
+        LoadWeb();
+    }
+
+    private static void LoadWeb()
+    {
+        if (!Directory.Exists(Program.RunDir + Dir2))
+        {
+            return;
+        }
+
+        try
+        {
+            var list2 = PathHelper.GetAllFile(Program.RunDir + Dir2);
+            var config = list2.FirstOrDefault(item =>
+                item.Name.Equals(ConfigName, StringComparison.CurrentCultureIgnoreCase));
+            if (config == null)
+            {
+                return;
+            }
+            var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+            if (obj == null)
+            {
+                return;
+            }
+
+            WebPlugin = new PluginAssembly(config.DirectoryName!, obj);
+            WebPlugin.FindDll();
+            HaveWeb = true;
+        }
+        catch (Exception e)
+        {
+            Logs.Error(string.Format("浏览器组件加载失败"), e);
+        }
     }
 
     public static int GetReloadCount()
@@ -215,6 +253,11 @@ public static class PluginManager
                 SetPluginState(item.Key, PluginState.EnableError);
                 Logs.Error(string.Format("组件 {0} 初始化失败", item), e);
             }
+        }
+
+        if (HaveWeb)
+        {
+            WebPlugin.Plugin.Init(WebPlugin.Local, InstanceManager.WorkDir);
         }
 
         var remove = new List<string>();

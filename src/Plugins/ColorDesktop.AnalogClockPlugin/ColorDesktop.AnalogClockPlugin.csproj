@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <BaseOutputPath>..\..\build_out\Debug\net8.0\plugins\AnalogClockPlugin</BaseOutputPath>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,12 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AvaloniaResource Include="Resource\clock.svg">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </AvaloniaResource>
-        <AvaloniaResource Include="Resource\clock_top.svg">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </AvaloniaResource>
+        <AvaloniaResource Include="Resource\clock.svg" />
+        <AvaloniaResource Include="Resource\clock_top.svg" />
         <AvaloniaResource Include="Resource\clock_top_1.svg" />
         <AvaloniaResource Include="Resource\pointer.svg" />
         <AvaloniaResource Include="Resource\pointer_1.svg" />
@@ -52,7 +49,7 @@
         <ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+        <ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
             <Private>False</Private>
         </ProjectReference>
     </ItemGroup>

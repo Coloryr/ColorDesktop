@@ -331,7 +331,7 @@ public static class InstanceManager
                 }, MainWindow.DialogHostName);
             }
 
-            run.Window.Update(obj);
+            run.Instance.Update(obj);
             obj.Save();
 
             LauncherHook.InstanceUpdate(obj.Plugin, obj.UUID);

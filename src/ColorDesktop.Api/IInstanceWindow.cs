@@ -2,6 +2,9 @@
 
 namespace ColorDesktop.Api;
 
+/// <summary>
+/// 实例窗口
+/// </summary>
 public interface IInstanceWindow
 {
     /// <summary>
@@ -16,9 +19,4 @@ public interface IInstanceWindow
     /// 关闭
     /// </summary>
     void Close();
-    /// <summary>
-    /// 更新配置
-    /// </summary>
-    /// <param name="obj"></param>
-    void Update(InstanceDataObj obj);
 }

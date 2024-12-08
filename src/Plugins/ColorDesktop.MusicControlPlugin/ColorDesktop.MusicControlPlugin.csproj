@@ -46,7 +46,7 @@
         <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+        <ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
             <Private>False</Private>
         </ProjectReference>
         <PackageReference Include="Tmds.DBus.Protocol" Version="0.20.0" />

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs", // 你可以根据需要更改模块系统
+    "target": "es2020", // 或 "es2020", "esnext" 等
+    "declaration": true, // 生成 .d.ts 文件
+    "sourceMap": true, // 生成 .map 文件
+    "outDir": "./dist", // 输出目录
+    "strict": true, // 启用所有严格类型检查选项
+    "esModuleInterop": true, // 使兼容 CommonJS 和 ES 模块
+    "skipLibCheck": true, // 跳过库文件的类型检查 (可选)
+    "forceConsistentCasingInFileNames": true // 强制文件名一致
+  },
+  "include": [
+    "src/**/*" // 包含 src 文件夹中的所有文件
+  ],
+  "exclude": [
+    "node_modules", // 排除 node_modules 文件夹
+    "dist" // 排除 dist 文件夹
+  ]
+}

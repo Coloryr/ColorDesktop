@@ -110,6 +110,7 @@ public static class Logs
     public static void Warn(string data)
     {
         string text = $"[{DateTime.Now}][Warn]{data}";
+        Console.WriteLine(text);
         AddText(text);
     }
 
@@ -120,6 +121,7 @@ public static class Logs
     public static void Error(string data)
     {
         string text = $"[{DateTime.Now}][Error]{data}";
+        Console.WriteLine(text);
         AddText(text);
     }
 
@@ -131,6 +133,7 @@ public static class Logs
     public static void Error(string data, Exception? e)
     {
         string text = $"[{DateTime.Now}][Error]{data}{Environment.NewLine}{e}";
+        Console.WriteLine(text);
         AddText(text);
     }
 

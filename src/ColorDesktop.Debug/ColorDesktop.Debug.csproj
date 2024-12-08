@@ -8,20 +8,23 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.AnalogClockPlugin\ColorDesktop.AnalogClockPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.BmPlugin\ColorDesktop.BmPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.Live2DPlugin\ColorDesktop.Live2DPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftMotdPlugin\ColorDesktop.MinecraftMotdPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.MinecraftSkinPlugin\ColorDesktop.MinecraftSkinPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.MonitorPlugin\ColorDesktop.MonitorPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.MusicControlPlugin\ColorDesktop.MusicControlPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin.ColorMC\ColorDesktop.PGLauncherPlugin.ColorMC.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.ToDoPlugin\ColorDesktop.ToDoPlugin.csproj" />
-	  <ProjectReference Include="..\Plugins\ColorDesktop.WeatherPlugin\ColorDesktop.WeatherPlugin.csproj" />
+		<ProjectReference Include="..\ColorDesktop.Launcher\ColorDesktop.Launcher.csproj" />
+		<ProjectReference Include="..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj" />
+		<ProjectReference Include="..\Core\ColorDesktop.Web\ColorDesktop.Web.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.AnalogClockPlugin\ColorDesktop.AnalogClockPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.BmPlugin\ColorDesktop.BmPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.CalendarPlugin\ColorDesktop.CalendarPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.Live2DPlugin\ColorDesktop.Live2DPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.MinecraftMotdPlugin\ColorDesktop.MinecraftMotdPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.MinecraftSkinPlugin\ColorDesktop.MinecraftSkinPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.MonitorPlugin\ColorDesktop.MonitorPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.MusicControlPlugin\ColorDesktop.MusicControlPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin.ColorMC\ColorDesktop.PGLauncherPlugin.ColorMC.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.ToDoPlugin\ColorDesktop.ToDoPlugin.csproj" />
+		<ProjectReference Include="..\Plugins\ColorDesktop.WeatherPlugin\ColorDesktop.WeatherPlugin.csproj" />
+		<ProjectReference Include="..\Demo\PluginDemo\PluginDemo.csproj" />
 	</ItemGroup>
 </Project>

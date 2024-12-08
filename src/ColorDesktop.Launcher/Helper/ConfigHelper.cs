@@ -1,4 +1,6 @@
-﻿using ColorDesktop.Api;
+﻿using System;
+using System.IO;
+using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Objs;
@@ -188,5 +190,20 @@ public static class ConfigHelper
         });
 
         SaveConfig();
+    }
+
+    public static bool TestEula()
+    {
+        if (File.Exists("temp"))
+        {
+            return File.ReadAllText("temp") != "true";
+        }
+
+        return true;
+    }
+
+    public static void SetEula()
+    {
+        File.WriteAllText("temp", "true");
     }
 }

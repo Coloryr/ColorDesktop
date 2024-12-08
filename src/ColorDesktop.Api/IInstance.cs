@@ -8,12 +8,10 @@ public interface IInstance
     /// <summary>
     /// 实例启动
     /// </summary>
-    /// <returns></returns>
     void Start(IInstanceWindow window);
     /// <summary>
     /// 实例停止
     /// </summary>
-    /// <returns></returns>
     void Stop(IInstanceWindow window);
 
     /// <summary>
@@ -28,7 +26,7 @@ public interface IInstance
     /// <summary>
     /// 配置更新
     /// </summary>
-    /// <param name="obj"></param>
+    /// <param name="obj">实例设置</param>
     void Update(InstanceDataObj obj);
     /// <summary>
     /// 获取窗口控制

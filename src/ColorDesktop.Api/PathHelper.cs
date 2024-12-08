@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using ColorDesktop.Api;
+﻿using System.Diagnostics;
 
-namespace ColorDesktop.Launcher.Helper;
+namespace ColorDesktop.Api;
 
 public static class PathHelper
 {

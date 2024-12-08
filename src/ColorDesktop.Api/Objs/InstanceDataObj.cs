@@ -35,6 +35,9 @@ public enum WindowTransparencyType
     None, Transparent, Blur, AcrylicBlur, Mica
 }
 
+/// <summary>
+/// 实例设置
+/// </summary>
 public sealed record InstanceDataObj
 {
     /// <summary>

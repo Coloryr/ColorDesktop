@@ -47,7 +47,7 @@
         <ProjectReference Include="..\ColorDesktop.ClockPlugin\ColorDesktop.ClockPlugin.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <ProjectReference Include="..\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+        <ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
             <Private>False</Private>
         </ProjectReference>
     </ItemGroup>

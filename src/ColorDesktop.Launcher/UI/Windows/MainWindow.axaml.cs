@@ -44,6 +44,11 @@ public partial class MainWindow : Window
 
         ConfigHelper.SaveConfig();
 
+        if (ConfigHelper.TestEula())
+        {
+            (DataContext as MainViewModel)?.GoEula();
+        }
+
         if (ConfigHelper.Config.AutoMin)
         {
             Hide();

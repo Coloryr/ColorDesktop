@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<BaseOutputPath>..\..\build_out\Debug\net8.0\WebPlugin</BaseOutputPath>
+		<RuntimeIdentifiers>osx-x64;osx-arm64;win-x64;win-arm64;linux-x64;linux-arm64</RuntimeIdentifiers>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="plugin.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="plugin.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.avalonia\120.6099.210\lib\net8.0\Xilium.CefGlue.Avalonia.dll" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.avalonia\120.6099.210\lib\net8.0\Xilium.CefGlue.Avalonia.pdb" DestinationFolder="$(OutputPath)" />
+	</Target>
+	<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.dll" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.pdb" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.Shared.dll" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+	
+	<ItemGroup>
+		<PackageReference Include="CefGlue.Avalonia" Version="120.6099.210" />
+		<PackageReference Include="CefGlue.Avalonia.ARM64" Version="120.6099.210" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
+			<Private>False</Private>
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>

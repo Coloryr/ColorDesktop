@@ -1,0 +1,28 @@
+{
+    "ID": "coloryr.web",
+    "Name": "浏览器支持",
+    "Describe": "为ColorDesktop提供浏览器支持",
+    "Auther": "Coloryr",
+    "Dlls": [
+        "ColorDesktop.Web",
+        "Xilium.CefGlue.Avalonia",
+        "Xilium.CefGlue.Common",
+        "Xilium.CefGlue.Common.Shared",
+        "Xilium.CefGlue"
+    ],
+    "Dependents": [
+        
+    ],
+    "Os": [
+        "windows_x86_64",
+        "windows_arm64",
+        "linux_x86_64",
+        "linux_arm64",
+        "macos_x86_64",
+        "macos_arm64"
+    ],
+    "Permission": true,
+    "Reload": false,
+    "Version": "1.0.0",
+    "ApiVersion": "3"
+}

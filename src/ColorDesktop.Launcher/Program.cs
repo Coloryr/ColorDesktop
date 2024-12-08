@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media;
 using ColorDesktop.Api;
-using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.Utils;
 using Tmds.DBus.Protocol;

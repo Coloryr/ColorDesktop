@@ -21,7 +21,7 @@ public interface IPlugin
     /// <summary>
     /// 加载语言
     /// </summary>
-    /// <param name="type"></param>
+    /// <param name="type">语言类型</param>
     void LoadLang(LanguageType type);
 
     /// <summary>
@@ -61,10 +61,9 @@ public interface IPlugin
     /// 组件初始化，可以设置组件全体配置
     /// </summary>
     /// <param name="local">运行路径</param>
-    /// <param name="local">实例跟目录</param>
-    /// <param name="type">默认语言</param>
+    /// <param name="instancelocal">实例跟目录</param>
     /// <returns></returns>
-    void Init(string local, string local1);
+    void Init(string local, string instancelocal);
     /// <summary>
     /// 组件启用
     /// </summary>

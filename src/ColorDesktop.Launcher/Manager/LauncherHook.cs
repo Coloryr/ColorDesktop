@@ -374,7 +374,7 @@ public class InstanceHook(string id) : IInstanceManager
             }
         }
 
-        run.Window.Update(data);
+        run.Instance.Update(data);
         data.Save();
 
         return ManagerState.Success;
