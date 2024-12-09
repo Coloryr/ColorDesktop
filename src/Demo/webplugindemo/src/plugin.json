@@ -1,10 +1,10 @@
 {
-  "ID": "coloryr.webdemo",
+  "ID": "webplugindemo",
   "Name": "浏览器组件",
   "Describe": "纯网页浏览器组件示例",
   "Auther": "Coloryr",
   "Dlls": [
-    
+
   ],
   "Dependents": [],
   "Os": [

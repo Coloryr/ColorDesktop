@@ -99,12 +99,12 @@ export interface IInstance {
      * 实例启动
      * @param window 实例窗口
      */
-    start(window: IInstanceWindow): void
+    start(window: IInstanceWindow | null): void
     /**
      * 实例停止
      * @param window 实例窗口
      */
-    stop(window: IInstanceWindow): void
+    stop(window: IInstanceWindow | null): void
     /**
      * 渲染
      */

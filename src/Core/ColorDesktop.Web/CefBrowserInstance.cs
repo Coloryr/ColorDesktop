@@ -85,7 +85,7 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
 
         public ManagerState SetTran(WindowTransparencyType level)
         {
-            return browser.EvaluateJavaScript<ManagerState>($"colordesktop_move({level})").Result;
+            return browser.EvaluateJavaScript<ManagerState>($"colordesktop_settran({level})").Result;
         }
     }
 
