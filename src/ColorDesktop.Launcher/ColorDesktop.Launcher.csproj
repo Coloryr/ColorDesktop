@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<OutputType>Exe</OutputType>
+		<OutputType>WinExe</OutputType>
 		<BaseOutputPath>..\build_out</BaseOutputPath>
 		<ApplicationIcon>Resource\icon.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
