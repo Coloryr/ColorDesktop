@@ -194,9 +194,9 @@ public static class ConfigHelper
 
     public static bool TestEula()
     {
-        if (File.Exists("temp"))
+        if (File.Exists(AppContext.BaseDirectory + "temp"))
         {
-            return File.ReadAllText("temp") != "true";
+            return File.ReadAllText(AppContext.BaseDirectory + "temp") != "true";
         }
 
         return true;
@@ -204,6 +204,6 @@ public static class ConfigHelper
 
     public static void SetEula()
     {
-        File.WriteAllText("temp", "true");
+        File.WriteAllText(AppContext.BaseDirectory + "temp", "true");
     }
 }

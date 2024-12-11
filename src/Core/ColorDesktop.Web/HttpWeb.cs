@@ -10,7 +10,6 @@ public static class HttpWeb
 {
     private static readonly ConcurrentDictionary<string, StaticFileOptions> s_dynamicFileOptions = [];
     private static readonly FileExtensionContentTypeProvider s_typeProvider = new();
-    private static readonly ConcurrentDictionary<string, string> s_tokens=[];
 
     private static WebApplication s_app;
 
@@ -23,7 +22,6 @@ public static class HttpWeb
         builder.Logging.ClearProviders();
         builder.Logging.AddProvider(log);
 
-        // 自动选择一个可用端口
         Port = GetAvailablePort();
         builder.WebHost.UseKestrel(options =>
         {
@@ -38,63 +36,106 @@ public static class HttpWeb
         //    app.UseDeveloperExceptionPage();
         //}
 
-        //app.UseDefaultFiles();
-        //app.UseStaticFiles(new StaticFileOptions
-        //{
-        //    FileProvider = new PhysicalFileProvider(PluginManager.RunDir)
-        //});
-
-        // Middleware to handle dynamic static files
         app.Use(async (context, next) =>
         {
             string path = context.Request.Path.Value!.Trim('/');
             string file;
-            if (context.Request.Cookies.TryGetValue("colordesktop", out var uuid)
-            && s_tokens.TryGetValue(uuid, out var key))
+            if (context.Request.Cookies.TryGetValue("colordesktop", out var uuid))
             {
                 file = path;
             }
             else
             {
-                key = path.Split('/')[0];
-                file = path[key.Length..];
+                uuid = path.Split('/')[0];
+                file = path[uuid.Length..];
                 if (string.IsNullOrWhiteSpace(file))
                 {
                     file = "index.html";
                 }
             }
 
-            if (s_dynamicFileOptions.TryGetValue(key, out var options))
+            if (context.Request.Method == "POST")
             {
-                var fileProvider = options.FileProvider!;
-                
-                var fileInfo = fileProvider.GetFileInfo(file);
-
                 if (uuid == null)
                 {
-                    do
-                    {
-                        uuid = GenUUID();
-                    }
-                    while (s_tokens.ContainsKey(uuid));
-                }
-                s_tokens.TryAdd(uuid, key);
-
-                if (fileInfo.Exists)
-                {
-                    if (!s_typeProvider.TryGetContentType(fileInfo.Name, out var contentType))
-                    {
-                        contentType = "application/octet-stream";
-                    }
-
-                    context.Response.Cookies.Append("colordesktop", uuid);
-                    context.Response.ContentType = contentType;
-                    using var stream = fileInfo.CreateReadStream();
-                    await stream.CopyToAsync(context.Response.Body);
+                    context.Response.StatusCode = 301;
+                    await context.Response.WriteAsJsonAsync(new { msg = "uuid error" });
                     return;
                 }
-            }
+                if (file == "getConfig")
+                {
+                    if (!context.Request.Form.TryGetValue("file", out var file1))
+                    {
+                        context.Response.StatusCode = 301;
+                        await context.Response.WriteAsJsonAsync(new { msg = "file error" });
+                    }
 
+                    string file2 = WebDesktop.InstanceLocal + "/" + uuid + "/" + file1 + ".json";
+
+                    context.Response.Cookies.Append("colordesktop", uuid);
+                    context.Response.ContentType = "application/json";
+
+                    if (File.Exists(file2))
+                    {
+                        using var stream = File.OpenRead(file2);
+                        await stream.CopyToAsync(context.Response.Body);
+                    }
+                    else
+                    {
+                        await context.Response.WriteAsJsonAsync(new { });
+                    }
+
+                    return;
+                }
+                else if (file == "setConfig")
+                {
+                    if (!context.Request.Headers.TryGetValue("file", out var file1))
+                    {
+                        context.Response.StatusCode = 301;
+                        await context.Response.WriteAsJsonAsync(new { msg = "file error" });
+                        return;
+                    }
+
+                    string file2 = WebDesktop.InstanceLocal + "/" + uuid + "/" + file1 + ".json";
+                    try
+                    {
+                        using var stream = File.Create(file2);
+                        await context.Request.Body.CopyToAsync(stream);
+                    }
+                    catch (Exception e)
+                    {
+                        context.Response.StatusCode = 400;
+                        await context.Response.WriteAsJsonAsync(new { msg = e.ToString() });
+                        return;
+                    }
+
+                    context.Response.StatusCode = 200;
+                    await context.Response.WriteAsJsonAsync(new { msg = "ok" });
+                }
+            }
+            else if(InstanceManager.Instances.TryGetValue(uuid, out var key))
+            {
+                if (s_dynamicFileOptions.TryGetValue(key.Plugin, out var options))
+                {
+                    var fileProvider = options.FileProvider!;
+
+                    var fileInfo = fileProvider.GetFileInfo(file);
+
+                    if (fileInfo.Exists)
+                    {
+                        if (!s_typeProvider.TryGetContentType(fileInfo.Name, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        context.Response.Cookies.Append("colordesktop", uuid);
+                        context.Response.ContentType = contentType;
+                        using var stream = fileInfo.CreateReadStream();
+                        await stream.CopyToAsync(context.Response.Body);
+                        return;
+                    }
+                }
+            }
             await next();
         });
 
@@ -103,11 +144,6 @@ public static class HttpWeb
         s_app = app;
 
         Console.WriteLine("http start in " + Port);
-    }
-
-    private static string GenUUID()
-    {
-        return Guid.NewGuid().ToString().ToLower().Replace("-", "");
     }
 
     public static void AddPlugin(string id, string dir)
@@ -124,7 +160,6 @@ public static class HttpWeb
 
     private static int GetAvailablePort()
     {
-        // 使用 TcpListener 来动态选择一个可用的端口
         var listener = new TcpListener(IPAddress.Loopback, 0);
         listener.Start();
         int port = ((IPEndPoint)listener.LocalEndpoint).Port;

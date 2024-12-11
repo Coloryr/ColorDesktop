@@ -110,7 +110,7 @@ public partial class MainViewModel
 
         if (res is true)
         {
-            InstanceManager.Delete(model.UUID);
+            InstanceManager.Delete(model.Plugin, model.UUID);
             LoadInstanceData();
         }
     }

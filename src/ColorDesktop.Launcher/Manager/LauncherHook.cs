@@ -28,6 +28,11 @@ internal class LauncherHook : ILauncherHook
         LauncherApi.CallEvent(new InstanceUpdateEvent(plugin, uuid));
     }
 
+    public static void InstanceDelete(string plugin, string uuid)
+    {
+        LauncherApi.CallEvent(new InstanceDeleteEvent(plugin, uuid));
+    }
+
     public static void PluginReload()
     {
         LauncherApi.CallEvent(new PluginReloadEvent());

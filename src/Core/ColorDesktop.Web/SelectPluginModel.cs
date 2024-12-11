@@ -16,6 +16,6 @@ public partial class SelectPluginModel(InstanceDataObj obj) : ObservableObject
     partial void OnPluginChanged(string value)
     {
         _config.Plugin = value;
-        InstanceUtils.SaveConfig(obj, _config, "webplugin.json");
+        InstanceManager.SaveConfig(obj, _config, "webplugin.json");
     }
 }

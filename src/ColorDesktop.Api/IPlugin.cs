@@ -50,11 +50,11 @@ public interface IPlugin
     /// </summary>
     /// <param name="instance">实例信息</param>
     /// <param name="isNew">是否为新建</param>
-    Control? OpenSetting(InstanceDataObj instance, bool isNew);
+    InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew);
     /// <summary>
     /// 打开组件设置
     /// </summary>
-    Control OpenSetting();
+    InstanceSetting OpenSetting();
     /// <summary>
     /// 请求控制权限
     /// </summary>

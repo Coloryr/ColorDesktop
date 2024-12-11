@@ -13,7 +13,7 @@ namespace ColorDesktop.Web;
 public class CefBrowserInstance(InstanceDataObj obj) : IInstance
 {
     private AvaloniaCefBrowser _browser;
-    private readonly WebInstanceObj _config = InstanceUtils.GetConfig(obj, new WebInstanceObj(), "webplugin.json");
+
     private bool _ok = false;
     private bool _reload = false;
 
@@ -27,7 +27,7 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
         _browser.LifeSpanHandler = new BrowserLifeSpanHandler(_browser);
         _browser.KeyboardHandler = new BrowserKeyboardHandler(this);
         _browser.LoadEnd += Browser_LoadEnd;
-        _browser.Address = "http://localhost:" + HttpWeb.Port + "/" + _config.Plugin;
+        _browser.Address = "http://localhost:" + HttpWeb.Port + "/" + obj.UUID;
         return _browser;
     }
 
@@ -96,6 +96,16 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
         
     }
 
+    public void OpenSetting()
+    {
+        _browser.ExecuteJavaScript("colordesktop.showSetting()");
+    }
+
+    public void CloseSetting()
+    {
+        _browser.ExecuteJavaScript("colordesktop.closeSetting()");
+    }
+
     private class WebInstanceHandel(AvaloniaCefBrowser browser) : IInstanceHandel
     {
         public ManagerState Move(int x, int y)
@@ -136,40 +146,6 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
                 return true;
             }
             return false;
-        }
-    }
-
-    private class BrowserLifeSpanHandler(AvaloniaCefBrowser avalonia) : LifeSpanHandler
-    {
-        protected override bool OnBeforePopup(
-            CefBrowser browser,
-            CefFrame frame,
-            string targetUrl,
-            string targetFrameName,
-            CefWindowOpenDisposition targetDisposition,
-            bool userGesture,
-            CefPopupFeatures popupFeatures,
-            CefWindowInfo windowInfo,
-            ref CefClient client,
-            CefBrowserSettings settings,
-            ref CefDictionaryValue extraInfo,
-            ref bool noJavascriptAccess)
-        {
-            var bounds = avalonia.Bounds;
-            Dispatcher.UIThread.Post(() =>
-            {
-                var window = new Window();
-                var popupBrowser = new AvaloniaCefBrowser
-                {
-                    Address = targetUrl
-                };
-                window.Content = popupBrowser;
-                window.Height = bounds.Height;
-                window.Width = bounds.Width;
-                window.Title = targetUrl;
-                window.Show();
-            });
-            return true;
         }
     }
 }

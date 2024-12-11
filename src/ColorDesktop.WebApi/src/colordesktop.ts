@@ -1,5 +1,5 @@
 import { ManagerState, WindowState, WindowTransparencyType } from "./enums"
-import { IInstance, IInstanceHandel, IInstanceWindow } from "./instance"
+import { IInstance, IInstanceHandel, IInstanceWindow, InstanceDataObj } from "./instance"
 
 export var colordesktop_instance: IInstance | null = null
 export var colordesktop_handel: IInstanceHandel | null = null
@@ -7,19 +7,39 @@ export var colordesktop_window: any = null
 export var colordesktop_windowhandel: IInstanceWindow | null = null
 
 export class WindowHandel implements IInstanceWindow {
+    async setState(state: WindowState): Promise<void> {
+        if (colordesktop_window != null) {
+            await colordesktop_window.setState(state)
+        }
+    }
+    async setTran(tran: WindowTransparencyType): Promise<void> {
+        if (colordesktop_window != null) {
+            await colordesktop_window.setTran(tran)
+        }
+    }
+    async move(x: bigint, y: bigint): Promise<void> {
+        if (colordesktop_window != null) {
+            await colordesktop_window.move(x, y)
+        }
+    }
+    async resize(x: bigint, y: bigint): Promise<void> {
+        if (colordesktop_window != null) {
+            await colordesktop_window.resize(x, y)
+        }
+    }
     async activate(): Promise<void> {
         if (colordesktop_window != null) {
-            await colordesktop_window.Activate()
+            await colordesktop_window.activate()
         }
     }
     async show(): Promise<void> {
         if (colordesktop_window != null) {
-            await colordesktop_window.Show()
+            await colordesktop_window.show()
         }
     }
     async close(): Promise<void> {
         if (colordesktop_window != null) {
-            await colordesktop_window.Close()
+            await colordesktop_window.close()
         }
     }
 }
@@ -50,13 +70,13 @@ export class ColorDesktop {
         console.log("[api info] colordesktop register")
     }
 
-    update(data: string) {
+    update(data: InstanceDataObj) {
         if (colordesktop_instance == null) {
             console.log("[api error] update fail colordesktop_instance is null")
             return
         }
         console.log("[api info] colordesktop update")
-        colordesktop_instance.update(JSON.parse(data))
+        colordesktop_instance.update(data)
     }
 
     haveHandel(): boolean {
@@ -133,6 +153,54 @@ export class ColorDesktop {
         }
         console.log("[api] colordesktop stop")
         colordesktop_instance.stop(colordesktop_windowhandel)
+    }
+
+    showSetting() {
+        if (colordesktop_instance == null) {
+            console.log("[api error] showSetting fail colordesktop_instance is null")
+            return
+        }
+        console.log("[api] colordesktop showSetting")
+        colordesktop_instance.showSetting()
+    }
+
+    closeSetting() {
+        if (colordesktop_instance == null) {
+            console.log("[api error] closeSetting fail colordesktop_instance is null")
+            return
+        }
+        console.log("[api] colordesktop closeSetting")
+        colordesktop_instance.closeSetting()
+    }
+
+    async setConfig(name: string, config: any) {
+        const response = await fetch('/setConfig', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'file': name
+            },
+            body: JSON.stringify(config),
+        });
+
+        // 检查请求是否成功
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+    }
+
+    async getConfig(name: string): Promise<any> {
+        const response = await fetch('/getConfig', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'file=' + name
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return await response.json();
     }
 }
 

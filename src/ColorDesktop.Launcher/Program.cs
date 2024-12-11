@@ -100,12 +100,12 @@ public class Program
         }
         catch (Exception e)
         {
-            PathHelper.OpenFileWithExplorer(Logs.Crash("Gui Crash", e));
+            PathHelper.OpenFileWithExplorer(Logs.Crash(AppContext.BaseDirectory + "Gui Crash", e));
             App.Exit();
         }
 
-        s_lock.Close();
-        s_lock.Dispose();
+        s_lock?.Close();
+        s_lock?.Dispose();
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.

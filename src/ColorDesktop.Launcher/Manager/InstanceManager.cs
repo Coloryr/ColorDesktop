@@ -118,16 +118,16 @@ public static class InstanceManager
             var config = value.Plugin.CreateInstanceDefault();
             config.UUID = MakeUUID();
             config.Save();
-            Control? control = null;
+            InstanceSetting? control = null;
             if (value.Plugin.HaveInstanceSetting)
             {
                 control = value.Plugin.OpenSetting(config, true);
             }
 
-            if (control != null)
+            if (control?.Control != null)
             {
                 var config1 = await DialogHost.Show(
-                    new CreateInstanceOtherModel(config, control),
+                    new CreateInstanceOtherModel(config, control.Control),
                     MainWindow.DialogHostName);
                 if (config1 is not true)
                 {
@@ -144,6 +144,8 @@ public static class InstanceManager
                     return;
                 }
             }
+
+            control?.Close?.Invoke();
 
             CreateInstance(config);
             App.MainWindow?.LoadInstance();
@@ -321,14 +323,14 @@ public static class InstanceManager
         if (RunInstances.TryGetValue(obj.UUID, out var run)
             && PluginManager.PluginAssemblys.TryGetValue(obj.Plugin, out var plugin))
         {
-            Control? control = null;
+            InstanceSetting? control = null;
             if (plugin.Plugin.HaveInstanceSetting)
             {
                 control = plugin.Plugin.OpenSetting(obj, false);
             }
-            if (control != null)
+            if (control?.Control != null)
             {
-                await DialogHost.Show(new CreateInstanceOtherModel(obj, control)
+                await DialogHost.Show(new CreateInstanceOtherModel(obj, control.Control)
                 {
                     HaveCancel = false
                 },
@@ -341,6 +343,8 @@ public static class InstanceManager
                     HaveCancel = false
                 }, MainWindow.DialogHostName);
             }
+
+            control?.Close?.Invoke();
 
             run.Instance.Update(obj);
             obj.Save();
@@ -472,7 +476,7 @@ public static class InstanceManager
     /// 删除一个实例
     /// </summary>
     /// <param name="uuid"></param>
-    public static void Delete(string uuid)
+    public static void Delete(string plugin, string uuid)
     {
         try
         {
@@ -487,6 +491,8 @@ public static class InstanceManager
         {
             dir.Delete(true);
         }
+
+        LauncherHook.InstanceDelete(plugin, uuid);
 
         InstanceStates.Remove(uuid);
         Instances.Remove(uuid);

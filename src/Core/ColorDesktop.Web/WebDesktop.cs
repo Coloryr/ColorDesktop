@@ -1,5 +1,5 @@
-﻿using Avalonia.Controls;
-using ColorDesktop.Api;
+﻿using ColorDesktop.Api;
+using ColorDesktop.Api.Events;
 using ColorDesktop.Api.Objs;
 using Xilium.CefGlue;
 using Xilium.CefGlue.Common;
@@ -22,7 +22,7 @@ public class WebDesktop : IPlugin
     public InstanceDataObj CreateInstanceDefault()
     {
         return new InstanceDataObj()
-        { 
+        {
             Nick = "Web",
             Plugin = "coloryr.web",
             Pos = PosEnum.TopRight,
@@ -32,12 +32,12 @@ public class WebDesktop : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -45,36 +45,71 @@ public class WebDesktop : IPlugin
         return null;
     }
 
+    private static List<DirectoryInfo> FindDirectories(DirectoryInfo info, string name)
+    {
+        var list = new List<DirectoryInfo>();
+        foreach (var dir in info.GetDirectories())
+        {
+            list.AddRange(FindDirectories(dir, name));
+            if (dir.Name == name)
+            {
+                list.Add(dir);
+            }
+        }
+        return list;
+    }
+
     public void Init(string local, string instance)
     {
         InstanceLocal = instance;
         cachePath = Path.Combine(local, "CefGlue");
-        CefRuntimeLoader.Initialize(new CefSettings()
+        var settings = new CefSettings()
         {
             RootCachePath = cachePath,
             BrowserSubprocessPath = local,
-#if WINDOWLESS
-            // its recommended to leave this off (false), since its less performant and can cause more issues
-            WindowlessRenderingEnabled = true
-#else
+            CachePath = local,
             WindowlessRenderingEnabled = false
-#endif
-        });
+        };
+        var flags = new Dictionary<string, string>() 
+        {
+            {"webgpu-cache-path", local},
+            {"gpu-cache-path", local}
+        };
+        foreach (var item in FindDirectories(new DirectoryInfo(local), "locales"))
+        {
+            if (item.GetFiles().Length > 0)
+            {
+                settings.LocalesDirPath = item.FullName;
+                break;
+            }
+        }
+        CefRuntimeLoader.Initialize(settings);
         PluginManager.Init(local);
         HttpWeb.Start();
+        LauncherApi.AddListener(this, Event);
+    }
+
+    private void Event(BaseEvent baseEvent)
+    {
+        if (baseEvent is InstanceDeleteEvent delete)
+        {
+            InstanceManager.Remove(delete.UUID);
+        }
     }
 
     public void LoadLang(LanguageType type)
     {
-        
+
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
-        return new CefBrowserInstance(obj);
+        var instance = new CefBrowserInstance(obj);
+        InstanceManager.Init(obj, instance);
+        return instance;
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }
@@ -90,13 +125,29 @@ public class WebDesktop : IPlugin
         CefRuntime.Shutdown();
     }
 
-    public Control? OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
         if (isNew)
         {
-            return new SelectPluginControl(instance);
+            return new()
+            {
+                Control = new SelectPluginControl(instance)
+            };
         }
-
-        return null;
+        else
+        {
+            if (InstanceManager.InstanceCefs.TryGetValue(instance.UUID, out var view))
+            {
+                view.OpenSetting();
+                return new() { Close = view.CloseSetting };
+            }
+            else
+            {
+                return new() 
+                { 
+                    Control = new CefInstanceSetting(instance).CreateView() 
+                };
+            }
+        }
     }
 }

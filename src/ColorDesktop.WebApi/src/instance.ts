@@ -45,7 +45,6 @@ export class MarginObj {
 }
 
 export class InstanceDataObj {
-
     public uuid: string = ""
     public nick: string = ""
     public plugin: string
@@ -60,6 +59,9 @@ export class InstanceDataObj {
     }
 }
 
+/**
+ * 实例窗口控制，用于实例控制窗口
+ */
 export interface IInstanceWindow {
     /**
      * 在最前显示
@@ -73,8 +75,28 @@ export interface IInstanceWindow {
      * 关闭
      */
     close(): void
+    /**
+     * 移动
+     */
+    move(x: bigint, y: bigint): void
+    /**
+     * 调整大小
+     */
+    resize(x: bigint, y: bigint): void
+    /**
+     * 调整状态
+     */
+    setState(state: WindowState): void
+    /**
+     * 调整透明
+     */
+    setTran(tran: WindowTransparencyType): void
 }
 
+/**
+ * 实例句柄
+ * 用于其他组件控制该实例
+ */
 export interface IInstanceHandel {
     /**
      * 移动窗口
@@ -94,6 +116,9 @@ export interface IInstanceHandel {
     setTran(level: WindowTransparencyType): ManagerState
 }
 
+/**
+ * 显示实例
+ */
 export interface IInstance {
     /**
      * 实例启动
@@ -117,4 +142,14 @@ export interface IInstance {
      * 获取窗口控制
      */
     getHandel(): IInstanceHandel | null
+    /**
+     * 显示设置
+     * 打开实例设置界面
+     */
+    showSetting(): void
+    /**
+     * 关闭设置
+     * 关闭实例设置界面
+     */
+    closeSetting() : void
 }

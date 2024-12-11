@@ -329,10 +329,15 @@ public static class PluginManager
             && value.Plugin.HavePluginSetting)
         {
             var control = value.Plugin.OpenSetting();
+            if (control.Control == null)
+            {
+                return;
+            }
             DialogHost.Show(new PluginSettingModel()
             {
-                Control = control
+                Control = control.Control
             }, MainWindow.DialogHostName);
+            control.Close?.Invoke();
         }
     }
 
