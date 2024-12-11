@@ -206,4 +206,9 @@ public partial class MinecraftMotdControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

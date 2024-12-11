@@ -47,6 +47,10 @@ public enum InstanceState
 public enum PluginState
 {
     /// <summary>
+    /// API版本不一样
+    /// </summary>
+    ApiError,
+    /// <summary>
     /// 系统不支持
     /// </summary>
     OsError,

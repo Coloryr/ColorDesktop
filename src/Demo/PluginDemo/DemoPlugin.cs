@@ -84,11 +84,13 @@ public class DemoPlugin : IPlugin
         }, s_local);
     }
 
-    public bool IsCoreLib => false;
+    public bool CanCreateInstance => false;
 
     public bool HavePluginSetting => true;
 
     public bool HaveInstanceSetting => true;
+
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -138,7 +140,7 @@ public class DemoPlugin : IPlugin
         return new DemoControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new DemoInstanceSettingControl(instance);
     }

@@ -16,19 +16,15 @@ public partial class PluginItemModel : ObservableObject
 {
     [ObservableProperty]
     private bool _enable;
-
-    [ObservableProperty]
-    private bool _loadFail;
     [ObservableProperty]
     private bool _enableFail;
-    [ObservableProperty]
-    private bool _notDep;
-    [ObservableProperty]
-    private bool _isUnload;
-    [ObservableProperty]
-    private bool _os;
 
-    public bool Core { get; init; }
+    public bool CanCreateInstance { get; init; }
+    public bool CanEnable { get; init; }
+    public bool HaveSetting { get; init; }
+    public bool HaveError { get; init; }
+    public string ErrorText { get; init; }
+
     public string ID => _obj.ID;
     public string Name => _obj.Name;
     public string Describe => _obj.Describe;
@@ -39,8 +35,7 @@ public partial class PluginItemModel : ObservableObject
 
     private bool _edit;
     private bool _work;
-
-    public bool HaveSetting { get; init; }
+    private bool _loadFail;
 
     private readonly MainViewModel _model;
     private readonly PluginDataObj _obj;
@@ -49,10 +44,36 @@ public partial class PluginItemModel : ObservableObject
     {
         _obj = obj;
         _model = model;
-        _os = PluginManager.GetPluginState(obj.ID) == PluginState.OsError;
 
         HaveSetting = PluginManager.HavePluginSetting(obj.ID);
-        Core = PluginManager.IsCoreLib(obj.ID);
+        CanCreateInstance = PluginManager.CanCreateInstance(obj.ID);
+        CanEnable = PluginManager.CanEnable(obj.ID);
+        var state = PluginManager.GetPluginState(_obj.ID);
+
+        switch (state)
+        {
+            case PluginState.ApiError:
+                HaveError = true;
+                ErrorText = LangApi.GetLang("MainWindow.Error1");
+                break;
+            case PluginState.OsError:
+                HaveError = true;
+                ErrorText = LangApi.GetLang("MainWindow.Error2");
+                break;
+            case PluginState.DepNotFound:
+                HaveError = true;
+                ErrorText = LangApi.GetLang("MainWindow.Error3");
+                break;
+            case PluginState.Unload:
+                HaveError = true;
+                ErrorText = LangApi.GetLang("MainWindow.Text29");
+                break;
+            case PluginState.LoadError:
+                HaveError = true;
+                ErrorText = LangApi.GetLang("MainWindow.Text32");
+                _loadFail = true;
+                break;
+        }
 
         _edit = true;
         Update();
@@ -114,7 +135,7 @@ public partial class PluginItemModel : ObservableObject
     [RelayCommand]
     public void OpenSetting()
     {
-        if (!Enable || LoadFail || EnableFail)
+        if (!Enable || _loadFail || EnableFail)
         {
             return;
         }
@@ -124,7 +145,7 @@ public partial class PluginItemModel : ObservableObject
     [RelayCommand]
     public void CreateInstance()
     {
-        if (!Enable || LoadFail || EnableFail)
+        if (!Enable || _loadFail || EnableFail)
         {
             return;
         }
@@ -154,12 +175,9 @@ public partial class PluginItemModel : ObservableObject
 
     public void Update()
     {
-        var state = PluginManager.GetPluginState(_obj.ID);
         Enable = PluginManager.IsEnable(_obj.ID);
-        LoadFail = state is PluginState.LoadError;
-        IsUnload = state == PluginState.Unload;
+        var state = PluginManager.GetPluginState(_obj.ID);
         EnableFail = state == PluginState.EnableError;
-        NotDep = state == PluginState.DepNotFound;
     }
 
     private string MakeTip()

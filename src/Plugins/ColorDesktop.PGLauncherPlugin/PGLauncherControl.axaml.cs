@@ -95,4 +95,9 @@ public partial class PGLauncherControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

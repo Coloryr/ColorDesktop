@@ -33,7 +33,9 @@ public class AnalogClockPlugin : IPlugin
 
     public bool HaveInstanceSetting => true;
 
-    public bool IsCoreLib => false;
+    public bool CanCreateInstance => true;
+
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -73,7 +75,7 @@ public class AnalogClockPlugin : IPlugin
         return new AnalogClockControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new AnalogClockSettingControl(instance);
     }

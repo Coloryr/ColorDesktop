@@ -8,11 +8,10 @@
         "Xilium.CefGlue.Avalonia",
         "Xilium.CefGlue.Common",
         "Xilium.CefGlue.Common.Shared",
-        "Xilium.CefGlue"
+        "Xilium.CefGlue",
+        "System.Reactive"
     ],
-    "Dependents": [
-        
-    ],
+    "Dependents": [],
     "Os": [
         "windows_x86_64",
         "windows_arm64",
@@ -24,5 +23,5 @@
     "Permission": true,
     "Reload": false,
     "Version": "1.0.0",
-    "ApiVersion": "3"
+    "ApiVersion": "4"
 }

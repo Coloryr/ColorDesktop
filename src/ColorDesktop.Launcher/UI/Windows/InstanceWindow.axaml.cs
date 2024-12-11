@@ -72,24 +72,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _obj = obj;
         _instance.Update(obj);
         Topmost = _obj.TopModel;
-        switch (obj.Tran)
-        {
-            case WindowTransparencyType.None:
-                TransparencyLevelHint = [WindowTransparencyLevel.None];
-                break;
-            case WindowTransparencyType.Transparent:
-                TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
-                break;
-            case WindowTransparencyType.Blur:
-                TransparencyLevelHint = [WindowTransparencyLevel.Blur];
-                break;
-            case WindowTransparencyType.AcrylicBlur:
-                TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
-                break;
-            case WindowTransparencyType.Mica:
-                TransparencyLevelHint = [WindowTransparencyLevel.Mica];
-                break;
-        }
+        SetTran(obj.Tran);
 
         Dispatcher.UIThread.Post(Move);
     }
@@ -133,7 +116,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
             return;
         }
 
-        _instance.RenderTick();
+        _instance.WindowLoaded(this);
 
         var screen = GetTargetScreen();
         if (screen != null)
@@ -201,7 +184,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         }
         GetTopLevel(this)?.RequestAnimationFrame((t) =>
         {
-            _instance.RenderTick();
+            _instance.RenderTick(this);
             Render();
         });
     }
@@ -296,5 +279,37 @@ public partial class InstanceWindow : Window, IInstanceWindow
         }
 
         return targetScreen;
+    }
+
+    public void Move(int x, int y)
+    {
+        Position = new(x, y);
+    }
+
+    public void SetState(WindowState state)
+    {
+        WindowState = state;
+    }
+
+    public void SetTran(WindowTransparencyType level)
+    {
+        switch (level)
+        {
+            case WindowTransparencyType.None:
+                TransparencyLevelHint = [WindowTransparencyLevel.None];
+                break;
+            case WindowTransparencyType.Transparent:
+                TransparencyLevelHint = [WindowTransparencyLevel.Transparent];
+                break;
+            case WindowTransparencyType.Blur:
+                TransparencyLevelHint = [WindowTransparencyLevel.Blur];
+                break;
+            case WindowTransparencyType.AcrylicBlur:
+                TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
+                break;
+            case WindowTransparencyType.Mica:
+                TransparencyLevelHint = [WindowTransparencyLevel.Mica];
+                break;
+        }
     }
 }

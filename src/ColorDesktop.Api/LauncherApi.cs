@@ -8,7 +8,7 @@ public static class LauncherApi
     /// <summary>
     /// API版本
     /// </summary>
-    public const string ApiVersion = "3";
+    public const string ApiVersion = "4";
 
     /// <summary>
     /// 启动器接口

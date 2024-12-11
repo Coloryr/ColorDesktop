@@ -46,11 +46,13 @@ public class CalendarPlugin : IPlugin
         }, s_local);
     }
 
-    public bool IsCoreLib => false;
+    public bool CanCreateInstance => true;
 
     public bool HavePluginSetting => false;
 
     public bool HaveInstanceSetting => true;
+
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -92,7 +94,7 @@ public class CalendarPlugin : IPlugin
         return new CalendarControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new CalendarInstanceSettingControl(instance);
     }

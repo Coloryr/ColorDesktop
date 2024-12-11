@@ -26,11 +26,10 @@ public class OneWordPlugin : IPlugin
         InstanceUtils.SaveConfig(obj, config, ConfigName);
     }
 
-    public bool IsCoreLib => false;
-
+    public bool CanCreateInstance => true;
     public bool HavePluginSetting => false;
-
     public bool HaveInstanceSetting => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -70,7 +69,7 @@ public class OneWordPlugin : IPlugin
         return new OneWordControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new OneWordInstanceSettingControl(instance);
     }

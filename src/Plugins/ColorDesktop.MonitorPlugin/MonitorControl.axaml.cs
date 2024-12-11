@@ -98,4 +98,9 @@ public partial class MonitorControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

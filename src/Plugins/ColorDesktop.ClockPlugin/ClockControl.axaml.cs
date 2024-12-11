@@ -49,4 +49,9 @@ public partial class ClockControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

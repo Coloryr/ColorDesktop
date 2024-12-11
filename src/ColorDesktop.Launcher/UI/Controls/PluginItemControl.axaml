@@ -13,13 +13,12 @@
     <Panel>
         <Border Classes="t2">
             <DockPanel Margin="10">
-                <StackPanel
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Right"
-                    IsVisible="{Binding !Core}">
+                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
                     <ToggleSwitch
                         Margin="5,0,0,0"
                         IsChecked="{Binding Enable}"
+                        IsEnabled="{Binding CanEnable}"
+                        IsVisible="{Binding CanEnable}"
                         OffContent="{lang:Localize MainWindow.Text13}"
                         OnContent="{lang:Localize MainWindow.Text14}" />
                     <Button
@@ -28,7 +27,8 @@
                         Classes="top"
                         Command="{Binding CreateInstance}"
                         Content="{lang:Localize MainWindow.Text30}"
-                        IsEnabled="{Binding Enable}" />
+                        IsEnabled="{Binding Enable}"
+                        IsVisible="{Binding CanCreateInstance}" />
                     <Button
                         Width="100"
                         Height="35"
@@ -55,36 +55,12 @@
                 </StackPanel>
             </DockPanel>
         </Border>
-        <Border Classes="t1" IsVisible="{Binding LoadFail, FallbackValue=false}">
+        <Border Classes="t1" IsVisible="{Binding HaveError, FallbackValue=false}">
             <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock
                     FontSize="16"
                     Foreground="Red"
-                    Text="{lang:Localize MainWindow.Text32}" />
-            </Panel>
-        </Border>
-        <Border Classes="t1" IsVisible="{Binding IsUnload, FallbackValue=false}">
-            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock
-                    FontSize="16"
-                    Foreground="Red"
-                    Text="{lang:Localize MainWindow.Text29}" />
-            </Panel>
-        </Border>
-        <Border Classes="t1" IsVisible="{Binding NotDep, FallbackValue=false}">
-            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock
-                    FontSize="16"
-                    Foreground="Red"
-                    Text="{lang:Localize MainWindow.Text50}" />
-            </Panel>
-        </Border>
-        <Border Classes="t1" IsVisible="{Binding Os, FallbackValue=false}">
-            <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock
-                    FontSize="16"
-                    Foreground="Red"
-                    Text="{lang:Localize MainWindow.Text52}" />
+                    Text="{Binding ErrorText}" />
             </Panel>
         </Border>
     </Panel>

@@ -121,11 +121,10 @@ public class Live2DPlugin : IPlugin
         }
     }
 
-    public bool IsCoreLib => false;
-
+    public bool CanCreateInstance => true;
     public bool HavePluginSetting => true;
-
     public bool HaveInstanceSetting => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -184,7 +183,7 @@ public class Live2DPlugin : IPlugin
         return new Live2DControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new Live2DInstanceSettingControl(instance);
     }

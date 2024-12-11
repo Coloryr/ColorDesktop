@@ -85,6 +85,11 @@ public partial class Live2DControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }
 
 public class OpenGlPageControl : OpenGlControlBase, ICustomHitTest

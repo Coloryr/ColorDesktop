@@ -142,11 +142,10 @@ public class MonitorPlugin : IPlugin
         return list;
     }
 
-    public bool IsCoreLib => false;
-
+    public bool CanCreateInstance => true;
     public bool HavePluginSetting => true;
-
     public bool HaveInstanceSetting => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -209,7 +208,7 @@ public class MonitorPlugin : IPlugin
         return new MonitorControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new MonitorInstanceSettingControl(instance);
     }

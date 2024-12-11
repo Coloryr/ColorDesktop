@@ -60,4 +60,9 @@ public partial class AnalogClockControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

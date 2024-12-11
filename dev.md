@@ -110,7 +110,7 @@ dotnet build
     //组件版本号
     "Version": "1.0.0",
     //API版本号
-    "ApiVersion": "3"
+    "ApiVersion": "4"
 }
 ```
 然后设置编译后复制

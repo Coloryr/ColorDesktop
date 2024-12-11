@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
@@ -76,7 +77,7 @@ public static class InstanceManager
             {
                 list.Add(item.Key);
                 SetInstanceState(item.Key, InstanceState.PluginNotFound);
-                Logs.Error(string.Format("实例 {0} 没有找到插件 {1}", item.Key, item.Value.Plugin));
+                Logs.Error(string.Format("实例 {0} 没有找到组件 {1}", item.Key, item.Value.Plugin));
             }
         }
 
@@ -117,10 +118,16 @@ public static class InstanceManager
             var config = value.Plugin.CreateInstanceDefault();
             config.UUID = MakeUUID();
             config.Save();
+            Control? control = null;
             if (value.Plugin.HaveInstanceSetting)
             {
+                control = value.Plugin.OpenSetting(config, true);
+            }
+
+            if (control != null)
+            {
                 var config1 = await DialogHost.Show(
-                    new CreateInstanceOtherModel(config, value.Plugin.OpenSetting(config)),
+                    new CreateInstanceOtherModel(config, control),
                     MainWindow.DialogHostName);
                 if (config1 is not true)
                 {
@@ -130,7 +137,7 @@ public static class InstanceManager
             }
             else
             {
-                var config1 = await DialogHost.Show(new CreateInstanceModel(config), MainWindow.DialogHostName);
+                var config1 = await DialogHost.Show(new CreateInstanceOneModel(config), MainWindow.DialogHostName);
                 if (config1 is not true)
                 {
                     Delete(config);
@@ -314,18 +321,22 @@ public static class InstanceManager
         if (RunInstances.TryGetValue(obj.UUID, out var run)
             && PluginManager.PluginAssemblys.TryGetValue(obj.Plugin, out var plugin))
         {
+            Control? control = null;
             if (plugin.Plugin.HaveInstanceSetting)
             {
-                await DialogHost.Show(
-                    new CreateInstanceOtherModel(obj, plugin.Plugin.OpenSetting(obj))
-                    {
-                        HaveCancel = false
-                    },
-                    MainWindow.DialogHostName);
+                control = plugin.Plugin.OpenSetting(obj, false);
+            }
+            if (control != null)
+            {
+                await DialogHost.Show(new CreateInstanceOtherModel(obj, control)
+                {
+                    HaveCancel = false
+                },
+                MainWindow.DialogHostName);
             }
             else
             {
-                await DialogHost.Show(new CreateInstanceModel(obj)
+                await DialogHost.Show(new CreateInstanceOneModel(obj)
                 {
                     HaveCancel = false
                 }, MainWindow.DialogHostName);

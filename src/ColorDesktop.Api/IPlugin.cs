@@ -6,9 +6,14 @@ namespace ColorDesktop.Api;
 public interface IPlugin
 {
     /// <summary>
-    /// 是否为核心库
+    /// 是否可以控制开关
+    /// 为false时不能从组件设置里面手动禁用启用
     /// </summary>
-    public bool IsCoreLib { get; }
+    public bool CanEnable { get; }
+    /// <summary>
+    /// 是否可以创建实例
+    /// </summary>
+    public bool CanCreateInstance { get; }
     /// <summary>
     /// 是否有组件设置
     /// </summary>
@@ -43,8 +48,9 @@ public interface IPlugin
     /// <summary>
     /// 打开实例设置
     /// </summary>
-    /// <param name="instance"></param>
-    Control OpenSetting(InstanceDataObj instance);
+    /// <param name="instance">实例信息</param>
+    /// <param name="isNew">是否为新建</param>
+    Control? OpenSetting(InstanceDataObj instance, bool isNew);
     /// <summary>
     /// 打开组件设置
     /// </summary>

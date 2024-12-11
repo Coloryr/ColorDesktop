@@ -127,12 +127,16 @@ public class Program
             builder.With(opt);
         }
         return builder
-                .With(new FontManagerOptions
-                {
-                    DefaultFamilyName = Font,
-                })
-                .UsePlatformDetect()
-                .LogToTrace();
+#if DEBUG
+            .LogToTrace(Avalonia.Logging.LogEventLevel.Information)
+#else
+            .LogToTrace()
+#endif
+            .With(new FontManagerOptions
+            {
+                DefaultFamilyName = Font,
+            })
+            .UsePlatformDetect();
     }
 
     private static bool IsLock(out int port)

@@ -38,6 +38,11 @@ public static class PluginManager
         RunDir = Path.GetFullPath(Program.RunDir + Dir1);
         Directory.CreateDirectory(RunDir);
 
+        if (!reload)
+        {
+            LoadWeb();
+        }
+
         var list = new HashSet<string>();
 
         foreach (var item in Directory.GetDirectories(RunDir))
@@ -74,7 +79,7 @@ public static class PluginManager
                 {
                     Logs.Error(string.Format("组件 {0} 的API版本不一致", obj.ID));
                     list.Add(obj.ID);
-                    SetPluginState(obj.ID, PluginState.LoadError);
+                    SetPluginState(obj.ID, PluginState.ApiError);
                     continue;
                 }
                 if (!CheckOs(obj.Os))
@@ -155,8 +160,6 @@ public static class PluginManager
 
             ConfigHelper.Config.EnablePlugin.Remove(item);
         }
-
-        LoadWeb();
     }
 
     private static void LoadWeb()
@@ -181,9 +184,22 @@ public static class PluginManager
                 return;
             }
 
+            Plugins.Add(obj.ID, obj);
+            PluginDir.Add(obj.ID, config.DirectoryName!);
+
+            if (obj.ApiVersion != Program.ApiVersion)
+            {
+                SetPluginState(obj.ID, PluginState.ApiError);
+                return;
+            }
+
             WebPlugin = new PluginAssembly(config.DirectoryName!, obj);
             WebPlugin.FindDll();
             HaveWeb = true;
+
+            PluginAssemblys.Add(obj.ID, WebPlugin);
+
+            PluginStates.Add(obj.ID, PluginState.Enable);
         }
         catch (Exception e)
         {
@@ -257,7 +273,10 @@ public static class PluginManager
 
         if (HaveWeb)
         {
-            WebPlugin.Plugin.Init(WebPlugin.Local, InstanceManager.WorkDir);
+            if (!reload || WebPlugin.Obj.Reload)
+            {
+                EnablePlugin(WebPlugin);
+            }
         }
 
         var remove = new List<string>();
@@ -436,11 +455,21 @@ public static class PluginManager
         return false;
     }
 
-    public static bool IsCoreLib(string id)
+    public static bool CanCreateInstance(string id)
     {
         if (PluginAssemblys.TryGetValue(id, out var plugin))
         {
-            return plugin.Plugin.IsCoreLib;
+            return plugin.Plugin.CanCreateInstance;
+        }
+
+        return false;
+    }
+
+    public static bool CanEnable(string id)
+    {
+        if (PluginAssemblys.TryGetValue(id, out var plugin))
+        {
+            return plugin.Plugin.CanEnable;
         }
 
         return false;

@@ -10,6 +10,7 @@ using Avalonia.Platform;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Manager;
+using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
 using ColorDesktop.Launcher.Utils;
@@ -98,9 +99,12 @@ public partial class App : Application
         ThemeManager.Init();
         ConfigSave.Init();
 
-        PluginManager.Init();
-        InstanceManager.Init();
-        TempManager.Init();
+        if (Program.RunType == RunType.Program)
+        {
+            PluginManager.Init();
+            InstanceManager.Init();
+            TempManager.Init();
+        }
 
         AvaloniaXamlLoader.Load(this);
 

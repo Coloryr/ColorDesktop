@@ -58,10 +58,9 @@ public class ClockPlugin : IPlugin
     }
 
     public bool HavePluginSetting => true;
-
     public bool HaveInstanceSetting => true;
-
-    public bool IsCoreLib => false;
+    public bool CanCreateInstance => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -103,7 +102,7 @@ public class ClockPlugin : IPlugin
         return new ClockControl();
     }
 
-    public Control OpenSetting(InstanceDataObj obj)
+    public Control OpenSetting(InstanceDataObj obj, bool isNew)
     {
         return new ClockInstanceSettingControl(obj);
     }

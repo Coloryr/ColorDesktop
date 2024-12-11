@@ -47,4 +47,9 @@ public partial class PGColorMCControl : UserControl, IInstance
     {
         return null;
     }
+
+    public void WindowLoaded()
+    {
+        RenderTick();
+    }
 }

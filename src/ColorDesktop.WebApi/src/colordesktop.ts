@@ -1,10 +1,10 @@
 import { ManagerState, WindowState, WindowTransparencyType } from "./enums"
 import { IInstance, IInstanceHandel, IInstanceWindow } from "./instance"
 
-var colordesktop_instance: IInstance | null = null
-var colordesktop_handel: IInstanceHandel | null = null
-var colordesktop_window: any = null
-var colordesktop_windowhandel: IInstanceWindow | null = null
+export var colordesktop_instance: IInstance | null = null
+export var colordesktop_handel: IInstanceHandel | null = null
+export var colordesktop_window: any = null
+export var colordesktop_windowhandel: IInstanceWindow | null = null
 
 export class WindowHandel implements IInstanceWindow {
     async activate(): Promise<void> {
@@ -24,74 +24,122 @@ export class WindowHandel implements IInstanceWindow {
     }
 }
 
-export function colordesktop_register(plugin: IInstance) {
-    colordesktop_instance = plugin
-}
-
-export function colordesktop_update(data: string) {
-    if (colordesktop_instance == null) {
-        return
-    }
-    colordesktop_instance.update(JSON.parse(data))
-}
-
-export function colordesktop_ishandel(): boolean {
-    if (colordesktop_instance == null) {
-        return false
-    }
-    colordesktop_handel = colordesktop_instance.getHandel()
-    return colordesktop_handel == null
-}
-
-export function colordesktop_move(x: bigint, y: bigint): ManagerState {
-    if (colordesktop_handel == null) {
-        return ManagerState.Fail
+export class ColorDesktop {
+    getInstance(): IInstance | null {
+        return colordesktop_instance
     }
 
-    return colordesktop_handel.move(x, y)
-}
-export function colordesktop_resize(x: bigint, y: bigint): ManagerState {
-    if (colordesktop_handel == null) {
-        return ManagerState.Fail
+    getHandel(): IInstanceHandel | null {
+        return colordesktop_handel
     }
 
-    return colordesktop_handel.resize(x, y)
-}
-
-export function colordesktop_setstate(state: WindowState): ManagerState {
-    if (colordesktop_handel == null) {
-        return ManagerState.Fail
+    getWindow() {
+        return colordesktop_window
     }
 
-    return colordesktop_handel.setState(state)
-}
-
-export function colordesktop_settran(tran: WindowTransparencyType): ManagerState {
-    if (colordesktop_handel == null) {
-        return ManagerState.Fail
+    setWindow(window: any) {
+        colordesktop_window = window
     }
 
-    return colordesktop_handel.setTran(tran)
+    getWindowhandel(): IInstanceWindow | null {
+        return colordesktop_windowhandel
+    }
+
+    register(plugin: IInstance) {
+        colordesktop_instance = plugin
+        console.log("[api info] colordesktop register")
+    }
+
+    update(data: string) {
+        if (colordesktop_instance == null) {
+            console.log("[api error] update fail colordesktop_instance is null")
+            return
+        }
+        console.log("[api info] colordesktop update")
+        colordesktop_instance.update(JSON.parse(data))
+    }
+
+    haveHandel(): boolean {
+        if (colordesktop_instance == null) {
+            console.log("[api error] ishandel fail colordesktop_instance is null")
+            return false
+        }
+        console.log("[api info] call ishandel")
+        colordesktop_handel = colordesktop_instance.getHandel()
+        return colordesktop_handel == null
+    }
+
+    move(x: bigint, y: bigint): ManagerState {
+        if (colordesktop_handel == null) {
+            console.log("[api error] move fail colordesktop_handel is null")
+            return ManagerState.Fail
+        }
+        console.log("[api] move to x:" + x + " y:" + y)
+        return colordesktop_handel.move(x, y)
+    }
+
+    resize(x: bigint, y: bigint): ManagerState {
+        if (colordesktop_handel == null) {
+            console.log("[api error] resize fail colordesktop_handel is null")
+            return ManagerState.Fail
+        }
+        console.log("[api] resize to x:" + x + " y:" + y)
+        return colordesktop_handel.resize(x, y)
+    }
+
+    setState(state: WindowState): ManagerState {
+        if (colordesktop_handel == null) {
+            console.log("[api error] state set fail colordesktop_handel is null")
+            return ManagerState.Fail
+        }
+        console.log("[api] set state to " + state)
+        return colordesktop_handel.setState(state)
+    }
+
+    setTran(tran: WindowTransparencyType): ManagerState {
+        if (colordesktop_handel == null) {
+            console.log("[api error] tran set fail colordesktop_handel is null")
+            return ManagerState.Fail
+        }
+        console.log("[api] set tran to " + tran)
+        return colordesktop_handel.setTran(tran)
+    }
+
+    render() {
+        if (colordesktop_instance == null) {
+            console.log("[api error] render fail colordesktop_render is null")
+            return
+        }
+        colordesktop_instance.renderTick()
+    }
+
+    start() {
+        if (colordesktop_instance == null) {
+            console.log("[api error] start fail colordesktop_instance is null")
+            return
+        }
+        console.log("[api] colordesktop call start")
+        if (colordesktop_window == null) {
+            console.log("[api error] colordesktop_window is null")
+        }
+        colordesktop_windowhandel = new WindowHandel()
+        colordesktop_instance.start(colordesktop_windowhandel)
+    }
+
+    stop() {
+        if (colordesktop_instance == null) {
+            console.log("[api error] stop fail colordesktop_instance is null")
+            return
+        }
+        console.log("[api] colordesktop stop")
+        colordesktop_instance.stop(colordesktop_windowhandel)
+    }
 }
 
-export function colordesktop_render() {
-    if (colordesktop_instance == null) {
-        return
-    }
-    colordesktop_instance.renderTick()
-}
+export var colordesktop: ColorDesktop
 
-export function colordesktop_start() {
-    if (colordesktop_instance == null) {
-        return
-    }
-    colordesktop_windowhandel = new WindowHandel()
-    colordesktop_instance.start(colordesktop_windowhandel)
-}
+colordesktop = new ColorDesktop()
 
-export function colordesktop_stop() {
-    if (colordesktop_instance == null) {
-        return
-    }
-    colordesktop_instance.stop(colordesktop_windowhandel)
+if (typeof window !== 'undefined') {
+    window.colordesktop = colordesktop
 }

@@ -8,6 +8,7 @@
 		<OutputType>Exe</OutputType>
 		<BaseOutputPath>..\build_out</BaseOutputPath>
 		<ApplicationIcon>Resource\icon.ico</ApplicationIcon>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
 	</PropertyGroup>
   
 	<ItemGroup>

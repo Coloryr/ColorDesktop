@@ -49,11 +49,10 @@ public class PGColorMCPlugin : IPlugin
         }, s_local);
     }
 
-    public bool IsCoreLib => false;
-
+    public bool CanCreateInstance => true;
     public bool HavePluginSetting => true;
-
     public bool HaveInstanceSetting => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -95,7 +94,7 @@ public class PGColorMCPlugin : IPlugin
         return new PGColorMCControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new PGColorMCInstanceSettingControl(instance);
     }

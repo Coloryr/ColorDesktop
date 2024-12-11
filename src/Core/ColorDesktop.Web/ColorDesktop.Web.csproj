@@ -21,13 +21,13 @@
 
 	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.avalonia\120.6099.210\lib\net8.0\Xilium.CefGlue.Avalonia.dll" DestinationFolder="$(OutputPath)" />
-		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.avalonia\120.6099.210\lib\net8.0\Xilium.CefGlue.Avalonia.pdb" DestinationFolder="$(OutputPath)" />
 	</Target>
 	<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.dll" DestinationFolder="$(OutputPath)" />
-		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.pdb" DestinationFolder="$(OutputPath)" />
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.Shared.dll" DestinationFolder="$(OutputPath)" />
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)system.reactive\6.0.1\lib\net6.0\System.Reactive.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
 	
 	<ItemGroup>
@@ -39,6 +39,12 @@
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Xilium.CefGlue.Common.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

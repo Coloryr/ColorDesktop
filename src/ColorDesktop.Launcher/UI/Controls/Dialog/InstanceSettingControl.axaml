@@ -8,8 +8,8 @@
     xmlns:local="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
-    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Dialog"
-    x:DataType="vm:CreateInstanceModel"
+    xmlns:vm="clr-namespace:ColorDesktop.Launcher.UI.Models.Dialog"
+    x:DataType="vm:CreateInstanceBaseModel"
     mc:Ignorable="d">
     <UserControl.Resources>
         <cov:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />

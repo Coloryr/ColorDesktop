@@ -146,6 +146,26 @@ public class PluginAssembly : AssemblyLoadContext
         {
             return LoadUnmanagedDllFromPath(dir);
         }
+        string file = Local + "/" + unmanagedDllName;
+        if (File.Exists(file))
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+        file = Local + "/" + unmanagedDllName + ".dll";
+        if (File.Exists(file))
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+        file = Local + "/" + unmanagedDllName + ".so";
+        if (File.Exists(file))
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+        file = Local + "/" + unmanagedDllName + ".dylib";
+        if (File.Exists(file))
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
 
         return base.LoadUnmanagedDll(unmanagedDllName);
     }

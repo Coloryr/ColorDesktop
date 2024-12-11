@@ -6,11 +6,13 @@ namespace WebServerPluginDemo.Server;
 
 public class WebServerPlugin : IPlugin
 {
-    public bool IsCoreLib => throw new NotImplementedException();
+    public bool CanCreateInstance => throw new NotImplementedException();
 
     public bool HavePluginSetting => throw new NotImplementedException();
 
     public bool HaveInstanceSetting => throw new NotImplementedException();
+
+    public bool CanEnable => throw new NotImplementedException();
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -47,7 +49,7 @@ public class WebServerPlugin : IPlugin
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         throw new NotImplementedException();
     }

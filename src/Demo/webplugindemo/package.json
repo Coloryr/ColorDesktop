@@ -5,28 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix"
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13",
-    "colordesktop-webapi": "file:../../ColorDesktop.WebApi"
+    "colordesktop-webapi": "file:./../../ColorDesktop.WebApi",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.10.1",
     "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/eslint-config-typescript": "^14.1.4",
-    "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.16.0",
-    "eslint-plugin-vue": "^9.32.0",
-    "npm-run-all2": "^7.0.1",
-    "typescript": "^5.7.2",
+    "typescript": "~5.7.2",
     "vite": "^6.0.3",
-    "vite-plugin-vue-devtools": "^7.6.7",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "https://pkg.pr.new/vuejs/language-tools/vue-tsc@3fb59af"
   }
 }

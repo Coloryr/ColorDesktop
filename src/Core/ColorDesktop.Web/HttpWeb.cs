@@ -1,21 +1,27 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
-using ColorDesktop.Api;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 
 namespace ColorDesktop.Web;
 
 public static class HttpWeb
 {
+    private static readonly ConcurrentDictionary<string, StaticFileOptions> s_dynamicFileOptions = [];
+    private static readonly FileExtensionContentTypeProvider s_typeProvider = new();
+    private static readonly ConcurrentDictionary<string, string> s_tokens=[];
+
+    private static WebApplication s_app;
+
     public static int Port { get; private set; }
 
     public static void Start()
     {
         var builder = WebApplication.CreateBuilder();
-
+        var log = new LoggerProvider();
         builder.Logging.ClearProviders();
-        builder.Logging.AddProvider(new LoggerProvider());
+        builder.Logging.AddProvider(log);
 
         // 自动选择一个可用端口
         Port = GetAvailablePort();
@@ -32,16 +38,88 @@ public static class HttpWeb
         //    app.UseDeveloperExceptionPage();
         //}
 
-        // 配置SPA静态文件
-        app.UseDefaultFiles();
-        app.UseStaticFiles(new StaticFileOptions
+        //app.UseDefaultFiles();
+        //app.UseStaticFiles(new StaticFileOptions
+        //{
+        //    FileProvider = new PhysicalFileProvider(PluginManager.RunDir)
+        //});
+
+        // Middleware to handle dynamic static files
+        app.Use(async (context, next) =>
         {
-            FileProvider = new PhysicalFileProvider(PluginManager.RunDir)
+            string path = context.Request.Path.Value!.Trim('/');
+            string file;
+            if (context.Request.Cookies.TryGetValue("colordesktop", out var uuid)
+            && s_tokens.TryGetValue(uuid, out var key))
+            {
+                file = path;
+            }
+            else
+            {
+                key = path.Split('/')[0];
+                file = path[key.Length..];
+                if (string.IsNullOrWhiteSpace(file))
+                {
+                    file = "index.html";
+                }
+            }
+
+            if (s_dynamicFileOptions.TryGetValue(key, out var options))
+            {
+                var fileProvider = options.FileProvider!;
+                
+                var fileInfo = fileProvider.GetFileInfo(file);
+
+                if (uuid == null)
+                {
+                    do
+                    {
+                        uuid = GenUUID();
+                    }
+                    while (s_tokens.ContainsKey(uuid));
+                }
+                s_tokens.TryAdd(uuid, key);
+
+                if (fileInfo.Exists)
+                {
+                    if (!s_typeProvider.TryGetContentType(fileInfo.Name, out var contentType))
+                    {
+                        contentType = "application/octet-stream";
+                    }
+
+                    context.Response.Cookies.Append("colordesktop", uuid);
+                    context.Response.ContentType = contentType;
+                    using var stream = fileInfo.CreateReadStream();
+                    await stream.CopyToAsync(context.Response.Body);
+                    return;
+                }
+            }
+
+            await next();
         });
 
         app.Start();
 
+        s_app = app;
+
         Console.WriteLine("http start in " + Port);
+    }
+
+    private static string GenUUID()
+    {
+        return Guid.NewGuid().ToString().ToLower().Replace("-", "");
+    }
+
+    public static void AddPlugin(string id, string dir)
+    {
+        var folderName = Path.GetFileName(dir);
+        var fileProvider = new PhysicalFileProvider(dir);
+        var staticFileOptions = new StaticFileOptions
+        {
+            FileProvider = fileProvider,
+            RequestPath = "/" + folderName
+        };
+        s_dynamicFileOptions.TryAdd(id, staticFileOptions);
     }
 
     private static int GetAvailablePort()
@@ -53,56 +131,9 @@ public static class HttpWeb
         listener.Stop();
         return port;
     }
-}
 
-public class LoggerProvider : ILoggerProvider
-{
-    private readonly ConcurrentDictionary<string, Logger> _loggers = new();
-
-    public ILogger CreateLogger(string categoryName)
+    public static void Stop()
     {
-        return _loggers.GetOrAdd(categoryName, name => new Logger());
-    }
-
-    public void Dispose()
-    {
-        _loggers.Clear();
-    }
-}
-
-public class Logger : ILogger, IDisposable
-{
-    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
-    {
-        return this;
-    }
-
-    public void Dispose()
-    {
-
-    }
-
-    public bool IsEnabled(LogLevel logLevel)
-    {
-        return true;
-    }
-
-    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
-                        Exception? exception, Func<TState, Exception, string> formatter)
-    {
-        //if (eventId.Id == 100 || eventId.Id == 101)
-        //    return;
-        if (logLevel is LogLevel.Warning)
-        {
-            Logs.Warn($"{logLevel}-{eventId.Id} {state} {exception} {exception?.StackTrace}");
-        }
-        else if (logLevel is LogLevel.Error)
-        {
-            Logs.Error($"{logLevel}-{eventId.Id} {state} {exception} {exception?.StackTrace}");
-        }
-        else
-        {
-            Logs.Info($"{logLevel}-{eventId.Id} {state} {exception}");
-        }
+        s_app.StopAsync();
     }
 }

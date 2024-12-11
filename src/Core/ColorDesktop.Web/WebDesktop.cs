@@ -10,13 +10,14 @@ public class WebDesktop : IPlugin
 {
     private string cachePath;
 
-    public const string ApiVersion = "1";
+    public static string InstanceLocal;
 
-    public bool IsCoreLib => true;
+    public const string ApiVersion = LauncherApi.ApiVersion;
 
-    public bool HavePluginSetting => false;
-
-    public bool HaveInstanceSetting => false;
+    public bool CanEnable => false;
+    public bool CanCreateInstance => true;
+    public bool HavePluginSetting => true;
+    public bool HaveInstanceSetting => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -46,11 +47,12 @@ public class WebDesktop : IPlugin
 
     public void Init(string local, string instance)
     {
+        InstanceLocal = instance;
         cachePath = Path.Combine(local, "CefGlue");
-        CefRuntime.Load(local);
         CefRuntimeLoader.Initialize(new CefSettings()
         {
             RootCachePath = cachePath,
+            BrowserSubprocessPath = local,
 #if WINDOWLESS
             // its recommended to leave this off (false), since its less performant and can cause more issues
             WindowlessRenderingEnabled = true
@@ -72,11 +74,6 @@ public class WebDesktop : IPlugin
         return new CefBrowserInstance(obj);
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
-    {
-        return new();
-    }
-
     public Control OpenSetting()
     {
         return new();
@@ -89,6 +86,17 @@ public class WebDesktop : IPlugin
 
     public void Stop()
     {
-        CefRuntime.Shutdown(); // must shutdown cef to free cache files (so that cleanup is able to delete files)
+        HttpWeb.Stop();
+        CefRuntime.Shutdown();
+    }
+
+    public Control? OpenSetting(InstanceDataObj instance, bool isNew)
+    {
+        if (isNew)
+        {
+            return new SelectPluginControl(instance);
+        }
+
+        return null;
     }
 }

@@ -50,11 +50,10 @@ public class WeatherPlugin : IPlugin
         }, s_local);
     }
 
-    public bool IsCoreLib => false;
-
+    public bool CanCreateInstance => true;
     public bool HavePluginSetting => true;
-
     public bool HaveInstanceSetting => true;
+    public bool CanEnable => true;
 
     public InstanceDataObj CreateInstanceDefault()
     {
@@ -102,7 +101,7 @@ public class WeatherPlugin : IPlugin
         return new WeatherControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
     {
         return new WeatherInstanceSettingControl(instance);
     }

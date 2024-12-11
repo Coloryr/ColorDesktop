@@ -8,7 +8,7 @@ using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher.UI.Models.Dialog;
 
-public partial class CreateInstanceBaseModel : ObservableObject
+public abstract partial class CreateInstanceBaseModel : ObservableObject
 {
     [ObservableProperty]
     private PosEnum _pos;

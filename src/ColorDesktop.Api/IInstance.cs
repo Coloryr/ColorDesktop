@@ -13,11 +13,15 @@ public interface IInstance
     /// 实例停止
     /// </summary>
     void Stop(IInstanceWindow window);
+    /// <summary>
+    /// 窗口显示后
+    /// </summary>
+    void WindowLoaded(IInstanceWindow window);
 
     /// <summary>
     /// 渲染
     /// </summary>
-    void RenderTick();
+    void RenderTick(IInstanceWindow window);
     /// <summary>
     /// 创建显示图层
     /// </summary>

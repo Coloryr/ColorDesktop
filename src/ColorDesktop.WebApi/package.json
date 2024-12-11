@@ -10,7 +10,8 @@
   "types": "dist/index.d.ts",
   "author": "coloryr",
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "eslint": "^9.16.0",
     "typescript": "^5.7.2"
-  }
+  },
+  "sideEffects": true
 }

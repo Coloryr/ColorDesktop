@@ -8,7 +8,6 @@ public static class PluginManager
     public readonly static Dictionary<string, PluginType> PluginTypes = [];
     public static readonly Dictionary<string, WebPluginDataObj> Plugins = [];
     public static readonly Dictionary<string, PluginState> PluginStates = [];
-    public static readonly Dictionary<string, string> PluginDir = [];
 
     public const string Dir1 = "plugins";
     public const string ConfigName = "plugin.json";
@@ -17,7 +16,7 @@ public static class PluginManager
 
     public static void Init(string dir)
     {
-        RunDir = Path.GetFullPath(dir + Dir1);
+        RunDir = Path.GetFullPath(dir + "/" + Dir1);
 
         Directory.CreateDirectory(RunDir);
 
@@ -47,7 +46,6 @@ public static class PluginManager
                 }
 
                 Plugins.Add(obj.ID, obj);
-                PluginDir.Add(obj.ID, config.DirectoryName!);
 
                 if (obj.ApiVersion != WebDesktop.ApiVersion)
                 {
@@ -69,6 +67,7 @@ public static class PluginManager
                     PluginTypes.Add(obj.ID, PluginType.Web);
                 }
 
+                HttpWeb.AddPlugin(obj.ID, config.Directory!.FullName);
                 //PluginAssemblys.Add(obj.ID, new PluginAssembly(config.DirectoryName!, obj));
             }
             catch (Exception e)
@@ -122,5 +121,10 @@ public static class PluginManager
         }
 
         return config.Contains(system);
+    }
+
+    public static string[] GetPlugins()
+    {
+        return [.. Plugins.Keys];
     }
 }

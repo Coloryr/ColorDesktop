@@ -10,10 +10,9 @@ public class CoreLib : IPlugin
     public static string Local;
     public static string InstanceLocal;
 
-    public bool IsCoreLib => true;
-
+    public bool CanEnable => false;
+    public bool CanCreateInstance => false;
     public bool HavePluginSetting => false;
-
     public bool HaveInstanceSetting => false;
 
     public InstanceDataObj CreateInstanceDefault()
@@ -23,12 +22,12 @@ public class CoreLib : IPlugin
 
     public void Disable()
     {
-
+        
     }
 
     public void Enable()
     {
-
+        
     }
 
     public Stream? GetIcon()
@@ -56,14 +55,14 @@ public class CoreLib : IPlugin
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting(InstanceDataObj instance)
-    {
-        return new();
-    }
-
     public Control OpenSetting()
     {
-        return new();
+        throw new NotImplementedException();
+    }
+
+    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    {
+        throw new NotImplementedException();
     }
 
     public bool Permissions(string key, string permission)
