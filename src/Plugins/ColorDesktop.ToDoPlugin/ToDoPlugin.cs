@@ -86,12 +86,12 @@ public class ToDoPlugin : IPlugin
         return new ToDoControl(obj.UUID);
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new ToDoInstanceSettingControl(instance);
+        return new() { Control = new ToDoInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

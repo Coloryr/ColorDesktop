@@ -67,7 +67,7 @@ public partial class MonitorControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (DataContext is MonitorModel model)
         {
@@ -99,8 +99,8 @@ public partial class MonitorControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

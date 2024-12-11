@@ -18,7 +18,7 @@ public partial class PGColorMCControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
 
     }
@@ -48,8 +48,8 @@ public partial class PGColorMCControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

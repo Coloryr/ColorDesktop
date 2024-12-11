@@ -38,7 +38,7 @@ public partial class CalendarControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (DataContext is CalendarModel model)
         {
@@ -94,8 +94,8 @@ public partial class CalendarControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

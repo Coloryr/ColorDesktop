@@ -101,14 +101,14 @@ public class WeatherPlugin : IPlugin
         return new WeatherControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new WeatherInstanceSettingControl(instance);
+        return new() { Control = new WeatherInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new WeatherSettingControl();
+        return new() { Control = new WeatherSettingControl() };
     }
 
     public void Stop()

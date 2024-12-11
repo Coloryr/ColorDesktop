@@ -94,12 +94,12 @@ public class MusicControlPlugin : IPlugin
         return new MusicControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new MusicInstanceSettingControl(instance);
+        return new() { Control = new MusicInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

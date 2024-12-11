@@ -91,12 +91,12 @@ public class MinecraftSkinPlugin : IPlugin
         return new MinecraftSkinControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new SkinInstanceSettingControl(instance);
+        return new() { Control = new SkinInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

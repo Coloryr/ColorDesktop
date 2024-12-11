@@ -140,14 +140,14 @@ public class DemoPlugin : IPlugin
         return new DemoControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new DemoInstanceSettingControl(instance);
+        return new() { Control = new DemoInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new DemoSettingControl();
+        return new() { Control = new DemoSettingControl() };
     }
 
     public bool Permissions(string key, string permission)

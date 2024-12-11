@@ -20,7 +20,7 @@ public partial class BmControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         (View1.Child?.DataContext as BmModel)?.Tick();
     }
@@ -95,8 +95,8 @@ public partial class BmControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

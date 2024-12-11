@@ -94,14 +94,14 @@ public class PGColorMCPlugin : IPlugin
         return new PGColorMCControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new PGColorMCInstanceSettingControl(instance);
+        return new() { Control = new PGColorMCInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new PGColorMCSettingControl();
+        return new() { Control = new PGColorMCSettingControl() };
     }
 
     public void Stop()

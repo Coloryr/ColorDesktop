@@ -208,14 +208,14 @@ public class MonitorPlugin : IPlugin
         return new MonitorControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new MonitorInstanceSettingControl(instance);
+        return new() { Control = new MonitorInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new MonitorSettingControl();
+        return new() { Control = new MonitorSettingControl() };
     }
 
     public void Stop()

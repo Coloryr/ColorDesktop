@@ -83,12 +83,12 @@ public class MinecraftMotdPlugin : IPlugin
         return new MinecraftMotdControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new MotdInstanceSettingControl(instance);
+        return new() { Control = new MotdInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

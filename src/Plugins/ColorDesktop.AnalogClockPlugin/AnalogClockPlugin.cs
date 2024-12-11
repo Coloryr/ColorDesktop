@@ -75,12 +75,12 @@ public class AnalogClockPlugin : IPlugin
         return new AnalogClockControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new AnalogClockSettingControl(instance);
+        return new() { Control = new AnalogClockSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

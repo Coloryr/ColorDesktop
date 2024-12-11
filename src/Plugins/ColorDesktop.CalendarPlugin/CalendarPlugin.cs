@@ -94,12 +94,12 @@ public class CalendarPlugin : IPlugin
         return new CalendarControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new CalendarInstanceSettingControl(instance);
+        return new() { Control = new CalendarInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

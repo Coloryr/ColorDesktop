@@ -9,6 +9,13 @@
 /// </summary>
 void WindowLoaded(IInstanceWindow window);
 ```
+修改接口
+```C#
+/// <summary>
+/// 渲染
+/// </summary>
+public void RenderTick(IInstanceWindow window);
+```
 
 `IInstanceWindow` 添加新接口
 ```C#

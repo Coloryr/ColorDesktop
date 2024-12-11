@@ -100,12 +100,12 @@ public class BmPlugin : IPlugin
         return new BmControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new BmInstanceSettingControl(instance);
+        return new() { Control = new BmInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

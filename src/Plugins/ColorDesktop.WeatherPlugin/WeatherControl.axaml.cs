@@ -35,7 +35,7 @@ public partial class WeatherControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (DataContext is WeatherModel model)
         {
@@ -75,8 +75,8 @@ public partial class WeatherControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

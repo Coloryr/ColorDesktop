@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
@@ -55,12 +54,12 @@ public class CoreLib : IPlugin
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
         throw new NotImplementedException();
     }

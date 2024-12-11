@@ -25,7 +25,7 @@ public partial class DemoControl : UserControl, IInstance
         return null;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         
     }
@@ -47,5 +47,10 @@ public partial class DemoControl : UserControl, IInstance
         {
             model.Update(config);
         }
+    }
+
+    public void WindowLoaded(IInstanceWindow window)
+    {
+        
     }
 }

@@ -49,12 +49,12 @@ public class WebServerPlugin : IPlugin
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
         throw new NotImplementedException();
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         throw new NotImplementedException();
     }

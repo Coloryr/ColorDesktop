@@ -23,7 +23,7 @@ public partial class ClockControl : UserControl, IInstance
 
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (DataContext is ClockModel model)
         {
@@ -50,8 +50,8 @@ public partial class ClockControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

@@ -19,7 +19,7 @@ public partial class OneWordControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (DataContext is OneWordModel model)
         {
@@ -80,8 +80,8 @@ public partial class OneWordControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

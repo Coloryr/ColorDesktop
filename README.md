@@ -4,7 +4,8 @@
 
 只支持Windows、Linux和macos  
 [组件列表](./plugin.md)  
-[更新日志](./log.md)
+[更新日志](./log.md)  
+[浏览器组件 新特性！](./web.md)
 
 ![](/pic/pic1.png)
 

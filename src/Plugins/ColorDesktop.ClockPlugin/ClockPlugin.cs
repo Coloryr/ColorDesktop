@@ -102,14 +102,14 @@ public class ClockPlugin : IPlugin
         return new ClockControl();
     }
 
-    public Control OpenSetting(InstanceDataObj obj, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj obj, bool isNew)
     {
-        return new ClockInstanceSettingControl(obj);
+        return new() { Control = new ClockInstanceSettingControl(obj) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new ClockSettingControl();
+        return new() { Control = new ClockSettingControl() };
     }
 
     public void Stop()

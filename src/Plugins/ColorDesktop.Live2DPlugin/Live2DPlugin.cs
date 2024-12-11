@@ -183,14 +183,14 @@ public class Live2DPlugin : IPlugin
         return new Live2DControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new Live2DInstanceSettingControl(instance);
+        return new() { Control = new Live2DInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
-        return new Live2DSettingControl();
+        return new() { Control = new Live2DSettingControl() };
     }
 
     public void Stop()

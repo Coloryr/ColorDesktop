@@ -23,7 +23,7 @@ public partial class MinecraftSkinControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (_time.Ticks == 0)
         {
@@ -103,8 +103,8 @@ public partial class MinecraftSkinControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

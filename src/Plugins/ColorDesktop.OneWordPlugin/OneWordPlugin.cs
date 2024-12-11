@@ -69,12 +69,12 @@ public class OneWordPlugin : IPlugin
         return new OneWordControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new OneWordInstanceSettingControl(instance);
+        return new() { Control = new OneWordInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

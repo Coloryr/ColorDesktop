@@ -107,12 +107,12 @@ public class PGLauncherPlugin : IPlugin
         return new PGLauncherControl();
     }
 
-    public Control OpenSetting(InstanceDataObj instance, bool isNew)
+    public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
-        return new PGLauncherInstanceSettingControl(instance);
+        return new() { Control = new PGLauncherInstanceSettingControl(instance) };
     }
 
-    public Control OpenSetting()
+    public InstanceSetting OpenSetting()
     {
         return new();
     }

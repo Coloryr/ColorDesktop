@@ -19,7 +19,7 @@ public partial class MusicControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
 
     }
@@ -57,8 +57,8 @@ public partial class MusicControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        
     }
 }

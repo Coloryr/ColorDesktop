@@ -16,7 +16,7 @@ public partial class AnalogClockControl : UserControl, IInstance
         return this;
     }
 
-    public void RenderTick()
+    public void RenderTick(IInstanceWindow window)
     {
         if (View.Child is IClock control)
         {
@@ -61,8 +61,8 @@ public partial class AnalogClockControl : UserControl, IInstance
         return null;
     }
 
-    public void WindowLoaded()
+    public void WindowLoaded(IInstanceWindow window)
     {
-        RenderTick();
+        RenderTick(window);
     }
 }

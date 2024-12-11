@@ -1,4 +1,5 @@
-﻿using ColorDesktop.Api;
+﻿using System.Reflection;
+using ColorDesktop.Api;
 using ColorDesktop.Api.Events;
 using ColorDesktop.Api.Objs;
 using Xilium.CefGlue;
@@ -42,7 +43,9 @@ public class WebDesktop : IPlugin
 
     public Stream? GetIcon()
     {
-        return null;
+        var assm = Assembly.GetExecutingAssembly();
+        var item = assm.GetManifestResourceStream("ColorDesktop.Web.icon.png")!;
+        return item;
     }
 
     private static List<DirectoryInfo> FindDirectories(DirectoryInfo info, string name)
