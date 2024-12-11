@@ -137,6 +137,14 @@ public class PluginAssembly : AssemblyLoadContext
             return ass1;
         }
 
+        var file = Local + "/" + name.Name + ".dll";
+        if (File.Exists(file))
+        {
+            using var stream = File.OpenRead(file);
+
+            return LoadFromStream(stream);
+        }
+
         return null;
     }
 

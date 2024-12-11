@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -37,6 +37,14 @@
 	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)system.reactive\6.0.1\lib\net6.0\System.Reactive.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
+	<Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\native\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
 	
 	<ItemGroup>
 		<PackageReference Include="CefGlue.Avalonia" Version="120.6099.210" />
@@ -47,6 +55,7 @@
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
+		<ProjectReference Include="..\ColorDesktop.WebBase\ColorDesktop.WebBase.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

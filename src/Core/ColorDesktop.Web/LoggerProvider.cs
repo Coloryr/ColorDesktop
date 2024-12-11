@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using ColorDesktop.Api;
+using Microsoft.Extensions.Logging;
 
 namespace ColorDesktop.Web;
 

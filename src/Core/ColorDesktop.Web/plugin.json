@@ -8,8 +8,7 @@
         "Xilium.CefGlue.Avalonia",
         "Xilium.CefGlue.Common",
         "Xilium.CefGlue.Common.Shared",
-        "Xilium.CefGlue",
-        "System.Reactive"
+        "Xilium.CefGlue"
     ],
     "Dependents": [],
     "Os": [
