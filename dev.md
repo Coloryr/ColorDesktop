@@ -1,5 +1,7 @@
 # 组件开发指南
 
+这个是C#组件开发指南，[前往浏览器组件](./web.md)
+
 在开发组件之前，你需要有以下知识
 - [C# 12](https://learn.microsoft.com/zh-cn/dotnet/csharp/)
 - [axaml](https://docs.avaloniaui.net/docs/basics/user-interface/introduction-to-xaml)
@@ -23,6 +25,37 @@ dotnet build
 ```
 
 此时，会构建到`./src/build_out/Debug/net8.0`，你可以在这里面找到`ColorDesktop.Launcher.exe`
+
+然后是组件引用`ColorDesktop.Api`，有两种方式实现
+
+- 使用源码的方式引用API  
+1. 打开`ColorDesktop.sln`，在里面新建你的组件项目  
+2. 修改`ColorDesktop.Debug`，并引用你的组件项目，
+3. 修改`ColorDesktop.Debug`的`Program`函数`BuildAvaloniaApp`，在里面添加你的组件
+```c#
+new AnalogClockPlugin.AnalogClockPlugin().LoadLang(LanguageType.zh_cn);
+```
+你的组件类可能，没有，你可以后面再回来加，如果不加上会导致语言加载错误
+
+- 使用Nuget包方式引用API  
+1. 创建一个C# 类库工程
+2. 安装[nuget包`ColorDesktop.Api`](https://www.nuget.org/packages/ColorDesktop.Api)  
+3. 创建一个Avalonia项目，同时引用你的类库工程
+4. 删除里面的所有`PackageReference`引用`Avalonia`项，例如
+```xml
+<!-- 这些全部删掉 -->
+<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+<PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+<!-- 等... -->
+```
+5. 修改控制台应用的`Program`函数`BuildAvaloniaApp`，在里面添加你的组件
+```c#
+new AnalogClockPlugin.AnalogClockPlugin().LoadLang(LanguageType.zh_cn);
+```
+你的组件类可能，没有，你可以后面再回来加，如果不加上会导致语言加载错误
+
+完成以上操作后，就可以开始开发组件了，同时若VS装上了`Avalonia预览插件`，也可以预览你的UI了  
+**注意，如果使用nuget方式，则在预览中不会使用ColorDesktop的样式，但是组件加载后会使用**
 
 ## 组件与显示实例概念
 
@@ -82,6 +115,7 @@ dotnet build
     //组件作者
     "Auther": "Coloryr",
     //组件程序集，就是dll的名字，在这里可以添加你的依赖库等
+    //这个列表里面是最先加载的，若你的运行库很多，可以不写，会后面自动加载
     "Dlls": [
         "ColorDesktop.AnalogClockPlugin" 
     ],
@@ -113,7 +147,7 @@ dotnet build
     "ApiVersion": "4"
 }
 ```
-然后设置编译后复制
+然后设置编译后设置`编译后复制`，或者在工程内加入这段
 ```xml
 <ItemGroup>
 	<None Update="plugin.json">
@@ -122,11 +156,10 @@ dotnet build
 </ItemGroup>
 ```
 
-编写组件主入口类，需要实现接口[ColorDesktop.Api.IPlugin](./src/ColorDesktop.Api/IPlugin.cs)
+然后编写组件主入口类，需要实现接口[ColorDesktop.Api.IPlugin](./src/ColorDesktop.Api/IPlugin.cs)  
+然后编写显示实例，需要实现接口[ColorDesktop.Api.IInstance](./src/ColorDesktop.Api/IInstance.cs)
 
-编写显示实例，需要实现接口[ColorDesktop.Api.IInstance](./src/ColorDesktop.Api/IInstance.cs)
-
-组件生命周期  
+## 组件生命周期  
 ![](./pic/pic8.png)  
 组件相关的生命周期有四个函数  
 - Init 只在组件初始化时调用，整个生命周期只会调用一次
@@ -134,7 +167,7 @@ dotnet build
 - Disable 组件卸载时调用，会多次调用，在[组件管理](./README.md#组件管理)界面下的`禁用组件`就会调用这个
 - Stop 组件关闭时调用，整个生命周期只会调用一次，调用后组件会被卸载
 
-显示实例生命周期  
+## 显示实例生命周期  
 ![](./pic/pic9.png)  
 显示实例相关的生命周期有五个函数  
 - CreateView 只会调用一次，需要返回一个Avalonia的Control，及显示内容
@@ -160,11 +193,6 @@ return new InstanceDataObj()
 开始进行显示实例创建会调用`MakeInstances(InstanceDataObj obj)`，此时你需要返回一个显示实例
 
 更多具体内容可以参考[示例插件](./src/Plugins/ColorDesktop.ClockPlugin/ClockPlugin.cs)和[示例显示实例](./src/Plugins/ColorDesktop.ClockPlugin/ClockControl.axaml.cs)
-
-## 预览
-
-如果你使用了VS2022，并安装了Avalonia插件，但是无法预览页面  
-此时你需要将[ColorDesktop.Debug](./src/ColorDesktop.Debug/ColorDesktop.Debug.csproj)引入到你的解决方案中，添加你的组件为依赖项目，然后编译，选择启动项为`ColorDesktop.Debug`即可
 
 ## 组件公共API
 
@@ -209,7 +237,8 @@ public static void CallEvent(BaseEvent pluginEvent);
 
 ## CoreLib
 这个是`ColorDesktop.CoreLib`组件  
-主要是用于将重复代码抽出来弄成一个组件方便其他组件调用
+主要是用于将重复代码抽出来弄成一个组件方便其他组件调用  
+~~这里是Coloryr组件用的CoreLib，你可以自己去写一个~~
 
 使用前需要将其以共享的方式作为依赖
 ```json

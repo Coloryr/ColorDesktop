@@ -69,10 +69,11 @@
 前往[API版本说明](./api.md)
 
 ## 项目说明
-- ColorDesktop.Api 插件接口
-- ColorDesktop.Debug 调试用
+- ColorDesktop.Api 组件接口
+- ColorDesktop.Debug 调试用，用于预览组件显示实例
 - ColorDesktop.Launcher 程序本体
-- ColorDesktop.PluginList 插件源生成器
+- ColorDesktop.PluginList 组件json源生成器，发布组件的时候用
+- ColorDesktop.WebApi 浏览器组件接口
 
 ## 依赖/引用的项目
 [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia) 跨平台UI框架  
@@ -86,7 +87,7 @@
 ## 组件依赖/引用的项目
 [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) 传感器读取  
 [lunar-csharp](https://github.com/6tail/lunar-csharp) 农历节气天干地支等计算  
-[Live2DCSharpSDK](https://github.com/Coloryr/Live2DCSharpSDK) Live2D显示  
+~~[Live2DCSharpSDK](https://github.com/Coloryr/Live2DCSharpSDK) Live2D显示~~  
 [MinecraftSkinRender](https://github.com/Coloryr/MinecraftSkinRender) Minecraft皮肤渲染器
 
 ## 开源协议

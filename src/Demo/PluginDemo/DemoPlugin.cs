@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.Reflection;
+using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
@@ -132,7 +133,19 @@ public class DemoPlugin : IPlugin
 
     public void LoadLang(LanguageType type)
     {
-
+        var assm = Assembly.GetExecutingAssembly();
+        if (assm == null)
+        {
+            return;
+        }
+        string name = type switch
+        {
+            LanguageType.en_us => "PluginDemo.Resource.Lang.en-us.json",
+            _ => "PluginDemo.Resource.Lang.zh-cn.json"
+        };
+        using var item = assm.GetManifestResourceStream(name)!;
+        using var reader = new StreamReader(item);
+        LangApi.AddLangs(reader.ReadToEnd());
     }
 
     public IInstance MakeInstances(InstanceDataObj obj)

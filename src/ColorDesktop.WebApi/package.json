@@ -1,11 +1,12 @@
 {
   "name": "colordesktop-webapi",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "link": "link"
   },
+  "keywords": ["colordesktop", "api", "coloryr"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "coloryr",
