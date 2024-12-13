@@ -9,6 +9,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resource\Lang\en-us.json" />
+	  <None Remove="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resource\Lang\en-us.json" />
+	  <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
 			<Private>False</Private>
 		</ProjectReference>
