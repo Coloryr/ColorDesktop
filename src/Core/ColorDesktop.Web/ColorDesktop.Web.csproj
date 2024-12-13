@@ -10,22 +10,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Remove="plugin.json" />
+		<Content Remove="plugin.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="icon.png" />
+		<None Remove="icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="icon.png" />
+		<EmbeddedResource Include="icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="plugin.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Include="plugin.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
+
+	<Target Name="ShowVariableValues" BeforeTargets="Build">
+		<Message Text="RuntimeIdentifier=$(MyVariable) OS=$(OS) Platform=$(Platform)" Importance="High" />
+	</Target>
 
 	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.avalonia\120.6099.210\lib\net8.0\Xilium.CefGlue.Avalonia.dll" DestinationFolder="$(OutputPath)" />
@@ -34,18 +38,131 @@
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.Common.Shared.dll" DestinationFolder="$(OutputPath)" />
 		<Copy SourceFiles="$(NuGetPackageRoot)cefglue.common\120.6099.210\lib\net8.0\Xilium.CefGlue.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
+
 	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)system.reactive\6.0.1\lib\net6.0\System.Reactive.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
-	<Target Name="CopySpecificNuGetDll_4" AfterTargets="Build">
+
+	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+		<BuildOutputSys>windows</BuildOutputSys>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' == 'OSX'">
+		<BuildOutputSys>osx</BuildOutputSys>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(OS)' == 'Linux'">
+		<BuildOutputSys>linux</BuildOutputSys>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)' == 'AnyCPU' or '$(Platform)' == 'x64' or '$(Platform)' == ''">
+		<BuildOutputArch>x64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)' == 'ARM64' or '$(Platform)' == 'arm64'">
+		<BuildOutputArch>arm64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<BuildOutputSys>windows</BuildOutputSys>
+		<BuildOutputArch>x64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-arm64'">
+		<BuildOutputSys>windows</BuildOutputSys>
+		<BuildOutputArch>arm64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputArch>x64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputArch>arm64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputArch>x64</BuildOutputArch>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
+		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputArch>arm64</BuildOutputArch>
+	</PropertyGroup>
+
+	<Target Name="CopySpecificNuGetDll_4" Condition="'$(BuildOutputSys)' == 'windows' and '$(BuildOutputArch)' == 'x64'" AfterTargets="Build">
+		<Message Text="Copy windows x64 lib" Importance="High" />
 		<ItemGroup>
 			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\lib\net8.0\*.*" />
 			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime.win-x64\120.1.8\runtimes\win-x64\native\*.*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 	</Target>
-	
+
+	<Target Name="CopySpecificNuGetDll_5" Condition="'$(BuildOutputSys)' == 'windows' and '$(BuildOutputArch)' == 'arm64'" AfterTargets="Build">
+		<Message Text="Copy windows arm64 lib" Importance="High" />
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-arm64\8.0.11\runtimes\win-arm64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-arm64\8.0.11\runtimes\win-arm64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime.win-arm64\120.1.8\runtimes\win-arm64\native\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopySpecificNuGetDll_6" Condition="'$(BuildOutputSys)' == 'osx' and '$(BuildOutputArch)' == 'x64'" AfterTargets="Build">
+		<Message Text="Copy osx x64 lib" Importance="High" />
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.osx-x64\8.0.11\runtimes\osx-x64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.osx-x64\8.0.11\runtimes\osx-x64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.osx64\120.1.8\CEF\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopySpecificNuGetDll_7" Condition="'$(BuildOutputSys)' == 'osx' and '$(BuildOutputArch)' == 'arm64'" AfterTargets="Build">
+		<Message Text="Copy osx arm64 lib" Importance="High" />
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.osx-arm64\8.0.11\runtimes\osx-arm64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.osx-arm64\8.0.11\runtimes\osx-arm64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.osx.arm64\120.1.8\CEF\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopySpecificNuGetDll_8" Condition="'$(BuildOutputSys)' == 'linux' and '$(BuildOutputArch)' == 'x64'" AfterTargets="Build">
+		<Message Text="Copy linux x64 lib" Importance="High" />
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-x64\8.0.11\runtimes\linux-x64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-x64\8.0.11\runtimes\linux-x64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linux64\120.1.8\CEF\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
+
+	<Target Name="CopySpecificNuGetDll_9" Condition="'$(BuildOutputSys)' == 'linux' and '$(BuildOutputArch)' == 'arm64'" AfterTargets="Build">
+		<Message Text="Copy linux arm64 lib" Importance="High" />
+		<ItemGroup>
+			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-arm64\8.0.11\runtimes\linux-arm64\lib\net8.0\*.*" />
+			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-arm64\8.0.11\runtimes\linux-arm64\native\*.*" />
+			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linuxarm64\120.1.8\CEF\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+	</Target>
+
 	<ItemGroup>
 		<PackageReference Include="CefGlue.Avalonia" Version="120.6099.210" />
 		<PackageReference Include="CefGlue.Avalonia.ARM64" Version="120.6099.210" />

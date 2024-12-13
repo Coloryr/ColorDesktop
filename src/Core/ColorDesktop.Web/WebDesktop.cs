@@ -78,12 +78,15 @@ public class WebDesktop : IPlugin
             {"webgpu-cache-path", local},
             {"gpu-cache-path", local}
         };
-        foreach (var item in FindDirectories(new DirectoryInfo(local), "locales"))
+        if (SystemInfo.Os != OsType.MacOS)
         {
-            if (item.GetFiles().Length > 0)
+            foreach (var item in FindDirectories(new DirectoryInfo(local), "locales"))
             {
-                settings.LocalesDirPath = item.FullName;
-                break;
+                if (item.GetFiles().Length > 0)
+                {
+                    settings.LocalesDirPath = item.FullName;
+                    break;
+                }
             }
         }
         CefRuntimeLoader.Initialize(settings);
