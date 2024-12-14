@@ -162,6 +162,7 @@
 	<ItemGroup>
 		<PackageReference Include="CefGlue.Avalonia" Version="120.6099.210" />
 		<PackageReference Include="CefGlue.Avalonia.ARM64" Version="120.6099.210" />
+		<PackageReference Include="System.Reactive" Version="6.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

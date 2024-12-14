@@ -4,7 +4,8 @@
     "Describe": "为ColorDesktop提供浏览器支持",
     "Auther": "Coloryr",
     "Dlls": [
-        "ColorDesktop.Web",
+      "ColorDesktop.Web",
+        "System.Reactive",
         "Xilium.CefGlue.Avalonia",
         "Xilium.CefGlue.Common",
         "Xilium.CefGlue.Common.Shared",
