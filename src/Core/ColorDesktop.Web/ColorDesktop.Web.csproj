@@ -31,6 +31,10 @@
 		<Message Text="RuntimeIdentifier=$(MyVariable) OS=$(OS) Platform=$(Platform)" Importance="High" />
 	</Target>
 
+	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
+		<Copy SourceFiles="$(NuGetPackageRoot)avalonia.reactiveui\11.0.9\lib\net6.0\Avalonia.ReactiveUI.dll" DestinationFolder="$(OutputPath)" />
+	</Target>
+	
 	<Target Name="CopySpecificNuGetDll_3" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)system.reactive\6.0.1\lib\net6.0\System.Reactive.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
