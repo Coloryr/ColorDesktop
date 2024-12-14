@@ -173,7 +173,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="Xilium.CefGlue.Avalonia.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Xilium.CefGlue.Common.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Xilium.CefGlue.Common.Shared.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Xilium.CefGlue.dll">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
