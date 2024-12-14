@@ -148,6 +148,23 @@ public class PluginAssembly : AssemblyLoadContext
         return null;
     }
 
+    private static List<FileInfo> FindFiles(DirectoryInfo info, string name)
+    {
+        var list = new List<FileInfo>();
+        foreach (var item in info.GetFiles())
+        {
+            if (item.Name == name)
+            {
+                list.Add(item);
+            }
+        }
+        foreach (var dir in info.GetDirectories())
+        {
+            list.AddRange(FindFiles(dir, name));
+        }
+        return list;
+    }
+
     protected override nint LoadUnmanagedDll(string unmanagedDllName)
     {
         if (_natives.TryGetValue(unmanagedDllName, out var dir))
@@ -171,6 +188,27 @@ public class PluginAssembly : AssemblyLoadContext
         }
         file = Local + "/" + unmanagedDllName + ".dylib";
         if (File.Exists(file))
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+
+        var list = FindFiles(new DirectoryInfo(Local), unmanagedDllName + ".dll");
+        var item = list.FirstOrDefault();
+        if (item != null)
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+
+        list = FindFiles(new DirectoryInfo(Local), unmanagedDllName + ".so");
+        item = list.FirstOrDefault();
+        if (item != null)
+        {
+            return LoadUnmanagedDllFromPath(file);
+        }
+
+        list = FindFiles(new DirectoryInfo(Local), unmanagedDllName + ".dylib");
+        item = list.FirstOrDefault();
+        if (item != null)
         {
             return LoadUnmanagedDllFromPath(file);
         }

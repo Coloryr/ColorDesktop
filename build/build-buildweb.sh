@@ -1,8 +1,6 @@
 #!/bin/bash
 
-mkdir ./build_out
-
-dotnet restore ./src/ColorDesktop.sln
+dotnet restore ./src/Core/ColorDesktop.Web/ColorDesktop.Web.csproj
 
 cd ./src/Core/ColorDesktop.Web
 
@@ -13,7 +11,7 @@ dotnet msbuild -p:RuntimeIdentifier=linux-arm64
 dotnet msbuild -p:RuntimeIdentifier=osx-x64
 dotnet msbuild -p:RuntimeIdentifier=osx-arm64
 
-cd ./src/build_out/Debug/net8.0/
+cd ../../build_out/Debug/net8.0
 
 zip -r webplugin-linux-arm64.zip WebPlugin/Debug/net8.0/linux-arm64
 zip -r webplugin-linux-x64.zip WebPlugin/Debug/net8.0/linux-x64

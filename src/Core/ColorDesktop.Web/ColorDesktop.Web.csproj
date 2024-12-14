@@ -144,11 +144,11 @@
 		<ItemGroup>
 			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-x64\8.0.11\runtimes\linux-x64\lib\net8.0\*.*" />
 			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-x64\8.0.11\runtimes\linux-x64\native\*.*" />
-			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linux64\120.1.8\CEF\**\*.*" />
+			<!--<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linux64\120.1.8\CEF\**\*.*" />-->
 		</ItemGroup>
 		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
-		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<!--<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />-->
 	</Target>
 
 	<Target Name="CopySpecificNuGetDll_9" Condition="'$(BuildOutputSys)' == 'linux' and '$(BuildOutputArch)' == 'arm64'" AfterTargets="Build">
@@ -156,11 +156,11 @@
 		<ItemGroup>
 			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-arm64\8.0.11\runtimes\linux-arm64\lib\net8.0\*.*" />
 			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.linux-arm64\8.0.11\runtimes\linux-arm64\native\*.*" />
-			<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linuxarm64\120.1.8\CEF\**\*.*" />
+			<!--<PortFiles_3 Include="$(NuGetPackageRoot)cef.redist.linuxarm64\120.1.8\CEF\**\*.*" />-->
 		</ItemGroup>
 		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
-		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<!--<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />-->
 	</Target>
 
 	<ItemGroup>
