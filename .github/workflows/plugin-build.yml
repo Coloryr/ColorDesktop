@@ -22,7 +22,7 @@ jobs:
     - name: 设置.NET Core
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.403
+        dotnet-version: 8.0.404
 
     # - name: 更新源码
     #   working-directory: ./
