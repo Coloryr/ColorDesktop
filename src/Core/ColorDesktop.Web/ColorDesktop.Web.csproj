@@ -46,7 +46,7 @@
 	<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
 		<BuildOutputSys>windows</BuildOutputSys>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(OS)' == 'OSX'">
+	<PropertyGroup Condition="'$(OS)' == 'Unix'">
 		<BuildOutputSys>osx</BuildOutputSys>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(OS)' == 'Linux'">
