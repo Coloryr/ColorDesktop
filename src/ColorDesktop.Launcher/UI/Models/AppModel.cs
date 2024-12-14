@@ -48,11 +48,10 @@ public partial class AppModel : ObservableObject
         return menu;
     }
 
-    public NativeMenu Menus {get;init;}
+    public NativeMenu Menus { get; init; } = [];
 
     public AppModel()
     {
-        Menus = new();
         BuildMenu();
     }
 
