@@ -82,12 +82,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
-		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputSys>linux</BuildOutputSys>
 		<BuildOutputArch>x64</BuildOutputArch>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
-		<BuildOutputSys>osx</BuildOutputSys>
+		<BuildOutputSys>linux</BuildOutputSys>
 		<BuildOutputArch>arm64</BuildOutputArch>
 	</PropertyGroup>
 
@@ -97,10 +97,12 @@
 			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\lib\net8.0\*.*" />
 			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-x64\8.0.11\runtimes\win-x64\native\*.*" />
 			<PortFiles_3 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime.win-x64\120.1.8\runtimes\win-x64\native\*.*" />
+			<PortFiles_4 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime\120.1.8\CEF\win-x64\**\*.*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_4)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 	</Target>
 
 	<Target Name="CopySpecificNuGetDll_5" Condition="'$(BuildOutputSys)' == 'windows' and '$(BuildOutputArch)' == 'arm64'" AfterTargets="Build">
@@ -109,10 +111,12 @@
 			<PortFiles_1 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-arm64\8.0.11\runtimes\win-arm64\lib\net8.0\*.*" />
 			<PortFiles_2 Include="$(NuGetPackageRoot)microsoft.aspnetcore.app.runtime.win-arm64\8.0.11\runtimes\win-arm64\native\*.*" />
 			<PortFiles_3 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime.win-arm64\120.1.8\runtimes\win-arm64\native\*.*" />
+			<PortFiles_4 Include="$(NuGetPackageRoot)chromiumembeddedframework.runtime\120.1.8\CEF\win-arm64\**\*.*" />
 		</ItemGroup>
 		<Copy SourceFiles="@(PortFiles_1)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_2)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 		<Copy SourceFiles="@(PortFiles_3)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
+		<Copy SourceFiles="@(PortFiles_4)" DestinationFolder="$(OutputPath)%(RecursiveDir)" />
 	</Target>
 
 	<Target Name="CopySpecificNuGetDll_6" Condition="'$(BuildOutputSys)' == 'osx' and '$(BuildOutputArch)' == 'x64'" AfterTargets="Build">
