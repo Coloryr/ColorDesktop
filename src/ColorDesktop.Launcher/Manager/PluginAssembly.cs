@@ -196,21 +196,21 @@ public class PluginAssembly : AssemblyLoadContext
         var item = list.FirstOrDefault();
         if (item != null)
         {
-            return LoadUnmanagedDllFromPath(file);
+            return LoadUnmanagedDllFromPath(item.FullName);
         }
 
         list = FindFiles(new DirectoryInfo(Local), unmanagedDllName + ".so");
         item = list.FirstOrDefault();
         if (item != null)
         {
-            return LoadUnmanagedDllFromPath(file);
+            return LoadUnmanagedDllFromPath(item.FullName);
         }
 
         list = FindFiles(new DirectoryInfo(Local), unmanagedDllName + ".dylib");
         item = list.FirstOrDefault();
         if (item != null)
         {
-            return LoadUnmanagedDllFromPath(file);
+            return LoadUnmanagedDllFromPath(item.FullName);
         }
 
         return base.LoadUnmanagedDll(unmanagedDllName);
