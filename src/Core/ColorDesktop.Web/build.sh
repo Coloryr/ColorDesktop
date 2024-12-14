@@ -1,3 +1,4 @@
+dotnet restore
 dotnet msbuild -p:RuntimeIdentifier=win-x64
 dotnet msbuild -p:RuntimeIdentifier=win-arm64
 dotnet msbuild -p:RuntimeIdentifier=linux-x64
