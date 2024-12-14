@@ -1,0 +1,73 @@
+name:  浏览器支持构建
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - 'releases/**'
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - '*'
+
+jobs:
+  build-plugins:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: 'true'
+        token: ${{ secrets.KEY1 }}
+
+    - name: 设置.NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.404
+
+    # - name: 更新源码
+    #   working-directory: ./
+    #   run: |
+    #     chmod a+x ./build/update.sh
+    #     ./build/update.sh
+
+    - name: 构建 源码
+      working-directory: ./
+      run: |
+        chmod a+x ./build/build-buildweb.sh
+        ./build/build-buildweb.sh
+
+    - name: 上传 colordesktop-webplugin-win-x64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-win-x64"
+        path: src/build_out/Debug/net8.0/webplugin-win-x64.zip
+    
+    - name: 上传 colordesktop-webplugin-win-arm64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-win-arm64"
+        path: src/build_out/Debug/net8.0/webplugin-win-arm64.zip
+
+    - name: 上传 colordesktop-webplugin-linux-x64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-linux-x64"
+        path: src/build_out/Debug/net8.0/webplugin-linux-x64.zip
+
+    - name: 上传 colordesktop-webplugin-linux-arm64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-linux-arm64"
+        path: src/build_out/Debug/net8.0/webplugin-linux-arm64.zip
+
+    - name: 上传 colordesktop-webplugin-osx-x64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-osx-x64"
+        path: src/build_out/Debug/net8.0/webplugin-osx-x64.zip
+
+    - name: 上传 colordesktop-webplugin-osx-arm64
+      uses: actions/upload-artifact@v4
+      with:
+        name: "colordesktop-webplugin-osx-arm64"
+        path: src/build_out/Debug/net8.0/webplugin-osx-arm64.zip

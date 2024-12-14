@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<Platforms>AnyCPU</Platforms>
 		<Title>ColorDesktop Api</Title>
-		<Version>4.0.1</Version>
+		<Version>4.0.0</Version>
 		<Authors>Coloryr</Authors>
 		<Company>Coloryr</Company>
 		<Description>ColorDesktop的API</Description>
