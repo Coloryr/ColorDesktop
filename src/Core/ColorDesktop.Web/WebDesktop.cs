@@ -70,14 +70,13 @@ public class WebDesktop : IPlugin
         {
             RootCachePath = cachePath,
             BrowserSubprocessPath = local,
-            CachePath = local,
             WindowlessRenderingEnabled = false
         };
-        var flags = new Dictionary<string, string>() 
-        {
-            {"webgpu-cache-path", local},
-            {"gpu-cache-path", local}
-        };
+        // var flags = new Dictionary<string, string>() 
+        // {
+        //     {"webgpu-cache-path", local},
+        //     {"gpu-cache-path", local}
+        // };
         if (SystemInfo.Os != OsType.MacOS)
         {
             foreach (var item in FindDirectories(new DirectoryInfo(local), "locales"))
@@ -85,6 +84,17 @@ public class WebDesktop : IPlugin
                 if (item.GetFiles().Length > 0)
                 {
                     settings.LocalesDirPath = item.FullName;
+                    break;
+                }
+            }
+        }
+        else 
+        {
+            foreach (var item in FindDirectories(new DirectoryInfo(local), "Resources"))
+            {
+                if (item.GetFiles().Length > 0)
+                {
+                    settings.ResourcesDirPath = item.FullName;
                     break;
                 }
             }
