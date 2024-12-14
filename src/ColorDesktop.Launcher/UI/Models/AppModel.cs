@@ -48,42 +48,39 @@ public partial class AppModel : ObservableObject
         return menu;
     }
 
-    [ObservableProperty]
-    public NativeMenu _menus;
+    public NativeMenu Menus {get;init;}
 
     public AppModel()
     {
-        Update();
+        Menus = new();
+        BuildMenu();
     }
 
     public void Update()
     {
-        Menus = BuildMenu();
+        BuildMenu();
     }
 
-    private NativeMenu BuildMenu()
+    private void BuildMenu()
     {
-        var menu = new NativeMenu();
-
-        menu.Items.Add(BuildWindowMenu());
-        menu.Items.Add(new NativeMenuItem()
+        Menus.Items.Clear();
+        Menus.Items.Add(BuildWindowMenu());
+        Menus.Items.Add(new NativeMenuItem()
         {
             Header = LangApi.GetLang("ToolSetting.Text1"),
             Command = ShowWindowCommand
         });
-        menu.Items.Add(new NativeMenuItem()
+        Menus.Items.Add(new NativeMenuItem()
         {
             Header = LangApi.GetLang("ToolSetting.Text4"),
             Command = MoveWindowCommand
         });
-        menu.Items.Add(new NativeMenuItemSeparator());
-        menu.Items.Add(new NativeMenuItem()
+        Menus.Items.Add(new NativeMenuItemSeparator());
+        Menus.Items.Add(new NativeMenuItem()
         {
             Header = LangApi.GetLang("ToolSetting.Text3"),
             Command = ExitCommand
         });
-
-        return menu;
     }
 
     [RelayCommand]
