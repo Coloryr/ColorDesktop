@@ -192,11 +192,11 @@ jobs:
         name: "colordesktop-windows-x86_64"
         path: src/build_out/win-x64-dotnet/colordesktop/**
     
-    - name: 上传 colordesktop-windows-x86
-      uses: actions/upload-artifact@v4
-      with:
-        name: "colordesktop-windows-x86"
-        path: src/build_out/win-x86-dotnet/colordesktop/**
+    # - name: 上传 colordesktop-windows-x86
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: "colordesktop-windows-x86"
+    #     path: src/build_out/win-x86-dotnet/colordesktop/**
 
     - name: 上传 colordesktop-windows-arm64
       uses: actions/upload-artifact@v4

@@ -15,7 +15,7 @@ for /f %%i in ('type .\build\main_version') do (
 mkdir .\build_out
 
 call :build_win win-x64 x86_64
-call :build_win win-x86 x86
+@REM call :build_win win-x86 x86
 call :build_win win-arm64 aarch64
 
 goto :eof
