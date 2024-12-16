@@ -1,0 +1,20 @@
+<UserControl
+    x:Class="ColorDesktop.Web.SettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:ColorDesktop.Web"
+    x:DataType="model:SettingModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <Button
+            Width="150"
+            Height="35"
+            Classes="top"
+            Command="{Binding Reload}"
+            Content="重载浏览器组件" />
+        <TextBlock Text="{Binding Text}" />
+        <TextBlock Margin="0,10,0,0" Text="你也可以通过重载组件来实现，虽然提示不支持重载，但实际上会重载" />
+    </StackPanel>
+</UserControl>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
+using ColorDesktop.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +12,10 @@ using Microsoft.Extensions.Logging;
 
 namespace ColorDesktop.Web;
 
-public static class HttpWeb
+internal static class HttpWeb
 {
-    private static readonly ConcurrentDictionary<string, StaticFileOptions> s_dynamicFileOptions = [];
+    private static readonly ConcurrentDictionary<string, StaticFileOptions> s_file = [];
+    private static readonly ConcurrentDictionary<string, IHttpRoute> s_routes = [];
     private static readonly FileExtensionContentTypeProvider s_typeProvider = new();
 
     private static WebApplication s_app;
@@ -36,16 +38,11 @@ public static class HttpWeb
 
         var app = builder.Build();
 
-        //if (env.IsDevelopment())
-        //{
-        //    app.UseDeveloperExceptionPage();
-        //}
-
         app.Use(async (context, next) =>
         {
             string path = context.Request.Path.Value!.Trim('/');
             string file;
-            if (context.Request.Cookies.TryGetValue("colordesktop", out var uuid))
+            if (context.Request.Cookies.TryGetValue("colordesktop", out var uuid) && path != uuid)
             {
                 file = path;
             }
@@ -58,15 +55,24 @@ public static class HttpWeb
                     file = "index.html";
                 }
             }
-
-            if (context.Request.Method == "POST")
+            if (uuid == null || !InstanceManager.Instances.TryGetValue(uuid, out var key))
             {
-                if (uuid == null)
+                context.Response.StatusCode = 301;
+                await context.Response.WriteAsJsonAsync(new { msg = "uuid error" });
+                return;
+            }
+
+            if (s_routes.TryGetValue(key.Plugin, out var route))
+            {
+                context.Response.Cookies.Append("colordesktop", uuid);
+                var res = await route.Process(context);
+                if (res)
                 {
-                    context.Response.StatusCode = 301;
-                    await context.Response.WriteAsJsonAsync(new { msg = "uuid error" });
                     return;
                 }
+            }
+            if (context.Request.Method == "POST")
+            {
                 if (file == "getConfig")
                 {
                     if (!context.Request.Form.TryGetValue("file", out var file1))
@@ -79,6 +85,7 @@ public static class HttpWeb
 
                     context.Response.Cookies.Append("colordesktop", uuid);
                     context.Response.ContentType = "application/json";
+                    context.Response.StatusCode = 200;
 
                     if (File.Exists(file2))
                     {
@@ -118,29 +125,27 @@ public static class HttpWeb
                     await context.Response.WriteAsJsonAsync(new { msg = "ok" });
                 }
             }
-            else if(InstanceManager.Instances.TryGetValue(uuid, out var key))
+            else if (s_file.TryGetValue(key.Plugin, out var options))
             {
-                if (s_dynamicFileOptions.TryGetValue(key.Plugin, out var options))
+                var fileProvider = options.FileProvider!;
+
+                var fileInfo = fileProvider.GetFileInfo(file);
+
+                if (fileInfo.Exists)
                 {
-                    var fileProvider = options.FileProvider!;
-
-                    var fileInfo = fileProvider.GetFileInfo(file);
-
-                    if (fileInfo.Exists)
+                    if (!s_typeProvider.TryGetContentType(fileInfo.Name, out var contentType))
                     {
-                        if (!s_typeProvider.TryGetContentType(fileInfo.Name, out var contentType))
-                        {
-                            contentType = "application/octet-stream";
-                        }
-
-                        context.Response.Cookies.Append("colordesktop", uuid);
-                        context.Response.ContentType = contentType;
-                        using var stream = fileInfo.CreateReadStream();
-                        await stream.CopyToAsync(context.Response.Body);
-                        return;
+                        contentType = "application/octet-stream";
                     }
+
+                    context.Response.Cookies.Append("colordesktop", uuid);
+                    context.Response.ContentType = contentType;
+                    using var stream = fileInfo.CreateReadStream();
+                    await stream.CopyToAsync(context.Response.Body);
+                    return;
                 }
             }
+
             await next();
         });
 
@@ -160,7 +165,27 @@ public static class HttpWeb
             FileProvider = fileProvider,
             RequestPath = "/" + folderName
         };
-        s_dynamicFileOptions.TryAdd(id, staticFileOptions);
+        s_file.TryAdd(id, staticFileOptions);
+    }
+
+    public static void AddRoute(IPlugin plugin, IHttpRoute route)
+    {
+        var id = LauncherApi.Hook.GetPluginId(plugin);
+        if (id == null)
+        {
+            return;
+        }
+        s_routes[id] = route;
+    }
+
+    public static void RemoveRoute(IPlugin plugin)
+    {
+        var id = LauncherApi.Hook.GetPluginId(plugin);
+        if (id == null)
+        {
+            return;
+        }
+        s_routes.Remove(id, out _);
     }
 
     private static int GetAvailablePort()
@@ -175,5 +200,10 @@ public static class HttpWeb
     public static void Stop()
     {
         s_app.StopAsync();
+    }
+
+    public static void Clear()
+    {
+        s_file.Clear();
     }
 }

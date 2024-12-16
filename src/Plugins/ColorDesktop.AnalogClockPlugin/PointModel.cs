@@ -25,7 +25,14 @@ public partial class PointModel : ObservableObject
 
     public void Update(AnalogClockInstanceConfigObj obj)
     {
-        Color = Brush.Parse(obj.Color);
+        try
+        {
+            Color = Brush.Parse(obj.Color);
+        }
+        catch
+        {
+            
+        }
 
         var size = obj.Size / 5;
 

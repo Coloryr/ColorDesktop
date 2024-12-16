@@ -143,7 +143,14 @@ public partial class DigitalModel : ObservableObject
 
     public void Update(AnalogClockInstanceConfigObj obj)
     {
-        Color = Brush.Parse(obj.Color);
+        try
+        {
+            Color = Brush.Parse(obj.Color);
+        }
+        catch
+        {
+            
+        }
 
         var size = obj.Size / 10;
         var size1 = obj.Size - size;

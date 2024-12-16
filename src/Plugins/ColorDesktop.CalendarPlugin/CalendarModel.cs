@@ -194,8 +194,15 @@ public partial class CalendarModel : ObservableObject
     public void Update(CalendarInstanceObj config)
     {
         WeekStart = config.WeekStart;
-        BackColor = Brush.Parse(config.BackColor);
-        TextColor = Brush.Parse(config.TextColor);
+        try
+        {
+            BackColor = Brush.Parse(config.BackColor);
+            TextColor = Brush.Parse(config.TextColor);
+        }
+        catch 
+        {
+            
+        }
         _last = DateTime.MinValue;
     }
 }

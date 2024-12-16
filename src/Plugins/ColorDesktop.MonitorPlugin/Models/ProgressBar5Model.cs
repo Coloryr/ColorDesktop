@@ -44,10 +44,17 @@ public partial class ProgressBar5Model : ObservableObject, IUpdate
     {
         var item = model.Obj;
         FontSize = item.FontSize;
-        BackColor = Brush.Parse(item.Color1 ?? "#FFFFFF");
-        TextColor = Brush.Parse(item.Color2 ?? "#FFFFFF");
-        BarColor = Brush.Parse(item.Color3 ?? "#FFFFFF");
-        BackColor1 = Brush.Parse(item.Color4 ?? "#FFFFFF");
+        try
+        {
+            BackColor = Brush.Parse(item.Color1 ?? "#FFFFFF");
+            TextColor = Brush.Parse(item.Color2 ?? "#FFFFFF");
+            BarColor = Brush.Parse(item.Color3 ?? "#FFFFFF");
+            BackColor1 = Brush.Parse(item.Color4 ?? "#FFFFFF");
+        }
+        catch
+        { 
+            
+        }
         Width = item.Width <= 0 ? double.NaN : item.Width;
         Height = item.Height <= 0 ? double.NaN : item.Height;
         BorderSize = new(item.BorderSize);

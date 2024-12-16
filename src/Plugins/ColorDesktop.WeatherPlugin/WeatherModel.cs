@@ -263,8 +263,15 @@ public partial class WeatherModel : ObservableObject
     public void Update(WeatherInstanceObj obj)
     {
         _date = DateTime.Now;
-        BackColor = Brush.Parse(obj.BackColor);
-        TextColor = Brush.Parse(obj.TextColor);
+        try
+        {
+            BackColor = Brush.Parse(obj.BackColor);
+            TextColor = Brush.Parse(obj.TextColor);
+        }
+        catch
+        { 
+            
+        }
         _obj = AmapApi.GetCityAdcode(int.Parse(obj.City));
         _ = Update();
         if (ShowNextDay)

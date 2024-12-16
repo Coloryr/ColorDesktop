@@ -11,9 +11,11 @@ public class WebDesktop : IPlugin
 {
     private string cachePath;
 
-    public static string InstanceLocal;
+    internal static string InstanceLocal;
 
     public const string ApiVersion = LauncherApi.ApiVersion;
+
+    internal static IPluginManager Manager;
 
     public bool CanEnable => false;
     public bool CanCreateInstance => true;
@@ -38,7 +40,7 @@ public class WebDesktop : IPlugin
 
     public void Enable()
     {
-
+        Manager = LauncherApi.Hook.GetPluginManager(this)!;
     }
 
     public Stream? GetIcon()
@@ -72,11 +74,6 @@ public class WebDesktop : IPlugin
             BrowserSubprocessPath = local,
             WindowlessRenderingEnabled = false
         };
-        // var flags = new Dictionary<string, string>() 
-        // {
-        //     {"webgpu-cache-path", local},
-        //     {"gpu-cache-path", local}
-        // };
         if (SystemInfo.Os != OsType.MacOS)
         {
             foreach (var item in FindDirectories(new DirectoryInfo(local), "locales"))
@@ -111,6 +108,10 @@ public class WebDesktop : IPlugin
         {
             InstanceManager.Remove(delete.UUID);
         }
+        else if (baseEvent is PluginReloadEvent)
+        {
+            PluginManager.Reload();
+        }
     }
 
     public void LoadLang(LanguageType type)
@@ -127,7 +128,7 @@ public class WebDesktop : IPlugin
 
     public InstanceSetting OpenSetting()
     {
-        return new();
+        return new() { Control = new SettingControl() };
     }
 
     public bool Permissions(string key, string permission)

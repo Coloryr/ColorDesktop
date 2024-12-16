@@ -65,25 +65,35 @@ public partial class FlipClockModel : ObservableObject
         var font2 = new SKFont(font, obj.TextSize);
         var paint = new SKPaint(font2)
         {
-            Color = SKColor.Parse(obj.TextColor),
             IsAntialias = true,
             TextAlign = SKTextAlign.Center
         };
+        if (SKColor.TryParse(obj.TextColor, out var temp))
+        {
+            paint.Color = temp;
+        }
 
-        var color = Brush.Parse(obj.BackColor);
-        HourA.Color = color;
-        HourB.Color = color;
-        MinuteA.Color = color;
-        MinuteB.Color = color;
-        SecondA.Color = color;
-        SecondB.Color = color;
-        var color1 = Brush.Parse(obj.BorderColor);
-        HourA.Color1 = color1;
-        HourB.Color1 = color1;
-        MinuteA.Color1 = color1;
-        MinuteB.Color1 = color1;
-        SecondA.Color1 = color1;
-        SecondB.Color1 = color1;
+        try
+        {
+            var color = Brush.Parse(obj.BackColor);
+            HourA.Color = color;
+            HourB.Color = color;
+            MinuteA.Color = color;
+            MinuteB.Color = color;
+            SecondA.Color = color;
+            SecondB.Color = color;
+            var color1 = Brush.Parse(obj.BorderColor);
+            HourA.Color1 = color1;
+            HourB.Color1 = color1;
+            MinuteA.Color1 = color1;
+            MinuteB.Color1 = color1;
+            SecondA.Color1 = color1;
+            SecondB.Color1 = color1;
+        }
+        catch 
+        {
+            
+        }
 
         for (int i = 0; i < 10; i++)
         {

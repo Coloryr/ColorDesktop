@@ -13,6 +13,7 @@ namespace ColorDesktop.Web;
 public class CefBrowserInstance(InstanceDataObj obj) : IInstance
 {
     private AvaloniaCefBrowser _browser;
+    private IInstanceWindow _window;
 
     private bool _ok = false;
     private bool _reload = false;
@@ -36,9 +37,18 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
         _ok = true;
         if (_reload)
         {
-            _reload = false;
+            _browser.RegisterJavascriptObject(new JsHandel(_browser, _window), "colordesktop_window");
             _browser.ExecuteJavaScript($"colordesktop.start()");
+            _reload = false;
         }
+    }
+
+    private void Reload()
+    {
+        _ok = false;
+        _reload = true;
+        _browser.UnregisterJavascriptObject("colordesktop_window");
+        _browser.Reload();
     }
 
     public IInstanceHandel? GetHandel()
@@ -53,7 +63,7 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
 
     public void RenderTick(IInstanceWindow window)
     {
-        if (!_ok)
+        if (!_ok || _reload)
         {
             return;
         }
@@ -140,9 +150,7 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
             }
             else if (keyEvent.WindowsKeyCode == 116)
             {
-                avalonia._ok = false;
-                avalonia._reload = true;
-                avalonia._browser.Reload();
+                avalonia.Reload();
                 return true;
             }
             return false;

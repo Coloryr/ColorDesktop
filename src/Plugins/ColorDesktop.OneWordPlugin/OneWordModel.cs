@@ -50,8 +50,15 @@ public partial class OneWordModel : ObservableObject
     {
         Width = obj.Width;
         Size = obj.Size;
-        TextColor = Brush.Parse(obj.TextColor);
-        BackColor = Brush.Parse(obj.BackColor);
+        try
+        {
+            TextColor = Brush.Parse(obj.TextColor);
+            BackColor = Brush.Parse(obj.BackColor);
+        }
+        catch
+        { 
+            
+        }
     }
 
     public async void Tick()

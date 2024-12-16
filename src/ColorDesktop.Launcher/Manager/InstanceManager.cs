@@ -225,10 +225,10 @@ public static class InstanceManager
         {
             LauncherHook.InstanceDisable(instance.InstanceData.Plugin, instance.InstanceData.UUID);
 
+            RunInstances.Remove(instance.InstanceData.UUID);
+
             instance.Instance.Stop(instance.Window);
             instance.Window.Close();
-
-            RunInstances.Remove(instance.InstanceData.UUID);
 
             LangSel.Remove();
         }

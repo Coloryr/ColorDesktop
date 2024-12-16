@@ -30,8 +30,15 @@ public partial class PGColorMCModel : ObservableObject
         Width = obj.Width;
         Height = obj.Height;
 
-        BackColor = Brush.Parse(obj.BackColor);
-        TextColor = Brush.Parse(obj.TextColor);
+        try
+        {
+            BackColor = Brush.Parse(obj.BackColor);
+            TextColor = Brush.Parse(obj.TextColor);
+        }
+        catch
+        { 
+            
+        }
 
         Games.Clear();
 

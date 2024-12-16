@@ -55,7 +55,7 @@ public partial class ToDoInstanceSettingModel : ObservableObject
         _isLogin = _config.Token != null;
     }
 
-    partial void OnTextChanged(string value)
+    partial void OnTextColorChanged(Color value)
     {
         _config.TextColor = value.ToString();
         ToDoPlugin.SaveConfig(_obj, _config);

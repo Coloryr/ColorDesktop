@@ -63,21 +63,30 @@ public partial class ClockModel : ObservableObject
         }
 
         DisplaySecond = obj.DisplaySecond;
-        _isBlink = obj.Blink;
-        if (obj.CustomColor)
+        _isBlink = obj.Blink; 
+        try
         {
-            HourColor = Brush.Parse(obj.HourColor);
-            MinuteColor = Brush.Parse(obj.MinuteColor);
-            SecondColor = Brush.Parse(obj.SecondColor);
-            ColonColor = Brush.Parse(obj.ColonColor);
+            if (obj.CustomColor)
+            {
+                HourColor = Brush.Parse(obj.HourColor);
+                MinuteColor = Brush.Parse(obj.MinuteColor);
+                SecondColor = Brush.Parse(obj.SecondColor);
+                ColonColor = Brush.Parse(obj.ColonColor);
+            }
+            else
+            {
+                var color = Brush.Parse(obj.Color);
+                HourColor = color;
+                MinuteColor = color;
+                SecondColor = color;
+                ColonColor = color;
+            }
+
+            BackGround = Brush.Parse(obj.BackGround);
         }
-        else
+        catch
         {
-            var color = Brush.Parse(obj.Color);
-            HourColor = color;
-            MinuteColor = color;
-            SecondColor = color;
-            ColonColor = color;
+
         }
 
         if (obj.CustomSize)
@@ -94,8 +103,6 @@ public partial class ClockModel : ObservableObject
             SecondSize = obj.Size;
             ColonSize = obj.Size;
         }
-
-        BackGround = Brush.Parse(obj.BackGround);
     }
 
     public void Tick()

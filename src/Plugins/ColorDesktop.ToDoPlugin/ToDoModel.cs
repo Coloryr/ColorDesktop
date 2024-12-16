@@ -49,10 +49,17 @@ public partial class ToDoModel(string uuid) : ObservableObject
         _obj = obj;
         _config = config;
 
-        BackColor = string.IsNullOrWhiteSpace(_config.BackColor)
-            ? Brushes.Black : Brush.Parse(_config.BackColor);
-        TextColor = string.IsNullOrWhiteSpace(_config.TextColor)
-            ? Brushes.White : Brush.Parse(_config.TextColor);
+        try
+        {
+            BackColor = string.IsNullOrWhiteSpace(_config.BackColor)
+                    ? Brushes.Black : Brush.Parse(_config.BackColor);
+            TextColor = string.IsNullOrWhiteSpace(_config.TextColor)
+                ? Brushes.White : Brush.Parse(_config.TextColor);
+        }
+        catch
+        { 
+            
+        }
 
         await Reload();
     }

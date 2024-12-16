@@ -29,8 +29,15 @@ public partial class Bm2Model : BmModel
     {
         Width = config.Width <= 0 ? double.NaN : config.Width;
         Height = config.Height <= 0 ? double.NaN : config.Height;
-        BackColor = Brush.Parse(config.Color1 ?? "#000000");
-        TextColor = Brush.Parse(config.Color2 ?? "#FFFFFF");
+        try
+        {
+            BackColor = Brush.Parse(config.Color1 ?? "#000000");
+            TextColor = Brush.Parse(config.Color2 ?? "#FFFFFF");
+        }
+        catch
+        {
+
+        }
 
         foreach (var item in BmItems)
         {

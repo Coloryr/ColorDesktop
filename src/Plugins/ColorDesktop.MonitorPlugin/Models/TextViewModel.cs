@@ -47,8 +47,15 @@ public partial class TextViewModel : ObservableObject, IUpdate
     {
         var item = model.Obj;
         FontSize = item.FontSize;
-        BackColor = Brush.Parse(item.Color1);
-        TextColor = Brush.Parse(item.Color2);
+        try
+        {
+            BackColor = Brush.Parse(item.Color1);
+            TextColor = Brush.Parse(item.Color2);
+        }
+        catch
+        { 
+            
+        }
         Width = item.Width <= 0 ? double.NaN : item.Width;
         Height = item.Height <= 0 ? double.NaN : item.Height;
         BorderSize = new(item.BorderSize);

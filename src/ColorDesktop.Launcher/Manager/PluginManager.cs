@@ -219,6 +219,11 @@ public static class PluginManager
             return true;
         }
 
+        return config.Contains(GenOs());
+    }
+
+    private static string GenOs()
+    {
         string system;
         if (SystemInfo.Os == OsType.Linux)
         {
@@ -242,7 +247,7 @@ public static class PluginManager
             system += "x86_64";
         }
 
-        return config.Contains(system);
+        return system;
     }
 
     /// <summary>
