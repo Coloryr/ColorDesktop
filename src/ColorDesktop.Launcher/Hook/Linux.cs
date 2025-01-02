@@ -10,14 +10,14 @@ namespace ColorDesktop.Launcher.Hook;
 
 public static partial class Linux
 {
-    public enum Shape
+    public enum Shape : int
     {
         Bounding = 0,
         Clip = 1,
         Input = 2
     }
 
-    public enum ShapeSet
+    public enum ShapeSet : int
     {
         Set = 0,
         Union = 1,
@@ -27,15 +27,46 @@ public static partial class Linux
         Null = 5
     }
 
-    [LibraryImport("libX11", StringMarshalling = StringMarshalling.Utf8)]
-    public static partial IntPtr XOpenDisplay(string display);
+    [StructLayout(LayoutKind.Sequential)]
+    private struct XSetWindowAttributes
+    {
+        public int background_pixmap;
+        public ulong background_pixel;
+        public int border_pixmap;
+        public ulong border_pixel;
+        public int bit_gravity;
+        public int win_gravity;
+        public int backing_store;
+        public ulong backing_planes;
+        public ulong backing_pixel;
+        public bool save_under;
+        public ulong event_mask;
+        public ulong do_not_propagate_mask;
+        public bool override_redirect;
+        public IntPtr colormap;
+        public IntPtr cursor;
+    }
 
-    [LibraryImport("libX11")]
-    public static partial int XCloseDisplay(IntPtr display);
+    // 定义X11所需的外部函数和常量
+    private const string X11Lib = "libX11.so";
+    private const string XextLib = "libXext.so";
 
-    [DllImport("libXext")]
-    public static extern void XShapeCombineRegion(IntPtr display, IntPtr window, Shape destKind,
+    [DllImport(XextLib)]
+    private static extern IntPtr XCreateRegion();
+
+    [DllImport(XextLib)]
+    private static extern void XDestroyRegion(IntPtr region);
+
+    [DllImport(XextLib)]
+    private static extern void XShapeCombineRegion(IntPtr display, IntPtr window, Shape destKind,
         int xOff, int yOff, IntPtr region, ShapeSet op);
+
+    [DllImport(XextLib)]
+    private static extern void XShapeCombineMask(IntPtr display, IntPtr window, Shape destKind,
+        int xOff, int yOff, IntPtr region, ShapeSet op);
+
+    [DllImport(XextLib)]
+    private static extern int XUnionRectWithRegion(ref XRectangle rectangle, IntPtr src_region, IntPtr dest_region_return);
 
     public static void SetLaunch(bool start)
     {
@@ -97,25 +128,55 @@ public static partial class Linux
         p.WaitForExit();
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    [Serializable]
+    public struct XRectangle
+    {
+        public short x;
+        public short y;
+        public short width;
+        public short height;
+    }
+
     public static void SetMouseThrough(Window window, bool enable)
     {
-        if (window.TryGetPlatformHandle() is { } platformHandle)
+        if (window.PlatformImpl is { } platformHandle 
+            && window.TryGetPlatformHandle() is { } handel)
         {
-            IntPtr display = XOpenDisplay(null!);
+            Type x11WindowType = platformHandle.GetType();
 
-            // 定义鼠标穿透的形状
+            var x11FieldInfo = x11WindowType.GetField("_x11", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (x11FieldInfo == null)
+            {
+                return;
+            }
+
+            var x11FieldValue = x11FieldInfo.GetValue(platformHandle);
+            if (x11FieldValue == null)
+            {
+                return;
+            }
+
+            Type x11InfoType = x11FieldValue.GetType();
+
+            var displayPropertyInfo = x11InfoType.GetProperty("Display", BindingFlags.Public | BindingFlags.Instance);
+            if (displayPropertyInfo == null)
+            {
+                return;
+            }
+
+            var display = (IntPtr)displayPropertyInfo.GetValue(x11FieldValue)!;
+
             if (enable)
             {
-                // 设置鼠标穿透
-                XShapeCombineRegion(display, platformHandle.Handle, Shape.Input, 0, 0, IntPtr.Zero, ShapeSet.Null);
+                var region = XCreateRegion();
+                XShapeCombineRegion(display, handel.Handle, Shape.Input, 0, 0, region, ShapeSet.Set);
+                XDestroyRegion(region);
             }
             else
             {
-                // 恢复正常鼠标交互（默认不穿透）
-                XShapeCombineRegion(display, platformHandle.Handle, Shape.Input, 0, 0, IntPtr.Zero, ShapeSet.Set);
+                XShapeCombineMask(display, handel.Handle, Shape.Input, 0, 0, IntPtr.Zero, ShapeSet.Set);
             }
-
-            XCloseDisplay(display);
         }
     }
 }

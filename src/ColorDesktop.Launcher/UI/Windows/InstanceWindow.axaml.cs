@@ -73,8 +73,18 @@ public partial class InstanceWindow : Window, IInstanceWindow
     public void Update(InstanceDataObj obj)
     {
         _obj = obj;
-        _instance.Update(obj);
+
         Topmost = _obj.TopModel;
+
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            Win32.SetTabGone(this);
+        }
+        else
+        {
+            ShowInTaskbar = false;
+        }
+
         if (SystemInfo.Os == OsType.Windows)
         {
             Win32.SetMouseThrough(this, _obj.MouseThrough);
@@ -84,10 +94,10 @@ public partial class InstanceWindow : Window, IInstanceWindow
             Linux.SetMouseThrough(this, _obj.MouseThrough);
         }
         else
-        { 
-            
+        {
+
         }
-        SetTran(obj.Tran);
+        SetTran(_obj.Tran);
 
         Dispatcher.UIThread.Post(Move);
     }
@@ -124,15 +134,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     private void InstanceWindow_Loaded(object? sender, RoutedEventArgs e)
     {
-        if (SystemInfo.Os == OsType.Windows)
-        {
-            Win32.SetTabGone(this);
-            Win32.SetMouseThrough(this, _obj.MouseThrough);
-        }
-        else
-        {
-            ShowInTaskbar = false;
-        }
+        Update(_obj);
 
         // 初始时边框透明
         HoverBorder.Opacity = 0;
@@ -221,7 +223,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         View1.Child = instance.CreateView();
         instance.Start(this);
 
-        Update(_obj);
+        _instance.Update(obj);
     }
 
     public void Move()

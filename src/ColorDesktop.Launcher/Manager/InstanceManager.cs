@@ -347,6 +347,7 @@ public static class InstanceManager
 
             control?.Close?.Invoke();
 
+            run.Instance.Update(obj);
             run.Window.Update(obj);
             obj.Save();
 
