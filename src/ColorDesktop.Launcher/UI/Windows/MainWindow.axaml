@@ -67,7 +67,7 @@
                             Content="{lang:Localize Button.Cancel}"
                             IsVisible="{Binding HaveCancel}" />
                     </StackPanel>
-                    <TabControl Margin="0,0,0,10">
+                    <TabControl Margin="0,0,0,10" Padding="0">
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock FontSize="16" Text="{lang:Localize MainWindow.Text42}" />

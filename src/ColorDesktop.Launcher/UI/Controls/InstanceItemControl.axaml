@@ -12,12 +12,11 @@
     <Panel>
         <Border Classes="t2">
             <DockPanel Margin="10">
+                <ToggleSwitch
+                    IsChecked="{Binding Enable}"
+                    OffContent=""
+                    OnContent="" />
                 <StackPanel DockPanel.Dock="Right">
-                    <ToggleSwitch
-                        Margin="5,0,0,0"
-                        IsChecked="{Binding Enable}"
-                        OffContent="{lang:Localize MainWindow.Text21}"
-                        OnContent="{lang:Localize MainWindow.Text22}" />
                     <Button
                         Width="100"
                         Height="35"
@@ -44,6 +43,10 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{lang:Localize MainWindow.Text27}" />
                         <TextBlock Text="{Binding UUID}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{lang:Localize MainWindow.Text64}" />
+                        <TextBlock Text="{Binding Comment}" />
                     </StackPanel>
                     <TextBlock
                         Foreground="Red"

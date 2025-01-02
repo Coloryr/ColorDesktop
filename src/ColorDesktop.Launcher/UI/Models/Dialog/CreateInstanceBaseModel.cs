@@ -15,6 +15,8 @@ public abstract partial class CreateInstanceBaseModel : ObservableObject
 
     [ObservableProperty]
     private string _nick;
+    [ObservableProperty]
+    private string _comment;
 
     [ObservableProperty]
     private int _left;
@@ -36,6 +38,8 @@ public abstract partial class CreateInstanceBaseModel : ObservableObject
 
     [ObservableProperty]
     private bool _topModel;
+    [ObservableProperty]
+    private bool _mouseThrough;
 
     [ObservableProperty]
     private WindowTransparencyType _tran;
@@ -52,6 +56,8 @@ public abstract partial class CreateInstanceBaseModel : ObservableObject
         _pos = obj.Pos;
         _topModel = obj.TopModel;
         _tran = obj.Tran;
+        _comment = obj.Comment;
+        _mouseThrough = obj.MouseThrough;
         MarginTo(obj);
         _maxDisplay = App.MainWindow!.Screens.ScreenCount;
         if (_display == 0 || _display > _maxDisplay)
@@ -68,6 +74,8 @@ public abstract partial class CreateInstanceBaseModel : ObservableObject
         _obj.Display = Display;
         _obj.TopModel = TopModel;
         _obj.Tran = Tran;
+        _obj.Comment = Comment;
+        _obj.MouseThrough = MouseThrough;
         ToMargin(_obj);
 
         DialogHost.Close(MainWindow.DialogHostName, true);

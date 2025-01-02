@@ -2,12 +2,41 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace ColorDesktop.Launcher.Hook;
 
-public class Linux
+public static partial class Linux
 {
+    public enum Shape
+    {
+        Bounding = 0,
+        Clip = 1,
+        Input = 2
+    }
+
+    public enum ShapeSet
+    {
+        Set = 0,
+        Union = 1,
+        Intersect = 2,
+        Subtract = 3,
+        Invert = 4,
+        Null = 5
+    }
+
+    [LibraryImport("libX11", StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr XOpenDisplay(string display);
+
+    [LibraryImport("libX11")]
+    public static partial int XCloseDisplay(IntPtr display);
+
+    [DllImport("libXext")]
+    public static extern void XShapeCombineRegion(IntPtr display, IntPtr window, Shape destKind,
+        int xOff, int yOff, IntPtr region, ShapeSet op);
+
     public static void SetLaunch(bool start)
     {
         Task.Run(() =>
@@ -66,5 +95,27 @@ public class Linux
     {
         var p = Process.Start(pg, cmd);
         p.WaitForExit();
+    }
+
+    public static void SetMouseThrough(Window window, bool enable)
+    {
+        if (window.TryGetPlatformHandle() is { } platformHandle)
+        {
+            IntPtr display = XOpenDisplay(null!);
+
+            // 定义鼠标穿透的形状
+            if (enable)
+            {
+                // 设置鼠标穿透
+                XShapeCombineRegion(display, platformHandle.Handle, Shape.Input, 0, 0, IntPtr.Zero, ShapeSet.Null);
+            }
+            else
+            {
+                // 恢复正常鼠标交互（默认不穿透）
+                XShapeCombineRegion(display, platformHandle.Handle, Shape.Input, 0, 0, IntPtr.Zero, ShapeSet.Set);
+            }
+
+            XCloseDisplay(display);
+        }
     }
 }

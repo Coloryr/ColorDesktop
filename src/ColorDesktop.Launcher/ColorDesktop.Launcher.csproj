@@ -9,6 +9,7 @@
 		<BaseOutputPath>..\build_out</BaseOutputPath>
 		<ApplicationIcon>Resource\icon.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
   
 	<ItemGroup>

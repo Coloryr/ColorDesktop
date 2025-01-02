@@ -13,7 +13,6 @@
 		<PackageProjectUrl>https://github.com/Coloryr/ColorDesktop</PackageProjectUrl>
 		<Copyright>Apache-2.0</Copyright>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageReadmeFile>dev.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/Coloryr/ColorDesktop</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>colordesktop;api;coloryr</PackageTags>
@@ -23,14 +22,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\dev.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\icon\icon.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="..\..\icon\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,13 +36,13 @@
 		<PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvaloniaVersion)" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)" />
 		<PackageReference Include="Avalonia.Skia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0.1" />
+		<PackageReference Include="Avalonia.Svg.Skia" Version="11.2.0.2" />
 		<PackageReference Include="DialogHost.Avalonia" Version="0.8.1" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0" />
 		<PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.1.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="SkiaSharp" Version="2.88.9" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
 	</ItemGroup>

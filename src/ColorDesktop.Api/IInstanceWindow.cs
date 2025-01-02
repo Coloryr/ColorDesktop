@@ -38,4 +38,10 @@ public interface IInstanceWindow
     /// <param name="level"></param>
     /// <returns></returns>
     void SetTran(WindowTransparencyType level);
+
+    /// <summary>
+    /// 设置配置
+    /// </summary>
+    /// <param name="obj"></param>
+    void Update(InstanceDataObj obj);
 }

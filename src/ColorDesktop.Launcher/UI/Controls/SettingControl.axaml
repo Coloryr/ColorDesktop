@@ -12,7 +12,7 @@
     x:DataType="vm:MainViewModel"
     mc:Ignorable="d">
     <ScrollViewer>
-        <DockPanel Margin="10">
+        <DockPanel Margin="10,10,15,10">
             <Button
                 Width="100"
                 Height="35"
@@ -73,7 +73,20 @@
                         Margin="0,0,10,0"
                         Content="{lang:Localize MainWindow.Text34}"
                         IsChecked="{Binding AutoStart}" />
-                    <CheckBox Content="{lang:Localize MainWindow.Text35}" IsChecked="{Binding AutoMin}" />
+                    <CheckBox
+                        Margin="0,0,10,0"
+                        Content="{lang:Localize MainWindow.Text35}"
+                        IsChecked="{Binding AutoMin}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Text="{lang:Localize MainWindow.Text60}" />
+                        <ComboBox
+                            Width="150"
+                            ItemsSource="{Binding TranTypes}"
+                            SelectedIndex="{Binding Type}" />
+                    </StackPanel>
                 </WrapPanel>
             </Border>
             <Border
@@ -84,11 +97,11 @@
                     <TextBlock
                         Margin="0,0,10,0"
                         VerticalAlignment="Center"
-                        Text="{lang:Localize MainWindow.Text60}" />
+                        Text="{lang:Localize MainWindow.Text63}" />
                     <ComboBox
                         Width="150"
-                        ItemsSource="{Binding TranTypes}"
-                        SelectedIndex="{Binding Type}" />
+                        ItemsSource="{Binding InstanceGroups}"
+                        SelectedIndex="{Binding GroupIndex}" />
                 </StackPanel>
             </Border>
             <Border

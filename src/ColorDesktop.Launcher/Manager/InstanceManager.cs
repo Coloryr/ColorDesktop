@@ -25,6 +25,7 @@ public static class InstanceManager
     public static readonly Dictionary<string, InstanceDataObj> Instances = [];
 
     public const string Dir2 = "instances";
+    public const string Die3 = "groups";
     public const string FileName = "instance.json";
 
     public static string WorkDir { get; private set; }
@@ -346,7 +347,7 @@ public static class InstanceManager
 
             control?.Close?.Invoke();
 
-            run.Instance.Update(obj);
+            run.Window.Update(obj);
             obj.Save();
 
             LauncherHook.InstanceUpdate(obj.Plugin, obj.UUID);

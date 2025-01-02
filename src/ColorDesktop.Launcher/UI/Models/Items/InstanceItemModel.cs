@@ -16,6 +16,7 @@ public partial class InstanceItemModel : ObservableObject
     public string Nick => _obj.Nick;
     public string Plugin => _obj.Plugin;
     public string UUID => _obj.UUID;
+    public string Comment => _obj.Comment;
 
     [ObservableProperty]
     private bool _enable;
@@ -92,6 +93,7 @@ public partial class InstanceItemModel : ObservableObject
         await InstanceManager.OpenSetting(_obj);
         Update();
         OnPropertyChanged(nameof(Nick));
+        OnPropertyChanged(nameof(Comment));
     }
 
     [RelayCommand]

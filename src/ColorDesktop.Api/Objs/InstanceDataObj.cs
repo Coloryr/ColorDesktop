@@ -76,4 +76,12 @@ public sealed record InstanceDataObj
     /// 是否在最前面显示
     /// </summary>
     public bool TopModel { get; set; }
+    /// <summary>
+    /// 备注
+    /// </summary>
+    public string Comment { get; set; }
+    /// <summary>
+    /// 鼠标穿透
+    /// </summary>
+    public bool MouseThrough { get; set; }
 }

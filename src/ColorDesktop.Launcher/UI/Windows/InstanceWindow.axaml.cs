@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -23,6 +24,8 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     private DateTime _time;
     private PixelRect _lastSize;
+
+    private CancellationTokenSource _cancel = new();
 
     public InstanceWindow()
     {
@@ -72,6 +75,18 @@ public partial class InstanceWindow : Window, IInstanceWindow
         _obj = obj;
         _instance.Update(obj);
         Topmost = _obj.TopModel;
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            Win32.SetMouseThrough(this, _obj.MouseThrough);
+        }
+        else if (SystemInfo.Os == OsType.Linux)
+        {
+            Linux.SetMouseThrough(this, _obj.MouseThrough);
+        }
+        else
+        { 
+            
+        }
         SetTran(obj.Tran);
 
         Dispatcher.UIThread.Post(Move);
@@ -79,17 +94,27 @@ public partial class InstanceWindow : Window, IInstanceWindow
 
     private void InstanceWindow_PointerExited(object? sender, PointerEventArgs e)
     {
+        _cancel.Cancel();
+        _cancel.Dispose();
+
+        _cancel = new();
+
         _display = false;
         HoverBorder.Opacity = 0;
-        UIAnimation.HideAnimation.RunAsync(HoverBorder);
+        UIAnimation.HideAnimation.RunAsync(HoverBorder, _cancel.Token);
     }
 
     private void InstanceWindow_PointerEntered(object? sender, PointerEventArgs e)
     {
+        _cancel.Cancel();
+        _cancel.Dispose();
+
+        _cancel = new();
+
         _time = DateTime.Now;
         _display = true;
         HoverBorder.Opacity = 1;
-        UIAnimation.ShowAnimation.RunAsync(HoverBorder);
+        UIAnimation.ShowAnimation.RunAsync(HoverBorder, _cancel.Token);
     }
 
     private void HoverBorder_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -102,6 +127,7 @@ public partial class InstanceWindow : Window, IInstanceWindow
         if (SystemInfo.Os == OsType.Windows)
         {
             Win32.SetTabGone(this);
+            Win32.SetMouseThrough(this, _obj.MouseThrough);
         }
         else
         {
@@ -162,8 +188,6 @@ public partial class InstanceWindow : Window, IInstanceWindow
                 _obj.Save();
             });
         };
-
-        //Dispatcher.UIThread.Post(Move);
 
         Render();
     }

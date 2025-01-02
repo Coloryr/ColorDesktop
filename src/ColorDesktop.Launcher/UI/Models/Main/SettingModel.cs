@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
@@ -15,12 +16,17 @@ public partial class MainViewModel
 {
     public string[] TranTypes { get; init; } = LangHelper.GetWindowTranTypeLang();
 
+    public ObservableCollection<string> InstanceGroups { get; init; } = [];
+
     [ObservableProperty]
     private bool _autoStart;
     [ObservableProperty]
     private bool _autoMin;
 
     private bool _load;
+
+    [ObservableProperty]
+    private int _groupIndex;
 
     [ObservableProperty]
     private WindowTransparencyType _type;

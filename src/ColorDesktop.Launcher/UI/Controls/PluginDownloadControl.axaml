@@ -10,46 +10,48 @@
     xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Main"
     x:DataType="vm:MainViewModel"
     mc:Ignorable="d">
-    <DockPanel Margin="10">
+    <DockPanel Margin="10,10,0,10">
         <TextBlock
             DockPanel.Dock="Top"
             FontSize="20"
             Text="{lang:Localize MainWindow.Text43}" />
-        <Border
-            Margin="0,10,0,5"
-            Classes="t2"
-            DockPanel.Dock="Top">
-            <DockPanel Margin="10">
-                <TextBlock VerticalAlignment="Center" Text="{lang:Localize MainWindow.Text25}" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Classes="top"
-                    Command="{Binding EditSource}"
-                    Content="{lang:Localize MainWindow.Text45}"
-                    DockPanel.Dock="Right" />
-                <Button
-                    Width="100"
-                    Height="35"
-                    Margin="5,0,0,0"
-                    Classes="top"
-                    Command="{Binding SourceReload}"
-                    Content="{lang:Localize MainWindow.Text44}"
-                    DockPanel.Dock="Right" />
-                <TextBox Text="{Binding DownloadText}" />
-            </DockPanel>
-        </Border>
         <ScrollViewer VerticalScrollBarVisibility="Visible">
-            <ItemsControl
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                ItemsSource="{Binding Downloads}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <item:PluginDownloadItemControl Margin="0,0,0,5" DataContext="{Binding}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <StackPanel Margin="0,0,15,0">
+                <Border
+                    Margin="0,10,0,5"
+                    Classes="t2"
+                    DockPanel.Dock="Top">
+                    <DockPanel Margin="10">
+                        <TextBlock VerticalAlignment="Center" Text="{lang:Localize MainWindow.Text25}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Classes="top"
+                            Command="{Binding EditSource}"
+                            Content="{lang:Localize MainWindow.Text45}"
+                            DockPanel.Dock="Right" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            Margin="5,0,0,0"
+                            Classes="top"
+                            Command="{Binding SourceReload}"
+                            Content="{lang:Localize MainWindow.Text44}"
+                            DockPanel.Dock="Right" />
+                        <TextBox Text="{Binding DownloadText}" />
+                    </DockPanel>
+                </Border>
+                <ItemsControl
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ItemsSource="{Binding Downloads}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <item:PluginDownloadItemControl Margin="0,0,0,5" DataContext="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

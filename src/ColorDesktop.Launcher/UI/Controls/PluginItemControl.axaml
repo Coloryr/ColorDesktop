@@ -13,14 +13,15 @@
     <Panel>
         <Border Classes="t2">
             <DockPanel Margin="10">
-                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
+                <Decorator Width="50">
                     <ToggleSwitch
-                        Margin="5,0,0,0"
                         IsChecked="{Binding Enable}"
                         IsEnabled="{Binding CanEnable}"
                         IsVisible="{Binding CanEnable}"
-                        OffContent="{lang:Localize MainWindow.Text13}"
-                        OnContent="{lang:Localize MainWindow.Text14}" />
+                        OffContent=""
+                        OnContent="" />
+                </Decorator>
+                <StackPanel VerticalAlignment="Center" DockPanel.Dock="Right">
                     <Button
                         Width="100"
                         Height="35"
@@ -39,15 +40,20 @@
                         IsVisible="{Binding HaveSetting}" />
                 </StackPanel>
                 <Image
-                    Width="100"
-                    Height="100"
+                    Width="70"
+                    Height="70"
                     Source="{Binding Image^}" />
                 <StackPanel Margin="10,0,0,0">
-                    <TextBlock Text="{Binding ID}" />
-                    <TextBlock Text="{Binding Name}" />
-                    <TextBlock Text="{Binding Auther}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ID}" />
+                        <TextBlock Margin="5,0,0,0" Text="{Binding Version}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Margin="5,0,0,0" Text="{Binding Auther}" />
+                    </StackPanel>
                     <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
-                    <TextBlock Text="{Binding Version}" />
+
                     <TextBlock
                         Foreground="Red"
                         IsVisible="{Binding EnableFail, FallbackValue=false}"

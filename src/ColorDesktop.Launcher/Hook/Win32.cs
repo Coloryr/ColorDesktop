@@ -36,6 +36,9 @@ public static class Win32
     public const uint WS_VISIBLE = 0x10000000;
     public const uint WS_EX_APPWINDOW = 0x00040000;
 
+    public const uint WS_EX_TRANSPARENT = 0x20; // 鼠标穿透
+    public const uint WS_EX_LAYERED = 0x80000; // 分层窗口
+
     [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowLongW", ExactSpelling = true)]
     private static extern uint SetWindowLong32b(IntPtr hWnd, int nIndex, uint value);
 
@@ -95,6 +98,26 @@ public static class Win32
             temp &= ~WS_EX_APPWINDOW;
 
             SetWindowLong(hwnd, (int)WindowLongParam.GWL_EXSTYLE, temp);
+        }
+    }
+
+    public static void SetMouseThrough(Window window, bool enable)
+    {
+        if (window.TryGetPlatformHandle() is { } platformHandle)
+        {
+            var hwnd = platformHandle.Handle;
+            var temp = GetWindowLong(hwnd, (int)WindowLongParam.GWL_EXSTYLE);
+
+            if (enable)
+            {
+                // 启用鼠标穿透
+                SetWindowLong(hwnd, (int)WindowLongParam.GWL_EXSTYLE, temp | WS_EX_TRANSPARENT | WS_EX_LAYERED);
+            }
+            else
+            {
+                // 禁用鼠标穿透
+                SetWindowLong(hwnd, (int)WindowLongParam.GWL_EXSTYLE, temp & ~WS_EX_TRANSPARENT);
+            }
         }
     }
 }
