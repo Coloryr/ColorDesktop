@@ -51,11 +51,6 @@ public partial class App : Application
         MainWindow.WindowState = WindowState.Normal;
         MainWindow.Show();
         MainWindow.Activate();
-
-        if (SystemInfo.Os == OsType.Windows)
-        {
-            Win32.SetHook();
-        }
     }
 
     public static async void Exit()

@@ -159,46 +159,48 @@ public partial class InstanceWindow : Window, IInstanceWindow
             _lastSize = screen.WorkingArea;
         }
 
-        PositionChanged += (a, b) =>
+        PositionChanged += InstanceWindow_PositionChanged;
+
+        Render();
+    }
+
+    private void InstanceWindow_PositionChanged(object? sender, PixelPointEventArgs e)
+    {
+        if (_update || _obj == null)
         {
-            if (_update || _obj == null)
+            return;
+        }
+        Dispatcher.UIThread.Post(() =>
+        {
+            // 获取当前屏幕
+            var screen = GetTargetScreen();
+            if (screen == null)
             {
                 return;
             }
-            Dispatcher.UIThread.Post(() =>
+            var workArea = screen.WorkingArea;
+            if (workArea != _lastSize)
             {
-                // 获取当前屏幕
-                var screen = GetTargetScreen();
-                if (screen == null)
+                _lastSize = workArea;
+                Move();
+                return;
+            }
+            for (int i = 0; i < Screens.All.Count; i++)
+            {
+                if (Screens.All[i] == screen)
                 {
-                    return;
+                    _obj.Display = i + 1;
+                    break;
                 }
-                var workArea = screen.WorkingArea;
-                if (workArea != _lastSize)
-                {
-                    _lastSize = workArea;
-                    Move();
-                    return;
-                }
-                for (int i = 0; i < Screens.All.Count; i++)
-                {
-                    if (Screens.All[i] == screen)
-                    {
-                        _obj.Display = i + 1;
-                        break;
-                    }
-                }
-                // 计算新的 Margin
-                _obj.Margin.Left = Position.X - workArea.X;
-                _obj.Margin.Top = Position.Y - workArea.Y;
-                _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
-                _obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
+            }
+            // 计算新的 Margin
+            _obj.Margin.Left = Position.X - workArea.X;
+            _obj.Margin.Top = Position.Y - workArea.Y;
+            _obj.Margin.Right = workArea.X + workArea.Width - (Position.X + (int)Width);
+            _obj.Margin.Bottom = workArea.Y + workArea.Height - (Position.Y + (int)Height);
 
-                _obj.Save();
-            });
-        };
-
-        Render();
+            _obj.Save();
+        });
     }
 
     private void Render()
