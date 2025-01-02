@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Avalonia.Controls;
+using ColorDesktop.Launcher.Manager;
 using Microsoft.Win32;
 
 namespace ColorDesktop.Launcher.Hook;
 
 public static class Win32
 {
+#pragma warning disable CA1416 // 验证平台兼容性
+    public static void SetHook()
+    {
+        // 订阅屏幕分辨率变化事件
+        SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged; ;
+    }
+
+    private static void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
+    {
+        InstanceManager.Move();
+    }
+
     public static void SetLaunch(bool add)
     {
-#pragma warning disable CA1416 // 验证平台兼容性
         var registryKey = Registry.CurrentUser.OpenSubKey
      ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         if (registryKey == null)

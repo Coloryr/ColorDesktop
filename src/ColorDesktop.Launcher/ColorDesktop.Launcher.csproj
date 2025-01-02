@@ -48,6 +48,7 @@
 		<PackageReference Include="DotNetty.Buffers" Version="0.7.6" />
 		<PackageReference Include="DotNetty.Common" Version="0.7.6" />
 		<PackageReference Include="DotNetty.Handlers" Version="0.7.6" />
+		<PackageReference Include="Microsoft.Win32.SystemEvents" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -40,6 +40,13 @@ public partial class InstanceWindow : Window, IInstanceWindow
         Resized += InstanceWindow_Resized;
 
         HoverBorder.PointerPressed += HoverBorder_PointerPressed;
+
+        Screens.Changed += Screens_Changed;
+    }
+
+    private void Screens_Changed(object? sender, EventArgs e)
+    {
+        Move();
     }
 
     private void InstanceWindow_Resized(object? sender, WindowResizedEventArgs e)

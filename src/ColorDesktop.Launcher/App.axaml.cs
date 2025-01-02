@@ -9,6 +9,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
+using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
@@ -50,6 +51,11 @@ public partial class App : Application
         MainWindow.WindowState = WindowState.Normal;
         MainWindow.Show();
         MainWindow.Activate();
+
+        if (SystemInfo.Os == OsType.Windows)
+        {
+            Win32.SetHook();
+        }
     }
 
     public static async void Exit()
