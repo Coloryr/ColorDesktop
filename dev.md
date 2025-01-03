@@ -144,7 +144,7 @@ new AnalogClockPlugin.AnalogClockPlugin().LoadLang(LanguageType.zh_cn);
     //组件版本号
     "Version": "1.0.0",
     //API版本号
-    "ApiVersion": "4"
+    "ApiVersion": "5"
 }
 ```
 然后设置编译后设置`编译后复制`，或者在工程内加入这段

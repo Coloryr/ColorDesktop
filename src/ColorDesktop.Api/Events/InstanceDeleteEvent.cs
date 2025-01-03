@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ColorDesktop.Api.Events;
 
-public class InstanceDeleteEvent(string plugin, string uuid) : InstanceEvent(plugin, uuid)
+public class InstanceDeleteEvent(string plugin, string? group, string uuid) : InstanceEvent(plugin, group, uuid)
 {
 
 }

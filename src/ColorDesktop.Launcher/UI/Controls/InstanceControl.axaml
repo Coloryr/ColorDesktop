@@ -47,6 +47,10 @@
                     Classes="t2"
                     DockPanel.Dock="Top">
                     <DockPanel Margin="10">
+                        <TextBlock
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="{lang:Localize MainWindow.Text65}" />
                         <Button
                             Width="100"
                             Height="35"
@@ -55,6 +59,36 @@
                             Command="{Binding LoadInstanceData}"
                             Content="{lang:Localize MainWindow.Text12}"
                             DockPanel.Dock="Right" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            VerticalAlignment="Center"
+                            Classes="top"
+                            Command="{Binding CreateGroup}"
+                            Content="{lang:Localize MainWindow.Text67}"
+                            DockPanel.Dock="Right" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            VerticalAlignment="Center"
+                            Classes="top"
+                            Command="{Binding DeleteGroup}"
+                            Content="{lang:Localize MainWindow.Text68}"
+                            DockPanel.Dock="Right" />
+                        <ComboBox
+                            Width="120"
+                            Height="35"
+                            Margin="0,0,5,0"
+                            DisplayMemberBinding="{Binding Name}"
+                            ItemsSource="{Binding InstanceGroups}"
+                            SelectedIndex="{Binding GroupIndex}" />
+                    </DockPanel>
+                </Border>
+                <Border
+                    Margin="0,0,0,5"
+                    Classes="t2"
+                    DockPanel.Dock="Top">
+                    <DockPanel Margin="10">
                         <ComboBox
                             Width="120"
                             Height="35"

@@ -73,25 +73,25 @@ public static class ConfigHelper
         SaveConfig();
     }
 
-    public static void EnableInstance(string id)
+    public static void EnableInstance(string uuid)
     {
-        if (Config.EnableInstance.Contains(id))
+        if (Config.EnableInstance.Contains(uuid))
         {
             return;
         }
 
-        Config.EnableInstance.Add(id);
+        Config.EnableInstance.Add(uuid);
         SaveConfig();
     }
 
-    public static void DisableInstance(string id)
+    public static void DisableInstance(string uuid)
     {
-        if (!Config.EnableInstance.Contains(id))
+        if (!Config.EnableInstance.Contains(uuid))
         {
             return;
         }
 
-        Config.EnableInstance.Remove(id);
+        Config.EnableInstance.Remove(uuid);
         SaveConfig();
     }
 

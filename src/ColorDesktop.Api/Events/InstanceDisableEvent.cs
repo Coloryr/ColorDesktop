@@ -11,7 +11,7 @@ namespace ColorDesktop.Api.Events;
 /// </summary>
 /// <param name="plugin"></param>
 /// <param name="uuid"></param>
-public class InstanceDisableEvent(string plugin, string uuid) : InstanceEvent(plugin, uuid)
+public class InstanceDisableEvent(string plugin, string? group, string uuid) : InstanceEvent(plugin, group, uuid)
 {
 
 }

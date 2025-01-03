@@ -19,6 +19,7 @@ public static class InstanceManager
 {
     public static readonly Dictionary<string, InstanceWindowObj> RunInstances = [];
     public static readonly Dictionary<string, InstanceState> InstanceStates = [];
+    public static readonly Dictionary<string, GroupObj> Groups = [];
 
     public static readonly HashSet<string> KnowUUID = [];
 
@@ -29,6 +30,9 @@ public static class InstanceManager
     public const string FileName = "instance.json";
 
     public static string WorkDir { get; private set; }
+    public static string GroupDir { get; private set; }
+
+    public static string? NowGroup { get; private set; }
 
     /// <summary>
     /// 加载所有实例
@@ -86,6 +90,33 @@ public static class InstanceManager
         {
             ConfigHelper.Config.EnableInstance.Remove(item1);
         }
+
+        LoadGroups();
+    }
+
+    private static void LoadGroups()
+    {
+        GroupDir = Path.GetFullPath(Program.RunDir + Die3);
+        Directory.CreateDirectory(GroupDir);
+        var info = new DirectoryInfo(GroupDir);
+
+        foreach (var item in info.GetFiles())
+        {
+            try
+            {
+                var obj = JsonConvert.DeserializeObject<GroupObj>(File.ReadAllText(item.FullName));
+                if (obj != null && !string.IsNullOrWhiteSpace(obj.UUID)
+                    && !string.IsNullOrWhiteSpace(obj.Name))
+                {
+                    KnowUUID.Add(obj.UUID);
+                    Groups[obj.UUID] = obj;
+                }
+            }
+            catch (Exception e)
+            {
+                Logs.Error("load group error", e);
+            }
+        }
     }
 
     /// <summary>
@@ -93,19 +124,133 @@ public static class InstanceManager
     /// </summary>
     public static void StartInstance()
     {
-        foreach (var item in ConfigHelper.Config.EnableInstance)
+        if (!string.IsNullOrWhiteSpace(ConfigHelper.Config.Group)
+            && Groups.TryGetValue(ConfigHelper.Config.Group, out var group))
         {
-            if (Instances.TryGetValue(item, out var obj))
+            NowGroup = group.UUID;
+            foreach (var item in group.Enables)
             {
-                if (RunInstances.ContainsKey(item))
+                if (Instances.TryGetValue(item, out var obj))
                 {
-                    continue;
+                    if (RunInstances.ContainsKey(item))
+                    {
+                        continue;
+                    }
+                    StartInstance(obj);
                 }
-                StartInstance(obj);
+            }
+        }
+        else
+        {
+            NowGroup = null;
+            foreach (var item in ConfigHelper.Config.EnableInstance)
+            {
+                if (Instances.TryGetValue(item, out var obj))
+                {
+                    if (RunInstances.ContainsKey(item))
+                    {
+                        continue;
+                    }
+                    StartInstance(obj);
+                }
+            }
+        }
+        
+        App.ThisApp.UpdateMenu();
+    }
+
+    public static void CreateGroup(string name)
+    {
+        string uuid = MakeUUID();
+      
+        var obj = new GroupObj()
+        {
+            Name = name,
+            UUID = uuid
+        };
+
+        Groups[uuid] = obj;
+        obj.Save();
+
+        SwitchGroup(uuid);
+    }
+
+    public static void DeleteGroupUUID(string uuid)
+    {
+        if (NowGroup == uuid)
+        {
+            SwitchGroup(null);
+        }
+        var file = Path.GetFullPath(GroupDir + "/" + uuid + ".json");
+        if (File.Exists(file))
+        {
+            File.Delete(file);
+        }
+
+        Groups.Remove(uuid);
+    }
+
+    public static void Save(this GroupObj group)
+    {
+        var file = Path.GetFullPath(GroupDir + "/" + group.UUID + ".json");
+
+        ConfigSave.AddItem(new()
+        {
+            Name = "Group " + group.UUID,
+            Local = file,
+            Obj = group
+        });
+    }
+
+    public static void SwitchGroup(string? uuid)
+    {
+        if (string.IsNullOrWhiteSpace(uuid))
+        {
+            NowGroup = null;
+            foreach (var item in RunInstances)
+            {
+                if (!ConfigHelper.Config.EnableInstance.Contains(item.Key))
+                {
+                    StopInstance(item.Value);
+                }
+            }
+            foreach (var item in ConfigHelper.Config.EnableInstance)
+            {
+                if (Instances.TryGetValue(item, out var obj))
+                {
+                    if (RunInstances.ContainsKey(item))
+                    {
+                        continue;
+                    }
+                    StartInstance(obj);
+                }
+            }
+        }
+        else if(Groups.TryGetValue(uuid, out var group))
+        {
+            NowGroup = uuid;
+            foreach (var item in RunInstances)
+            {
+                if (!group.Enables.Contains(item.Key))
+                {
+                    StopInstance(item.Value);
+                }
+            }
+            foreach (var item in group.Enables)
+            {
+                if (Instances.TryGetValue(item, out var obj))
+                {
+                    if (RunInstances.ContainsKey(item))
+                    {
+                        continue;
+                    }
+                    StartInstance(obj);
+                }
             }
         }
 
-        App.ThisApp.UpdateMenu();
+        ConfigHelper.Config.Group = NowGroup;
+        ConfigHelper.SaveConfig();
     }
 
     /// <summary>
@@ -154,7 +299,7 @@ public static class InstanceManager
 
             App.ThisApp.UpdateMenu();
 
-            LauncherHook.InstanceCreate(config.Plugin, config.UUID);
+            LauncherHook.InstanceCreate(config.Plugin, NowGroup, config.UUID);
         }
     }
 
@@ -177,8 +322,16 @@ public static class InstanceManager
     {
         obj.Save();
         Instances.Add(obj.UUID, obj);
-        KnowUUID.Add(obj.UUID);
-        ConfigHelper.EnableInstance(obj.UUID);
+        if (NowGroup != null && Groups.TryGetValue(NowGroup, out var group))
+        {
+            group.Instances.Add(obj.UUID);
+            group.Enables.Add(obj.UUID);
+            group.Save();
+        }
+        else
+        {
+            ConfigHelper.EnableInstance(obj.UUID);
+        }
     }
 
     /// <summary>
@@ -217,14 +370,14 @@ public static class InstanceManager
     }
 
     /// <summary>
-    /// 停止改实例
+    /// 停止实例
     /// </summary>
     /// <param name="instance"></param>
     private static void StopInstance(InstanceWindowObj instance)
     {
         try
         {
-            LauncherHook.InstanceDisable(instance.InstanceData.Plugin, instance.InstanceData.UUID);
+            LauncherHook.InstanceDisable(instance.InstanceData.Plugin, NowGroup, instance.InstanceData.UUID);
 
             RunInstances.Remove(instance.InstanceData.UUID);
 
@@ -280,7 +433,16 @@ public static class InstanceManager
     /// <param name="obj"></param>
     public static void EnableInstance(InstanceDataObj obj)
     {
-        ConfigHelper.EnableInstance(obj.UUID);
+        if (NowGroup != null && Groups.TryGetValue(NowGroup, out var group))
+        {
+            group.Instances.Add(obj.UUID);
+            group.Enables.Add(obj.UUID);
+            group.Save();
+        }
+        else
+        {
+            ConfigHelper.EnableInstance(obj.UUID);
+        }
 
         StartInstance(obj);
 
@@ -308,7 +470,15 @@ public static class InstanceManager
     /// <param name="obj"></param>
     public static void DisableInstance(InstanceDataObj obj)
     {
-        ConfigHelper.DisableInstance(obj.UUID);
+        if (NowGroup != null && Groups.TryGetValue(NowGroup, out var group))
+        {
+            group.Enables.Remove(obj.UUID);
+            group.Save();
+        }
+        else
+        {
+            ConfigHelper.DisableInstance(obj.UUID);
+        }
 
         StopInstance(obj.UUID);
 
@@ -351,7 +521,7 @@ public static class InstanceManager
             run.Window.Update(obj);
             obj.Save();
 
-            LauncherHook.InstanceUpdate(obj.Plugin, obj.UUID);
+            LauncherHook.InstanceUpdate(obj.Plugin, NowGroup, obj.UUID);
         }
     }
 
@@ -410,7 +580,7 @@ public static class InstanceManager
             uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
         }
         while (KnowUUID.Contains(uuid));
-
+        KnowUUID.Add(uuid);
         return uuid;
     }
 
@@ -447,7 +617,7 @@ public static class InstanceManager
 
                 SetInstanceState(obj.UUID, InstanceState.Enable);
 
-                LauncherHook.InstanceEnable(obj.Plugin, obj.UUID);
+                LauncherHook.InstanceEnable(obj.Plugin, NowGroup, obj.UUID);
             }
             else
             {
@@ -494,7 +664,16 @@ public static class InstanceManager
             dir.Delete(true);
         }
 
-        LauncherHook.InstanceDelete(plugin, uuid);
+        foreach (var item in Groups.Values)
+        {
+            item.Instances.Remove(uuid);
+            item.Enables.Remove(uuid);
+            item.Save();
+        }
+
+        ConfigHelper.DisableInstance(uuid);
+
+        LauncherHook.InstanceDelete(plugin, NowGroup, uuid);
 
         InstanceStates.Remove(uuid);
         Instances.Remove(uuid);

@@ -90,6 +90,9 @@
             <DataTemplate DataType="dialogmodel:PluginSourceModel">
                 <dialogview:PluginSourceControl DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="dialogmodel:InputModel">
+                <dialogview:InputControl DataContext="{Binding}" />
+            </DataTemplate>
             <DataTemplate DataType="dialogmodel:PluginSettingModel">
                 <DockPanel>
                     <Button

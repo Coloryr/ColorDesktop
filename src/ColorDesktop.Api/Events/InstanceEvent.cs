@@ -11,7 +11,7 @@ namespace ColorDesktop.Api.Events;
 /// </summary>
 /// <param name="plugin"></param>
 /// <param name="uuid"></param>
-public abstract class InstanceEvent(string plugin, string uuid) : BaseEvent
+public abstract class InstanceEvent(string plugin, string? group, string uuid) : BaseEvent
 {
     /// <summary>
     /// 组件ID
@@ -21,5 +21,9 @@ public abstract class InstanceEvent(string plugin, string uuid) : BaseEvent
     /// 实例UUID
     /// </summary>
     public string UUID => uuid;
+    /// <summary>
+    /// 实例分组
+    /// </summary>
+    public string? Group => group;
 }
 

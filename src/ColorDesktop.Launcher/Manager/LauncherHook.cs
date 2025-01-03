@@ -8,29 +8,29 @@ namespace ColorDesktop.Launcher.Manager;
 
 internal class LauncherHook : ILauncherHook
 {
-    public static void InstanceEnable(string plugin, string uuid)
+    public static void InstanceEnable(string plugin, string? group, string uuid)
     {
-        LauncherApi.CallEvent(new InstanceEnableEvent(plugin, uuid));
+        LauncherApi.CallEvent(new InstanceEnableEvent(plugin, group, uuid));
     }
 
-    public static void InstanceDisable(string plugin, string uuid)
+    public static void InstanceDisable(string plugin, string? group, string uuid)
     {
-        LauncherApi.CallEvent(new InstanceDisableEvent(plugin, uuid));
+        LauncherApi.CallEvent(new InstanceDisableEvent(plugin, group, uuid));
     }
 
-    public static void InstanceCreate(string plugin, string uuid)
+    public static void InstanceCreate(string plugin, string? group, string uuid)
     {
-        LauncherApi.CallEvent(new InstanceCreateEvent(plugin, uuid));
+        LauncherApi.CallEvent(new InstanceCreateEvent(plugin, group, uuid));
     }
 
-    public static void InstanceUpdate(string plugin, string uuid)
+    public static void InstanceUpdate(string plugin, string? group, string uuid)
     {
-        LauncherApi.CallEvent(new InstanceUpdateEvent(plugin, uuid));
+        LauncherApi.CallEvent(new InstanceUpdateEvent(plugin, group, uuid));
     }
 
-    public static void InstanceDelete(string plugin, string uuid)
+    public static void InstanceDelete(string plugin, string? group, string uuid)
     {
-        LauncherApi.CallEvent(new InstanceDeleteEvent(plugin, uuid));
+        LauncherApi.CallEvent(new InstanceDeleteEvent(plugin, group, uuid));
     }
 
     public static void PluginReload()

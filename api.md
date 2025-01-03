@@ -1,6 +1,27 @@
 # API版本说明
 这里的API指的是`ColorDesktop.Api`
 
+# Version5
+`InstanceDataObj` 新增
+```C#
+/// <summary>
+/// 备注
+/// </summary>
+public string Comment { get; set; }
+/// <summary>
+/// 鼠标穿透
+/// </summary>
+public bool MouseThrough { get; set; }
+```
+
+`InstanceEvent` 新增
+```C#
+/// <summary>
+/// 实例分组
+/// </summary>
+public string? Group => group;
+```
+
 # Version4
 `IInstance` 添加新接口
 ```C#

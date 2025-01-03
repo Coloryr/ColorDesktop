@@ -1,0 +1,42 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.Dialog.InputControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Dialog"
+    x:DataType="vm:InputModel"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,20"
+            HorizontalAlignment="Center"
+            Text="{Binding Text}"
+            TextWrapping="Wrap" />
+        <TextBox
+            Width="200"
+            Margin="0,0,0,20"
+            HorizontalAlignment="Center"
+            Text="{Binding Input}"
+            TextWrapping="Wrap" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="35"
+                Margin="0,0,0,0"
+                Classes="top"
+                Command="{Binding Confirm}"
+                Content="{lang:Localize Button.Confirm}" />
+            <Button
+                Width="100"
+                Height="35"
+                Margin="20,0,0,0"
+                Classes="top"
+                Command="{Binding Cancel}"
+                Content="{lang:Localize Button.Cancel}"
+                IsVisible="{Binding HaveCancel}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

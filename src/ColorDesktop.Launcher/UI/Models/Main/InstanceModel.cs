@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
@@ -16,9 +17,17 @@ namespace ColorDesktop.Launcher.UI.Models.Main;
 
 public partial class MainViewModel
 {
+    public record GroupItemModel
+    { 
+        public string Name { get; set; }
+        public string UUID { get; set; }
+    }
+
     public string[] TypeInstanceNames { get; init; } = LangHelper.GetInstanceTypeLang();
 
     public ObservableCollection<InstanceItemModel> Instances { get; init; } = [];
+
+    public ObservableCollection<GroupItemModel> InstanceGroups { get; init; } = [];
 
     private readonly List<InstanceItemModel> _instances = [];
 
@@ -35,24 +44,132 @@ public partial class MainViewModel
     private int _selectInstanceType;
 
     [ObservableProperty]
+    private int _groupIndex;
+
+    [ObservableProperty]
     private string _selectInstanceName;
+
+    private bool _instanceLoad;
 
     partial void OnSelectInstanceNameChanged(string value)
     {
         LoadInstanceList();
     }
 
+    partial void OnGroupIndexChanged(int value)
+    {
+        if (_instanceLoad)
+        {
+            return;
+        }
+
+        InstanceManager.SwitchGroup(InstanceGroups[GroupIndex].UUID);
+
+        LoadInstances();
+        LoadInstanceList();
+    }
+
+    [RelayCommand]
+    public async Task CreateGroup()
+    {
+        var obj = new InputModel()
+        { 
+            Text = LangApi.GetLang("MainWindow.Text69")
+        };
+        var res = await DialogHost.Show(obj, MainWindow.DialogHostName);
+        if (res is true)
+        {
+            if (string.IsNullOrWhiteSpace(obj.Input))
+            {
+                return;
+            }
+
+            InstanceManager.CreateGroup(obj.Input);
+            LoadInstanceData();
+        }
+    }
+
+    [RelayCommand]
+    public async Task DeleteGroup()
+    {
+        if (GroupIndex == 0)
+        {
+            await DialogHost.Show(new ChoiseModel()
+            { 
+                Text = LangApi.GetLang("MainWindow.Text71"),
+                HaveCancel = false
+            }, MainWindow.DialogHostName);
+            return;
+        }
+        var item = InstanceGroups[GroupIndex];
+        var obj = new ChoiseModel()
+        {
+            Text = string.Format(LangApi.GetLang("MainWindow.Text70"), item.Name)
+        };
+        var res = await DialogHost.Show(obj, MainWindow.DialogHostName);
+        if (res is true)
+        {
+            InstanceManager.DeleteGroupUUID(item.UUID);
+            LoadInstanceData();
+        }
+    }
+
     [RelayCommand]
     public void LoadInstanceData()
     {
-        _instances.Clear();
+        _instanceLoad = true;
 
         LoadInstanceCount();
-        foreach (var item in InstanceManager.Instances)
+
+        InstanceGroups.Clear();
+        InstanceGroups.Add(new() { Name = LangApi.GetLang("MainWindow.Text66") });
+
+        foreach (var item in InstanceManager.Groups)
         {
-            _instances.Add(new InstanceItemModel(this, item.Value));
-        };
+            InstanceGroups.Add(new() { UUID = item.Key, Name = item.Value.Name });
+        }
+
+        GroupIndex = 0;
+        if (!string.IsNullOrWhiteSpace(ConfigHelper.Config.Group))
+        {
+            for (int a = 1; a < InstanceGroups.Count; a++)
+            {
+                var item = InstanceGroups[a];
+                if (item.UUID == ConfigHelper.Config.Group)
+                {
+                    GroupIndex = a;
+                    break;
+                }
+            }
+        }
+
+        LoadInstances();
         LoadInstanceList();
+
+        _instanceLoad = false;
+    }
+
+    private void LoadInstances()
+    {
+        _instances.Clear();
+        if (GroupIndex == 0)
+        {
+            foreach (var item in InstanceManager.Instances)
+            {
+                _instances.Add(new InstanceItemModel(this, item.Value));
+            };
+        }
+        else
+        {
+            var group = InstanceManager.Groups[InstanceGroups[GroupIndex].UUID];
+            foreach (var item in InstanceManager.Instances)
+            {
+                if (group.Instances.Contains(item.Key))
+                {
+                    _instances.Add(new InstanceItemModel(this, item.Value));
+                }
+            };
+        }
     }
 
     private void LoadInstanceList()

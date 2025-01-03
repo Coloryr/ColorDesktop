@@ -16,17 +16,12 @@ public partial class MainViewModel
 {
     public string[] TranTypes { get; init; } = LangHelper.GetWindowTranTypeLang();
 
-    public ObservableCollection<string> InstanceGroups { get; init; } = [];
-
     [ObservableProperty]
     private bool _autoStart;
     [ObservableProperty]
     private bool _autoMin;
 
     private bool _load;
-
-    [ObservableProperty]
-    private int _groupIndex;
 
     [ObservableProperty]
     private WindowTransparencyType _type;
