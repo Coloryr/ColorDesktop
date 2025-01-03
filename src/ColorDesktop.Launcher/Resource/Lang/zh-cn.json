@@ -73,6 +73,8 @@
   "MainWindow.Text69": "实例分组名字",
   "MainWindow.Text70": "是否删除分组 {0}",
   "MainWindow.Text71": "无法删除默认分组",
+  "MainWindow.Text72": "选择需要导入的实例",
+  "MainWindow.Text73": "导入实例",
   "MainWindow.Info1": "是否要启用该实例",
   "MainWindow.Info2": "是否要禁用该实例",
   "MainWindow.Info3": "是否要启用该组件",

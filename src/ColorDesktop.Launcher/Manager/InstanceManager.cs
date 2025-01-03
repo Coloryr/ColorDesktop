@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Events;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -108,6 +110,8 @@ public static class InstanceManager
                 if (obj != null && !string.IsNullOrWhiteSpace(obj.UUID)
                     && !string.IsNullOrWhiteSpace(obj.Name))
                 {
+                    obj.Instances ??= [];
+                    obj.Enables ??= [];
                     KnowUUID.Add(obj.UUID);
                     Groups[obj.UUID] = obj;
                 }
@@ -117,6 +121,8 @@ public static class InstanceManager
                 Logs.Error("load group error", e);
             }
         }
+
+        NowGroup = ConfigHelper.Config.Group;
     }
 
     /// <summary>
@@ -124,8 +130,7 @@ public static class InstanceManager
     /// </summary>
     public static void StartInstance()
     {
-        if (!string.IsNullOrWhiteSpace(ConfigHelper.Config.Group)
-            && Groups.TryGetValue(ConfigHelper.Config.Group, out var group))
+        if (NowGroup != null && Groups.TryGetValue(NowGroup, out var group))
         {
             NowGroup = group.UUID;
             foreach (var item in group.Enables)
@@ -166,21 +171,30 @@ public static class InstanceManager
         var obj = new GroupObj()
         {
             Name = name,
-            UUID = uuid
+            UUID = uuid,
+            Enables = [],
+            Instances = []
         };
 
         Groups[uuid] = obj;
         obj.Save();
+
+        LauncherApi.CallEvent(new GroupAddEvent(uuid));
 
         SwitchGroup(uuid);
     }
 
     public static void DeleteGroupUUID(string uuid)
     {
+        if (string.IsNullOrWhiteSpace(uuid) || !Groups.ContainsKey(uuid))
+        {
+            return;
+        }
         if (NowGroup == uuid)
         {
             SwitchGroup(null);
         }
+        
         var file = Path.GetFullPath(GroupDir + "/" + uuid + ".json");
         if (File.Exists(file))
         {
@@ -188,6 +202,8 @@ public static class InstanceManager
         }
 
         Groups.Remove(uuid);
+
+        LauncherApi.CallEvent(new GroupDeleteEvent(uuid));
     }
 
     public static void Save(this GroupObj group)
@@ -200,6 +216,15 @@ public static class InstanceManager
             Local = file,
             Obj = group
         });
+    }
+
+    public static void GroupImportInstance(string uuid, List<string> list)
+    {
+        if (Groups.TryGetValue(uuid, out var group))
+        {
+            group.Instances.AddRange(list);
+            group.Save();
+        }
     }
 
     public static void SwitchGroup(string? uuid)
@@ -248,6 +273,8 @@ public static class InstanceManager
                 }
             }
         }
+
+        LauncherApi.CallEvent(new GroupSwitchEvent(NowGroup));
 
         ConfigHelper.Config.Group = NowGroup;
         ConfigHelper.SaveConfig();
@@ -315,6 +342,22 @@ public static class InstanceManager
     }
 
     /// <summary>
+    /// 拷贝分组
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static GroupObj Copy(this GroupObj obj)
+    {
+        return new GroupObj()
+        {
+            Name = obj.Name,
+            UUID = obj.UUID,
+            Instances = [.. obj.Instances],
+            Enables = [.. obj.Enables]
+        };
+    }
+
+    /// <summary>
     /// 创建一个实例
     /// </summary>
     /// <param name="obj"></param>
@@ -364,8 +407,6 @@ public static class InstanceManager
         if (RunInstances.TryGetValue(uuid, out var instance))
         {
             StopInstance(instance);
-
-            SetInstanceState(uuid, InstanceState.Disable);
         }
     }
 
@@ -390,6 +431,8 @@ public static class InstanceManager
         {
             Logs.Error(string.Format("实例 {0} 停止失败", instance.InstanceData.UUID), e);
         }
+
+        SetInstanceState(instance.InstanceData.UUID, InstanceState.Disable);
     }
 
     /// <summary>
@@ -400,11 +443,24 @@ public static class InstanceManager
     {
         var list = Instances.Where(item => item.Value.Plugin == id).Select(item => item.Value).ToList();
 
-        foreach (var item in list)
+        if (NowGroup != null && Groups.TryGetValue(NowGroup, out var group))
         {
-            if (ConfigHelper.Config.EnableInstance.Contains(item.UUID))
+            foreach (var item in list)
             {
-                StartInstance(item);
+                if (group.Enables.Contains(item.UUID))
+                {
+                    StartInstance(item);
+                }
+            }
+        }
+        else
+        {
+            foreach (var item in list)
+            {
+                if (ConfigHelper.Config.EnableInstance.Contains(item.UUID))
+                {
+                    StartInstance(item);
+                }
             }
         }
 

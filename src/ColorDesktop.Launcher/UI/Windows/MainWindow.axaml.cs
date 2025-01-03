@@ -40,7 +40,7 @@ public partial class MainWindow : Window
     private void MainWindow_Loaded(object? sender, RoutedEventArgs e)
     {
         PluginManager.StartPlugin();
-        InstanceManager.StartInstance();
+        //InstanceManager.StartInstance();
 
         ConfigHelper.SaveConfig();
 

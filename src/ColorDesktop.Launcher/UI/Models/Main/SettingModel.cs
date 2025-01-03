@@ -123,6 +123,8 @@ public partial class MainViewModel
     {
         _load = true;
 
+        LoadGroup();
+
         AutoStart = ConfigHelper.Config.AutoStart;
         AutoMin = ConfigHelper.Config.AutoMin;
         Type = ConfigHelper.Config.Tran;

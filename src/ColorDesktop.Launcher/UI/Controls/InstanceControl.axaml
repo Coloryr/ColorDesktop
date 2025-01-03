@@ -74,7 +74,17 @@
                             Classes="top"
                             Command="{Binding DeleteGroup}"
                             Content="{lang:Localize MainWindow.Text68}"
-                            DockPanel.Dock="Right" />
+                            DockPanel.Dock="Right"
+                            IsEnabled="{Binding !IsDefaultGroup}" />
+                        <Button
+                            Width="100"
+                            Height="35"
+                            VerticalAlignment="Center"
+                            Classes="top"
+                            Command="{Binding ImportInstance}"
+                            Content="{lang:Localize MainWindow.Text73}"
+                            DockPanel.Dock="Right"
+                            IsEnabled="{Binding !IsDefaultGroup}" />
                         <ComboBox
                             Width="120"
                             Height="35"

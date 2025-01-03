@@ -1,0 +1,52 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.Dialog.ChoiseInstanceControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:ColorDesktop.Launcher.UI.Controls.Dialog"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Dialog"
+    x:DataType="vm:ChoiseInstanceModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <TextBlock
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Top"
+            Text="{lang:Localize MainWindow.Text72}" />
+        <StackPanel
+            HorizontalAlignment="Center"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="35"
+                Margin="0,0,0,0"
+                Classes="top"
+                Command="{Binding Confirm}"
+                Content="{lang:Localize Button.Confirm}" />
+            <Button
+                Width="100"
+                Height="35"
+                Margin="20,0,0,0"
+                Classes="top"
+                Command="{Binding Cancel}"
+                Content="{lang:Localize Button.Cancel}"
+                IsVisible="{Binding HaveCancel}" />
+        </StackPanel>
+        <ScrollViewer>
+            <ItemsControl
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <item:ChoiseInstanceItemControl Margin="0,0,0,5" DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

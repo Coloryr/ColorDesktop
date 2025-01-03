@@ -8,7 +8,7 @@ public enum LanguageType
     /// <summary>
     /// 简体中文
     /// </summary>
-    zh_cn, 
+    zh_cn,
     /// <summary>
     /// 英语
     /// </summary>
@@ -122,4 +122,27 @@ public enum ManagerState
     /// 操作失败
     /// </summary>
     Fail
+}
+
+/// <summary>
+/// 实例分组操作
+/// </summary>
+public enum GroupEditType
+{
+    /// <summary>
+    /// 添加
+    /// </summary>
+    Add,
+    /// <summary>
+    /// 删除
+    /// </summary>
+    Remove,
+    /// <summary>
+    /// 启用
+    /// </summary>
+    Enable,
+    /// <summary>
+    /// 禁用
+    /// </summary>
+    Disable
 }

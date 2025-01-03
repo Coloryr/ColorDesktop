@@ -49,7 +49,10 @@ public partial class MainViewModel
     [ObservableProperty]
     private string _selectInstanceName;
 
-    private bool _instanceLoad;
+    [ObservableProperty]
+    private bool _isDefaultGroup;
+
+    private bool _instanceGroupLoad;
 
     partial void OnSelectInstanceNameChanged(string value)
     {
@@ -58,7 +61,7 @@ public partial class MainViewModel
 
     partial void OnGroupIndexChanged(int value)
     {
-        if (_instanceLoad)
+        if (_instanceGroupLoad)
         {
             return;
         }
@@ -67,6 +70,8 @@ public partial class MainViewModel
 
         LoadInstances();
         LoadInstanceList();
+
+        IsDefaultGroup = GroupIndex == 0;
     }
 
     [RelayCommand]
@@ -94,11 +99,6 @@ public partial class MainViewModel
     {
         if (GroupIndex == 0)
         {
-            await DialogHost.Show(new ChoiseModel()
-            { 
-                Text = LangApi.GetLang("MainWindow.Text71"),
-                HaveCancel = false
-            }, MainWindow.DialogHostName);
             return;
         }
         var item = InstanceGroups[GroupIndex];
@@ -115,11 +115,43 @@ public partial class MainViewModel
     }
 
     [RelayCommand]
+    public async Task ImportInstance()
+    {
+        if (GroupIndex == 0)
+        {
+            return;
+        }
+        var obj = new ChoiseInstanceModel(InstanceGroups[GroupIndex].UUID);
+        var res = await DialogHost.Show(obj);
+        if (res is not true)
+        {
+            return;
+        }
+        var list = new List<string>();
+        foreach (var item in obj.Items)
+        {
+            if (item.IsCheck)
+            {
+                list.Add(item.UUID);
+            }
+        }
+        InstanceManager.GroupImportInstance(InstanceGroups[GroupIndex].UUID, list);
+        LoadInstances();
+        LoadInstanceList();
+    }
+
+    [RelayCommand]
     public void LoadInstanceData()
     {
-        _instanceLoad = true;
-
+        LoadGroup();
         LoadInstanceCount();
+        LoadInstances();
+        LoadInstanceList();
+    }
+
+    private void LoadGroup()
+    {
+        _instanceGroupLoad = true;
 
         InstanceGroups.Clear();
         InstanceGroups.Add(new() { Name = LangApi.GetLang("MainWindow.Text66") });
@@ -142,11 +174,9 @@ public partial class MainViewModel
                 }
             }
         }
+        IsDefaultGroup = GroupIndex == 0;
 
-        LoadInstances();
-        LoadInstanceList();
-
-        _instanceLoad = false;
+        _instanceGroupLoad = false;
     }
 
     private void LoadInstances()
@@ -206,11 +236,25 @@ public partial class MainViewModel
     {
         AllInstance = InstanceManager.Instances.Count;
         int count = 0;
-        foreach (var item in ConfigHelper.Config.EnableInstance)
+        if (GroupIndex == 0)
         {
-            if (InstanceManager.Instances.ContainsKey(item))
+            foreach (var item in ConfigHelper.Config.EnableInstance)
             {
-                count++;
+                if (InstanceManager.Instances.ContainsKey(item))
+                {
+                    count++;
+                }
+            }
+        }
+        else
+        {
+            var group = InstanceManager.Groups[InstanceGroups[GroupIndex].UUID];
+            foreach (var item in group.Enables)
+            {
+                if (InstanceManager.Instances.ContainsKey(item))
+                {
+                    count++;
+                }
             }
         }
         EnableInstance = count;

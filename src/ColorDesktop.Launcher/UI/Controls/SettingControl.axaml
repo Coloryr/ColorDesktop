@@ -100,6 +100,7 @@
                         Text="{lang:Localize MainWindow.Text63}" />
                     <ComboBox
                         Width="150"
+                        DisplayMemberBinding="{Binding Name}"
                         ItemsSource="{Binding InstanceGroups}"
                         SelectedIndex="{Binding GroupIndex}" />
                 </StackPanel>

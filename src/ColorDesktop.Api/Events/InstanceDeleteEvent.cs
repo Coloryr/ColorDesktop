@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.Api.Events;
+﻿namespace ColorDesktop.Api.Events;
 
 public class InstanceDeleteEvent(string plugin, string? group, string uuid) : InstanceEvent(plugin, group, uuid)
 {

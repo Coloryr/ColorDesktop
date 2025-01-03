@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Events;
 using ColorDesktop.Api.Objs;
@@ -405,5 +406,122 @@ public class InstanceHook(string id) : IInstanceManager
         }
 
         return run.Instance.GetHandel();
+    }
+
+    public IReadOnlyList<string> GetGroups()
+    {
+        return [.. InstanceManager.Groups.Keys];
+    }
+
+    public string? GetNowGroup()
+    {
+        return InstanceManager.NowGroup;
+    }
+
+    public void SwitchGroup(string? uuid)
+    {
+        InstanceManager.SwitchGroup(uuid);
+    }
+
+    public GroupObj? GetGroupObj(string uuid)
+    {
+        if (string.IsNullOrWhiteSpace(uuid))
+        {
+            return null;
+        }
+        if (InstanceManager.Groups.TryGetValue(uuid, out var group))
+        {
+            return group.Copy();
+        }
+
+        return null;
+    }
+
+    public ManagerState EditGroup(string uuid, GroupEditType type)
+    {
+        if (InstanceManager.NowGroup == null)
+        {
+            return ManagerState.Fail;
+        }
+        if (!InstanceManager.Instances.TryGetValue(uuid, out var data))
+        {
+            return ManagerState.InstanceNotFound;
+        }
+        if (id != data.Plugin)
+        {
+            if (!PluginManager.Controls.TryGetValue(id, out var controls)
+                || !controls.TryGetValue(data.Plugin, out var res))
+            {
+                return ManagerState.NoTestPermission;
+            }
+            if (!res)
+            {
+                return ManagerState.NoPermission;
+            }
+        }
+
+        var group = InstanceManager.Groups[InstanceManager.NowGroup];
+
+        if (type == GroupEditType.Add)
+        {
+            group.Instances.Add(uuid);
+        }
+        else if (type == GroupEditType.Remove)
+        {
+            group.Enables.Remove(uuid);
+            group.Instances.Remove(uuid);
+        }
+        else if (type == GroupEditType.Enable)
+        {
+            group.Instances.Add(uuid);
+            group.Enables.Add(uuid);
+        }
+        else if (type == GroupEditType.Disable)
+        {
+            group.Enables.Remove(uuid);
+        }
+
+        return ManagerState.Success;
+    }
+
+    public string? CreateGroup(string name)
+    {
+        InstanceManager.CreateGroup(name);
+        return InstanceManager.NowGroup;
+    }
+
+    public ManagerState DeleteGroup(string uuid)
+    {
+        if (string.IsNullOrWhiteSpace(uuid))
+        {
+            return ManagerState.Fail;
+        }
+        if (!InstanceManager.Groups.TryGetValue(uuid, out var group))
+        {
+            return ManagerState.Fail;
+        }
+        foreach (var item in group.Instances)
+        {
+            if (!InstanceManager.Instances.TryGetValue(item, out var data))
+            {
+                return ManagerState.InstanceNotFound;
+            }
+            if (id != data.Plugin)
+            {
+                if (!PluginManager.Controls.TryGetValue(id, out var controls)
+                    || !controls.TryGetValue(data.Plugin, out var res))
+                {
+                    return ManagerState.NoTestPermission;
+                }
+                if (!res)
+                {
+                    return ManagerState.NoPermission;
+                }
+            }
+        }
+
+        InstanceManager.DeleteGroupUUID(uuid);
+
+        return ManagerState.Success;
     }
 }

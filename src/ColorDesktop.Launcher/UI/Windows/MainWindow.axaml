@@ -93,6 +93,9 @@
             <DataTemplate DataType="dialogmodel:InputModel">
                 <dialogview:InputControl DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="dialogmodel:ChoiseInstanceModel">
+                <dialogview:ChoiseInstanceControl DataContext="{Binding}" />
+            </DataTemplate>
             <DataTemplate DataType="dialogmodel:PluginSettingModel">
                 <DockPanel>
                     <Button

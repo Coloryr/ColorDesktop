@@ -1,0 +1,40 @@
+<UserControl
+    x:Class="ColorDesktop.Launcher.UI.Controls.Dialog.ChoiseInstanceItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="clr-namespace:ColorDesktop.Launcher.Utils"
+    xmlns:vm="using:ColorDesktop.Launcher.UI.Models.Items"
+    x:DataType="vm:ChoiseInstanceItemModel"
+    mc:Ignorable="d">
+    <Border
+        Width="300"
+        Margin="0,0,0,5"
+        Classes="t2"
+        DockPanel.Dock="Top">
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <CheckBox
+                Margin="5,0,0,0"
+                Padding="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsChecked="{Binding IsCheck}" />
+            <StackPanel Margin="10,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{lang:Localize MainWindow.Text25}" />
+                    <TextBlock Text="{Binding Nick}" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{lang:Localize MainWindow.Text26}" />
+                    <TextBlock Text="{Binding Plugin}" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{lang:Localize MainWindow.Text64}" />
+                    <TextBlock Text="{Binding Comment}" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

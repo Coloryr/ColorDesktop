@@ -22,6 +22,95 @@ public bool MouseThrough { get; set; }
 public string? Group => group;
 ```
 
+`IInstanceManager` 新增
+```C#
+/// <summary>
+/// 获取实例分组列表
+/// </summary>
+/// <returns></returns>
+IReadOnlyList<string> GetGroups();
+/// <summary>
+/// 获取当前实例分组
+/// </summary>
+/// <returns>当前分组UUID，null为默认分组</returns>
+string? GetNowGroup();
+/// <summary>
+/// 切换实例分组
+/// </summary>
+/// <param name="uuid">分组UUID</param>
+void SwitchGroup(string? uuid);
+/// <summary>
+/// 获取实例分组信息
+/// </summary>
+/// <param name="uuid">分组UUID</param>
+/// <returns>分组信息</returns>
+GroupObj? GetGroupObj(string uuid);
+/// <summary>
+/// 编辑实例分组信息
+/// 操作其他组件的实例需要先申请权限
+/// </summary>
+/// <param name="uuid">实例UUID</param>
+/// <param name="type">操作类型</param>
+/// <returns>操作结果</returns>
+ManagerState EditGroup(string uuid, GroupEditType type);
+/// <summary>
+/// 创建实例分组
+/// </summary>
+/// <param name="name">分组名字</param>
+/// <returns>分组UUID，空为创建失败</returns>
+string? CreateGroup(string name);
+/// <summary>
+/// 删除实例分组
+/// </summary>
+/// <param name="uuid">分组UUID</param>
+/// <returns></returns>
+ManagerState DeleteGroup(string uuid);
+```
+
+新增枚举
+```C#
+/// <summary>
+/// 实例分组操作
+/// </summary>
+public enum GroupEditType
+{ 
+    /// <summary>
+    /// 添加
+    /// </summary>
+    Add,
+    /// <summary>
+    /// 删除
+    /// </summary>
+    Remove,
+    /// <summary>
+    /// 启用
+    /// </summary>
+    Enable,
+    /// <summary>
+    /// 禁用
+    /// </summary>
+    Disable
+}
+```
+
+新增事件
+```C#
+/// <summary>
+/// 实例分组创建
+/// </summary>
+public class GroupAddEvent(string? group);
+/// <summary>
+/// 分组删除事件
+/// </summary>
+/// <param name="group"></param>
+public class GroupDeleteEvent(string? group);
+/// <summary>
+/// 分组切换事件
+/// </summary>
+/// <param name="group"></param>
+public class GroupSwitchEvent(string? group);
+```
+
 # Version4
 `IInstance` 添加新接口
 ```C#

@@ -5,22 +5,8 @@ using DialogHostAvalonia;
 
 namespace ColorDesktop.Launcher.UI.Models.Dialog;
 
-public partial class ChoiseModel : ObservableObject
+public partial class ChoiseModel : ChoiseBaseModel
 {
     [ObservableProperty]
     private string _text;
-    [ObservableProperty]
-    private bool _haveCancel = true;
-
-    [RelayCommand]
-    public void Confirm()
-    {
-        DialogHost.Close(MainWindow.DialogHostName, true);
-    }
-
-    [RelayCommand]
-    public void Cancel()
-    {
-        DialogHost.Close(MainWindow.DialogHostName, false);
-    }
 }
