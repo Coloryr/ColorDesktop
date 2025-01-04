@@ -14,14 +14,6 @@ public string Comment { get; set; }
 public bool MouseThrough { get; set; }
 ```
 
-`InstanceEvent` 新增
-```C#
-/// <summary>
-/// 实例分组
-/// </summary>
-public string? Group => group;
-```
-
 `IInstanceManager` 新增
 ```C#
 /// <summary>
@@ -108,7 +100,22 @@ public class GroupDeleteEvent(string? group);
 /// 分组切换事件
 /// </summary>
 /// <param name="group"></param>
-public class GroupSwitchEvent(string? group);
+public class GroupSwitchEvent(string? old, string? group);
+```
+
+修改 `ILauncherHook`
+```C#
+/// <summary>
+/// 获取实例控制器
+/// </summary>
+IInstanceManager? GetInstanceManager(IPlugin obj, IInstance obj1);
+```
+修改为
+```C#
+/// <summary>
+/// 获取实例控制器
+/// </summary>
+IInstanceManager? GetInstanceManager(IPlugin obj);
 ```
 
 # Version4

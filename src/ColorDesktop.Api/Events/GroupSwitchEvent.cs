@@ -1,10 +1,13 @@
 ﻿namespace ColorDesktop.Api.Events;
 
 /// <summary>
-/// 分组切换事件
+/// 实例分组切换事件
 /// </summary>
 /// <param name="group"></param>
-public class GroupSwitchEvent(string? group) : GroupBaseEvent(group)
+public class GroupSwitchEvent(string? old, string? group) : GroupBaseEvent(group)
 {
-
+    /// <summary>
+    /// 旧的实例分组UUID
+    /// </summary>
+    public string? OldGroup => old;
 }

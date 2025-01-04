@@ -9,6 +9,21 @@ namespace ColorDesktop.Launcher.Manager;
 
 internal class LauncherHook : ILauncherHook
 {
+    public static void GroupcCreate(string uuid)
+    {
+        LauncherApi.CallEvent(new GroupAddEvent(uuid));
+    }
+
+    public static void GroupDelete(string uuid)
+    {
+        LauncherApi.CallEvent(new GroupDeleteEvent(uuid));
+    }
+
+    public static void GroupSwitch(string? old, string? uuid)
+    {
+        LauncherApi.CallEvent(new GroupSwitchEvent(old, uuid));
+    }
+
     public static void InstanceEnable(string plugin, string? group, string uuid)
     {
         LauncherApi.CallEvent(new InstanceEnableEvent(plugin, group, uuid));
@@ -49,7 +64,7 @@ internal class LauncherHook : ILauncherHook
         LauncherApi.CallEvent(new PluginDisableEvent(plugin));
     }
 
-    public IInstanceManager? GetInstanceManager(IPlugin obj, IInstance obj1)
+    public IInstanceManager? GetInstanceManager(IPlugin obj)
     {
         foreach (var item in PluginManager.PluginAssemblys.Values)
         {

@@ -5,7 +5,7 @@ public interface ILauncherHook
     /// <summary>
     /// 获取实例控制器
     /// </summary>
-    IInstanceManager? GetInstanceManager(IPlugin obj, IInstance obj1);
+    IInstanceManager? GetInstanceManager(IPlugin obj);
     /// <summary>
     /// 获取组件控制器
     /// </summary>

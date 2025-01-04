@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Controls;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
-using ColorDesktop.Api.Events;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
@@ -179,7 +177,7 @@ public static class InstanceManager
         Groups[uuid] = obj;
         obj.Save();
 
-        LauncherApi.CallEvent(new GroupAddEvent(uuid));
+        LauncherHook.GroupcCreate(uuid);
 
         SwitchGroup(uuid);
     }
@@ -203,7 +201,7 @@ public static class InstanceManager
 
         Groups.Remove(uuid);
 
-        LauncherApi.CallEvent(new GroupDeleteEvent(uuid));
+        LauncherHook.GroupDelete(uuid);
     }
 
     public static void Save(this GroupObj group)
@@ -229,6 +227,7 @@ public static class InstanceManager
 
     public static void SwitchGroup(string? uuid)
     {
+        var old = NowGroup;
         if (string.IsNullOrWhiteSpace(uuid))
         {
             NowGroup = null;
@@ -274,7 +273,7 @@ public static class InstanceManager
             }
         }
 
-        LauncherApi.CallEvent(new GroupSwitchEvent(NowGroup));
+        LauncherHook.GroupSwitch(old, NowGroup);
 
         ConfigHelper.Config.Group = NowGroup;
         ConfigHelper.SaveConfig();
