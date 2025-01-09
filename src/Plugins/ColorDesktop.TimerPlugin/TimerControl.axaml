@@ -1,0 +1,42 @@
+<UserControl
+    x:Class="ColorDesktop.TimerPlugin.TimerControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ColorDesktop.TimerPlugin"
+    MaxWidth="300"
+    MaxHeight="{Binding MaxHeight}"
+    x:DataType="vm:TimerModel"
+    mc:Ignorable="d">
+    <DockPanel Background="#99000000">
+        <UniformGrid
+            Columns="2"
+            DockPanel.Dock="Bottom"
+            Rows="1">
+            <Button
+                Height="35"
+                Command="{Binding AddDownTimer}"
+                Content="{lang:Localize TimerInstance.Text1}"
+                Foreground="White" />
+            <Button
+                Height="35"
+                Command="{Binding AddUpTimer}"
+                Content="{lang:Localize TimerInstance.Text2}"
+                Foreground="White" />
+        </UniformGrid>
+        <ScrollViewer Name="ScrollViewer1">
+            <ItemsControl
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ItemsSource="{Binding Instances}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <vm:TimerItemControl Margin="0,0,0,5" DataContext="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

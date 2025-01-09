@@ -24,11 +24,12 @@ internal class Program
         new PGLauncherPlugin.PGLauncherPlugin().LoadLang(LanguageType.zh_cn);
         new PGColorMCPlugin().LoadLang(LanguageType.zh_cn);
         new WeatherPlugin.WeatherPlugin().LoadLang(LanguageType.zh_cn);
-        //new Live2DPlugin.Live2DPlugin().LoadLang(LanguageType.zh_cn);
-        //new MinecraftSkinPlugin.MinecraftSkinPlugin().LoadLang(LanguageType.zh_cn);
+        new Live2DPlugin.Live2DPlugin().LoadLang(LanguageType.zh_cn);
+        new MinecraftSkinPlugin.MinecraftSkinPlugin().LoadLang(LanguageType.zh_cn);
         new MinecraftMotdPlugin.MinecraftMotdPlugin().LoadLang(LanguageType.zh_cn);
         new ToDoPlugin.ToDoPlugin().LoadLang(LanguageType.zh_cn);
         new MusicControlPlugin.MusicControlPlugin().LoadLang(LanguageType.zh_cn);
+        new TimerPlugin.TimerPlugin().LoadLang(LanguageType.zh_cn);
 
         return Launcher.Program.BuildAvaloniaApp();
     }

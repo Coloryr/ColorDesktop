@@ -82,6 +82,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.WebBase", "Cor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{94D9C8F6-C9FB-4E27-88BA-0676FB179C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorDesktop.TimerPlugin", "Plugins\ColorDesktop.TimerPlugin\ColorDesktop.TimerPlugin.csproj", "{66F49441-5A85-452A-9F7F-471475ECF17B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -222,6 +224,10 @@ Global
 		{FE231236-E20C-43FD-92DC-F3259125FD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE231236-E20C-43FD-92DC-F3259125FD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE231236-E20C-43FD-92DC-F3259125FD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F49441-5A85-452A-9F7F-471475ECF17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F49441-5A85-452A-9F7F-471475ECF17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F49441-5A85-452A-9F7F-471475ECF17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F49441-5A85-452A-9F7F-471475ECF17B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -256,6 +262,7 @@ Global
 		{D6729A75-1D53-4972-871F-FE412304F1AF} = {33275F21-8177-481F-9D9D-587DE566793A}
 		{DF14F333-7AB1-4885-AC38-4421A55101C0} = {33275F21-8177-481F-9D9D-587DE566793A}
 		{FE231236-E20C-43FD-92DC-F3259125FD52} = {3C532E7B-D38F-474C-97F1-635CD76D9C6E}
+		{66F49441-5A85-452A-9F7F-471475ECF17B} = {E1C6437E-F64F-4C74-9E90-6B002C3428CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D90989C-AE86-4FC4-B699-6705CBC0D63E}

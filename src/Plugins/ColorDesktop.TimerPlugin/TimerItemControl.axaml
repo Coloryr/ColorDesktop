@@ -1,0 +1,141 @@
+<UserControl
+    x:Class="ColorDesktop.TimerPlugin.TimerItemControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lang="clr-namespace:ColorDesktop.Api;assembly=ColorDesktop.Api"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="clr-namespace:ColorDesktop.CoreLib.View.Svg;assembly=ColorDesktop.CoreLib"
+    xmlns:vm="clr-namespace:ColorDesktop.TimerPlugin"
+    x:DataType="vm:TimerItemModel"
+    mc:Ignorable="d">
+    <Panel>
+        <StackPanel IsVisible="{Binding !IsEdit}">
+            <TextBlock Text="{Binding Time}" />
+        </StackPanel>
+        <StackPanel>
+            <TextBlock />
+        </StackPanel>
+        <StackPanel IsVisible="{Binding IsEdit}" Orientation="Horizontal">
+            <StackPanel>
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeHourUp}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/up.svg" />
+                </RepeatButton>
+                <TextBox
+                    Width="40"
+                    Height="25"
+                    MinWidth="40"
+                    Background="Transparent"
+                    Foreground="White"
+                    Text="{Binding Hour}"
+                    TextAlignment="Center" />
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeHourUp}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/down.svg" />
+                </RepeatButton>
+            </StackPanel>
+            <TextBlock
+                Margin="5,0,5,0"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Foreground="White"
+                Text=":" />
+            <StackPanel>
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeMinuteUp}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/up.svg" />
+                </RepeatButton>
+                <TextBox
+                    Width="40"
+                    Height="25"
+                    MinWidth="40"
+                    Background="Transparent"
+                    Foreground="White"
+                    Text="{Binding Minute}"
+                    TextAlignment="Center" />
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeMinuteDown}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/down.svg" />
+                </RepeatButton>
+            </StackPanel>
+            <TextBlock
+                Margin="5,0,5,0"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Foreground="White"
+                Text=":" />
+            <StackPanel>
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeSecondUp}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/up.svg" />
+                </RepeatButton>
+                <TextBox
+                    Width="40"
+                    Height="25"
+                    MinWidth="40"
+                    Background="Transparent"
+                    Foreground="White"
+                    Text="{Binding Second}"
+                    TextAlignment="Center" />
+                <RepeatButton
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding TimeSecondDown}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/down.svg" />
+                </RepeatButton>
+            </StackPanel>
+            <StackPanel
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding Done}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/done.svg" />
+                </Button>
+                <Button
+                    HorizontalAlignment="Center"
+                    Background="Transparent"
+                    Command="{Binding Cancel}">
+                    <svg:SvgControl
+                        Width="20"
+                        Fill="White"
+                        Path="/Resource/Icon/cancel.svg" />
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Panel>
+</UserControl>

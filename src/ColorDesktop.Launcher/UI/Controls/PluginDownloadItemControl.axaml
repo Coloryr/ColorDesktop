@@ -32,25 +32,22 @@
                         IsEnabled="{Binding Update}" />
                 </StackPanel>
                 <Image
-                    Width="100"
-                    Height="100"
+                    Width="80"
+                    Height="80"
                     Source="{Binding Image^}" />
                 <StackPanel Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{lang:Localize MainWindow.Text48}}" />
-                        <TextBlock Text="{Binding Source}" />
-                    </StackPanel>
-                    <TextBlock Text="{Binding ID}" />
-                    <TextBlock Text="{Binding Name}" />
-                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
-                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="0,0,10,0" Text="{Binding Source}" />
                         <TextBlock Text="{lang:Localize MainWindow.Text53}" />
                         <TextBlock Text="{Binding Auther}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{lang:Localize MainWindow.Text4}" />
+                        <TextBlock Margin="0,0,10,0" Text="{Binding ID}" />
+                        <TextBlock Margin="0,0,10,0" Text="{Binding Name}" />
                         <TextBlock Text="{Binding Version}" />
                     </StackPanel>
+                    <TextBlock Text="{Binding Describe}" TextTrimming="CharacterEllipsis" />
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{lang:Localize MainWindow.Text51}" />
                         <TextBlock Text="{Binding Dep}" />
