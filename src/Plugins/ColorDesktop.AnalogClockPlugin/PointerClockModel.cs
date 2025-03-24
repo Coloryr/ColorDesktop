@@ -26,7 +26,7 @@ public partial class PointerClockModel : ObservableObject
 
     public void Tick()
     {
-        var time = ClockPlugin.ClockPlugin.Config.Ntp ? NtpClient.Date : DateTime.Now;
+        var time = ClockPlugin.ClockPlugin.GetTime();
 
         var hourAngle = time.Hour % 12 * 30 + (time.Minute * 0.5);
         var minuteAngle = time.Minute * 6 + (time.Second * 0.1);

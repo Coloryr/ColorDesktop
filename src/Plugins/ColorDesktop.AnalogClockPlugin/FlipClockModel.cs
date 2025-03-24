@@ -20,7 +20,7 @@ public partial class FlipClockModel : ObservableObject
 
     public void Tick()
     {
-        var time = ClockPlugin.ClockPlugin.Config.Ntp ? NtpClient.Date : DateTime.Now;
+        var time = ClockPlugin.ClockPlugin.GetTime();
 
         HourA.SetImage(_numbers[time.Hour / 10, 0], _numbers[time.Hour / 10, 1]);
         HourB.SetImage(_numbers[time.Hour % 10, 0], _numbers[time.Hour % 10, 1]);

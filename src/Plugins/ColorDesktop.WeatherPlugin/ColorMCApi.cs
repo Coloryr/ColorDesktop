@@ -1,16 +1,17 @@
 ﻿using ColorDesktop.CoreLib;
 using ColorDesktop.WeatherPlugin.Objs;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ColorDesktop.WeatherPlugin;
 
-public static class AmapApi
+public static class ColorMCApi
 {
     public static List<City1Obj> Citys { get; set; }
 
     public static string[] GetCityName()
     {
-        return Citys.Select(item => item.Name).ToArray();
+        return [.. Citys.Select(item => item.Name)];
     }
 
     public static List<string> GetCityName(int index)
@@ -20,10 +21,6 @@ public static class AmapApi
         if (list.Count == 0)
         {
             return list;
-        }
-        if (city.Citycode != 0)
-        {
-            list.Insert(0, city.Name);
         }
 
         return list;
@@ -36,10 +33,6 @@ public static class AmapApi
         if (list.Count == 0)
         {
             return list;
-        }
-        if (city.Citycode != 0)
-        {
-            list.Insert(0, city.Name);
         }
 
         return list;
@@ -56,7 +49,7 @@ public static class AmapApi
             }
         }
 
-        return null;
+        return Citys[0].Childs[0].Childs[0];
     }
 
     public static City1Obj? GetCityIndex(int index)
@@ -76,17 +69,6 @@ public static class AmapApi
         {
             return null;
         }
-        if (city.Citycode != 0)
-        {
-            if (index1 == 0)
-            {
-                return city;
-            }
-            else
-            {
-                index1--;
-            }
-        }
         if (index1 < city.Childs.Count)
         {
             return city.Childs[index1];
@@ -103,17 +85,6 @@ public static class AmapApi
         {
             return null;
         }
-        if (city.Citycode != 0)
-        {
-            if (index2 == 0)
-            {
-                return city;
-            }
-            else
-            {
-                index2--;
-            }
-        }
         if (index2 < city.Childs.Count)
         {
             return city.Childs[index2];
@@ -124,7 +95,7 @@ public static class AmapApi
 
     public static City1Obj? GetCity(City1Obj obj, int adcode)
     {
-        if (obj.Adcode == adcode)
+        if (obj.Adcode != 0 && obj.Adcode == adcode)
         {
             return obj;
         }
@@ -155,10 +126,6 @@ public static class AmapApi
             var index = GetCityIndex1Adcode(city1.Childs, adcode);
             if (index.Item1 != -1)
             {
-                if (city1.Citycode != 0)
-                {
-                    index.Item1++;
-                }
                 return (a, index.Item1, index.Item2);
             }
         }
@@ -179,10 +146,6 @@ public static class AmapApi
             var index = GetCityIndex2Adcode(city1.Childs, adcode);
             if (index != -1)
             {
-                if (city1.Citycode != 0)
-                {
-                    index++;
-                }
                 return (i, index);
             }
         }
@@ -204,13 +167,19 @@ public static class AmapApi
         return -1;
     }
 
-    public static async Task<WeatherInfoObj?> GetData(int code, bool isall)
+    public static async Task<WeatherInfoObj?> GetData(int code)
     {
         try
         {
-            var data = await HttpUtils.Client.GetStringAsync($"https://restapi.amap.com/v3/weather/weatherInfo?key=ca07fbb30c9d16e146c5652f7dd1faa7&city={code}&extensions={(isall ? "all" : "base")}");
+            var data = await HttpUtils.Client.GetStringAsync($"https://mc1.coloryr.com:8081/weather?id={code}");
 
-            return JsonConvert.DeserializeObject<WeatherInfoObj>(data);
+            var obj = JObject.Parse(data);
+            if (!obj.TryGetValue("res", out var res) || res?.Type != JTokenType.Integer || res.Value<int>() != 100)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<WeatherInfoObj>(obj["data"]!.ToString());
         }
         catch (Exception e)
         {

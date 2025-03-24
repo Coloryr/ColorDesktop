@@ -32,6 +32,11 @@ public class ClockPlugin : IPlugin
         }, ConfigName);
     }
 
+    public static DateTime GetTime()
+    {
+        return Config.Ntp ? NtpClient.Date : DateTime.UtcNow.AddHours(Config.TimeZone);
+    }
+
     public static void SaveConfig(InstanceDataObj obj, ClockInstanceObj config)
     {
         InstanceUtils.SaveConfig(obj, config, ConfigName);

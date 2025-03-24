@@ -27,7 +27,7 @@ public partial class WeatherInstanceSettingModel : ObservableObject
     [ObservableProperty]
     private bool _cityDisplay2;
 
-    public string[] City { get; init; } = AmapApi.GetCityName();
+    public string[] City { get; init; } = ColorMCApi.GetCityName();
     public ObservableCollection<string> City1 { get; init; } = [];
     public ObservableCollection<string> City2 { get; init; } = [];
 
@@ -50,7 +50,7 @@ public partial class WeatherInstanceSettingModel : ObservableObject
             _textColor = Colors.White;
         }
 
-        var indexs = AmapApi.GetCityIndexAdcode(int.Parse(_config.City));
+        var indexs = ColorMCApi.GetCityIndexAdcode(int.Parse(_config.City));
 
         _isLoad = true;
 
@@ -63,11 +63,11 @@ public partial class WeatherInstanceSettingModel : ObservableObject
 
     partial void OnCityIndex1Changed(int value)
     {
-        var city = AmapApi.GetCityIndex(value);
+        var city = ColorMCApi.GetCityIndex(value);
         if (city != null)
         {
             City1.Clear();
-            var list = AmapApi.GetCityName(value);
+            var list = ColorMCApi.GetCityName(value);
             if (list.Count != 0)
             {
                 CityDisplay1 = true;
@@ -98,11 +98,11 @@ public partial class WeatherInstanceSettingModel : ObservableObject
             City2.Clear();
             return;
         }
-        var city = AmapApi.GetCityIndex(CityIndex1, value);
+        var city = ColorMCApi.GetCityIndex(CityIndex1, value);
         if (city != null)
         {
             City2.Clear();
-            var list = AmapApi.GetCityName(CityIndex1, value);
+            var list = ColorMCApi.GetCityName(CityIndex1, value);
             if (list.Count != 0)
             {
                 CityDisplay2 = true;
@@ -133,7 +133,7 @@ public partial class WeatherInstanceSettingModel : ObservableObject
         {
             return;
         }
-        var city = AmapApi.GetCityIndex(CityIndex1, CityIndex2, value);
+        var city = ColorMCApi.GetCityIndex(CityIndex1, CityIndex2, value);
         if (city != null)
         {
             _config.City = city.Adcode.ToString();

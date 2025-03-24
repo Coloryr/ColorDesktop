@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <None Remove="icon.png" />
-        <None Remove="Resource\City1.json" />
+        <None Remove="Resource\city.json" />
         <None Remove="Resource\east.svg" />
         <None Remove="Resource\icon.svg" />
         <None Remove="Resource\icon1.svg" />
@@ -96,11 +96,11 @@
         <AvaloniaResource Include="Resource\Wind\south_east.svg" />
         <AvaloniaResource Include="Resource\Wind\south_west.svg" />
         <AvaloniaResource Include="Resource\Wind\west.svg" />
-        <EmbeddedResource Include="Resource\City1.json" />
     </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Include="icon.png" />
+        <EmbeddedResource Include="Resource\city.json" />
         <EmbeddedResource Include="Resource\Lang\en-us.json" />
         <EmbeddedResource Include="Resource\Lang\zh-cn.json" />
     </ItemGroup>

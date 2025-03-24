@@ -62,7 +62,7 @@ public partial class CalendarModel : ObservableObject
 
     public void Tick()
     {
-        var time = ClockPlugin.ClockPlugin.Config.Ntp ? NtpClient.Date : DateTime.Now;
+        var time = ClockPlugin.ClockPlugin.GetTime();
 
         if (_last.DayOfYear == time.DayOfYear)
         {

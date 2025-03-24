@@ -13,7 +13,6 @@ public record CityObj
 public record City1Obj
 {
     public int Adcode { get; set; }
-    public int Citycode { get; set; }
     public string Name { get; set; }
     public List<City1Obj> Childs { get; set; }
 }

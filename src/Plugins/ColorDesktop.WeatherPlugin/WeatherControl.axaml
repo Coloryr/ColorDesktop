@@ -80,11 +80,6 @@
                                 FontSize="20"
                                 Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
                                 Text="{Binding Winddirection}" />
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                                IsVisible="{Binding HaveWindPower}"
-                                Text="{lang:Localize WeatherControl.Text2}" />
                             <svg:SvgControl
                                 Height="20"
                                 Margin="5,0,0,0"
@@ -96,10 +91,6 @@
                                 FontSize="20"
                                 Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
                                 Text="{Binding Windpower}" />
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="{Binding TextColor, FallbackValue=#FFFFFF}"
-                                Text="{lang:Localize WeatherControl.Text3}" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

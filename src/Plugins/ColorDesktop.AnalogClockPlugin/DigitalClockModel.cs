@@ -1,5 +1,4 @@
-﻿using ColorDesktop.ClockPlugin;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.AnalogClockPlugin;
 
@@ -23,7 +22,7 @@ public partial class DigitalClockModel : ObservableObject
 
     public void Tick()
     {
-        var time = ClockPlugin.ClockPlugin.Config.Ntp ? NtpClient.Date : DateTime.Now;
+        var time = ClockPlugin.ClockPlugin.GetTime();
 
         HourA.SetValue(time.Hour / 10);
         HourB.SetValue(time.Hour % 10);

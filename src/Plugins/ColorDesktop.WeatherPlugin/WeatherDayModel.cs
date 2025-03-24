@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using ColorDesktop.Api;
 using ColorDesktop.WeatherPlugin.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -7,39 +6,25 @@ namespace ColorDesktop.WeatherPlugin;
 
 public partial class WeatherDayModel : ObservableObject
 {
-    private static readonly Dictionary<string, string> WeekTran = new()
-    {
-        { "1", LangApi.GetLang("WeatherControl.Text12") },
-        { "2", LangApi.GetLang("WeatherControl.Text13") },
-        { "3", LangApi.GetLang("WeatherControl.Text14") },
-        { "4", LangApi.GetLang("WeatherControl.Text15") },
-        { "5", LangApi.GetLang("WeatherControl.Text16") },
-        { "6", LangApi.GetLang("WeatherControl.Text17") },
-        { "7", LangApi.GetLang("WeatherControl.Text18") },
-    };
-
     public string Date => _obj.Date;
     public string Week { get; init; }
-    public string DayWeather => _obj.Dayweather;
+    public string DayWeather => _obj.TextDay;
     public string DayIcon { get; init; }
-    public string DayTemp => _obj.Daytemp;
+    public string DayTemp => _obj.High.ToString();
 
-    public string NightWeather => _obj.Nightweather;
+    public string NightWeather => _obj.TextNight;
     public string NightIcon { get; init; }
-    public string NightTemp => _obj.Nighttemp;
+    public string NightTemp => _obj.Low.ToString();
 
     public IBrush TextColor { get; init; }
 
-    private readonly WeatherInfoObj.ForecastObj.CastObj _obj;
+    private readonly WeatherInfoObj.ResultObj.ForecastObj _obj;
 
-    public WeatherDayModel(WeatherInfoObj.ForecastObj.CastObj obj)
+    public WeatherDayModel(WeatherInfoObj.ResultObj.ForecastObj obj)
     {
         _obj = obj;
-        if (WeekTran.TryGetValue(obj.Week, out var week))
-        {
-            Week = week;
-        }
-        if (WeatherModel.WeaterIcon.TryGetValue(obj.Dayweather, out var icon))
+        Week = obj.Week;
+        if (WeatherModel.WeaterIcon.TryGetValue(obj.TextDay, out var icon))
         {
             DayIcon = icon;
         }
@@ -47,7 +32,7 @@ public partial class WeatherDayModel : ObservableObject
         {
             DayIcon = "";
         }
-        if (WeatherModel.WeaterIcon.TryGetValue(obj.Nightweather, out var icon1))
+        if (WeatherModel.WeaterIcon.TryGetValue(obj.TextNight, out var icon1))
         {
             NightIcon = icon1;
         }

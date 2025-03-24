@@ -5,7 +5,7 @@ namespace ColorDesktop.ClockPlugin;
 /// <summary>
 /// Static class to receive the time from a NTP server.
 /// </summary>
-public static class NtpClient
+internal static class NtpClient
 {
     private static Timer s_timer;
     private static int s_count = 0;

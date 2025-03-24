@@ -4,81 +4,76 @@ namespace ColorDesktop.WeatherPlugin.Objs;
 
 public record WeatherInfoObj
 {
-    public record LiveObj
+    public record ResultObj
     {
-        [JsonProperty("province")]
-        public string Province { get; set; }
-        [JsonProperty("city")]
-        public string City { get; set; }
-        [JsonProperty("adcode")]
-        public string Adcode { get; set; }
-        [JsonProperty("weather")]
-        public string Weather { get; set; }
-        [JsonProperty("temperature")]
-        public string Temperature { get; set; }
-        [JsonProperty("winddirection")]
-        public string Winddirection { get; set; }
-        [JsonProperty("windpower")]
-        public string Windpower { get; set; }
-        [JsonProperty("humidity")]
-        public string Humidity { get; set; }
-        [JsonProperty("reporttime")]
-        public DateTime Reporttime { get; set; }
-        [JsonProperty("temperature_float")]
-        public string TemperatureFloat { get; set; }
-        [JsonProperty("humidity_float")]
-        public string HumidityFloat { get; set; }
-    }
-    public record ForecastObj
-    {
-        public record CastObj
+        public record LocationObj
         {
+            [JsonProperty("country")]
+            public string Country { get; set; }
+            [JsonProperty("province")]
+            public string Province { get; set; }
+            [JsonProperty("city")]
+            public string City { get; set; }
+            [JsonProperty("name")]
+            public string Name { get; set; }
+            [JsonProperty("id")]
+            public string Id { get; set; }
+        }
+
+        public record NowObj
+        {
+            [JsonProperty("text")]
+            public string Text { get; set; }
+            [JsonProperty("temp")]
+            public int Temp { get; set; }
+            [JsonProperty("feels_like")]
+            public int FeelsLike { get; set; }
+            [JsonProperty("rh")]
+            public int Rh { get; set; }
+            [JsonProperty("wind_class")]
+            public string WindClass { get; set; }
+            [JsonProperty("wind_dir")]
+            public string WindDir { get; set; }
+            [JsonProperty("uptime")]
+            public string Uptime { get; set; }
+        }
+
+        public record ForecastObj
+        {
+            [JsonProperty("text_day")]
+            public string TextDay { get; set; }
+            [JsonProperty("text_night")]
+            public string TextNight { get; set; }
+            [JsonProperty("high")]
+            public int High { get; set; }
+            [JsonProperty("low")]
+            public int Low { get; set; }
+            [JsonProperty("wc_day")]
+            public string WcDay { get; set; }
+            [JsonProperty("wd_day")]
+            public string WdDay { get; set; }
+            [JsonProperty("wc_night")]
+            public string WcNight { get; set; }
+            [JsonProperty("wd_night")]
+            public string WdNight { get; set; }
             [JsonProperty("date")]
             public string Date { get; set; }
             [JsonProperty("week")]
             public string Week { get; set; }
-            [JsonProperty("dayweather")]
-            public string Dayweather { get; set; }
-            [JsonProperty("nightweather")]
-            public string Nightweather { get; set; }
-            [JsonProperty("daytemp")]
-            public string Daytemp { get; set; }
-            [JsonProperty("nighttemp")]
-            public string Nighttemp { get; set; }
-            [JsonProperty("daywind")]
-            public string Daywind { get; set; }
-            [JsonProperty("nightwind")]
-            public string Nightwind { get; set; }
-            [JsonProperty("daypower")]
-            public string Daypower { get; set; }
-            [JsonProperty("nightpower")]
-            public string Nightpower { get; set; }
-            [JsonProperty("daytemp_float")]
-            public string DaytempFloat { get; set; }
-            [JsonProperty("nighttemp_float")]
-            public string NighttempFloat { get; set; }
         }
-        [JsonProperty("province")]
-        public string Province { get; set; }
-        [JsonProperty("city")]
-        public string City { get; set; }
-        [JsonProperty("adcode")]
-        public string Adcode { get; set; }
-        [JsonProperty("reporttime")]
-        public DateTime Reporttime { get; set; }
-        [JsonProperty("casts")]
-        public List<CastObj> Casts { get; set; }
+
+        [JsonProperty("location")]
+        public LocationObj Location { get; set; }
+        [JsonProperty("now")]
+        public NowObj Now { get; set; }
+        [JsonProperty("forecasts")]
+        public List<ForecastObj> Forecasts { get; set; }
     }
+
     [JsonProperty("status")]
-    public string Status { get; set; }
-    [JsonProperty("count")]
-    public string Count { get; set; }
-    [JsonProperty("info")]
-    public string Info { get; set; }
-    [JsonProperty("infocode")]
-    public string Infocode { get; set; }
-    [JsonProperty("lives")]
-    public List<LiveObj> Lives { get; set; }
-    [JsonProperty("forecasts")]
-    public List<ForecastObj> Forecasts { get; set; }
+    public int Status { get; set; }
+    [JsonProperty("result")]
+    public ResultObj Result { get; set; }
+    [JsonProperty("message")]
+    public string Message { get; set; }
 }

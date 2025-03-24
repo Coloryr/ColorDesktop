@@ -89,9 +89,9 @@ public class WeatherPlugin : IPlugin
 
         var assm = Assembly.GetExecutingAssembly();
         var jsonSerializer = JsonSerializer.CreateDefault();
-        using var item1 = assm.GetManifestResourceStream("ColorDesktop.WeatherPlugin.Resource.City1.json")!;
+        using var item1 = assm.GetManifestResourceStream("ColorDesktop.WeatherPlugin.Resource.city.json")!;
         using var reader1 = new JsonTextReader(new StreamReader(item1));
-        AmapApi.Citys = jsonSerializer.Deserialize<List<City1Obj>>(reader1)!;
+        ColorMCApi.Citys = jsonSerializer.Deserialize<List<City1Obj>>(reader1)!;
 
         ReadConfig();
     }

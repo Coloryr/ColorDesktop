@@ -18,6 +18,5 @@
     "ClockSettingControl.Text3": "NTP服务器地址",
     "ClockSettingControl.Text4": "同步时间",
     "ClockSettingControl.Text5": "NTP同步间隔",
-    "ClockSettingControl.Text6": "时区",
-    "ClockSettingControl.Text7": "修改时区会在下一次同步生效"
+    "ClockSettingControl.Text6": "时区"
 }
