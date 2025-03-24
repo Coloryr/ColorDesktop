@@ -15,8 +15,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      # with:
-      #   submodules: 'true'
+      with:
+        submodules: 'true'
       #   token: ${{ secrets.KEY1 }}
 
     - name: 设置.NET Core
