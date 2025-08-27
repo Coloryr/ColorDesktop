@@ -101,15 +101,15 @@ public partial class MinecraftMotdControl : UserControl, IInstance
         {
             return ServerMotd.GetServerInfo(ip, port);
         });
-        if (motd.State == StateType.GOOD)
+        if (motd.State == StateType.Ok)
         {
             Grid2.IsVisible = false;
             using var stream = new MemoryStream(motd.FaviconByteArray);
             Image1.Source = new Bitmap(stream);
 
-            Label2.Text = motd.Players.Online.ToString();
-            Label3.Text = motd.Players.Max.ToString();
-            Label4.Text = motd.Version.Name;
+            Label2.Text = motd.Players?.Online.ToString();
+            Label3.Text = motd.Players?.Max.ToString();
+            Label4.Text = motd.Version?.Name;
             Label5.Text = motd.Ping.ToString();
 
             MakeText(motd.Description);
@@ -126,7 +126,7 @@ public partial class MinecraftMotdControl : UserControl, IInstance
         Button2.IsVisible = true;
     }
 
-    public void MakeText(Chat chat)
+    public void MakeText(ChatObj chat)
     {
         if (chat.Text == "\n")
         {

@@ -1,73 +1,73 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.ToDoPlugin.Objs;
 
 public record ToDoTaskListObj
 {
-    public record ValueObj
+    public record ValueObj1
     {
         public record BodyObj
         {
-            [JsonProperty("content")]
+            [JsonPropertyName("content")]
             public string Content { get; set; }
-            [JsonProperty("contentType")]
+            [JsonPropertyName("contentType")]
             public string ContentType { get; set; }
         }
         public record TimeObj
         {
-            [JsonProperty("dateTime")]
+            [JsonPropertyName("dateTime")]
             public DateTime DateTime { get; set; }
-            [JsonProperty("timeZone")]
+            [JsonPropertyName("timeZone")]
             public string TimeZone { get; set; }
         }
         public record CheckListObj
         {
-            [JsonProperty("displayName")]
+            [JsonPropertyName("displayName")]
             public string DisplayName { get; set; }
-            [JsonProperty("createdDateTime")]
+            [JsonPropertyName("createdDateTime")]
             public DateTime CreatedDateTime { get; set; }
-            [JsonProperty("checkedDateTime")]
+            [JsonPropertyName("checkedDateTime")]
             public DateTime CheckedDateTime { get; set; }
-            [JsonProperty("isChecked")]
+            [JsonPropertyName("isChecked")]
             public bool IsChecked { get; set; }
-            [JsonProperty("id")]
+            [JsonPropertyName("id")]
             public string Id { get; set; }
         }
-        [JsonProperty("@odata.etag")]
+        [JsonPropertyName("@odata.etag")]
         public string ETag { get; set; }
-        [JsonProperty("importance")]
+        [JsonPropertyName("importance")]
         public string Importance { get; set; }
-        [JsonProperty("isReminderOn")]
+        [JsonPropertyName("isReminderOn")]
         public bool IsReminderOn { get; set; }
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; }
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
-        [JsonProperty("createdDateTime")]
+        [JsonPropertyName("createdDateTime")]
         public DateTime CreatedDateTime { get; set; }
-        [JsonProperty("lastModifiedDateTime")]
+        [JsonPropertyName("lastModifiedDateTime")]
         public DateTime LastModifiedDateTime { get; set; }
-        [JsonProperty("hasAttachments")]
+        [JsonPropertyName("hasAttachments")]
         public bool HasAttachments { get; set; }
-        [JsonProperty("categories")]
+        [JsonPropertyName("categories")]
         public List<object> Categories { get; set; }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string ID { get; set; }
-        [JsonProperty("body")]
+        [JsonPropertyName("body")]
         public BodyObj Body { get; set; }
-        [JsonProperty("dueDateTime")]
+        [JsonPropertyName("dueDateTime")]
         public TimeObj? DueDateTime { get; set; }
-        [JsonProperty("reminderDateTime")]
+        [JsonPropertyName("reminderDateTime")]
         public TimeObj? ReminderDateTime { get; set; }
-        [JsonProperty("completedDateTime")]
+        [JsonPropertyName("completedDateTime")]
         public TimeObj? CompletedDateTime { get; set; }
-        [JsonProperty("checklistItems@odata.context")]
+        [JsonPropertyName("checklistItems@odata.context")]
         public string? Context { get; set; }
-        [JsonProperty("checklistItems")]
+        [JsonPropertyName("checklistItems")]
         public List<CheckListObj>? ChecklistItems { get; set; }
     }
-    [JsonProperty("@odata.context")]
+    [JsonPropertyName("@odata.context")]
     public string Context { get; set; }
-    [JsonProperty("value")]
-    public List<ValueObj> Value { get; set; }
+    [JsonPropertyName("value")]
+    public List<ValueObj1> Value { get; set; }
 }

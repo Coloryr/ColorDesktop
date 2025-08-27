@@ -27,11 +27,11 @@
     </ItemGroup>
 
     <Target Name="CopySpecificNuGetDll" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)lunar-csharp\1.5.11\lib\netstandard2.0\lunar.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)lunar-csharp\1.6.4\lib\netstandard2.0\lunar.dll" DestinationFolder="$(OutputPath)" />
     </Target>
 
     <ItemGroup>
-        <PackageReference Include="lunar-csharp" Version="1.5.11" />
+        <PackageReference Include="lunar-csharp" Version="1.6.4" />
     </ItemGroup>
 
     <ItemGroup>

@@ -27,7 +27,7 @@ public static class ConfigHelper
                     Enable = true
                 }
             ]
-        }, Program.RunDir + "config.json");
+        }, Path.Combine(Program.RunDir, "config.json"), JsonGen.Default.ConfigObj);
 
         Config.EnablePlugin ??= [];
         Config.EnableInstance ??= [];
@@ -43,12 +43,7 @@ public static class ConfigHelper
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new ConfigSaveObj()
-        {
-            Name = "config.json",
-            Local = Program.RunDir + "config.json",
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("config.json", Path.Combine(Program.RunDir, "config.json"), Config, JsonGen.Default.ConfigObj));
     }
 
     public static void EnablePlugin(string id)

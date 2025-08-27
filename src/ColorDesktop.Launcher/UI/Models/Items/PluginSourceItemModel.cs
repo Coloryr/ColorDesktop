@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 using Avalonia.Threading;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
@@ -7,7 +8,6 @@ using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.UI.Models.Items;
 
@@ -72,7 +72,7 @@ public partial class PluginSourceItemModel : ObservableObject
         try
         {
             var data = await LauncherUtils.Client.GetStringAsync(Url);
-            var obj = JsonConvert.DeserializeObject<PluginDownloadObj>(data);
+            var obj = JsonSerializer.Deserialize(data, JsonGen.Default.PluginDownloadObj);
             if (obj != null && obj.Plugins?.Count > 0)
             {
                 IsWork = LangApi.GetLang("PluginSourceControl.Info2");

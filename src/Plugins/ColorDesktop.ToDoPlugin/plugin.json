@@ -22,6 +22,6 @@
     ],
     "Permission": true,
     "Reload": true,
-    "Version": "1.2.2",
-    "ApiVersion": "5"
+    "Version": "1.2.4",
+    "ApiVersion": "6"
 }

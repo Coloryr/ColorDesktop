@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 
 namespace ColorDesktop.Api;
 
 public static class ConfigUtils
 {
     private static readonly object Locker = new();
-    public static T Config<T>(T obj1, string FilePath) where T : new()
+    public static T Config<T>(T obj1, string path, JsonTypeInfo<T> type) where T : new()
     {
-        var file = new FileInfo(FilePath);
+        var file = new FileInfo(path);
         T? obj;
         if (!file.Exists)
         {
@@ -15,22 +16,23 @@ public static class ConfigUtils
                 obj = new T();
             else
                 obj = obj1;
-            Save(obj, FilePath);
+            Save(obj, path, type);
         }
         else
         {
             lock (Locker)
             {
-                obj = JsonConvert.DeserializeObject<T>(File.ReadAllText(FilePath)) ?? obj1;
+                obj = JsonSerializer.Deserialize(File.ReadAllText(path), type) ?? obj1;
             }
         }
         return obj;
     }
+
     /// <summary>
     /// 保存配置文件
     /// </summary>
-    public static void Save(object obj, string FilePath)
+    public static void Save<T>(T obj, string path, JsonTypeInfo<T> type)
     {
-        File.WriteAllText(FilePath, JsonConvert.SerializeObject(obj, Formatting.Indented));
+        File.WriteAllText(path, JsonSerializer.Serialize(obj, type));
     }
 }

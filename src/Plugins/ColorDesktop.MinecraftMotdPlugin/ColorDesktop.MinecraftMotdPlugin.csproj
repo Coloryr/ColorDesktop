@@ -25,11 +25,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Heijden.Dns.Portable" Version="2.0.19" />
+		<PackageReference Include="Ae.Dns.Client" Version="3.1.0" />
+		<PackageReference Include="Ae.Dns.Protocol" Version="3.1.0" />
     </ItemGroup>
 
     <Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
-        <Copy SourceFiles="$(NuGetPackageRoot)heijden.dns.portable\2.0.19\lib\netstandard1.3\Heijden.Dns.Portable.dll" DestinationFolder="$(OutputPath)" />
+        <Copy SourceFiles="$(NuGetPackageRoot)ae.dns.client\3.1.0\lib\net6.0\Ae.Dns.Client.dll" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)ae.dns.protocol\3.1.0\lib\net6.0\Ae.Dns.Protocol.dll" DestinationFolder="$(OutputPath)" />
     </Target>
 
     <ItemGroup>

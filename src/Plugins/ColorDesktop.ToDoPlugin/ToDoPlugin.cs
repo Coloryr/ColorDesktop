@@ -12,18 +12,18 @@ public class ToDoPlugin : IPlugin
 
     public static ToDoInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new ToDoInstanceObj()
+        return obj.GetConfig(new ToDoInstanceObj()
         {
             Width = 300,
             Height = 500,
             BackColor = "#5d71bf",
             TextColor = "#000000"
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.ToDoInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, ToDoInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.ToDoInstanceObj);
     }
 
     public bool CanCreateInstance => true;

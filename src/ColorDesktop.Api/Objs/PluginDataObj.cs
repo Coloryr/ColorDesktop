@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
-namespace ColorDesktop.Api;
+namespace ColorDesktop.Api.Objs;
 
 public record PluginDependentObj
 {

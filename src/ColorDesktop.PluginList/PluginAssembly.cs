@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.Loader;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.PluginList;
 

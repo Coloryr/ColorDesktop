@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.BmPlugin;
 
@@ -6,13 +6,13 @@ public record BmObj
 {
     public record WeekDayObj
     {
-        [JsonProperty("en")]
+        [JsonPropertyName("en")]
         public string En { get; set; }
-        [JsonProperty("cn")]
+        [JsonPropertyName("cn")]
         public string Cn { get; set; }
-        [JsonProperty("ja")]
+        [JsonPropertyName("ja")]
         public string Ja { get; set; }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
     }
     public record ItemObj
@@ -21,81 +21,81 @@ public record BmObj
         {
             public record CountObj
             {
-                [JsonProperty("10")]
+                [JsonPropertyName("10")]
                 public int C10 { get; set; }
-                [JsonProperty("9")]
+                [JsonPropertyName("9")]
                 public int C9 { get; set; }
-                [JsonProperty("8")]
+                [JsonPropertyName("8")]
                 public int C8 { get; set; }
-                [JsonProperty("7")]
+                [JsonPropertyName("7")]
                 public int C7 { get; set; }
-                [JsonProperty("6")]
+                [JsonPropertyName("6")]
                 public int C6 { get; set; }
-                [JsonProperty("5")]
+                [JsonPropertyName("5")]
                 public int C5 { get; set; }
-                [JsonProperty("4")]
+                [JsonPropertyName("4")]
                 public int C4 { get; set; }
-                [JsonProperty("3")]
+                [JsonPropertyName("3")]
                 public int C3 { get; set; }
-                [JsonProperty("2")]
+                [JsonPropertyName("2")]
                 public int C2 { get; set; }
-                [JsonProperty("1")]
+                [JsonPropertyName("1")]
                 public int C1 { get; set; }
 
             }
-            [JsonProperty("total")]
+            [JsonPropertyName("total")]
             public int Total { get; set; }
-            [JsonProperty("count")]
+            [JsonPropertyName("count")]
             public CountObj Count { get; set; }
-            [JsonProperty("score")]
+            [JsonPropertyName("score")]
             public float Score { get; set; }
         }
         public record ImageObj
         {
-            [JsonProperty("large")]
+            [JsonPropertyName("large")]
             public string Large { get; set; }
-            [JsonProperty("common")]
+            [JsonPropertyName("common")]
             public string Common { get; set; }
-            [JsonProperty("medium")]
+            [JsonPropertyName("medium")]
             public string Medium { get; set; }
-            [JsonProperty("small")]
+            [JsonPropertyName("small")]
             public string Small { get; set; }
-            [JsonProperty("grid")]
+            [JsonPropertyName("grid")]
             public string Grid { get; set; }
         }
         public record CollectionObj
         {
-            [JsonProperty("doing")]
+            [JsonPropertyName("doing")]
             public int Doing { get; set; }
         }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string Url { get; set; }
-        [JsonProperty("type")]
+        [JsonPropertyName("type")]
         public int Type { get; set; }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("name_cn")]
+        [JsonPropertyName("name_cn")]
         public string NameCn { get; set; }
-        [JsonProperty("summary")]
+        [JsonPropertyName("summary")]
         public string Summary { get; set; }
-        [JsonProperty("air_date")]
+        [JsonPropertyName("air_date")]
         public string AirDate { get; set; }
-        [JsonProperty("air_weekday")]
+        [JsonPropertyName("air_weekday")]
         public int AirWeekday { get; set; }
-        [JsonProperty("rating")]
+        [JsonPropertyName("rating")]
         public RatingObj Rating { get; set; }
-        [JsonProperty("rank")]
+        [JsonPropertyName("rank")]
         public int Rank { get; set; }
-        [JsonProperty("images")]
+        [JsonPropertyName("images")]
         public ImageObj Images { get; set; }
-        [JsonProperty("collection")]
+        [JsonPropertyName("collection")]
         public CollectionObj Collection { get; set; }
     }
 
-    [JsonProperty("weekday")]
+    [JsonPropertyName("weekday")]
     public WeekDayObj WeekDay { get; set; }
-    [JsonProperty("items")]
+    [JsonPropertyName("items")]
     public List<ItemObj> Items { get; set; }
 }

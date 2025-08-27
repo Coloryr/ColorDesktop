@@ -1,31 +1,31 @@
 {
-    "ID": "coloryr.analogclock",
-    "Name": "模拟时钟",
-    "Describe": "使用表盘方式显示系统时间",
-    "Auther": "Coloryr",
-    "Dlls": [
-        "ColorDesktop.AnalogClockPlugin"
-    ],
-    "Dependents": [
-        {
-            "Type": "Share",
-            "ID": "coloryr.clock"
-        },
-        {
-            "Type": "Share",
-            "ID": "coloryr.corelib"
-        }
-    ],
-    "Os": [
-        "windows_x86_64",
-        "windows_arm64",
-        "linux_x86_64",
-        "linux_arm64",
-        "macos_x86_64",
-        "macos_arm64"
-    ],
-    "Permission": true,
-    "Reload": true,
-    "Version": "1.2.2",
-    "ApiVersion": "5"
+  "ID": "coloryr.analogclock",
+  "Name": "模拟时钟",
+  "Describe": "使用表盘方式显示系统时间",
+  "Auther": "Coloryr",
+  "Dlls": [
+    "ColorDesktop.AnalogClockPlugin"
+  ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.clock"
+    },
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Os": [
+    "windows_x86_64",
+    "windows_arm64",
+    "linux_x86_64",
+    "linux_arm64",
+    "macos_x86_64",
+    "macos_arm64"
+  ],
+  "Permission": true,
+  "Reload": true,
+  "Version": "1.6.4",
+  "ApiVersion": "6"
 }

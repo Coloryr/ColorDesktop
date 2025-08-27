@@ -61,7 +61,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
 
     public ObservableCollection<ToDoCheckItemItemModel> SubTasks { get; init; } = [];
 
-    private ToDoTaskListObj.ValueObj _obj;
+    private ToDoTaskListObj.ValueObj1 _obj;
     private readonly string _listId = id;
 
     private bool _pointer;
@@ -248,7 +248,7 @@ public partial class ToDoTaskItemModel(ToDoModel top, string id, string uuid) : 
         IsEdit = false;
     }
 
-    public void Update(ToDoTaskListObj.ValueObj obj)
+    public void Update(ToDoTaskListObj.ValueObj1 obj)
     {
         _obj = obj;
 

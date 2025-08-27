@@ -1,4 +1,6 @@
-﻿namespace ColorDesktop.Api;
+﻿using ColorDesktop.Api.Objs;
+
+namespace ColorDesktop.Api;
 
 /// <summary>
 /// 组件控制器

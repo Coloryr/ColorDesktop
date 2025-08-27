@@ -1,11 +1,14 @@
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
-using Heijden.Dns.Portable;
-using Heijden.DNS;
-using Newtonsoft.Json;
+using System.Text.Json;
+using Ae.Dns.Client;
+using Ae.Dns.Protocol;
+using Ae.Dns.Protocol.Enums;
+using Ae.Dns.Protocol.Records;
 
 namespace ColorDesktop.MinecraftMotdPlugin.Motd;
-
 /// <summary>
 /// 获取Motd
 /// </summary>
@@ -16,7 +19,7 @@ public static class ServerMotd
     /// </summary>
     /// <param name="chat"></param>
     /// <returns></returns>
-    public static string ToPlainTextString(this Chat chat)
+    public static string ToPlainTextString(this ChatObj chat)
     {
         StringBuilder stringBuilder = new(chat.Text);
         if (chat.Extra != null)
@@ -119,19 +122,73 @@ public static class ServerMotd
             {
                 tcp.Close();
                 tcp.Dispose();
-                var data = await new Resolver().Query("_minecraft._tcp." + ip, QType.SRV);
-                if (data.Answers?.FirstOrDefault()?.RECORD is RecordSRV result)
+                IPAddress? selectDns = null;
+                //获取系统Dns服务器
+                var list = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (var adapter in list.Where(item => item.OperationalStatus is OperationalStatus.Up && item.NetworkInterfaceType is NetworkInterfaceType.Wireless80211 or NetworkInterfaceType.Ethernet && item.Speed > 0))
                 {
+                    if (selectDns != null)
+                    {
+                        break;
+                    }
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+
+                    if (properties.GatewayAddresses.Count > 0 &&
+                        !properties.GatewayAddresses[0].Address.ToString().StartsWith("127."))
+                    {
+                        foreach (IPAddress dnsAddress in properties.DnsAddresses)
+                        {
+                            selectDns = dnsAddress;
+                            break;
+                        }
+                    }
+                }
+                if (selectDns == null)
+                {
+                    info.State = StateType.Error;
+
+                    return info;
+                }
+                //进行SRV请求
+                using var s_dnsClient = new DnsUdpClient(selectDns);
+                var data = await s_dnsClient.Query(DnsQueryFactory.CreateQuery("_minecraft._tcp." + ip, DnsQueryType.SRV), CancellationToken.None);
+                if (data.Answers?.FirstOrDefault() is { } result)
+                {
+                    var result1 = result.Resource as DnsUnknownResource;
                     tcp = new TcpClient()
                     {
                         ReceiveTimeout = 5000,
                         SendTimeout = 5000
                     };
-                    tcp.Connect(ip = result.TARGET[..^1], port = result.PORT);
+                    var rawData = result1!.Raw.ToArray();
+                    int offset = 4;
+                    port = (ushort)((rawData[offset] << 8) | rawData[offset + 1]);
+                    offset += 2;
+
+                    var targetBuilder = new StringBuilder();
+                    while (offset < rawData.Length)
+                    {
+                        byte length = rawData[offset];
+                        offset++;
+
+                        if (length == 0)
+                        {
+                            break;
+                        }
+
+                        targetBuilder.Append(Encoding.ASCII.GetString(rawData, offset, length))
+                            .Append('.');
+                        offset += length;
+                    }
+
+                    ip = targetBuilder.ToString();
+                    ip = ip[..^1];
+
+                    tcp.Connect(ip, port);
                 }
                 else
                 {
-                    info.State = StateType.BAD_CONNECT;
+                    info.State = StateType.ConnectFail;
                     info.Message = ex.Message;
                     return info;
                 }
@@ -165,17 +222,48 @@ public static class ServerMotd
             info.Ping = handler.PingWatcher.ElapsedMilliseconds;
             if (packetLength > 0)
             {
-                List<byte> packetData = new(handler.ReadDataRAW(packetLength));
+                List<byte> packetData = [.. handler.ReadDataRAW(packetLength)];
 
                 if (ProtocolHandler.ReadNextVarInt(packetData) == 0x00) //Read Packet ID
                 {
                     string result = ProtocolHandler.ReadNextString(packetData); //Get the Json data
-                    JsonConvert.PopulateObject(result, info);
+
+                    var doc = JsonDocument.Parse(result);
+                    foreach (var item in doc.RootElement.EnumerateObject())
+                    {
+                        if (item.Name == "version")
+                        {
+                            info.Version = item.Value.Deserialize(JsonGen.Default.ServerVersionInfoObj);
+                        }
+                        else if (item.Name == "players")
+                        {
+                            info.Players = item.Value.Deserialize(JsonGen.Default.ServerPlayerInfoObj);
+                        }
+                        else if (item.Name == "modinfo")
+                        {
+                            info.ModInfo = item.Value.Deserialize(JsonGen.Default.ServerMotdModInfoObj);
+                        }
+                        else if (item.Name == "favicon")
+                        {
+                            info.Favicon = item.Value.GetString();
+                        }
+                        else if (item.Name == "description")
+                        {
+                            if (item.Value.ValueKind == JsonValueKind.String)
+                            {
+                                info.Description = ChatConverter.StringToChar(item.Value.GetString());
+                            }
+                            else
+                            {
+                                info.Description = item.Value.Deserialize(JsonGen.Default.ChatObj)!;
+                            }
+                        }
+                    }
 
                     if (!string.IsNullOrEmpty(info.Description.Text)
                         && info.Description.Extra == null && info.Description.Text.Contains('§'))
                     {
-                        info.Description = ServerDescriptionJsonConverter.StringToChar(info.Description.Text);
+                        info.Description = ChatConverter.StringToChar(info.Description.Text);
                     }
                 }
             }
@@ -184,7 +272,7 @@ public static class ServerMotd
         }
         catch (Exception ex)
         {
-            info.State = StateType.EXCEPTION;
+            info.State = StateType.Error;
             info.Message = ex.Message;
         }
 

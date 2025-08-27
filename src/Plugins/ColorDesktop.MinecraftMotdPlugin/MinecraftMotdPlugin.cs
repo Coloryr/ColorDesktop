@@ -12,15 +12,12 @@ public class MinecraftMotdPlugin : IPlugin
 
     public static MotdInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new MotdInstanceObj()
-        {
-
-        }, ConfigName);
+        return InstanceUtils.GetConfig(obj, new MotdInstanceObj(), ConfigName, JsonGen.Default.MotdInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, MotdInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        InstanceUtils.SaveConfig(obj, config, ConfigName, JsonGen.Default.MotdInstanceObj);
     }
 
     public bool CanCreateInstance => true;

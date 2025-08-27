@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ColorDesktop.Api;
+using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
 using DialogHostAvalonia;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.Manager;
 
@@ -56,7 +57,7 @@ public static class PluginManager
                 {
                     continue;
                 }
-                var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+                var obj = JsonSerializer.Deserialize(File.ReadAllText(config.FullName), JsonType.PluginDataObj);
                 if (obj == null)
                 {
                     continue;
@@ -178,7 +179,7 @@ public static class PluginManager
             {
                 return;
             }
-            var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+            var obj = JsonSerializer.Deserialize(File.ReadAllText(config.FullName), JsonType.PluginDataObj);
             if (obj == null)
             {
                 return;

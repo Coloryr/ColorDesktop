@@ -1,14 +1,6 @@
 using System.Collections.Concurrent;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.Api;
-
-public record ConfigSaveObj
-{
-    public string Name;
-    public object Obj;
-    public string Local;
-}
 
 /// <summary>
 /// 配置文件保存
@@ -92,8 +84,8 @@ public static class ConfigSave
         {
             try
             {
-                File.WriteAllText(item.Local,
-                    JsonConvert.SerializeObject(item.Obj, Formatting.Indented));
+                File.WriteAllText(item.File,
+                    item.Run());
             }
             catch (Exception e)
             {

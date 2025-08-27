@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -12,7 +11,7 @@ public class AnalogClockPlugin : IPlugin
 
     public static AnalogClockInstanceConfigObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new AnalogClockInstanceConfigObj()
+        return obj.GetConfig(new AnalogClockInstanceConfigObj()
         {
             Size = 100,
             Type = ClockType.Analog,
@@ -21,12 +20,12 @@ public class AnalogClockPlugin : IPlugin
             TextColor = "#FFFFFF",
             BackColor = "#0000CD",
             BorderColor = "#EEEEEE"
-        }, ConfigName);
+        }, ConfigName, JsonGen1.Default.AnalogClockInstanceConfigObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, AnalogClockInstanceConfigObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen1.Default.AnalogClockInstanceConfigObj);
     }
 
     public bool HavePluginSetting => false;

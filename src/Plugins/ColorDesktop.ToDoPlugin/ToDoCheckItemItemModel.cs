@@ -18,10 +18,10 @@ public partial class ToDoCheckItemItemModel : ObservableObject
     [ObservableProperty]
     public string _text;
 
-    private readonly ToDoTaskListObj.ValueObj.CheckListObj _obj;
+    private readonly ToDoTaskListObj.ValueObj1.CheckListObj _obj;
     private readonly ToDoTaskItemModel _top;
 
-    public ToDoCheckItemItemModel(ToDoTaskItemModel top, ToDoTaskListObj.ValueObj.CheckListObj item)
+    public ToDoCheckItemItemModel(ToDoTaskItemModel top, ToDoTaskListObj.ValueObj1.CheckListObj item)
     {
         _top = top;
         _obj = item;

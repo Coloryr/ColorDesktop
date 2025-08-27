@@ -1,4 +1,5 @@
-﻿using ColorDesktop.Api;
+﻿using System.Text.Json.Serialization.Metadata;
+using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.CoreLib;
@@ -7,14 +8,14 @@ public static class InstanceUtils
 {
     private static readonly Dictionary<string, object> s_configs = [];
 
-    public static T GetConfig<T>(InstanceDataObj obj, T config, string name) where T : new()
+    public static T GetConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info) where T : new()
     {
         if (s_configs.TryGetValue(obj.UUID, out var data))
         {
-            return (T)data;
+            return (T)data!;
         }
 
-        var obj1 = ConfigUtils.Config<T>(config, CoreLib.InstanceLocal + "/" + obj.UUID + "/" + name);
+        var obj1 = ConfigUtils.Config<T>(config, Path.GetFullPath(CoreLib.InstanceLocal + "/" + obj.UUID + "/" + name), info);
 
         obj1 ??= config;
 
@@ -23,18 +24,14 @@ public static class InstanceUtils
         return obj1;
     }
 
-    public static void SaveConfig(InstanceDataObj obj, object config, string name)
+    public static void SaveConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info)
     {
-        if (!s_configs.TryAdd(obj.UUID, config))
+        if (!s_configs.TryAdd(obj.UUID, config!))
         {
-            s_configs[obj.UUID] = config;
+            s_configs[obj.UUID] = config!;
         }
 
-        ConfigSave.AddItem(new()
-        {
-            Name = "corelib" + name + obj.UUID,
-            Local = CoreLib.InstanceLocal + "/" + obj.UUID + "/" + name,
-            Obj = config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("corelib" + name + obj.UUID, 
+            Path.GetFullPath(CoreLib.InstanceLocal + "/" + obj.UUID + "/" + name), config, info));
     }
 }

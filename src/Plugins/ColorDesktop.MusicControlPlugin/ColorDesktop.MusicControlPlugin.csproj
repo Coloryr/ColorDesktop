@@ -36,7 +36,7 @@
     </ItemGroup>
 
 	<Target Name="CopySpecificNuGetDll_1" AfterTargets="Build">
-		<Copy SourceFiles="$(NuGetPackageRoot)tmds.dbus.protocol\0.20.0\lib\net8.0\Tmds.DBus.Protocol.dll" DestinationFolder="$(OutputPath)" />
+		<Copy SourceFiles="$(NuGetPackageRoot)tmds.dbus.protocol\0.21.2\lib\net8.0\Tmds.DBus.Protocol.dll" DestinationFolder="$(OutputPath)" />
 	</Target>
 	<Target Name="CopySpecificNuGetDll_2" AfterTargets="Build">
 		<Copy SourceFiles="$(NuGetPackageRoot)system.io.pipelines\8.0.0\lib\net8.0\System.IO.Pipelines.dll" DestinationFolder="$(OutputPath)" />
@@ -49,7 +49,7 @@
         <ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <PackageReference Include="Tmds.DBus.Protocol" Version="0.20.0" />
+        <PackageReference Include="Tmds.DBus.Protocol" Version="0.21.2" />
     </ItemGroup>
 
     <ItemGroup>

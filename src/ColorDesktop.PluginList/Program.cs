@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using ColorDesktop.Api;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace ColorDesktop.PluginList;
 
@@ -76,7 +75,7 @@ public class Program
                 {
                     continue;
                 }
-                var obj = JsonConvert.DeserializeObject<PluginDataObj>(File.ReadAllText(config.FullName));
+                var obj = JsonSerializer.Deserialize(File.ReadAllText(config.FullName), SourceGenerationContext.Default.PluginDataObj);
                 if (obj == null)
                 {
                     continue;
@@ -138,7 +137,7 @@ public class Program
             }
         }
 
-        var temp = JsonConvert.SerializeObject(download);
+        var temp = JsonSerializer.Serialize(download, SourceGenerationContext.Default.PluginDownloadObj);
         File.WriteAllText("web/plugin.json", temp);
     }
 }

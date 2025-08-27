@@ -1,6 +1,6 @@
-﻿using Avalonia;
+﻿using System.Text.Json.Nodes;
+using Avalonia;
 using Avalonia.Markup.Xaml;
-using Newtonsoft.Json.Linq;
 
 namespace ColorDesktop.Api;
 
@@ -90,12 +90,12 @@ public class Language
     /// <param name="item"></param>
     public void Load(string item)
     {
-        if (JObject.Parse(item) is JObject json)
+        if (JsonUtils.ReadAsObj(item) is JsonObject json)
         {
             foreach (var item1 in json)
             {
                 _languageList.Remove(item1.Key);
-                _languageList.TryAdd(item1.Key, item1.Value!.ToString());
+                _languageList.TryAdd(item1.Key, item1.Value!.AsValue().GetValue<string>());
             }
         }
     }

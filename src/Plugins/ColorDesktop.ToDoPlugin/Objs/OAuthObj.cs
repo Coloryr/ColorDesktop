@@ -1,37 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.ToDoPlugin.Objs;
 
 public record OAuthObj
 {
-    [JsonProperty("user_code")]
+    [JsonPropertyName("user_code")]
     public string UserCode { get; set; }
-    [JsonProperty("device_code")]
+    [JsonPropertyName("device_code")]
     public string DeviceCode { get; set; }
-    [JsonProperty("verification_uri")]
+    [JsonPropertyName("verification_uri")]
     public string VerificationUri { get; set; }
-    [JsonProperty("expires_in")]
+    [JsonPropertyName("expires_in")]
     public int ExpiresIn { get; set; }
-    [JsonProperty("interval")]
+    [JsonPropertyName("interval")]
     public int Interval { get; set; }
-    [JsonProperty("message")]
+    [JsonPropertyName("message")]
     public string Message { get; set; }
 }
 
 public record OAuthGetCodeObj
 {
-    [JsonProperty("token_type")]
+    [JsonPropertyName("token_type")]
     public string TokenType { get; set; }
-    [JsonProperty("scope")]
+    [JsonPropertyName("scope")]
     public string Scope { get; set; }
-    [JsonProperty("access_token")]
+    [JsonPropertyName("access_token")]
     public string AccessToken { get; set; }
-    [JsonProperty("expires_in")]
+    [JsonPropertyName("expires_in")]
     public int ExpiresIn { get; set; }
-    [JsonProperty("ext_expires_in")]
+    [JsonPropertyName("ext_expires_in")]
     public int ExtExpiresIn { get; set; }
-    [JsonProperty("id_token")]
+    [JsonPropertyName("id_token")]
     public string IdToken { get; set; }
-    [JsonProperty("refresh_token")]
+    [JsonPropertyName("refresh_token")]
     public string RefreshToken { get; set; }
 }

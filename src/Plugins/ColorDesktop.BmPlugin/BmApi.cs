@@ -1,5 +1,5 @@
-﻿using ColorDesktop.CoreLib;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using ColorDesktop.CoreLib;
 
 namespace ColorDesktop.BmPlugin;
 
@@ -11,7 +11,7 @@ public static class BmApi
         {
             var data = await HttpUtils.Client.GetStringAsync("https://api.bgm.tv/calendar");
 
-            return JsonConvert.DeserializeObject<List<BmObj>?>(data);
+            return JsonSerializer.Deserialize(data, JsonGen.Default.ListBmObj);
         }
         catch
         {

@@ -1,29 +1,29 @@
 {
-    "ID": "coloryr.music.control",
-    "Name": "音乐控制",
-    "Describe": "获取电脑音乐播放器信息并控制",
-    "Auther": "Coloryr",
-    "Dlls": [
-        "ColorDesktop.MusicControlPlugin",
-        "Microsoft.Windows.SDK.NET",
-        "WinRT.Runtime",
-        "Tmds.DBus.Protocol",
-        "System.IO.Pipelines"
-    ],
-    "Dependents": [
-        {
-            "Type": "Share",
-            "ID": "coloryr.corelib"
-        }
-    ],
-    "Os": [
-        "windows_x86_64",
-        "windows_arm64",
-        "linux_x86_64",
-        "linux_arm64"
-    ],
-    "Permission": true,
-    "Reload": false,
-    "Version": "1.2.2",
-    "ApiVersion": "5"
+  "ID": "coloryr.music.control",
+  "Name": "音乐控制",
+  "Describe": "获取电脑音乐播放器信息并控制",
+  "Auther": "Coloryr",
+  "Dlls": [
+    "ColorDesktop.MusicControlPlugin",
+    "Microsoft.Windows.SDK.NET",
+    "WinRT.Runtime",
+    "Tmds.DBus.Protocol",
+    "System.IO.Pipelines"
+  ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Os": [
+    "windows_x86_64",
+    "windows_arm64",
+    "linux_x86_64",
+    "linux_arm64"
+  ],
+  "Permission": true,
+  "Reload": false,
+  "Version": "1.2.4",
+  "ApiVersion": "6"
 }

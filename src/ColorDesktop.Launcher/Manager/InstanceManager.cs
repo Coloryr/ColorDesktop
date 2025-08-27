@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
@@ -11,7 +12,6 @@ using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.UI.Windows;
 using DialogHostAvalonia;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.Manager;
 
@@ -54,7 +54,7 @@ public static class InstanceManager
                 var config = item.GetFiles().FirstOrDefault(item => item.Name.Equals(FileName, StringComparison.CurrentCultureIgnoreCase));
                 if (config != null)
                 {
-                    var obj = JsonConvert.DeserializeObject<InstanceDataObj>(File.ReadAllText(config.FullName));
+                    var obj = JsonUtils.ToObj(File.ReadAllText(config.FullName), JsonType.InstanceDataObj);
                     if (obj == null)
                     {
                         continue;
@@ -62,7 +62,7 @@ public static class InstanceManager
                     if (obj.UUID != uuid)
                     {
                         obj.UUID = uuid;
-                        ConfigUtils.Save(obj, config.FullName);
+                        ConfigUtils.Save(obj, config.FullName, JsonType.InstanceDataObj);
                     }
                     Instances.Add(uuid, obj);
                     SetInstanceState(uuid, InstanceState.Disable);
@@ -104,7 +104,7 @@ public static class InstanceManager
         {
             try
             {
-                var obj = JsonConvert.DeserializeObject<GroupObj>(File.ReadAllText(item.FullName));
+                var obj = JsonSerializer.Deserialize(File.ReadAllText(item.FullName), JsonType.GroupObj);
                 if (obj != null && !string.IsNullOrWhiteSpace(obj.UUID)
                     && !string.IsNullOrWhiteSpace(obj.Name))
                 {
@@ -208,12 +208,7 @@ public static class InstanceManager
     {
         var file = Path.GetFullPath(GroupDir + "/" + group.UUID + ".json");
 
-        ConfigSave.AddItem(new()
-        {
-            Name = "Group " + group.UUID,
-            Local = file,
-            Obj = group
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("Group " + group.UUID, file, group, JsonType.GroupObj));
     }
 
     public static void GroupImportInstance(string uuid, List<string> list)
@@ -337,7 +332,7 @@ public static class InstanceManager
     {
         var dir = GetLocal(obj);
         Directory.CreateDirectory(dir);
-        ConfigUtils.Save(obj, Path.GetFullPath(dir + "/" + FileName));
+        ConfigUtils.Save(obj, Path.GetFullPath(dir + "/" + FileName), JsonType.InstanceDataObj);
     }
 
     /// <summary>

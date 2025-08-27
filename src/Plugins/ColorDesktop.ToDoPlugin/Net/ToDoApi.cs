@@ -1,8 +1,9 @@
 ﻿using System.Net;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using ColorDesktop.Api;
 using ColorDesktop.ToDoPlugin.Objs;
-using Newtonsoft.Json.Linq;
 
 namespace ColorDesktop.ToDoPlugin.Net;
 
@@ -22,15 +23,14 @@ public static class ToDoApi
             {
                 return (false, null);
             }
-            var data = await res.Content.ReadAsStringAsync();
-
-            var obj = JObject.Parse(data);
-            if (obj.ContainsKey("error"))
+            using var data = await res.Content.ReadAsStreamAsync();
+            var obj = JsonUtils.ReadAsObj(data);
+            if (obj == null || obj.ContainsKey("error"))
             {
                 return (false, null);
             }
 
-            return (true, obj.ToObject<ToDoListObj>());
+            return (true, JsonSerializer.Deserialize(obj, JsonGen.Default.ToDoListObj));
         }
         catch
         {
@@ -52,15 +52,15 @@ public static class ToDoApi
             {
                 return (false, null);
             }
-            var data = await res.Content.ReadAsStringAsync();
+            using var data = await res.Content.ReadAsStreamAsync();
 
-            var obj = JObject.Parse(data);
-            if (obj.ContainsKey("error"))
+            var obj = JsonUtils.ReadAsObj(data);
+            if (obj == null || obj.ContainsKey("error"))
             {
                 return (false, null);
             }
 
-            return (true, obj.ToObject<ToDoTaskListObj>());
+            return (true, JsonSerializer.Deserialize(obj, JsonGen.Default.ToDoTaskListObj));
         }
         catch (Exception e)
         {
@@ -69,7 +69,7 @@ public static class ToDoApi
         }
     }
 
-    public static async Task<(bool, ToDoTaskListObj.ValueObj?)> GetTask(string bear, string id, string task)
+    public static async Task<(bool, ToDoTaskListObj.ValueObj1?)> GetTask(string bear, string id, string task)
     {
         var req = new HttpRequestMessage()
         {
@@ -83,15 +83,16 @@ public static class ToDoApi
             {
                 return (false, null);
             }
-            var data = await res.Content.ReadAsStringAsync();
+            using var data = await res.Content.ReadAsStreamAsync();
 
-            var obj = JObject.Parse(data);
-            if (obj.ContainsKey("error"))
+            var obj = JsonUtils.ReadAsObj(data);
+            if (obj == null || obj.ContainsKey("error"))
             {
                 return (false, null);
             }
 
-            return (true, obj.ToObject<ToDoTaskListObj.ValueObj>());
+            return (true, JsonSerializer.Deserialize(obj, JsonGen.Default.ValueObj1));
+
         }
         catch (Exception e)
         {
@@ -103,13 +104,13 @@ public static class ToDoApi
     public static async Task<bool> CreateTask(string bear, string id,
         string title, string? body = null, DateTime? dueTime = null)
     {
-        var obj = new JObject
+        var obj = new JsonObject
         {
             { "title", title }
         };
         if (body != null)
         {
-            obj.Add("body", new JObject()
+            obj.Add("body", new JsonObject()
             {
                 { "content", body },
                 { "contentType", "text" }
@@ -117,7 +118,7 @@ public static class ToDoApi
         }
         if (dueTime is { } time)
         {
-            obj.Add("dueDateTime", new JObject()
+            obj.Add("dueDateTime", new JsonObject()
             {
                 { "dateTime", time.ToUniversalTime().ToString() },
                 { "timeZone", "UTC" }
@@ -147,7 +148,7 @@ public static class ToDoApi
     public static async Task<bool> CreateTaskCheckList(string bear, string id,
        string task, string title)
     {
-        var obj = new JObject
+        var obj = new JsonObject
         {
             { "displayName", title }
         };
@@ -197,7 +198,7 @@ public static class ToDoApi
     public static async Task<bool> EditCheckItem(string bear, string listId,
         string task, string id, bool? isCheck, string? text)
     {
-        var obj = new JObject();
+        var obj = new JsonObject();
         if (isCheck is { } check)
         {
             obj.Add("isChecked", check);
@@ -252,7 +253,7 @@ public static class ToDoApi
         string? text, bool? isCheck, DateTime? time, string? body,
         bool? removeTime, DateTime? isReminderTime, bool? isReminder)
     {
-        var obj = new JObject();
+        var obj = new JsonObject();
         if (text != null)
         {
             obj.Add("title", text);
@@ -273,7 +274,7 @@ public static class ToDoApi
             if (isReminder == true && isReminderTime is { } time1)
             {
                 obj.Add("isReminderOn", true);
-                obj.Add("reminderDateTime", new JObject()
+                obj.Add("reminderDateTime", new JsonObject()
                 {
                     { "timeZone", "UTC" },
                     { "dateTime", $"{time1.Year}-{time1.Month:00}-{time1.Day:00}T{time1.Hour:00}:00:00" }
@@ -291,7 +292,7 @@ public static class ToDoApi
         }
         else if (time is { } time1)
         {
-            obj.Add("dueDateTime", new JObject()
+            obj.Add("dueDateTime", new JsonObject()
             {
                 { "timeZone", "UTC" },
                 { "dateTime", $"{time1.Year}-{time1.Month:00}-{time1.Day:00}T{time1.Hour:00}:00:00" }
@@ -299,7 +300,7 @@ public static class ToDoApi
         }
         if (body != null)
         {
-            obj.Add("body", new JObject()
+            obj.Add("body", new JsonObject()
             {
                 { "contentType", "text" },
                 { "content", body }
@@ -333,7 +334,7 @@ public static class ToDoApi
 
     public static async Task<bool> CreateTaskList(string bear, string name)
     {
-        var obj = new JObject
+        var obj = new JsonObject
         {
             { "displayName", name }
         };
@@ -360,7 +361,7 @@ public static class ToDoApi
 
     public static async Task<bool> EditTaskList(string bear, string id, string title)
     {
-        var obj = new JObject
+        var obj = new JsonObject
         {
             { "displayName", title }
         };

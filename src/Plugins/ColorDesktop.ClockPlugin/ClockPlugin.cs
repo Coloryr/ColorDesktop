@@ -16,7 +16,7 @@ public class ClockPlugin : IPlugin
 
     public static ClockInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new ClockInstanceObj()
+        return obj.GetConfig(new ClockInstanceObj()
         {
             Color = "#000000",
             Size = 50,
@@ -29,7 +29,7 @@ public class ClockPlugin : IPlugin
             SecondSize = 50,
             ColonSize = 50,
             BackGround = "#00000000"
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.ClockInstanceObj);
     }
 
     public static DateTime GetTime()
@@ -39,27 +39,22 @@ public class ClockPlugin : IPlugin
 
     public static void SaveConfig(InstanceDataObj obj, ClockInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.ClockInstanceObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.clock.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.clock.config", s_local, Config, JsonGen.Default.ClockConfigObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<ClockConfigObj>(new()
+        Config = ConfigUtils.Config(new()
         {
             NtpIp = "cn.pool.ntp.org",
             NtpUpdateTime = 180,
             TimeZone = 8
-        }, s_local);
+        }, s_local, JsonGen.Default.ClockConfigObj);
     }
 
     public bool HavePluginSetting => true;

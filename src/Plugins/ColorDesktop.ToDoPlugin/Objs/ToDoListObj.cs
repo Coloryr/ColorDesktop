@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.ToDoPlugin.Objs;
 
@@ -6,20 +6,20 @@ public record ToDoListObj
 {
     public record ValueObj
     {
-        [JsonProperty("@odata.etag")]
+        [JsonPropertyName("@odata.etag")]
         public string ETag { get; set; }
-        [JsonProperty("displayName")]
+        [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
-        [JsonProperty("isOwner")]
+        [JsonPropertyName("isOwner")]
         public bool IsOwner { get; set; }
-        [JsonProperty("isShared")]
+        [JsonPropertyName("isShared")]
         public bool IsShared { get; set; }
-        [JsonProperty("wellknownListName")]
+        [JsonPropertyName("wellknownListName")]
         public string WellknownListName { get; set; }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
     }
-    [JsonProperty("@odata.context")]
+    [JsonPropertyName("@odata.context")]
     public string Context { get; set; }
     public List<ValueObj> Value { get; set; }
 }

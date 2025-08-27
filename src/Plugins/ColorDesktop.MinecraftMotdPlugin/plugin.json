@@ -1,28 +1,28 @@
 {
-    "ID": "coloryr.minecraft.motd",
-    "Name": "Minecraft服务器Motd显示",
-    "Describe": "用于显示Minecraft服务器Motd",
-    "Auther": "Coloryr",
-    "Dlls": [
-        "ColorDesktop.MinecraftMotdPlugin",
-        "Heijden.Dns.Portable"
-    ],
-    "Dependents": [
-        {
-            "Type": "Share",
-            "ID": "coloryr.corelib"
-        }
-    ],
-    "Os": [
-        "windows_x86_64",
-        "windows_arm64",
-        "linux_x86_64",
-        "linux_arm64",
-        "macos_x86_64",
-        "macos_arm64"
-    ],
-    "Permission": true,
-    "Reload": true,
-    "Version": "1.2.2",
-    "ApiVersion": "5"
+  "ID": "coloryr.minecraft.motd",
+  "Name": "Minecraft服务器Motd显示",
+  "Describe": "用于显示Minecraft服务器Motd",
+  "Auther": "Coloryr",
+  "Dlls": [
+    "ColorDesktop.MinecraftMotdPlugin",
+    "Heijden.Dns.Portable"
+  ],
+  "Dependents": [
+    {
+      "Type": "Share",
+      "ID": "coloryr.corelib"
+    }
+  ],
+  "Os": [
+    "windows_x86_64",
+    "windows_arm64",
+    "linux_x86_64",
+    "linux_arm64",
+    "macos_x86_64",
+    "macos_arm64"
+  ],
+  "Permission": true,
+  "Reload": true,
+  "Version": "1.2.4",
+  "ApiVersion": "6"
 }

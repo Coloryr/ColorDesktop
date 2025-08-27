@@ -1,6 +1,7 @@
-﻿using ColorDesktop.ToDoPlugin.Objs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using ColorDesktop.Api;
+using ColorDesktop.ToDoPlugin.Objs;
 
 namespace ColorDesktop.ToDoPlugin.Net;
 
@@ -57,12 +58,12 @@ public static class OAuth
     /// <param name="url">网址</param>
     /// <param name="arg">参数</param>
     /// <returns>数据</returns>
-    public static async Task<JObject?> LoginPostAsync(string url, Dictionary<string, string> arg)
+    public static async Task<JsonObject?> LoginPostAsync(string url, Dictionary<string, string> arg)
     {
         var content = new FormUrlEncodedContent(arg);
         using var message = await Client.PostAsync(url, content);
-        var data = await message.Content.ReadAsStringAsync();
-        return JObject.Parse(data);
+        using var data = await message.Content.ReadAsStreamAsync();
+        return JsonUtils.ReadAsObj(data);
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ public static class OAuth
                 Message = data
             };
         }
-        var obj1 = JsonConvert.DeserializeObject<OAuthObj>(data);
+        var obj1 = JsonSerializer.Deserialize(data, JsonGen.Default.OAuthObj);
         if (obj1 == null)
         {
             return new OAuthGetCodeRes
@@ -130,7 +131,7 @@ public static class OAuth
                 };
             }
             var data = await LoginPostStringAsync(OAuthToken, Arg2);
-            var obj3 = JObject.Parse(data);
+            var obj3 = JsonUtils.ReadAsObj(data);
             if (obj3 == null)
             {
                 return new OAuthGetTokenRes
@@ -159,7 +160,7 @@ public static class OAuth
             }
             else
             {
-                var obj4 = JsonConvert.DeserializeObject<OAuthGetCodeObj>(data);
+                var obj4 = JsonSerializer.Deserialize(data, JsonGen.Default.OAuthGetCodeObj);
                 if (obj4 == null)
                 {
                     return new OAuthGetTokenRes
@@ -203,7 +204,7 @@ public static class OAuth
             };
         }
 
-        var obj2 = obj1.ToObject<OAuthGetCodeObj>();
+        var obj2 = JsonSerializer.Deserialize(obj1, JsonGen.Default.OAuthGetCodeObj);
         if (obj2 == null)
         {
             return new OAuthGetTokenRes

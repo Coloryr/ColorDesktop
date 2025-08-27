@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json;
 using AvaloniaEdit.Utils;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
@@ -12,7 +13,6 @@ using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DialogHostAvalonia;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.Launcher.UI.Models.Main;
 
@@ -58,7 +58,7 @@ public partial class MainViewModel
             try
             {
                 var data = await LauncherUtils.Client.GetStringAsync(item.Url);
-                var obj = JsonConvert.DeserializeObject<PluginDownloadObj>(data);
+                var obj = JsonSerializer.Deserialize(data, JsonGen.Default.PluginDownloadObj);
                 if (obj == null || obj.Plugins == null)
                 {
                     continue;
