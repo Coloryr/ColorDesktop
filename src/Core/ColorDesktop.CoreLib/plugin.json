@@ -1,22 +1,22 @@
 {
-    "ID": "coloryr.corelib",
-    "Name": "核心库",
-    "Describe": "用于给其他插件提供API",
-    "Auther": "Coloryr",
-    "Dlls": [
-        "ColorDesktop.CoreLib"
-    ],
-    "Dependents": [],
-    "Os": [
-        "windows_x86_64",
-        "windows_arm64",
-        "linux_x86_64",
-        "linux_arm64",
-        "macos_x86_64",
-        "macos_arm64"
-    ],
-    "Permission": true,
-    "Reload": true,
-    "Version": "1.2.0",
-    "ApiVersion": "5"
+  "ID": "coloryr.corelib",
+  "Name": "核心库",
+  "Describe": "用于给其他插件提供API",
+  "Auther": "Coloryr",
+  "Dlls": [
+    "ColorDesktop.CoreLib"
+  ],
+  "Dependents": [],
+  "Os": [
+    "windows_x86_64",
+    "windows_arm64",
+    "linux_x86_64",
+    "linux_arm64",
+    "macos_x86_64",
+    "macos_arm64"
+  ],
+  "Permission": true,
+  "Reload": true,
+  "Version": "1.2.4",
+  "ApiVersion": "6"
 }

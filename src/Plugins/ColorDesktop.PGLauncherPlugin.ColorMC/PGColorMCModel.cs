@@ -36,8 +36,8 @@ public partial class PGColorMCModel : ObservableObject
             TextColor = Brush.Parse(obj.TextColor);
         }
         catch
-        { 
-            
+        {
+
         }
 
         Games.Clear();

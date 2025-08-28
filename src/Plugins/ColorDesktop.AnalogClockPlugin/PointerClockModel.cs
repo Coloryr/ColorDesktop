@@ -1,5 +1,4 @@
 ﻿using Avalonia.Media;
-using ColorDesktop.ClockPlugin;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.AnalogClockPlugin;

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using ColorDesktop.Api.Objs;
+﻿using ColorDesktop.Api.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ColorDesktop.Web;
@@ -16,6 +15,6 @@ public partial class SelectPluginModel(InstanceDataObj obj) : ObservableObject
     partial void OnPluginChanged(string value)
     {
         _config.Plugin = value;
-        InstanceManager.SaveConfig(obj, _config, "webplugin.json");
+        obj.SaveConfig(_config, "webplugin.json", JsonGen.Default.WebInstanceObj);
     }
 }

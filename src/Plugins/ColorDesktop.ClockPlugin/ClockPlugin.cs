@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -92,7 +91,7 @@ public class ClockPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
         ReadConfig();
         NtpClient.Start();
     }

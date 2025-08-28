@@ -18,7 +18,7 @@ namespace ColorDesktop.Launcher.UI.Models.Main;
 public partial class MainViewModel
 {
     public record GroupItemModel
-    { 
+    {
         public string Name { get; set; }
         public string UUID { get; set; }
     }
@@ -78,7 +78,7 @@ public partial class MainViewModel
     public async Task CreateGroup()
     {
         var obj = new InputModel()
-        { 
+        {
             Text = LangApi.GetLang("MainWindow.Text69")
         };
         var res = await DialogHost.Show(obj, MainWindow.DialogHostName);
@@ -187,7 +187,8 @@ public partial class MainViewModel
             foreach (var item in InstanceManager.Instances)
             {
                 _instances.Add(new InstanceItemModel(this, item.Value));
-            };
+            }
+            ;
         }
         else
         {
@@ -198,7 +199,8 @@ public partial class MainViewModel
                 {
                     _instances.Add(new InstanceItemModel(this, item.Value));
                 }
-            };
+            }
+            ;
         }
     }
 

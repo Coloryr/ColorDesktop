@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -12,12 +11,12 @@ public class MinecraftMotdPlugin : IPlugin
 
     public static MotdInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new MotdInstanceObj(), ConfigName, JsonGen.Default.MotdInstanceObj);
+        return obj.GetConfig(new MotdInstanceObj(), ConfigName, JsonGen.Default.MotdInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, MotdInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName, JsonGen.Default.MotdInstanceObj);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.MotdInstanceObj);
     }
 
     public bool CanCreateInstance => true;

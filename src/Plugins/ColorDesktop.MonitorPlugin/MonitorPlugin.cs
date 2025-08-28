@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -25,36 +24,31 @@ public class MonitorPlugin : IPlugin
 
     public static MonitorInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new MonitorInstanceObj()
+        return obj.GetConfig(new MonitorInstanceObj()
         {
             Items = [],
             AutoSize = false,
             Width = 300,
             Height = 500,
             PanelType = PanelType.Wrap
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.MonitorInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, MonitorInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.MonitorInstanceObj);
     }
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.monitor.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.monitor.config", s_local, Config, JsonGen.Default.MonitorConfigObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<MonitorConfigObj>(new()
+        Config = ConfigUtils.Config(new MonitorConfigObj()
         {
             Time = 1000
-        }, s_local);
+        }, s_local, JsonGen.Default.MonitorConfigObj);
     }
 
     public static MonitorItemObj MakeNewItem()
@@ -78,7 +72,14 @@ public class MonitorPlugin : IPlugin
 
     public static void UpdateSensor()
     {
-        Computer.Accept(UpdateVisitor);
+        try
+        {
+            Computer.Accept(UpdateVisitor);
+        }
+        catch
+        { 
+            
+        }
     }
 
     public static void Update(object? sender)

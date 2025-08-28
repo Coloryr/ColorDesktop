@@ -240,7 +240,7 @@ public partial class Player : MprisObject
             return writer.CreateMessage();
         }
     }
-    public Task SetMetadataAsync(Dictionary<string, Variant> value)
+    public Task SetMetadataAsync(Dictionary<string, VariantValue> value)
     {
         return this.Connection.CallMethodAsync(CreateMessage());
         MessageBuffer CreateMessage()

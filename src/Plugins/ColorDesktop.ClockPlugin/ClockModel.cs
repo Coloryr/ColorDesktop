@@ -63,7 +63,7 @@ public partial class ClockModel : ObservableObject
         }
 
         DisplaySecond = obj.DisplaySecond;
-        _isBlink = obj.Blink; 
+        _isBlink = obj.Blink;
         try
         {
             if (obj.CustomColor)

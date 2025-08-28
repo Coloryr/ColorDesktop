@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Avalonia.Threading;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
-using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;
 using ColorDesktop.Launcher.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;

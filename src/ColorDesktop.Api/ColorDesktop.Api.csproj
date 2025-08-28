@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<Platforms>AnyCPU</Platforms>
 		<Title>ColorDesktop Api</Title>
-		<Version>4.0.0</Version>
+		<Version>6.0.0</Version>
 		<Authors>Coloryr</Authors>
 		<Company>Coloryr</Company>
 		<Description>ColorDesktop的API</Description>
@@ -16,7 +16,7 @@
 		<RepositoryUrl>https://github.com/Coloryr/ColorDesktop</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>colordesktop;api;coloryr</PackageTags>
-		<PackageReleaseNotes>Version4 API</PackageReleaseNotes>
+		<PackageReleaseNotes>Version6 API</PackageReleaseNotes>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageOutputPath>..\build_out</PackageOutputPath>
 	</PropertyGroup>

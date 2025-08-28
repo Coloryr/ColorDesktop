@@ -140,7 +140,7 @@ public static partial class Linux
 
     public static void SetMouseThrough(Window window, bool enable)
     {
-        if (window.PlatformImpl is { } platformHandle 
+        if (window.PlatformImpl is { } platformHandle
             && window.TryGetPlatformHandle() is { } handel)
         {
             Type x11WindowType = platformHandle.GetType();

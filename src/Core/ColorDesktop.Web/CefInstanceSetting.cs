@@ -8,7 +8,7 @@ namespace ColorDesktop.Web;
 public class CefInstanceSetting(InstanceDataObj obj)
 {
     private AvaloniaCefBrowser _browser;
-    private readonly WebInstanceObj _config = InstanceManager.GetConfig(obj, new WebInstanceObj(), "webplugin.json");
+    private readonly WebInstanceObj _config = obj.GetConfig(new WebInstanceObj(), "webplugin.json", JsonGen.Default.WebInstanceObj);
     private bool _ok = false;
 
     public Control CreateView()
@@ -34,7 +34,7 @@ public class CefInstanceSetting(InstanceDataObj obj)
     }
 
     public void Close()
-    { 
-        
+    {
+
     }
 }

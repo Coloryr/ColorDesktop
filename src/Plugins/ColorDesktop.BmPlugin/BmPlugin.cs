@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
@@ -16,17 +15,17 @@ public class BmPlugin : IPlugin
 
     public static BmInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new BmInstanceObj()
+        return obj.GetConfig(new BmInstanceObj()
         {
             Skin = SkinType.Skin1,
             Width = 280,
             Height = 0
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.BmInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, BmInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.BmInstanceObj);
     }
 
     public bool CanCreateInstance => true;

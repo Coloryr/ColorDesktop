@@ -95,10 +95,10 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
 
     private async Task UpdateTask(SkinInstanceObj config)
     {
-        skin.SetAnimation(config.EnableAnimation);
-        skin.SetCape(config.EnableCape);
-        skin.SetTopModel(config.EnableTop);
-        skin.SetMSAA(config.EnableMSAA);
+        skin.Animation = config.EnableAnimation;
+        skin.EnableCape = config.EnableCape;
+        skin.EnableTop = config.EnableTop;
+        skin.RenderType = config.EnableMSAA ? SkinRenderType.MSAA : SkinRenderType.Normal;
 
         switch (config.FileType)
         {
@@ -128,13 +128,27 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                     }
                     if (obj!.textures.SKIN.url != null)
                     {
-                        var img = await TempManager.LoadSkImage(obj!.textures.SKIN.url);
-                        skin.SetSkin(img);
+                        try
+                        {
+                            var img = await TempManager.LoadSkImage(obj!.textures.SKIN.url);
+                            skin.SetSkinTex(img);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     if (obj.textures.CAPE.url != null)
                     {
-                        var img = await TempManager.LoadSkImage(obj!.textures.CAPE.url);
-                        skin.SetCape(img);
+                        try
+                        {
+                            var img = await TempManager.LoadSkImage(obj!.textures.CAPE.url);
+                            skin.SetCapeTex(img);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                 }
                 catch
@@ -145,13 +159,27 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
             case FileType.Url:
                 if (!string.IsNullOrWhiteSpace(config.File) && config.File.StartsWith("http"))
                 {
-                    var img = await TempManager.LoadSkImage(config.File);
-                    skin.SetSkin(img);
+                    try
+                    {
+                        var img = await TempManager.LoadSkImage(config.File);
+                        skin.SetSkinTex(img);
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 if (!string.IsNullOrWhiteSpace(config.File1) && config.File1.StartsWith("http"))
                 {
-                    var img = await TempManager.LoadSkImage(config.File1);
-                    skin.SetCape(img);
+                    try
+                    {
+                        var img = await TempManager.LoadSkImage(config.File1);
+                        skin.SetCapeTex(img);
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 break;
             case FileType.LocalFile:
@@ -161,7 +189,7 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                     try
                     {
                         var img = SKBitmap.Decode(config.File);
-                        skin.SetSkin(img);
+                        skin.SetSkinTex(img);
                     }
                     catch
                     {
@@ -174,7 +202,7 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                     try
                     {
                         var img = SKBitmap.Decode(config.File1);
-                        skin.SetCape(img);
+                        skin.SetCapeTex(img);
                     }
                     catch
                     {
@@ -184,7 +212,7 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
                 break;
         }
 
-        skin.SetSkinType(config.SkinType);
+        skin.SkinType = config.SkinType;
 
         if (DataContext is MinecraftSkinModel model)
         {
@@ -290,9 +318,11 @@ public class SkinRender : OpenGlControlBase, ICustomHitTest
     {
         CheckError(gl);
 
-        skin = new(new AvaloniaApi(gl));
-        skin.SetBackColor(new(0, 0, 0, 0));
-        skin.IsGLES = GlVersion.Type == GlProfileType.OpenGLES;
+        skin = new(new AvaloniaApi(gl))
+        {
+            IsGLES = GlVersion.Type == GlProfileType.OpenGLES,
+            BackColor = new(0, 0, 0, 0)
+        };
         skin.OpenGlInit();
     }
 

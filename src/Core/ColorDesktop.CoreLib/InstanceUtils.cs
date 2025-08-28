@@ -31,7 +31,7 @@ public static class InstanceUtils
             s_configs[obj.UUID] = config!;
         }
 
-        ConfigSave.AddItem(ConfigSaveObj.Build("corelib" + name + obj.UUID, 
+        ConfigSave.AddItem(ConfigSaveObj.Build("corelib" + name + obj.UUID,
             Path.GetFullPath(CoreLib.InstanceLocal + "/" + obj.UUID + "/" + name), config, info));
     }
 }

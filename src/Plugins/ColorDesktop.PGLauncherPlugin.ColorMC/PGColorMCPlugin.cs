@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -16,37 +15,32 @@ public class PGColorMCPlugin : IPlugin
 
     public static PGColorMCInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new PGColorMCInstanceObj()
+        return obj.GetConfig(new PGColorMCInstanceObj()
         {
             Height = 300,
             Width = 200,
             Display = DisplayType.NameIcon,
             BackColor = "#000000",
             TextColor = "#FFFFFF"
-        }, ConfigName);
+        }, ConfigName, JsonGen1.Default.PGColorMCInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, PGColorMCInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen1.Default.PGColorMCInstanceObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.pglauncher.colormc.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.pglauncher.colormc.config", s_local, Config, JsonGen1.Default.PGColorMCConfigObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<PGColorMCConfigObj>(new()
+        Config = ConfigUtils.Config(new PGColorMCConfigObj()
         {
 
-        }, s_local);
+        }, s_local, JsonGen1.Default.PGColorMCConfigObj);
     }
 
     public bool CanCreateInstance => true;
@@ -84,7 +78,7 @@ public class PGColorMCPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
 
         ReadConfig();
     }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.WeatherPlugin.Objs;
 
@@ -8,35 +8,35 @@ public record NowWeatherObj
     {
         public record LocationObj
         {
-            [JsonProperty("id")]
+            [JsonPropertyName("id")]
             public string Id { get; set; }
-            [JsonProperty("name")]
+            [JsonPropertyName("name")]
             public string Name { get; set; }
-            [JsonProperty("country")]
+            [JsonPropertyName("country")]
             public string Country { get; set; }
-            [JsonProperty("path")]
+            [JsonPropertyName("path")]
             public string Path { get; set; }
-            [JsonProperty("timezone")]
+            [JsonPropertyName("timezone")]
             public string Timezone { get; set; }
-            [JsonProperty("timezone_offset")]
+            [JsonPropertyName("timezone_offset")]
             public string Timezone_offset { get; set; }
         }
         public record NowObj
         {
-            [JsonProperty("text")]
+            [JsonPropertyName("text")]
             public string Text { get; set; }
-            [JsonProperty("code")]
+            [JsonPropertyName("code")]
             public string Code { get; set; }
-            [JsonProperty("temperature")]
+            [JsonPropertyName("temperature")]
             public string Temperature { get; set; }
         }
-        [JsonProperty("location")]
+        [JsonPropertyName("location")]
         public LocationObj Location { get; set; }
-        [JsonProperty("now")]
+        [JsonPropertyName("now")]
         public NowObj Now { get; set; }
-        [JsonProperty("last_update")]
+        [JsonPropertyName("last_update")]
         public DateTime LastUpdate { get; set; }
     }
-    [JsonProperty("results")]
+    [JsonPropertyName("results")]
     public List<ResultObj> Results { get; set; }
 }

@@ -92,6 +92,6 @@ public partial class ToDoControl : UserControl, IInstance
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

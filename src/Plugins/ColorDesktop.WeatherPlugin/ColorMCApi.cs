@@ -1,7 +1,7 @@
-﻿using ColorDesktop.CoreLib;
+﻿using System.Text.Json;
+using ColorDesktop.Api;
+using ColorDesktop.CoreLib;
 using ColorDesktop.WeatherPlugin.Objs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ColorDesktop.WeatherPlugin;
 
@@ -173,13 +173,13 @@ public static class ColorMCApi
         {
             var data = await HttpUtils.Client.GetStringAsync($"https://mc1.coloryr.com:8081/weather?id={code}");
 
-            var obj = JObject.Parse(data);
-            if (!obj.TryGetValue("res", out var res) || res?.Type != JTokenType.Integer || res.Value<int>() != 100)
+            var obj = JsonUtils.ReadAsObj(data);
+            if (obj == null || !obj.TryGetPropertyValue("res", out var res) || res?.GetValueKind() != JsonValueKind.Number || res.GetValue<int>() != 100)
             {
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<WeatherInfoObj>(obj["data"]!.ToString());
+            return JsonSerializer.Deserialize(obj["data"]!.ToString(), JsonGen.Default.WeatherInfoObj);
         }
         catch (Exception e)
         {

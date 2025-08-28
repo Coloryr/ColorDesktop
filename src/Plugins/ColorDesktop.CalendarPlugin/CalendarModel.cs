@@ -1,6 +1,5 @@
 ﻿using Avalonia.Media;
 using ColorDesktop.Api;
-using ColorDesktop.ClockPlugin;
 using ColorDesktop.CoreLib;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -199,9 +198,9 @@ public partial class CalendarModel : ObservableObject
             BackColor = Brush.Parse(config.BackColor);
             TextColor = Brush.Parse(config.TextColor);
         }
-        catch 
+        catch
         {
-            
+
         }
         _last = DateTime.MinValue;
     }

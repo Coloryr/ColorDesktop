@@ -54,7 +54,7 @@ public partial class ProgressBarModel : ObservableObject, IUpdate
         }
         catch
         {
-            
+
         }
         Width = item.Width <= 0 ? double.NaN : item.Width;
         Height = item.Height <= 0 ? double.NaN : item.Height;

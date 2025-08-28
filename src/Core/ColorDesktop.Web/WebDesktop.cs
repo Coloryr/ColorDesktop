@@ -85,7 +85,7 @@ public class WebDesktop : IPlugin
                 }
             }
         }
-        else 
+        else
         {
             foreach (var item in FindDirectories(new DirectoryInfo(local), "Resources"))
             {
@@ -160,9 +160,9 @@ public class WebDesktop : IPlugin
             }
             else
             {
-                return new() 
-                { 
-                    Control = new CefInstanceSetting(instance).CreateView() 
+                return new()
+                {
+                    Control = new CefInstanceSetting(instance).CreateView()
                 };
             }
         }

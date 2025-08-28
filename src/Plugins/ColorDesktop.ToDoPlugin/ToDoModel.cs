@@ -57,8 +57,8 @@ public partial class ToDoModel(string uuid) : ObservableObject
                 ? Brushes.White : Brush.Parse(_config.TextColor);
         }
         catch
-        { 
-            
+        {
+
         }
 
         await Reload();

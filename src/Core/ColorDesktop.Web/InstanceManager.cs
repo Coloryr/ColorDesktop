@@ -1,4 +1,5 @@
-﻿using ColorDesktop.Api;
+﻿using System.Text.Json.Serialization.Metadata;
+using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
 namespace ColorDesktop.Web;
@@ -15,7 +16,7 @@ public static class InstanceManager
 
     public static void Init(InstanceDataObj obj, CefBrowserInstance cef)
     {
-        var config = GetConfig(obj, new WebInstanceObj(), "webplugin.json");
+        var config = obj.GetConfig(new WebInstanceObj(), "webplugin.json", JsonGen.Default.WebInstanceObj);
         if (string.IsNullOrWhiteSpace(config.Plugin))
         {
             throw new Exception("Plugin is null");
@@ -31,14 +32,15 @@ public static class InstanceManager
         InstanceCefs.Remove(uuid);
         InstanceDatas.Remove(uuid);
     }
-    public static T GetConfig<T>(InstanceDataObj obj, T config, string name) where T : new()
+
+    public static T GetConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info) where T : new()
     {
         if (s_configs.TryGetValue(obj.UUID, out var data))
         {
-            return (T)data;
+            return (T)data!;
         }
 
-        var obj1 = ConfigUtils.Config<T>(config, WebDesktop.InstanceLocal + "/" + obj.UUID + "/" + name);
+        var obj1 = ConfigUtils.Config<T>(config, Path.GetFullPath(WebDesktop.InstanceLocal + "/" + obj.UUID + "/" + name), info);
 
         obj1 ??= config;
 
@@ -47,18 +49,14 @@ public static class InstanceManager
         return obj1;
     }
 
-    public static void SaveConfig(InstanceDataObj obj, object config, string name)
+    public static void SaveConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info)
     {
-        if (!s_configs.TryAdd(obj.UUID, config))
+        if (!s_configs.TryAdd(obj.UUID, config!))
         {
-            s_configs[obj.UUID] = config;
+            s_configs[obj.UUID] = config!;
         }
 
-        ConfigSave.AddItem(new()
-        {
-            Name = "webplugin" + name + obj.UUID,
-            Local = WebDesktop.InstanceLocal + "/" + obj.UUID + "/" + name,
-            Obj = config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("webplugin" + name + obj.UUID,
+            Path.GetFullPath(WebDesktop.InstanceLocal + "/" + obj.UUID + "/" + name), config, info));
     }
 }

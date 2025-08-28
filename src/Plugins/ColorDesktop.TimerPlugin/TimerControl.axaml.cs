@@ -1,7 +1,5 @@
 using System.ComponentModel;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
@@ -51,21 +49,21 @@ public partial class TimerControl : UserControl, IInstance
 
     public void Start(IInstanceWindow window)
     {
-        
+
     }
 
     public void Stop(IInstanceWindow window)
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)
     {
-        
+
     }
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

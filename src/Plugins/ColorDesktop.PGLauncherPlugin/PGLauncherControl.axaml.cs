@@ -98,6 +98,6 @@ public partial class PGLauncherControl : UserControl, IInstance
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

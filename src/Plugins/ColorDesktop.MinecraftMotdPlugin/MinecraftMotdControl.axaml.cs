@@ -209,6 +209,6 @@ public partial class MinecraftMotdControl : UserControl, IInstance
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

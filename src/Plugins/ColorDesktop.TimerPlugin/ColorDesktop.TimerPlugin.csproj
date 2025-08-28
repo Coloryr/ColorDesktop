@@ -32,9 +32,9 @@
         <ProjectReference Include="..\..\ColorDesktop.Api\ColorDesktop.Api.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <ProjectReference Include="..\ColorDesktop.PGLauncherPlugin\ColorDesktop.PGLauncherPlugin.csproj">
-            <Private>False</Private>
-        </ProjectReference>
+		<ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
+			<Private>False</Private>
+		</ProjectReference>
     </ItemGroup>	
 
     <ItemGroup>

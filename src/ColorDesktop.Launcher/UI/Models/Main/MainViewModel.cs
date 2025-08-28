@@ -57,7 +57,7 @@ public partial class MainViewModel : ObservableObject
     public async void GoEula()
     {
         var res = await DialogHost.Show(new ChoiseModel()
-        { 
+        {
             Text = LangApi.GetLang("MainWindow.Text61")
         }, MainWindow.DialogHostName);
         if (res is not true)

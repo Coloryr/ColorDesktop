@@ -158,14 +158,14 @@ public static class InstanceManager
                 }
             }
         }
-        
+
         App.ThisApp.UpdateMenu();
     }
 
     public static void CreateGroup(string name)
     {
         string uuid = MakeUUID();
-      
+
         var obj = new GroupObj()
         {
             Name = name,
@@ -192,7 +192,7 @@ public static class InstanceManager
         {
             SwitchGroup(null);
         }
-        
+
         var file = Path.GetFullPath(GroupDir + "/" + uuid + ".json");
         if (File.Exists(file))
         {
@@ -245,7 +245,7 @@ public static class InstanceManager
                 }
             }
         }
-        else if(Groups.TryGetValue(uuid, out var group))
+        else if (Groups.TryGetValue(uuid, out var group))
         {
             NowGroup = uuid;
             foreach (var item in RunInstances)

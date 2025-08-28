@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
+using System.Text.Json;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
 using ColorDesktop.WeatherPlugin.Objs;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.WeatherPlugin;
 
@@ -18,36 +17,31 @@ public class WeatherPlugin : IPlugin
 
     public static WeatherInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new WeatherInstanceObj()
+        return obj.GetConfig(new WeatherInstanceObj()
         {
             City = "110000",
             BackColor = "#57000000",
             TextColor = "#FFFFFF"
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.WeatherInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, WeatherInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.WeatherInstanceObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.clock.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.weather.config", s_local, Config, JsonGen.Default.WeatherConfigObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<WeatherConfigObj>(new()
+        Config = ConfigUtils.Config(new WeatherConfigObj()
         {
             AutoUpdate = true,
             UpdateTime = 360
-        }, s_local);
+        }, s_local, JsonGen.Default.WeatherConfigObj);
     }
 
     public bool CanCreateInstance => true;
@@ -85,13 +79,12 @@ public class WeatherPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
 
         var assm = Assembly.GetExecutingAssembly();
-        var jsonSerializer = JsonSerializer.CreateDefault();
         using var item1 = assm.GetManifestResourceStream("ColorDesktop.WeatherPlugin.Resource.city.json")!;
-        using var reader1 = new JsonTextReader(new StreamReader(item1));
-        ColorMCApi.Citys = jsonSerializer.Deserialize<List<City1Obj>>(reader1)!;
+        var jsonSerializer = JsonDocument.Parse(item1);
+        ColorMCApi.Citys = jsonSerializer.Deserialize(JsonGen.Default.ListCity1Obj)!;
 
         ReadConfig();
     }

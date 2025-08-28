@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.WeatherPlugin.Objs;
 
@@ -8,72 +8,72 @@ public record WeatherInfoObj
     {
         public record LocationObj
         {
-            [JsonProperty("country")]
+            [JsonPropertyName("country")]
             public string Country { get; set; }
-            [JsonProperty("province")]
+            [JsonPropertyName("province")]
             public string Province { get; set; }
-            [JsonProperty("city")]
+            [JsonPropertyName("city")]
             public string City { get; set; }
-            [JsonProperty("name")]
+            [JsonPropertyName("name")]
             public string Name { get; set; }
-            [JsonProperty("id")]
+            [JsonPropertyName("id")]
             public string Id { get; set; }
         }
 
         public record NowObj
         {
-            [JsonProperty("text")]
+            [JsonPropertyName("text")]
             public string Text { get; set; }
-            [JsonProperty("temp")]
+            [JsonPropertyName("temp")]
             public int Temp { get; set; }
-            [JsonProperty("feels_like")]
+            [JsonPropertyName("feels_like")]
             public int FeelsLike { get; set; }
-            [JsonProperty("rh")]
+            [JsonPropertyName("rh")]
             public int Rh { get; set; }
-            [JsonProperty("wind_class")]
+            [JsonPropertyName("wind_class")]
             public string WindClass { get; set; }
-            [JsonProperty("wind_dir")]
+            [JsonPropertyName("wind_dir")]
             public string WindDir { get; set; }
-            [JsonProperty("uptime")]
+            [JsonPropertyName("uptime")]
             public string Uptime { get; set; }
         }
 
         public record ForecastObj
         {
-            [JsonProperty("text_day")]
+            [JsonPropertyName("text_day")]
             public string TextDay { get; set; }
-            [JsonProperty("text_night")]
+            [JsonPropertyName("text_night")]
             public string TextNight { get; set; }
-            [JsonProperty("high")]
+            [JsonPropertyName("high")]
             public int High { get; set; }
-            [JsonProperty("low")]
+            [JsonPropertyName("low")]
             public int Low { get; set; }
-            [JsonProperty("wc_day")]
+            [JsonPropertyName("wc_day")]
             public string WcDay { get; set; }
-            [JsonProperty("wd_day")]
+            [JsonPropertyName("wd_day")]
             public string WdDay { get; set; }
-            [JsonProperty("wc_night")]
+            [JsonPropertyName("wc_night")]
             public string WcNight { get; set; }
-            [JsonProperty("wd_night")]
+            [JsonPropertyName("wd_night")]
             public string WdNight { get; set; }
-            [JsonProperty("date")]
+            [JsonPropertyName("date")]
             public string Date { get; set; }
-            [JsonProperty("week")]
+            [JsonPropertyName("week")]
             public string Week { get; set; }
         }
 
-        [JsonProperty("location")]
+        [JsonPropertyName("location")]
         public LocationObj Location { get; set; }
-        [JsonProperty("now")]
+        [JsonPropertyName("now")]
         public NowObj Now { get; set; }
-        [JsonProperty("forecasts")]
+        [JsonPropertyName("forecasts")]
         public List<ForecastObj> Forecasts { get; set; }
     }
 
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
     public int Status { get; set; }
-    [JsonProperty("result")]
+    [JsonPropertyName("result")]
     public ResultObj Result { get; set; }
-    [JsonProperty("message")]
+    [JsonPropertyName("message")]
     public string Message { get; set; }
 }

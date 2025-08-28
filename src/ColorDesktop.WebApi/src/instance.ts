@@ -124,7 +124,7 @@ export interface IInstance {
      * 实例启动
      * @param window 实例窗口
      */
-    start(window: IInstanceWindow | null): void
+    start(window: IInstanceWindow | null): boolean
     /**
      * 实例停止
      * @param window 实例窗口

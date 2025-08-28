@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ColorDesktop.BmPlugin;
 
 [JsonSerializable(typeof(List<BmObj>))]
+[JsonSerializable(typeof(BmInstanceObj))]
 public partial class JsonGen : JsonSerializerContext
 {
 }

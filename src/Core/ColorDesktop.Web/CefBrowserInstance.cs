@@ -1,8 +1,8 @@
-﻿using Avalonia.Controls;
-using Avalonia.Threading;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
-using Newtonsoft.Json;
 using Xilium.CefGlue;
 using Xilium.CefGlue.Avalonia;
 using Xilium.CefGlue.Common.Events;
@@ -32,13 +32,20 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
         return _browser;
     }
 
-    private void Browser_LoadEnd(object sender, LoadEndEventArgs e)
+    private async Task Browser_LoadEnd(object sender, LoadEndEventArgs e)
     {
-        _ok = true;
         if (_reload)
         {
             _browser.RegisterJavascriptObject(new JsHandel(_browser, _window), "colordesktop_window");
-            _browser.ExecuteJavaScript($"colordesktop.start()");
+            try
+            {
+                var res = await _browser.EvaluateJavaScript<bool>($"colordesktop.start()");
+                _ok = true;
+            }
+            catch
+            {
+                _ok = false;
+            }
             _reload = false;
         }
     }
@@ -97,13 +104,13 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
 
     public void Update(InstanceDataObj obj)
     {
-        string jsonData = JsonConvert.SerializeObject(obj);
+        string jsonData = JsonSerializer.Serialize(obj, JsonGen.Default.InstanceDataObj);
         _browser.ExecuteJavaScript($"colordesktop.update({jsonData})");
     }
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+        _window = window;
     }
 
     public void OpenSetting()

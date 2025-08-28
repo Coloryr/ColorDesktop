@@ -56,8 +56,8 @@ public partial class OneWordModel : ObservableObject
             BackColor = Brush.Parse(obj.BackColor);
         }
         catch
-        { 
-            
+        {
+
         }
     }
 

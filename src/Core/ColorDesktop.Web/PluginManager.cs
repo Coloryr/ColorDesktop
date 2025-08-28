@@ -1,5 +1,5 @@
-﻿using ColorDesktop.Api;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using ColorDesktop.Api;
 
 namespace ColorDesktop.Web;
 
@@ -95,7 +95,7 @@ internal static class PluginManager
                 {
                     continue;
                 }
-                var obj = JsonConvert.DeserializeObject<WebPluginDataObj>(File.ReadAllText(config.FullName));
+                var obj = JsonSerializer.Deserialize<WebPluginDataObj>(File.ReadAllText(config.FullName), JsonGen.Default.WebPluginDataObj);
                 if (obj == null)
                 {
                     continue;

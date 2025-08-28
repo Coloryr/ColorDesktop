@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -16,34 +15,29 @@ public class CalendarPlugin : IPlugin
 
     public static CalendarInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new CalendarInstanceObj()
+        return obj.GetConfig(new CalendarInstanceObj()
         {
             BackColor = "#000000",
             TextColor = "#FFFFFF"
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.CalendarInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, CalendarInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.CalendarInstanceObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.calendar.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.calendar.config", s_local, Config, JsonGen.Default.CalendarConfigObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<CalendarConfigObj>(new()
+        Config = ConfigUtils.Config(new CalendarConfigObj()
         {
 
-        }, s_local);
+        }, s_local, JsonGen.Default.CalendarConfigObj);
     }
 
     public bool CanCreateInstance => true;
@@ -84,7 +78,7 @@ public class CalendarPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
 
         ReadConfig();
     }

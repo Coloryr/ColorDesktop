@@ -149,7 +149,7 @@ public partial class DigitalModel : ObservableObject
         }
         catch
         {
-            
+
         }
 
         var size = obj.Size / 10;

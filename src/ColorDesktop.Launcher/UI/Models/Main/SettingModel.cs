@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.Launcher.Helper;
@@ -71,7 +70,7 @@ public partial class MainViewModel
         var res = await DialogHost.Show(new ChoiseModel()
         {
             Text = count > 0
-                ? string.Format(LangApi.GetLang("MainWindow.Info20"), count) 
+                ? string.Format(LangApi.GetLang("MainWindow.Info20"), count)
                 : LangApi.GetLang("MainWindow.Info6")
         }, MainWindow.DialogHostName);
         if (res is true)

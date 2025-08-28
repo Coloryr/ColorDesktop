@@ -25,10 +25,11 @@ class Desktop implements IInstance {
 
         }
     }
-    start(_window: IInstanceWindow | null): void {
+    start(_window: IInstanceWindow | null): boolean {
         console.log("colordesktop start")
         createApp(App).mount('#app')
         create = true
+        return true
     }
     stop(_window: IInstanceWindow | null): void {
         console.log("colordesktop stop")

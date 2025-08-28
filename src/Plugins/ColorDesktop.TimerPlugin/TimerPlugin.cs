@@ -11,16 +11,16 @@ public class TimerPlugin : IPlugin
 
     public static TimerInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new TimerInstanceObj()
+        return obj.GetConfig(new TimerInstanceObj()
         {
             MaxHeight = 400,
             Timers = []
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.TimerInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, TimerInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.TimerInstanceObj);
     }
 
     public bool CanEnable => true;
@@ -44,12 +44,12 @@ public class TimerPlugin : IPlugin
 
     public void Disable()
     {
-        
+
     }
 
     public void Enable()
     {
-        
+
     }
 
     public Stream? GetIcon()
@@ -59,7 +59,7 @@ public class TimerPlugin : IPlugin
 
     public void Init(string local, string instancelocal)
     {
-        
+
     }
 
     public void LoadLang(LanguageType type)
@@ -101,6 +101,6 @@ public class TimerPlugin : IPlugin
 
     public void Stop()
     {
-        
+
     }
 }

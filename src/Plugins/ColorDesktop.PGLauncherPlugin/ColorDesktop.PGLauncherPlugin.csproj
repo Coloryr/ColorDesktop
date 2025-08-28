@@ -43,7 +43,6 @@
         <ProjectReference Include="..\..\Core\ColorDesktop.CoreLib\ColorDesktop.CoreLib.csproj">
             <Private>False</Private>
         </ProjectReference>
-        <ProjectReference Include="..\ColorDesktop.OneWordPlugin\ColorDesktop.OneWordPlugin.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Avalonia.Controls;
-using ColorDesktop.Launcher.Manager;
 using Microsoft.Win32;
 
 namespace ColorDesktop.Launcher.Hook;

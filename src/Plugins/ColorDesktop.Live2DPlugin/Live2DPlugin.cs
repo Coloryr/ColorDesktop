@@ -1,6 +1,5 @@
 ﻿using System.IO.Compression;
 using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -21,17 +20,17 @@ public class Live2DPlugin : IPlugin
 
     public static Live2DInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new Live2DInstanceObj()
+        return obj.GetConfig(new Live2DInstanceObj()
         {
             Width = 300,
             Height = 300,
             Models = []
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.Live2DInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, Live2DInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.Live2DInstanceObj);
     }
 
     public static Live2DModelObj MakeNewItem()

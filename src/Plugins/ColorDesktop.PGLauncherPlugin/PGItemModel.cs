@@ -49,8 +49,8 @@ public partial class PGItemModel : ObservableObject
             _textColor = Brush.Parse(_obj.TextColor);
         }
         catch
-        { 
-            
+        {
+
         }
         _name = _obj.Name;
         _border = new(_obj.BorderSize);

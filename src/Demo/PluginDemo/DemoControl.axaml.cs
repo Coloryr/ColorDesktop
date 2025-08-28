@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
@@ -27,17 +25,17 @@ public partial class DemoControl : UserControl, IInstance
 
     public void RenderTick(IInstanceWindow window)
     {
-        
+
     }
 
     public void Start(IInstanceWindow window)
     {
-        
+
     }
 
     public void Stop(IInstanceWindow window)
     {
-        
+
     }
 
     public void Update(InstanceDataObj obj)
@@ -51,6 +49,6 @@ public partial class DemoControl : UserControl, IInstance
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

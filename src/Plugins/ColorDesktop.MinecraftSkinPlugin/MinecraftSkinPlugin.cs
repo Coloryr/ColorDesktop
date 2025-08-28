@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -13,7 +12,7 @@ public class MinecraftSkinPlugin : IPlugin
 
     public static SkinInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new SkinInstanceObj()
+        return obj.GetConfig(new SkinInstanceObj()
         {
             Width = 300,
             Height = 300,
@@ -23,12 +22,12 @@ public class MinecraftSkinPlugin : IPlugin
             EnableCape = true,
             EnableTop = true,
             EnableAnimation = true
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.SkinInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, SkinInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.SkinInstanceObj);
     }
 
     public bool CanCreateInstance => true;

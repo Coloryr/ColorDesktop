@@ -31,7 +31,7 @@ public partial class PointModel : ObservableObject
         }
         catch
         {
-            
+
         }
 
         var size = obj.Size / 5;

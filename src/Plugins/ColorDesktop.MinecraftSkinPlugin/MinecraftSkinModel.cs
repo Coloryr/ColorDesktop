@@ -65,8 +65,6 @@ public partial class MinecraftSkinModel : ObservableObject
     public float X;
     public float Y;
 
-    private bool _load;
-
     public int Fps
     {
         set

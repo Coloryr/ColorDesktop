@@ -52,8 +52,8 @@ public partial class ProgressBar5Model : ObservableObject, IUpdate
             BackColor1 = Brush.Parse(item.Color4 ?? "#FFFFFF");
         }
         catch
-        { 
-            
+        {
+
         }
         Width = item.Width <= 0 ? double.NaN : item.Width;
         Height = item.Height <= 0 ? double.NaN : item.Height;

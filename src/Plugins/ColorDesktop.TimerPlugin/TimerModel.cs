@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using ColorDesktop.Api.Objs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -67,8 +62,8 @@ public partial class TimerModel : ObservableObject
     }
 
     private void Sort()
-    { 
-        
+    {
+
     }
 
     public void Stop()

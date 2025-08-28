@@ -367,7 +367,7 @@ public static class PluginManager
             plugin.Plugin.Enable();
             plugin.Enable = true;
             SetPluginState(plugin.Obj.ID, PluginState.Enable);
-            
+
             InstanceManager.EnablePlugin(plugin.Obj.ID);
             LauncherHook.PluginEnable(plugin.Obj.ID);
         }

@@ -282,8 +282,8 @@ public partial class WeatherModel : ObservableObject
             TextColor = Brush.Parse(obj.TextColor);
         }
         catch
-        { 
-            
+        {
+
         }
         _obj = ColorMCApi.GetCityAdcode(int.Parse(obj.City));
         _ = Update();

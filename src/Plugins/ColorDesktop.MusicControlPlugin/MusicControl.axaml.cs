@@ -59,6 +59,6 @@ public partial class MusicControl : UserControl, IInstance
 
     public void WindowLoaded(IInstanceWindow window)
     {
-        
+
     }
 }

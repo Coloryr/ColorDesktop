@@ -1,7 +1,6 @@
 ﻿using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using ColorDesktop.ClockPlugin;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SkiaSharp;
 
@@ -90,9 +89,9 @@ public partial class FlipClockModel : ObservableObject
             SecondA.Color1 = color1;
             SecondB.Color1 = color1;
         }
-        catch 
+        catch
         {
-            
+
         }
 
         for (int i = 0; i < 10; i++)

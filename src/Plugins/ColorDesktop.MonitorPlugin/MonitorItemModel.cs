@@ -106,7 +106,7 @@ public partial class MonitorItemModel : ObservableObject
         }
         catch
         {
-
+            HaveSensor = false;
         }
         OnPropertyChanged(nameof(Update));
     }

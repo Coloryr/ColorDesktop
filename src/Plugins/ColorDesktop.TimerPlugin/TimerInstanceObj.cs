@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ColorDesktop.TimerPlugin;
+﻿namespace ColorDesktop.TimerPlugin;
 
 public enum TimerType
-{ 
+{
     Down, Up
 }
 
 public record TimerItemObj
-{ 
+{
     public string Name { get; set; }
     public TimerType Type { get; set; }
     public TimeSpan Start { get; set; }

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -12,18 +11,18 @@ public class OneWordPlugin : IPlugin
 
     public static OneWordInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new OneWordInstanceObj()
+        return obj.GetConfig(new OneWordInstanceObj()
         {
             Size = 80,
             TextColor = "#FFFFFF",
             BackColor = "#000000",
             Width = 600
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.OneWordInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, OneWordInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.OneWordInstanceObj);
     }
 
     public bool CanCreateInstance => true;

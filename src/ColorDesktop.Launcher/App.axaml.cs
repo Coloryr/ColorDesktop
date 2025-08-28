@@ -9,7 +9,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using ColorDesktop.Api;
 using ColorDesktop.Launcher.Helper;
-using ColorDesktop.Launcher.Hook;
 using ColorDesktop.Launcher.Manager;
 using ColorDesktop.Launcher.Objs;
 using ColorDesktop.Launcher.UI.Models.Dialog;

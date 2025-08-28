@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text.Json;
 using Avalonia.Media.Imaging;
-using Newtonsoft.Json;
 
 namespace ColorDesktop.PGLauncherPlugin.ColorMC;
 
@@ -90,7 +90,7 @@ public static class ColorMCUtils
         {
             try
             {
-                return JsonConvert.DeserializeObject<GameSettingObj>(File.ReadAllText(file));
+                return JsonSerializer.Deserialize(File.ReadAllText(file), JsonGen1.Default.GameSettingObj);
             }
             catch (Exception e)
             {
@@ -107,7 +107,7 @@ public static class ColorMCUtils
         {
             return null;
         }
-        var dir = GetRunDir() + "minecraft/instances/" + setting.DirName + "/" + setting.Icon;
+        var dir = Path.GetFullPath(GetRunDir() + "minecraft/instances/" + setting.DirName + "/" + setting.Icon);
         if (File.Exists(dir))
         {
             try

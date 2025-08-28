@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -16,28 +15,23 @@ public class PGLauncherPlugin : IPlugin
 
     public static PGLauncherInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new PGLauncherInstanceObj()
+        return obj.GetConfig(new PGLauncherInstanceObj()
         {
             Height = 300,
             Width = 150,
             PanelType = PanelType.Wrap,
             Items = []
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.PGLauncherInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, PGLauncherInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.PGLauncherInstanceObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.pglauncher.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.pglauncher.config", s_local, Config, JsonGen.Default.PGLauncherConfigObj));
     }
 
     public static PGItemObj MakeNewItem()
@@ -57,10 +51,10 @@ public class PGLauncherPlugin : IPlugin
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<PGLauncherConfigObj>(new()
+        Config = ConfigUtils.Config(new PGLauncherConfigObj()
         {
 
-        }, s_local);
+        }, s_local, JsonGen.Default.PGLauncherConfigObj);
     }
 
     public bool CanCreateInstance => true;
@@ -98,7 +92,7 @@ public class PGLauncherPlugin : IPlugin
 
     public void Init(string local, string local1)
     {
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
         ReadConfig();
     }
 

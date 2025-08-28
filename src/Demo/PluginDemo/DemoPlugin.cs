@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
+using System.Text.Json.Serialization.Metadata;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 
@@ -13,14 +13,14 @@ public static class InstanceUtils
 
     private static readonly Dictionary<string, object> s_configs = [];
 
-    public static T GetConfig<T>(InstanceDataObj obj, T config, string name) where T : new()
+    public static T GetConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info) where T : new()
     {
         if (s_configs.TryGetValue(obj.UUID, out var data))
         {
-            return (T)data;
+            return (T)data!;
         }
 
-        var obj1 = ConfigUtils.Config<T>(config, InstanceLocal + "/" + obj.UUID + "/" + name);
+        var obj1 = ConfigUtils.Config<T>(config, Path.GetFullPath(InstanceLocal + "/" + obj.UUID + "/" + name), info);
 
         obj1 ??= config;
 
@@ -29,22 +29,17 @@ public static class InstanceUtils
         return obj1;
     }
 
-    public static void SaveConfig(InstanceDataObj obj, object config, string name)
+    public static void SaveConfig<T>(this InstanceDataObj obj, T config, string name, JsonTypeInfo<T> info)
     {
-        if (!s_configs.TryAdd(obj.UUID, config))
+        if (!s_configs.TryAdd(obj.UUID, config!))
         {
-            s_configs[obj.UUID] = config;
+            s_configs[obj.UUID] = config!;
         }
 
-        ConfigSave.AddItem(new()
-        {
-            Name = "demo" + name + obj.UUID,
-            Local = InstanceLocal + "/" + obj.UUID + "/" + name,
-            Obj = config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("corelib" + name + obj.UUID,
+            Path.GetFullPath(InstanceLocal + "/" + obj.UUID + "/" + name), config, info));
     }
 }
-
 
 public class DemoPlugin : IPlugin
 {
@@ -56,36 +51,31 @@ public class DemoPlugin : IPlugin
 
     public static DemoObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new DemoObj()
+        return obj.GetConfig(new DemoObj()
         {
             Text = "123"
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.DemoObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, DemoObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.DemoObj);
     }
 
     public static void SaveConfig()
     {
-        ConfigSave.AddItem(new()
-        {
-            Name = "coloryr.demo.config",
-            Local = s_local,
-            Obj = Config
-        });
+        ConfigSave.AddItem(ConfigSaveObj.Build("coloryr.demo.config", s_local, Config, JsonGen.Default.DemoObj));
     }
 
     public static void ReadConfig()
     {
-        Config = ConfigUtils.Config<DemoObj>(new()
+        Config = ConfigUtils.Config(new DemoObj()
         {
             Text = "123"
-        }, s_local);
+        }, s_local, JsonGen.Default.DemoObj);
     }
 
-    public bool CanCreateInstance => false;
+    public bool CanCreateInstance => true;
 
     public bool HavePluginSetting => true;
 
@@ -95,6 +85,8 @@ public class DemoPlugin : IPlugin
 
     public InstanceDataObj CreateInstanceDefault()
     {
+        Console.WriteLine("Demo plugin create instance config");
+
         return new InstanceDataObj()
         {
             Plugin = "coloryr.demo",
@@ -116,6 +108,8 @@ public class DemoPlugin : IPlugin
 
     public Stream? GetIcon()
     {
+        Console.WriteLine("Demo plugin get icon");
+
         return null;
     }
 
@@ -123,7 +117,7 @@ public class DemoPlugin : IPlugin
     {
         Console.WriteLine("Demo plugin init");
 
-        s_local = local + "/" + ConfigName;
+        s_local = Path.GetFullPath(local + "/" + ConfigName);
 
         InstanceUtils.Local = local;
         InstanceUtils.InstanceLocal = instancelocal;
@@ -133,6 +127,8 @@ public class DemoPlugin : IPlugin
 
     public void LoadLang(LanguageType type)
     {
+        Console.WriteLine("Demo plugin load lang");
+
         var assm = Assembly.GetExecutingAssembly();
         if (assm == null)
         {
@@ -150,21 +146,29 @@ public class DemoPlugin : IPlugin
 
     public IInstance MakeInstances(InstanceDataObj obj)
     {
+        Console.WriteLine("Demo plugin make instance");
+
         return new DemoControl();
     }
 
     public InstanceSetting OpenSetting(InstanceDataObj instance, bool isNew)
     {
+        Console.WriteLine("Demo plugin open setting with instance");
+
         return new() { Control = new DemoInstanceSettingControl(instance) };
     }
 
     public InstanceSetting OpenSetting()
     {
+        Console.WriteLine("Demo plugin open setting");
+
         return new() { Control = new DemoSettingControl() };
     }
 
     public bool Permissions(string key, string permission)
     {
+        Console.WriteLine("Demo plugin check permission");
+
         return false;
     }
 

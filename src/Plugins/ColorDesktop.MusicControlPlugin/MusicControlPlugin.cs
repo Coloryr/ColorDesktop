@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia.Controls;
 using ColorDesktop.Api;
 using ColorDesktop.Api.Objs;
 using ColorDesktop.CoreLib;
@@ -15,15 +14,15 @@ public class MusicControlPlugin : IPlugin
 
     public static MusicInstanceObj GetConfig(InstanceDataObj obj)
     {
-        return InstanceUtils.GetConfig(obj, new MusicInstanceObj()
+        return obj.GetConfig(new MusicInstanceObj()
         {
             Width = 300
-        }, ConfigName);
+        }, ConfigName, JsonGen.Default.MusicInstanceObj);
     }
 
     public static void SaveConfig(InstanceDataObj obj, MusicInstanceObj config)
     {
-        InstanceUtils.SaveConfig(obj, config, ConfigName);
+        obj.SaveConfig(config, ConfigName, JsonGen.Default.MusicInstanceObj);
     }
 
     public bool CanCreateInstance => true;
