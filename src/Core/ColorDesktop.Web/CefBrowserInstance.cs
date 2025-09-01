@@ -32,7 +32,7 @@ public class CefBrowserInstance(InstanceDataObj obj) : IInstance
         return _browser;
     }
 
-    private async Task Browser_LoadEnd(object sender, LoadEndEventArgs e)
+    private async void Browser_LoadEnd(object sender, LoadEndEventArgs e)
     {
         if (_reload)
         {

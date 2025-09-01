@@ -171,7 +171,7 @@ public static class ColorMCApi
     {
         try
         {
-            var data = await HttpUtils.Client.GetStringAsync($"https://mc1.coloryr.com:8081/weather?id={code}");
+            var data = await HttpUtils.Client.GetStringAsync($"https://api.coloryr.com:8081/weather?id={code}");
 
             var obj = JsonUtils.ReadAsObj(data);
             if (obj == null || !obj.TryGetPropertyValue("res", out var res) || res?.GetValueKind() != JsonValueKind.Number || res.GetValue<int>() != 100)
