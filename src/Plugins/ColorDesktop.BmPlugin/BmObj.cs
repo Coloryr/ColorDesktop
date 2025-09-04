@@ -13,7 +13,7 @@ public record BmObj
         [JsonPropertyName("ja")]
         public string Ja { get; set; }
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
     public record ItemObj
     {

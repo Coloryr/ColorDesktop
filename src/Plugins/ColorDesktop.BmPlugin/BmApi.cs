@@ -13,7 +13,7 @@ public static class BmApi
 
             return JsonSerializer.Deserialize(data, JsonGen.Default.ListBmObj);
         }
-        catch
+        catch(Exception e)
         {
 
         }
